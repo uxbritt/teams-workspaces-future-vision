@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTCT for Teams — Folder Detail</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     tailwind.config = {
       theme: {
         extend: {
@@ -637,6 +644,13 @@
   </div>
 
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     // Parse URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     const folderNameParam = urlParams.get('folder');
@@ -752,7 +766,7 @@
         container.innerHTML = html;
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Toggle breadcrumb overflow menu
@@ -760,7 +774,7 @@
       e.stopPropagation();
       const menu = document.getElementById('breadcrumb-overflow-menu');
       menu.classList.toggle('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Close breadcrumb menu on outside click
@@ -954,7 +968,7 @@
     }
     
     // Initialize Lucide icons
-    lucide.createIcons();
+    safeCreateIcons();
 
     // Slider functionality
     let currentSlide = 0;
@@ -1133,7 +1147,7 @@
     function openCreateWorkspaceModal() {
       document.getElementById('create-workspace-modal').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
-      lucide.createIcons();
+      safeCreateIcons();
     }
 
     function closeCreateWorkspaceModal() {
@@ -1154,7 +1168,7 @@
         </button>
       `;
       workspaceList.appendChild(newItem);
-      lucide.createIcons();
+      safeCreateIcons();
       updateModalWorkspaceNumbers();
     }
 
@@ -1240,7 +1254,7 @@
         renderFilledState();
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function renderEmptyState() {
@@ -1346,7 +1360,7 @@
         
         workspacesContainer.innerHTML = workspaceRows;
       }
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function renderFilledState() {
@@ -1495,7 +1509,7 @@
         
         workspacesContainer.innerHTML = workspaceRows;
       }
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Apply persisted data mode on page load
@@ -1558,4 +1572,3 @@
   </div>
 </body>
 </html>
-

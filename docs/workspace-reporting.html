@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTCT for Teams — Workspace Reporting</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     tailwind.config = {
       theme: {
         extend: {
@@ -391,6 +398,13 @@
   </div>
 
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     // Get workspace and hub info from URL
     const urlParams = new URLSearchParams(window.location.search);
     const workspaceName = urlParams.get('workspace') || 'Workspace';
@@ -419,7 +433,7 @@
       const header = document.querySelector('.mb-6');
       if (header && header.parentNode) {
         header.parentNode.insertBefore(filterContainer, header.nextSibling);
-        lucide.createIcons();
+        safeCreateIcons();
       }
     }
     
@@ -490,13 +504,13 @@
         
         container.innerHTML = html;
       }
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function toggleBreadcrumbMenu(e) {
       e.stopPropagation();
       document.getElementById('breadcrumb-overflow-menu').classList.toggle('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Update page title and breadcrumbs
@@ -579,7 +593,7 @@
         emptyBtn.className = 'px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white';
         renderFilledState();
       }
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function updateMetric(id, value, isEmpty) {
@@ -625,7 +639,7 @@
     }
     
     // Initialize
-    lucide.createIcons();
+    safeCreateIcons();
     
     // Apply persisted data mode on page load
     setDataMode(currentDataMode);

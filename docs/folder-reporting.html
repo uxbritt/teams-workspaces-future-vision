@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTCT for Teams — Folder Reporting</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -769,12 +769,181 @@
               </div>
             </div>
           </div>
+          
+          <!-- Campaign Details Section (shown when coming from dashboard) -->
+          <div id="campaign-details-section" class="hidden mt-6">
+            <!-- Aggregate Totals -->
+            <div class="grid grid-cols-5 gap-4 mb-6">
+              <div class="bg-white rounded-2xl border border-gray-100 p-5 text-center">
+                <p class="text-3xl font-bold text-gray-900">47</p>
+                <p class="text-sm text-gray-500">Total Campaigns</p>
+              </div>
+              <div class="bg-white rounded-2xl border border-gray-100 p-5 text-center">
+                <p class="text-3xl font-bold text-blue-600">1,260</p>
+                <p class="text-sm text-gray-500">Total Sends</p>
+              </div>
+              <div class="bg-white rounded-2xl border border-gray-100 p-5 text-center">
+                <p class="text-3xl font-bold text-teal-600">24.8%</p>
+                <p class="text-sm text-gray-500">Avg Open Rate</p>
+              </div>
+              <div class="bg-white rounded-2xl border border-gray-100 p-5 text-center">
+                <p class="text-3xl font-bold text-green-600">3.2%</p>
+                <p class="text-sm text-gray-500">Avg Click Rate</p>
+              </div>
+              <div class="bg-white rounded-2xl border border-gray-100 p-5 text-center">
+                <p class="text-3xl font-bold text-amber-600">1.4%</p>
+                <p class="text-sm text-gray-500">Avg Bounce Rate</p>
+              </div>
+            </div>
+            
+            <!-- Campaign Details Table -->
+            <div class="bg-white rounded-2xl border border-gray-100">
+              <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Campaign Details</h3>
+                  <p class="text-xs text-gray-500 mt-1">Click a campaign to view in workspace</p>
+                </div>
+                <div class="flex items-center gap-3">
+                  <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+                    <input type="text" placeholder="Search campaigns..." class="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm w-64">
+                  </div>
+                  <button class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    Export
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Table Header -->
+              <div class="grid grid-cols-9 gap-4 px-5 py-3 border-b border-gray-100 text-xs text-gray-500 uppercase tracking-wide bg-gray-50">
+                <div class="col-span-2">Campaign</div>
+                <div>Workspace</div>
+                <div class="text-center">Channel</div>
+                <div class="text-center">Sends</div>
+                <div class="text-center">Opens</div>
+                <div class="text-center">Clicks</div>
+                <div class="text-center">Bounces</div>
+                <div class="text-center">Sent</div>
+              </div>
+              
+              <!-- Table Body -->
+              <div id="campaign-details-table">
+                <a href="workspace-detail.html?workspace=UPS%20New%20York" class="grid grid-cols-9 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-blue-50 transition-colors cursor-pointer group">
+                  <div class="col-span-2 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="assets/email1.png" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-sm text-gray-700 group-hover:text-blue-600">Holiday Promo 2025</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full font-medium">UPS NY</span>
+                  </div>
+                  <div class="text-center"><span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Email</span></div>
+                  <div class="text-center text-sm text-gray-700">2,450</div>
+                  <div class="text-center text-sm text-gray-700">28.4%</div>
+                  <div class="text-center text-sm text-gray-700">4.2%</div>
+                  <div class="text-center text-sm text-gray-700">1.1%</div>
+                  <div class="text-center text-sm text-gray-500 flex items-center justify-center">Dec 15 <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300 group-hover:text-blue-400"></i></div>
+                </a>
+                <a href="workspace-detail.html?workspace=UPS%20Connecticut" class="grid grid-cols-9 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-blue-50 transition-colors cursor-pointer group">
+                  <div class="col-span-2 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="assets/email2.png" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-sm text-gray-700 group-hover:text-blue-600">New Year Kickoff</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="px-2 py-1 bg-teal-100 text-teal-700 text-xs rounded-full font-medium">UPS CT</span>
+                  </div>
+                  <div class="text-center"><span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Email</span></div>
+                  <div class="text-center text-sm text-gray-700">1,820</div>
+                  <div class="text-center text-sm text-gray-700">26.1%</div>
+                  <div class="text-center text-sm text-gray-700">3.8%</div>
+                  <div class="text-center text-sm text-gray-700">0.9%</div>
+                  <div class="text-center text-sm text-gray-500 flex items-center justify-center">Dec 28 <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300 group-hover:text-blue-400"></i></div>
+                </a>
+                <a href="workspace-detail.html?workspace=UPS%20Massachusetts" class="grid grid-cols-9 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-blue-50 transition-colors cursor-pointer group">
+                  <div class="col-span-2 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="assets/email3.png" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-sm text-gray-700 group-hover:text-blue-600">Winter Clearance</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full font-medium">UPS MA</span>
+                  </div>
+                  <div class="text-center"><span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Email</span></div>
+                  <div class="text-center text-sm text-gray-700">3,120</div>
+                  <div class="text-center text-sm text-gray-700">22.7%</div>
+                  <div class="text-center text-sm text-gray-700">2.9%</div>
+                  <div class="text-center text-sm text-gray-700">1.5%</div>
+                  <div class="text-center text-sm text-gray-500 flex items-center justify-center">Jan 2 <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300 group-hover:text-blue-400"></i></div>
+                </a>
+                <a href="workspace-detail.html?workspace=UPS%20New%20Jersey" class="grid grid-cols-9 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-blue-50 transition-colors cursor-pointer group">
+                  <div class="col-span-2 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-rose-100 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="assets/email4.png" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-sm text-gray-700 group-hover:text-blue-600">Member Exclusive</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full font-medium">UPS NJ</span>
+                  </div>
+                  <div class="text-center"><span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Email</span></div>
+                  <div class="text-center text-sm text-gray-700">2,890</div>
+                  <div class="text-center text-sm text-gray-700">25.3%</div>
+                  <div class="text-center text-sm text-gray-700">3.5%</div>
+                  <div class="text-center text-sm text-gray-700">1.2%</div>
+                  <div class="text-center text-sm text-gray-500 flex items-center justify-center">Jan 5 <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300 group-hover:text-blue-400"></i></div>
+                </a>
+                <a href="workspace-detail.html?workspace=UPS%20Pennsylvania" class="grid grid-cols-9 gap-4 px-5 py-4 hover:bg-blue-50 transition-colors cursor-pointer group">
+                  <div class="col-span-2 flex items-center gap-3">
+                    <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center overflow-hidden">
+                      <img src="assets/email5.png" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <span class="text-sm text-gray-700 group-hover:text-blue-600">Spring Preview</span>
+                  </div>
+                  <div class="flex items-center">
+                    <span class="px-2 py-1 bg-indigo-100 text-indigo-700 text-xs rounded-full font-medium">UPS PA</span>
+                  </div>
+                  <div class="text-center"><span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Email</span></div>
+                  <div class="text-center text-sm text-gray-700">1,540</div>
+                  <div class="text-center text-sm text-gray-700">21.9%</div>
+                  <div class="text-center text-sm text-gray-700">2.6%</div>
+                  <div class="text-center text-sm text-gray-700">1.8%</div>
+                  <div class="text-center text-sm text-gray-500 flex items-center justify-center">Jan 7 <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300 group-hover:text-blue-400"></i></div>
+                </a>
+              </div>
+              
+              <!-- Pagination -->
+              <div class="flex items-center justify-between px-5 py-4 border-t border-gray-100">
+                <p class="text-sm text-gray-500">Showing 5 of 47 campaigns</p>
+                <div class="flex items-center gap-2">
+                  <button class="px-3 py-1 border border-gray-200 rounded text-sm text-gray-400">Previous</button>
+                  <button class="px-3 py-1 bg-blue-600 text-white rounded text-sm">1</button>
+                  <button class="px-3 py-1 border border-gray-200 rounded text-sm text-gray-600 hover:bg-gray-50">2</button>
+                  <button class="px-3 py-1 border border-gray-200 rounded text-sm text-gray-600 hover:bg-gray-50">3</button>
+                  <span class="text-gray-400">...</span>
+                  <button class="px-3 py-1 border border-gray-200 rounded text-sm text-gray-600 hover:bg-gray-50">10</button>
+                  <button class="px-3 py-1 border border-gray-200 rounded text-sm text-gray-600 hover:bg-gray-50">Next</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>
   </div>
 
   <script>
+    // Safe lucide helper
+function safeCreateIcons() {
+        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+          lucide.createIcons();
+        }
+      }
+    
     // Parse URL parameters
     const urlParams = new URLSearchParams(window.location.search);
     let folderName = urlParams.get('folder') || sessionStorage.getItem('reportFolderName') || 'Untitled';
@@ -926,7 +1095,7 @@
         if (orgChevron) {
           orgChevron.style.transform = dropdownId === 'org-dropdown' && !dropdown.classList.contains('hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
-        lucide.createIcons();
+        safeCreateIcons();
       }
     }
     
@@ -1100,7 +1269,7 @@
         renderFilledState();
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function renderEmptyState() {
@@ -1339,13 +1508,95 @@
     }
     
     // Initialize Lucide icons
-    lucide.createIcons();
+    safeCreateIcons();
     
     // Apply persisted data mode on page load
     setDataMode(currentDataMode);
     
     // Update filter pills based on URL parameters
     updateFilterPills();
+    
+    // Check if coming from dashboard - show loading modal
+    const source = urlParams.get('source');
+    const campaignsCount = urlParams.get('campaigns') || '47';
+    const workspacesCount = urlParams.get('workspaces') || '8';
+    
+    if (source === 'dashboard') {
+      showReportGeneratingModal(campaignsCount, workspacesCount);
+    }
+    
+    function showReportGeneratingModal(campaigns, workspaces) {
+      const modal = document.getElementById('report-generating-modal');
+      const campaignText = document.getElementById('generating-campaigns');
+      const workspaceText = document.getElementById('generating-workspaces');
+      const progressBar = document.getElementById('generating-progress');
+      const statusText = document.getElementById('generating-status');
+      
+      if (modal) {
+        campaignText.textContent = campaigns;
+        workspaceText.textContent = workspaces;
+        modal.classList.remove('hidden');
+        
+        // Animate progress
+        let progress = 0;
+        const steps = [
+          { p: 30, text: 'Fetching campaign data...' },
+          { p: 60, text: 'Aggregating metrics...' },
+          { p: 85, text: 'Preparing visualizations...' },
+          { p: 100, text: 'Complete!' }
+        ];
+        let stepIndex = 0;
+        
+        const interval = setInterval(() => {
+          if (stepIndex < steps.length) {
+            progress = steps[stepIndex].p;
+            progressBar.style.width = progress + '%';
+            statusText.textContent = steps[stepIndex].text;
+            stepIndex++;
+          } else {
+            clearInterval(interval);
+            setTimeout(() => {
+              modal.classList.add('hidden');
+              // Switch to campaigns tab and show detailed view
+              switchTab('campaigns');
+              setDataMode('filled');
+              showCampaignDetails();
+            }, 500);
+          }
+        }, 600);
+      }
+    }
+    
+    function showCampaignDetails() {
+      // Show the aggregate totals and campaign table
+      const detailsSection = document.getElementById('campaign-details-section');
+      if (detailsSection) {
+        detailsSection.classList.remove('hidden');
+      }
+      safeCreateIcons();
+    }
   </script>
+  
+  <!-- Report Generating Modal -->
+  <div id="report-generating-modal" class="fixed inset-0 z-[200] hidden">
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm"></div>
+    <div class="absolute inset-0 flex items-center justify-center p-8">
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8 text-center">
+        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg class="w-8 h-8 text-blue-600 animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold text-gray-900 mb-2">Generating Report</h2>
+        <p class="text-gray-600 mb-6">
+          Creating report from <span id="generating-campaigns" class="font-semibold text-blue-600">47</span> campaigns across <span id="generating-workspaces" class="font-semibold text-blue-600">8</span> workspaces
+        </p>
+        <div class="w-full bg-gray-100 rounded-full h-2 mb-3">
+          <div id="generating-progress" class="h-2 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <p id="generating-status" class="text-sm text-gray-500">Initializing...</p>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Campaigns - CTCT for Teams</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     tailwind.config = {
       theme: {
         extend: {
@@ -69,10 +76,17 @@
   </div>
   
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     function toggleAuthorBar() {
       const bar = document.getElementById('author-bar');
       bar.classList.toggle('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
   </script>
 
@@ -666,6 +680,13 @@
   </div>
 
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     // Campaign data for preview modal
     const campaignData = {
       1: {
@@ -775,11 +796,11 @@
         }
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Initialize Lucide icons
-    lucide.createIcons();
+    safeCreateIcons();
     
     // Status filter switching
     function switchStatusFilter(filter) {
@@ -863,7 +884,7 @@
       document.getElementById('preview-schedule').textContent = data.schedule;
       
       document.getElementById('preview-modal').classList.remove('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closePreviewModal() {
@@ -893,7 +914,7 @@
       }
       
       modal.classList.remove('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function openApprovalModalFromPreview(action) {

@@ -5,8 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTCT for Teams — Workspaces</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     tailwind.config = {
       theme: {
         extend: {
@@ -212,7 +219,7 @@
       <!-- Notifications -->
       <div class="relative">
         <button onclick="toggleHeaderDropdown('notifications-dropdown')" class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg relative transition-colors">
-          <i data-lucide="bell" class="w-5 h-5"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
           <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-white"></span>
       </button>
         <div id="notifications-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 z-[60]">
@@ -328,11 +335,11 @@
             <!-- View Toggle -->
             <div class="flex items-center bg-gray-100 rounded-lg p-1">
               <button id="view-grid-btn" onclick="setViewMode('grid')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium text-gray-500 hover:text-gray-700">
-                <i data-lucide="layout-grid" class="w-4 h-4"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
                 Grid
               </button>
               <button id="view-tree-btn" onclick="setViewMode('tree')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium bg-white shadow-sm text-gray-900">
-                <i data-lucide="folder-tree" class="w-4 h-4"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1h-2.5a1 1 0 0 1-.8-.4l-.9-1.2A1 1 0 0 0 15 3h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1Z"/><path d="M20 21a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-2.9a1 1 0 0 1-.88-.55l-.42-.85a1 1 0 0 0-.88-.55H13a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1Z"/><path d="M3 5a2 2 0 0 0 2 2h3"/><path d="M3 3v13a2 2 0 0 0 2 2h3"/></svg>
                 Tree
               </button>
             </div>
@@ -429,7 +436,7 @@
           <h3 class="text-lg font-medium text-gray-900 mb-2">No workspaces yet</h3>
           <p class="text-gray-500 mb-4">Create your first workspace to get started</p>
           <button onclick="openCreateWorkspaceModal()" class="inline-flex items-center gap-2 px-4 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90">
-            <i data-lucide="plus" class="w-4 h-4"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             Create workspace
           </button>
         </div>
@@ -438,11 +445,18 @@
   </div>
 
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     // Toggle author bar visibility
     function toggleAuthorBar() {
       const bar = document.getElementById('author-bar');
       bar.classList.toggle('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Parse URL parameters (used for initial creation from signup flow)
@@ -748,12 +762,12 @@
           if (isLast) {
             pathHtml += `<span class="flex items-center gap-1.5 text-gray-900 font-medium"><i data-lucide="folder" class="w-4 h-4 text-gray-400"></i>${name}</span>`;
           } else {
-            pathHtml += `<button onclick="navigateToLevel(${idx + 1})" class="flex items-center gap-1.5 text-gray-500 hover:text-blue-600"><i data-lucide="folder" class="w-4 h-4"></i>${name}</button>`;
+            pathHtml += `<button onclick="navigateToLevel(${idx + 1})" class="flex items-center gap-1.5 text-gray-500 hover:text-blue-600"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>${name}</button>`;
           }
         });
         breadcrumbPath.innerHTML = pathHtml;
       }
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function renderContent() {
@@ -783,7 +797,7 @@
                 <button onclick="navigateToFolder('${child.name}', '${currentFolderPath[0]}')" class="bg-white rounded-2xl border border-gray-200 p-4 hover:shadow-md hover:border-gray-300 transition-all text-left group">
                   <div class="flex items-center gap-3 mb-3">
                     <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 group-hover:bg-gray-200 transition-colors">
-                      <i data-lucide="folder" class="w-5 h-5"></i>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
               </div>
                     <div class="flex-1 min-w-0">
                       <span class="font-medium text-gray-900 block truncate group-hover:text-blue-600 transition-colors">${child.name}</span>
@@ -867,7 +881,7 @@
               <button onclick="navigateToFolder('${folderData.name}')" class="bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-lg hover:border-gray-300 transition-all text-left group">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 group-hover:bg-gray-200 transition-colors">
-                    <i data-lucide="folder" class="w-6 h-6"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
             </div>
                   <div class="flex-1 min-w-0">
                     <span class="font-semibold text-gray-900 text-lg block truncate group-hover:text-blue-600 transition-colors">${folderData.name}</span>
@@ -912,7 +926,7 @@
         }
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     
@@ -976,7 +990,7 @@
         if (orgChevron) {
           orgChevron.style.transform = dropdownId === 'org-dropdown' && !dropdown.classList.contains('hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
-        lucide.createIcons();
+        safeCreateIcons();
       }
     }
     
@@ -1014,14 +1028,14 @@
       document.getElementById('modal-create-folder').checked = false;
       document.getElementById('modal-folder-name-container').classList.add('hidden');
       document.body.style.overflow = 'hidden';
-      lucide.createIcons();
+      safeCreateIcons();
     }
 
     function openCreateHubModal() {
       document.getElementById('create-folder-modal').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
       renderExistingWorkspaces();
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closeCreateHubModal() {
@@ -1085,7 +1099,7 @@
         </button>
       `;
       workspaceList.appendChild(newItem);
-      lucide.createIcons();
+      safeCreateIcons();
       updateHubWorkspaceNumbers();
     }
     
@@ -1159,7 +1173,7 @@
         </button>
       `;
       workspaceList.appendChild(newItem);
-      lucide.createIcons();
+      safeCreateIcons();
       updateModalWorkspaceNumbers();
     }
 
@@ -1275,7 +1289,7 @@
         }
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Hide onboarding-specific elements
@@ -1391,7 +1405,7 @@
         </div>
       `;
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Dismiss onboarding tooltip
@@ -1451,7 +1465,7 @@
         window.history.replaceState({}, '', url);
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Deep search functionality
@@ -1491,7 +1505,7 @@
       // Perform deep search
       const results = performDeepSearch(currentSearchQuery);
       renderSearchResults(results);
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function clearWorkspaceSearch() {
@@ -1601,7 +1615,7 @@
           return `
             <div class="flex items-center gap-3 p-3 hover:bg-gray-50 rounded-xl group">
               <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500">
-                <i data-lucide="folder" class="w-5 h-5"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
               </div>
               <div class="flex-1 min-w-0">
                 <span class="font-medium text-gray-900 block">${result.name}</span>
@@ -1671,7 +1685,7 @@
                   <i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" class="w-4 h-4"></i>
                 </button>
                 <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 flex-shrink-0">
-                  <i data-lucide="folder" class="w-5 h-5"></i>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
                 </div>
                 <div class="flex-1 min-w-0">
                   <span class="font-medium text-gray-900 block">${folderData.name}</span>
@@ -1689,7 +1703,7 @@
                           <button class="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 flex-shrink-0">
                             <i data-lucide="${isChildExpanded ? 'chevron-down' : 'chevron-right'}" class="w-3.5 h-3.5"></i>
                           </button>
-                          <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 flex-shrink-0"><i data-lucide="folder" class="w-4 h-4"></i></div>
+                          <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div>
                           <div class="flex-1 min-w-0">
                             <span class="font-medium text-gray-900 text-sm block">${childFolder.name}</span>
                             <span class="text-xs text-gray-400">${childFolder.workspaces.length} workspaces · ${childFolder.contacts} contacts</span>
@@ -1722,7 +1736,7 @@
                 <button class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-gray-600 flex-shrink-0">
                   <i data-lucide="${isExpanded ? 'chevron-down' : 'chevron-right'}" class="w-4 h-4"></i>
                 </button>
-                <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 flex-shrink-0"><i data-lucide="folder" class="w-5 h-5"></i></div>
+                <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div>
                 <div class="flex-1 min-w-0">
                   <span class="font-medium text-gray-900 block">${folderData.name}</span>
                   <span class="text-xs text-gray-500">${folderData.workspaces.length} workspaces</span>
@@ -1781,7 +1795,7 @@
       }
       
       treeContent.innerHTML = html;
-      lucide.createIcons();
+      safeCreateIcons();
     }
   </script>
 
@@ -1812,7 +1826,7 @@
         </div>
 
         <button onclick="addModalWorkspace()" class="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm mb-6">
-          <i data-lucide="plus" class="w-4 h-4"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
           Add another workspace
         </button>
 
@@ -1893,7 +1907,7 @@
             </div>
           </div>
           <button onclick="addHubWorkspace()" class="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium text-sm">
-            <i data-lucide="plus" class="w-4 h-4"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             Add another workspace
           </button>
         </div>
@@ -1940,4 +1954,3 @@
     </div>
   </div>
 </body>
-</html>

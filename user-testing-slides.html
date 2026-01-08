@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Testing Insights — CTCT for Teams</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
+  <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: {
+              50: '#f0f7ff', 100: '#e0f0ff', 200: '#b9e0fe', 300: '#7cc8fd', 400: '#36aaf8',
+              500: '#0c8ce9', 600: '#006fc7', 700: '#0059a1', 800: '#054b85', 900: '#0a406e'
+            },
+            accent: {
+              50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe', 400: '#c084fc',
+              500: '#a855f7', 600: '#9333ea', 700: '#7c3aed', 800: '#6b21a8', 900: '#581c87'
+            },
+            success: {
+              50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
+              500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d'
+            },
+            warning: {
+              50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24',
+              500: '#f59e0b', 600: '#d97706', 700: '#b45309', 800: '#92400e', 900: '#78350f'
+            },
+            danger: {
+              400: '#f87171', 500: '#ef4444', 600: '#dc2626'
+            }
+          },
+          fontFamily: {
+            sans: ['CTSans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    .slide {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    .slide.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #a855f7 0%, #3B82F6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body {
+      background: linear-gradient(135deg, #0f0f1a 0%, #131825 25%, #0a0e17 50%, #0d1220 75%, #0f0f1a 100%);
+      background-attachment: fixed;
+    }
+    .quote-mark {
+      font-size: 4rem;
+      line-height: 1;
+      color: #3f3f46;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans">
+
+  <!-- Slide Container -->
+  <div class="min-h-screen flex items-center justify-center pb-16 px-8">
+    
+    <!-- Slide 1: Title -->
+    <div id="slide-1" class="slide active flex-col items-center justify-center text-center max-w-5xl w-full">
+      <div class="mb-8">
+        <span class="inline-block px-4 py-1.5 bg-zinc-900 text-zinc-400 rounded-full text-sm font-medium mb-6">CTCT for Teams — User Testing</span>
+        <h1 class="text-5xl font-bold text-white mb-6 leading-tight">User Testing<br><span class="gradient-text">Insights & Learnings</span></h1>
+        <p class="text-xl text-zinc-400">Findings from prototype testing sessions — January 2026</p>
+      </div>
+      <div class="flex items-center gap-3 text-zinc-400 mt-12">
+        <span class="text-sm">Click anywhere or use navigation to continue</span>
+      </div>
+    </div>
+
+    <!-- Slide 2: Testing Overview -->
+    <div id="slide-2" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-zinc-900 text-zinc-400 rounded-full text-xs font-medium mb-4">Overview</span>
+        <h2 class="text-5xl font-bold text-white mb-4">Testing Sessions</h2>
+        <p class="text-xl text-zinc-400 mb-10">Summary of user testing conducted on the prototype</p>
+        
+        <div class="grid grid-cols-3 gap-5 text-left">
+          <div class="bg-black border border-zinc-800 rounded-xl p-6">
+            <div class="text-4xl font-bold text-accent-400 mb-2">5</div>
+            <div class="text-white font-medium mb-1">Testing Sessions</div>
+            <div class="text-zinc-500 text-sm">Internal stakeholders and target users</div>
+          </div>
+          
+          <div class="bg-black border border-zinc-800 rounded-xl p-6">
+            <div class="text-4xl font-bold text-main-400 mb-2">3</div>
+            <div class="text-white font-medium mb-1">User Personas</div>
+            <div class="text-zinc-500 text-sm">Global Admin, Regional Manager, Location Member</div>
+          </div>
+          
+          <div class="bg-black border border-zinc-800 rounded-xl p-6">
+            <div class="text-4xl font-bold text-success-400 mb-2">8</div>
+            <div class="text-white font-medium mb-1">Key Tasks Tested</div>
+            <div class="text-zinc-500 text-sm">Navigation, creation, approval, reporting flows</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: What Worked -->
+    <div id="slide-3" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-emerald-900/50 text-emerald-400 rounded-full text-xs font-medium mb-4">Successes</span>
+        <h2 class="text-5xl font-bold text-white mb-4">What Worked Well</h2>
+        <p class="text-xl text-zinc-400 mb-10">Features and flows that resonated with users</p>
+        
+        <div class="grid grid-cols-2 gap-5 text-left">
+          <div class="bg-black border border-emerald-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Org Dashboard</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">"I can see everything at a glance — top performers, pending approvals, recent activity."</p>
+          </div>
+          
+          <div class="bg-black border border-emerald-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="shapes" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Workspace Cards</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">"The visual cards make it easy to identify and navigate to different locations."</p>
+          </div>
+          
+          <div class="bg-black border border-emerald-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Approval Workflow</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">"Preview before approving — exactly what I need to maintain brand consistency."</p>
+          </div>
+          
+          <div class="bg-black border border-emerald-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="sliders" class="w-5 h-5 text-emerald-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Customizable Widgets</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">"Being able to add my own widgets is powerful — I can focus on what matters to me."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Challenges & Friction -->
+    <div id="slide-4" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-amber-900/50 text-amber-400 rounded-full text-xs font-medium mb-4">Friction Points</span>
+        <h2 class="text-5xl font-bold text-white mb-4">Areas for Improvement</h2>
+        <p class="text-xl text-zinc-400 mb-10">Pain points and confusion observed during testing</p>
+        
+        <div class="grid grid-cols-2 gap-5 text-left">
+          <div class="bg-black border border-amber-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-amber-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="folder-tree" class="w-5 h-5 text-amber-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Folder vs Workspace</h3>
+            </div>
+            <p class="text-zinc-300 text-sm mb-2">Users confused about when to use folders vs workspaces for organization</p>
+            <p class="text-amber-400 text-xs">→ Need clearer onboarding and contextual help</p>
+          </div>
+          
+          <div class="bg-black border border-amber-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-amber-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="navigation" class="w-5 h-5 text-amber-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Navigation Depth</h3>
+            </div>
+            <p class="text-zinc-300 text-sm mb-2">Some users got lost when drilling into nested folders</p>
+            <p class="text-amber-400 text-xs">→ Breadcrumbs and "Back to Org" helped when discovered</p>
+          </div>
+          
+          <div class="bg-black border border-amber-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-amber-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="bell" class="w-5 h-5 text-amber-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Notification Visibility</h3>
+            </div>
+            <p class="text-zinc-300 text-sm mb-2">Some top bar icons weren't immediately noticed</p>
+            <p class="text-amber-400 text-xs">→ Consider more prominent placement or badges</p>
+          </div>
+          
+          <div class="bg-black border border-amber-900/50 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-amber-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="filter" class="w-5 h-5 text-amber-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Reporting Filters</h3>
+            </div>
+            <p class="text-zinc-300 text-sm mb-2">Users wanted more intuitive date range and workspace filtering</p>
+            <p class="text-amber-400 text-xs">→ Pre-populated filters when linking from dashboard</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Key Quote -->
+    <div id="slide-5" class="slide flex-col items-center justify-center max-w-4xl w-full text-center">
+      <div class="quote-mark mb-4">"</div>
+      <blockquote class="text-3xl text-white font-medium leading-relaxed mb-8">
+        This is exactly what I've been asking for. Having all my locations in one place with visibility into what everyone is sending — that's a game changer for brand control.
+      </blockquote>
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 bg-zinc-800 rounded-full flex items-center justify-center">
+          <span class="text-sm font-medium text-zinc-400">P2</span>
+        </div>
+        <div class="text-left">
+          <div class="text-white font-medium">Participant 2</div>
+          <div class="text-zinc-500 text-sm">Regional Marketing Manager</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Onboarding Insights -->
+    <div id="slide-6" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-zinc-900 text-zinc-400 rounded-full text-xs font-medium mb-4">Onboarding</span>
+        <h2 class="text-5xl font-bold text-white mb-4">First-Time Experience</h2>
+        <p class="text-xl text-zinc-400 mb-10">Insights from the signup and onboarding flow</p>
+        
+        <div class="grid grid-cols-2 gap-5 text-left">
+          <div class="bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-success-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="thumbs-up" class="w-5 h-5 text-success-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Skip Setup Option</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">Users appreciated being dropped into the product with a pre-created workspace rather than forced setup steps</p>
+          </div>
+          
+          <div class="bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-success-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="message-circle" class="w-5 h-5 text-success-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Tooltip Guidance</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">Pendo-style tooltips pointing to the first workspace helped users understand the concept quickly</p>
+          </div>
+          
+          <div class="bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-amber-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="alert-triangle" class="w-5 h-5 text-amber-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Empty State Confusion</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">When folders are empty, users weren't sure what action to take first</p>
+          </div>
+          
+          <div class="bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-main-900/50 rounded-lg flex items-center justify-center">
+                <i data-lucide="lightbulb" class="w-5 h-5 text-main-400"></i>
+              </div>
+              <h3 class="text-white font-semibold">Recommendation</h3>
+            </div>
+            <p class="text-zinc-300 text-sm">Add clear CTAs in empty states: "Invite team members" or "Create first campaign"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Next Steps -->
+    <div id="slide-7" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-main-900/50 text-main-400 rounded-full text-xs font-medium mb-4">Action Items</span>
+        <h2 class="text-5xl font-bold text-white mb-4">Next Steps</h2>
+        <p class="text-xl text-zinc-400 mb-10">Priority improvements based on testing feedback</p>
+        
+        <div class="space-y-4 text-left max-w-2xl mx-auto">
+          <div class="flex items-start gap-4 bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="w-8 h-8 bg-danger-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-danger-400 font-bold text-sm">P0</span>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold">Fix icon visibility in top bar</h3>
+              <p class="text-zinc-400 text-sm">Ensure bell and help icons always render correctly</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4 bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="w-8 h-8 bg-warning-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-warning-400 font-bold text-sm">P1</span>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold">Improve folder/workspace clarity</h3>
+              <p class="text-zinc-400 text-sm">Add contextual help explaining the hierarchy model</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4 bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="w-8 h-8 bg-warning-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-warning-400 font-bold text-sm">P1</span>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold">Enhanced empty states</h3>
+              <p class="text-zinc-400 text-sm">Clear CTAs guiding users to their first action</p>
+            </div>
+          </div>
+          
+          <div class="flex items-start gap-4 bg-black border border-zinc-800 rounded-xl p-5">
+            <div class="w-8 h-8 bg-main-500/20 rounded-lg flex items-center justify-center flex-shrink-0">
+              <span class="text-main-400 font-bold text-sm">P2</span>
+            </div>
+            <div>
+              <h3 class="text-white font-semibold">Smarter reporting defaults</h3>
+              <p class="text-zinc-400 text-sm">Pre-populate filters when navigating from dashboard widgets</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 8: Try the Prototype -->
+    <div id="slide-8" class="slide flex-col items-center justify-center max-w-4xl w-full text-center">
+      <span class="inline-block px-3 py-1 bg-accent-900/50 text-accent-400 rounded-full text-xs font-medium mb-6">Try It</span>
+      <h2 class="text-5xl font-bold text-white mb-4">Experience the Prototype</h2>
+      <p class="text-xl text-zinc-400 mb-10">Click below to launch the interactive prototype</p>
+      
+      <div class="flex items-center gap-4">
+        <a href="teams-signup-flow.html" class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-main-500 to-accent-500 hover:from-main-600 hover:to-accent-600 text-white rounded-xl text-lg font-semibold transition-all">
+          <i data-lucide="play-circle" class="w-6 h-6"></i>
+          Launch Prototype
+        </a>
+        <a href="index.html" class="inline-flex items-center gap-2 px-6 py-4 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl font-medium transition-colors">
+          <i data-lucide="home" class="w-5 h-5"></i>
+          Back to Hub
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="fixed bottom-0 left-0 right-0 h-14 bg-black/80 backdrop-blur-sm border-t border-zinc-800 flex items-center justify-between px-6">
+    <!-- Back to Hub -->
+    <a href="index.html" class="flex items-center gap-2 text-zinc-400 hover:text-white text-sm transition-colors">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i>
+      Back to Hub
+    </a>
+    
+    <!-- Navigation Controls -->
+    <div class="flex items-center gap-4">
+      <button onclick="prevSlide()" class="p-2 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-lg transition-colors">
+        <i data-lucide="chevron-left" class="w-5 h-5"></i>
+      </button>
+      
+      <!-- Dots -->
+      <div class="flex items-center gap-1.5">
+        <button onclick="goToSlide(1)" class="dot w-2 h-2 rounded-full bg-white transition-all"></button>
+        <button onclick="goToSlide(2)" class="dot w-2 h-2 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+        <button onclick="goToSlide(3)" class="dot w-2 h-2 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+        <button onclick="goToSlide(4)" class="dot w-2 h-2 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+        <button onclick="goToSlide(5)" class="dot w-2 h-2 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+        <button onclick="goToSlide(6)" class="dot w-2 h-2 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+        <button onclick="goToSlide(7)" class="dot w-2 h-2 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+        <button onclick="goToSlide(8)" class="dot w-2 h-2 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+      </div>
+      
+      <button onclick="nextSlide()" class="p-2 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-lg transition-colors">
+        <i data-lucide="chevron-right" class="w-5 h-5"></i>
+      </button>
+    </div>
+    
+    <!-- Slide Counter -->
+    <div class="flex items-center gap-2">
+      <span class="text-sm text-zinc-400">Slide</span>
+      <span id="slide-counter" class="text-sm text-white font-medium">1 / 8</span>
+    </div>
+  </div>
+
+  <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
+    lucide.createIcons();
+
+    const totalSlides = 8;
+    let currentSlide = parseInt(sessionStorage.getItem('userTestingSlide')) || 1;
+    if (currentSlide > totalSlides) currentSlide = 1;
+
+    function showSlide(n) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const slideEl = document.getElementById('slide-' + n);
+      if (!slideEl) {
+        n = 1;
+      }
+      document.getElementById('slide-' + n).classList.add('active');
+      document.getElementById('slide-counter').textContent = n + ' / ' + totalSlides;
+      
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        if (i + 1 === n) {
+          dot.classList.remove('bg-zinc-700');
+          dot.classList.add('bg-white');
+        } else {
+          dot.classList.remove('bg-white');
+          dot.classList.add('bg-zinc-700');
+        }
+      });
+      
+      currentSlide = n;
+      sessionStorage.setItem('userTestingSlide', n);
+      lucide.createIcons();
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    function goToSlide(n) {
+      showSlide(n);
+    }
+
+    if (currentSlide > 1) {
+      showSlide(currentSlide);
+    }
+
+    // Click anywhere to advance
+    document.querySelector('.min-h-screen').addEventListener('click', (e) => {
+      if (!e.target.closest('a') && !e.target.closest('button')) {
+        nextSlide();
+      }
+    });
+  </script>
+</body>
+</html>
+

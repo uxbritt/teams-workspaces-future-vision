@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CTCT for Teams — Folder Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -298,8 +298,9 @@
       <!-- Organization Dropdown -->
       <div class="relative">
         <button onclick="toggleDropdown('org-dropdown')" class="flex items-center gap-2 px-3 py-2 hover:bg-neutral-50 rounded-lg text-sm transition-colors">
+          <img src="assets/upsLogo.png" alt="UPS" class="w-6 h-6 object-contain">
           <span class="text-neutral-700 font-medium" id="enterprise-name">UPS Global</span>
-          <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400 transition-transform" id="org-dropdown-chevron"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 transition-transform" id="org-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </button>
         <!-- Org Dropdown Menu -->
         <div id="org-dropdown" class="hidden absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-neutral-100 py-4 z-[60]">
@@ -324,7 +325,7 @@
       <!-- Notifications Dropdown -->
       <div class="relative">
         <button onclick="toggleDropdown('notifications-dropdown')" class="p-2 text-main-500 hover:bg-main-50 rounded-lg relative transition-colors">
-          <i data-lucide="bell" class="w-5 h-5"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
           <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-warning-500 rounded-full border-2 border-white"></span>
         </button>
         <!-- Notifications Dropdown Menu -->
@@ -332,7 +333,7 @@
           <div class="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
             <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Recent Activity</h3>
             <button class="p-1 text-neutral-400 hover:text-neutral-600">
-              <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
             </button>
           </div>
           <div class="max-h-96 overflow-y-auto p-3 space-y-2">
@@ -356,7 +357,7 @@
             <!-- Activity Item 2 -->
             <div class="flex items-start gap-3 p-3 rounded-xl border border-neutral-100 hover:border-neutral-200 hover:bg-neutral-50 transition-colors">
               <a href="workspace-detail.html?workspace=GE%20Workspace" class="w-16 h-12 rounded-lg bg-main-100 flex items-center justify-center flex-shrink-0">
-                <i data-lucide="shapes" class="w-6 h-6 text-main-500"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-main-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>
               </a>
               <div class="flex-1 min-w-0">
                 <a href="workspace-detail.html?workspace=GE%20Workspace" class="text-sm font-medium text-neutral-800 hover:text-main-600">New GE workspace created</a>
@@ -413,7 +414,7 @@
       <!-- Help Dropdown -->
       <div class="relative">
         <button onclick="toggleDropdown('help-dropdown')" class="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-50 rounded-lg transition-colors">
-          <i data-lucide="help-circle" class="w-5 h-5"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
         </button>
         <!-- Help Dropdown Menu -->
         <div id="help-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-neutral-100 z-[60]">
@@ -518,7 +519,7 @@
             <p class="text-neutral-500">Stats date-range is this month. Each widget can be configured individually.</p>
         </div>
           <button onclick="openAddWidgetModal()" class="flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-neutral-600 hover:text-neutral-800 bg-white border border-neutral-200 rounded-xl hover:border-neutral-300 transition-colors shadow-sm">
-            <i data-lucide="plus" class="w-4 h-4"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             Add widget
             </button>
         </div>
@@ -533,15 +534,15 @@
                 <h3 class="text-sm text-neutral-500">Email engagement</h3>
                 <div class="relative">
                   <button onclick="toggleWidgetMenu(event, 'email-engagement')" class="p-1 text-neutral-400 hover:text-neutral-600">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                   </button>
                   <div id="widget-menu-email-engagement" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-20 min-w-[140px]">
                     <button onclick="openCustomizeWidget('email-engagement')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="settings-2" class="w-4 h-4"></i>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=email" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    <a href="folder-reporting.html?channel=email&source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
                     <button onclick="deleteWidget('email-engagement')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
@@ -555,28 +556,48 @@
                 <div>
                   <div class="flex items-baseline gap-2">
                     <p id="metric-sends" class="text-2xl font-normal text-neutral-900">1260</p>
-                    <i data-lucide="arrow-up" class="w-4 h-4 text-success-600"></i>
+                    <div class="relative group/trend cursor-help">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover/trend:opacity-100 transition-opacity pointer-events-none z-50">
+                        Previous: 1,142 <span class="text-success-400">(+10.3%)</span>
+                      </div>
+                    </div>
                   </div>
                   <p class="text-sm text-neutral-500 mt-0.5">Sends</p>
                 </div>
                 <div>
                   <div class="flex items-baseline gap-2">
                     <p id="metric-opens" class="text-2xl font-normal text-neutral-900">460</p>
-                    <i data-lucide="arrow-up" class="w-4 h-4 text-success-600"></i>
+                    <div class="relative group/trend cursor-help">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover/trend:opacity-100 transition-opacity pointer-events-none z-50">
+                        Previous: 398 <span class="text-success-400">(+15.6%)</span>
+                      </div>
+                    </div>
                   </div>
                   <p class="text-sm text-neutral-500 mt-0.5">Opens</p>
                 </div>
                 <div>
                   <div class="flex items-baseline gap-2">
                     <p id="metric-clicks" class="text-2xl font-normal text-neutral-900">432</p>
-                    <i data-lucide="arrow-up" class="w-4 h-4 text-success-600"></i>
+                    <div class="relative group/trend cursor-help">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover/trend:opacity-100 transition-opacity pointer-events-none z-50">
+                        Previous: 387 <span class="text-success-400">(+11.6%)</span>
+                      </div>
+                    </div>
                   </div>
                   <p class="text-sm text-neutral-500 mt-0.5">Clicks</p>
                 </div>
                 <div>
                   <div class="flex items-baseline gap-2">
                     <p id="metric-bounces" class="text-2xl font-normal text-neutral-900">32</p>
-                    <i data-lucide="arrow-down" class="w-4 h-4 text-danger-400"></i>
+                    <div class="relative group/trend cursor-help">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-danger-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>
+                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover/trend:opacity-100 transition-opacity pointer-events-none z-50">
+                        Previous: 28 <span class="text-danger-400">(+14.3%)</span>
+                      </div>
+                    </div>
                   </div>
                   <p class="text-sm text-neutral-500 mt-0.5">Bounces</p>
                 </div>
@@ -589,15 +610,15 @@
                 <h3 class="text-sm text-neutral-500">Social engagement</h3>
                 <div class="relative">
                   <button onclick="toggleWidgetMenu(event, 'social-engagement')" class="p-1 text-neutral-400 hover:text-neutral-600">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                   </button>
                   <div id="widget-menu-social-engagement" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-20 min-w-[140px]">
                     <button onclick="openCustomizeWidget('social-engagement')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="settings-2" class="w-4 h-4"></i>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=social" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    <a href="folder-reporting.html?channel=social&source=dashboard&campaigns=23&workspaces=5" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
                     <button onclick="deleteWidget('social-engagement')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
@@ -611,14 +632,24 @@
                 <div>
                   <div class="flex items-baseline gap-2">
                     <p id="metric-views" class="text-2xl font-normal text-neutral-900">1260</p>
-                    <i data-lucide="arrow-up" class="w-4 h-4 text-success-600"></i>
+                    <div class="relative group/trend cursor-help">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover/trend:opacity-100 transition-opacity pointer-events-none z-50">
+                        Previous: 1,089 <span class="text-success-400">(+15.7%)</span>
+                      </div>
+                    </div>
                   </div>
                   <p class="text-sm text-neutral-500 mt-0.5">Views</p>
                 </div>
                 <div>
                   <div class="flex items-baseline gap-2">
                     <p id="metric-likes" class="text-2xl font-normal text-neutral-900">460</p>
-                    <i data-lucide="arrow-up" class="w-4 h-4 text-success-600"></i>
+                    <div class="relative group/trend cursor-help">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+                      <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover/trend:opacity-100 transition-opacity pointer-events-none z-50">
+                        Previous: 412 <span class="text-success-400">(+11.7%)</span>
+                      </div>
+                    </div>
                   </div>
                   <p class="text-sm text-neutral-500 mt-0.5">Likes</p>
                 </div>
@@ -626,22 +657,25 @@
             </div>
 
             <!-- Top Performing Workspaces -->
-            <div class="bg-white rounded-2xl border border-neutral-100 p-5 shadow-sm">
+            <div class="bg-white rounded-2xl border border-neutral-100 p-5 shadow-sm widget-card group/widget" data-widget-id="top-workspaces">
               <div class="flex items-center justify-between mb-5">
                 <h3 class="text-sm text-neutral-500">Top performing workspaces</h3>
                 <div class="relative">
-                  <button onclick="toggleDropdown('top-metric-dropdown')" class="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-600 transition-colors">
-                    <span id="top-metric-label">Campaigns sent</span>
-                    <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                  <button onclick="toggleWidgetMenu(event, 'top-workspaces')" class="p-1 text-neutral-400 hover:text-neutral-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                   </button>
-                  <div id="top-metric-dropdown" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-10 min-w-[140px]">
-                    <button onclick="selectMetric('top', 'campaigns', 'Campaigns sent')" class="w-full flex items-center justify-between px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <span>Campaigns sent</span>
-                      <i data-lucide="check" class="w-4 h-4 text-main-500 metric-check" data-metric="campaigns"></i>
+                  <div id="widget-menu-top-workspaces" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-20 min-w-[140px]">
+                    <button onclick="openCustomizeWidget('top-workspaces')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                      Customize
                     </button>
-                    <button onclick="selectMetric('top', 'contacts', 'Contact growth')" class="w-full flex items-center justify-between px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <span>Contact growth</span>
-                      <i data-lucide="check" class="w-4 h-4 text-main-500 metric-check hidden" data-metric="contacts"></i>
+                    <a href="folder-reporting.html?channel=workspaces&source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+                      Full report
+                    </a>
+                    <button onclick="deleteWidget('top-workspaces')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -692,15 +726,15 @@
                 <h3 class="text-sm text-neutral-500">Contact growth</h3>
                 <div class="relative">
                   <button onclick="toggleWidgetMenu(event, 'contact-growth')" class="p-1 text-neutral-400 hover:text-neutral-600">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                   </button>
                   <div id="widget-menu-contact-growth" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-20 min-w-[140px]">
                     <button onclick="openCustomizeWidget('contact-growth')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="settings-2" class="w-4 h-4"></i>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=contacts" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    <a href="folder-reporting.html?channel=contacts&source=dashboard&campaigns=12&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
                     <button onclick="deleteWidget('contact-growth')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
@@ -712,7 +746,7 @@
               </div>
               <div class="flex items-baseline justify-center gap-2 py-2">
                 <p id="metric-contacts" class="text-4xl font-normal text-neutral-900">1,321</p>
-                <i data-lucide="arrow-up" class="w-5 h-5 text-success-600"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
               </div>
             </div>
 
@@ -722,15 +756,15 @@
                 <h3 class="text-sm text-neutral-500">Email template usage</h3>
                 <div class="relative">
                   <button onclick="toggleWidgetMenu(event, 'template-usage')" class="p-1 text-neutral-400 hover:text-neutral-600">
-                    <i data-lucide="more-vertical" class="w-4 h-4"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                   </button>
                   <div id="widget-menu-template-usage" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-20 min-w-[140px]">
                     <button onclick="openCustomizeWidget('template-usage')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="settings-2" class="w-4 h-4"></i>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=templates" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    <a href="folder-reporting.html?channel=templates&source=dashboard&campaigns=34&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
                     <button onclick="deleteWidget('template-usage')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
@@ -778,22 +812,25 @@
             </div>
 
             <!-- Low Performing Workspaces -->
-            <div class="bg-white rounded-2xl border border-neutral-100 p-5 shadow-sm">
+            <div class="bg-white rounded-2xl border border-neutral-100 p-5 shadow-sm widget-card group/widget" data-widget-id="low-workspaces">
               <div class="flex items-center justify-between mb-5">
                 <h3 class="text-sm text-neutral-500">Low performing workspaces</h3>
                 <div class="relative">
-                  <button onclick="toggleDropdown('low-metric-dropdown')" class="flex items-center gap-1 text-xs text-neutral-400 hover:text-neutral-600 transition-colors">
-                    <span id="low-metric-label">Campaigns sent</span>
-                    <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                  <button onclick="toggleWidgetMenu(event, 'low-workspaces')" class="p-1 text-neutral-400 hover:text-neutral-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
                   </button>
-                  <div id="low-metric-dropdown" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-10 min-w-[140px]">
-                    <button onclick="selectMetric('low', 'campaigns', 'Campaigns sent')" class="w-full flex items-center justify-between px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <span>Campaigns sent</span>
-                      <i data-lucide="check" class="w-4 h-4 text-main-500 metric-check-low" data-metric="campaigns"></i>
+                  <div id="widget-menu-low-workspaces" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-20 min-w-[140px]">
+                    <button onclick="openCustomizeWidget('low-workspaces')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                      Customize
                     </button>
-                    <button onclick="selectMetric('low', 'contacts', 'Contact growth')" class="w-full flex items-center justify-between px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                      <span>Contact growth</span>
-                      <i data-lucide="check" class="w-4 h-4 text-main-500 metric-check-low hidden" data-metric="contacts"></i>
+                    <a href="folder-reporting.html?channel=workspaces&source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+                      Full report
+                    </a>
+                    <button onclick="deleteWidget('low-workspaces')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                      Delete
                     </button>
                   </div>
                 </div>
@@ -831,7 +868,7 @@
               <h3 class="text-sm text-neutral-500">Recent activity</h3>
               <div class="relative">
                 <button onclick="toggleActivityFilter(event)" class="flex items-center gap-1.5 px-2 py-1.5 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-50 rounded-lg transition-colors">
-                  <i data-lucide="list-filter" class="w-4 h-4"></i>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M7 12h10"/><path d="M10 18h4"/></svg>
                 </button>
                 <div id="activity-filter-menu" class="hidden absolute right-0 top-full mt-1 bg-white rounded-xl shadow-lg border border-neutral-100 py-1.5 z-20 min-w-[130px]">
                   <button onclick="filterActivity('all')" class="w-full text-left px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
@@ -853,16 +890,18 @@
               <!-- Pending Approval Request 1 -->
               <div data-type="approvals" class="bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow relative">
                 <div class="absolute top-3 right-3 w-2.5 h-2.5 bg-warning-400 rounded-full"></div>
-                <a href="campaigns-list.html?openApproval=1" class="flex items-center gap-4">
-                  <img src="assets/email1.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Campaign approval request</p>
-                    <div class="flex items-center gap-2">
-                      <a href="workspace-detail.html?workspace=UPS%20Greenwich" onclick="event.stopPropagation()" class="flex items-center gap-1.5 hover:opacity-80">
-                        <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
-                        <span class="text-xs text-neutral-500 hover:text-main-600 hover:underline">UPS Greenwich</span>
-                      </a>
-                      <span class="text-xs text-neutral-400 ml-auto">5 m ago</span>
+                <a href="campaigns-list.html?openApproval=1" class="block">
+                  <div class="flex items-center gap-4">
+                    <img src="assets/email1.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Campaign approval request</p>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
+                          <span class="text-xs text-neutral-500">UPS Greenwich</span>
+                        </div>
+                        <span class="text-xs text-neutral-400">5 m ago</span>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -871,16 +910,18 @@
               <!-- Pending Approval Request 2 -->
               <div data-type="approvals" class="bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow relative">
                 <div class="absolute top-3 right-3 w-2.5 h-2.5 bg-warning-400 rounded-full"></div>
-                <a href="campaigns-list.html?openApproval=2" class="flex items-center gap-4">
-                  <img src="assets/email2.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Campaign approval request</p>
-                    <div class="flex items-center gap-2">
-                      <a href="workspace-detail.html?workspace=UPS%20Greenwich" onclick="event.stopPropagation()" class="flex items-center gap-1.5 hover:opacity-80">
-                        <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
-                        <span class="text-xs text-neutral-500 hover:text-main-600 hover:underline">UPS Greenwich</span>
-                      </a>
-                      <span class="text-xs text-neutral-400 ml-auto">1 hr ago</span>
+                <a href="campaigns-list.html?openApproval=2" class="block">
+                  <div class="flex items-center gap-4">
+                    <img src="assets/email2.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Campaign approval request</p>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
+                          <span class="text-xs text-neutral-500">UPS Greenwich</span>
+                        </div>
+                        <span class="text-xs text-neutral-400">1 hr ago</span>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -888,18 +929,20 @@
               
               <!-- New Workspace Created -->
               <div data-type="workspaces" class="bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-                <a href="workspace-detail.html?workspace=GE%20Workspace" class="flex items-center gap-4">
-                  <div class="w-16 h-16 rounded-full bg-main-100 flex items-center justify-center flex-shrink-0">
-                    <i data-lucide="shapes" class="w-6 h-6 text-main-600"></i>
-                  </div>
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">New GE workspace created</p>
-                    <div class="flex items-center gap-2">
-                      <a href="workspace-detail.html?workspace=UPS%20Global" onclick="event.stopPropagation()" class="flex items-center gap-1.5 hover:opacity-80">
-                        <div class="w-5 h-5 bg-success-600 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GL</div>
-                        <span class="text-xs text-neutral-500 hover:text-main-600 hover:underline">UPS Global</span>
-                      </a>
-                      <span class="text-xs text-neutral-400 ml-auto">1 day ago</span>
+                <a href="workspace-detail.html?workspace=GE%20Workspace" class="block">
+                  <div class="flex items-center gap-4">
+                    <div class="w-16 h-16 rounded-full bg-main-100 flex items-center justify-center flex-shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-main-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">New GE workspace created</p>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-5 h-5 bg-success-600 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GL</div>
+                          <span class="text-xs text-neutral-500">UPS Global</span>
+                        </div>
+                        <span class="text-xs text-neutral-400">1 day ago</span>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -907,16 +950,18 @@
               
               <!-- Email Campaign Scheduled -->
               <div data-type="campaigns" class="bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-                <a href="campaigns-list.html?workspace=UPS%20Northeast" class="flex items-center gap-4">
-                  <img src="assets/email3.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Email campaign scheduled</p>
-                    <div class="flex items-center gap-2">
-                      <a href="workspace-detail.html?workspace=UPS%20Northeast" onclick="event.stopPropagation()" class="flex items-center gap-1.5 hover:opacity-80">
-                        <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
-                        <span class="text-xs text-neutral-500 hover:text-main-600 hover:underline">UPS NE Region</span>
-                      </a>
-                      <span class="text-xs text-neutral-400 ml-auto">2 days ago</span>
+                <a href="campaigns-list.html?workspace=UPS%20Northeast" class="block">
+                  <div class="flex items-center gap-4">
+                    <img src="assets/email3.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Email campaign scheduled</p>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
+                          <span class="text-xs text-neutral-500">UPS NE Region</span>
+                        </div>
+                        <span class="text-xs text-neutral-400">2 days ago</span>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -924,16 +969,18 @@
               
               <!-- Email Campaign Sent -->
               <div data-type="campaigns" class="bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow">
-                <a href="report-clickthrough.html" class="flex items-center gap-4">
-                  <img src="assets/email4.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
-                  <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Email campaign sent</p>
-                    <div class="flex items-center gap-2">
-                      <a href="workspace-detail.html?workspace=UPS%20Northeast" onclick="event.stopPropagation()" class="flex items-center gap-1.5 hover:opacity-80">
-                        <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
-                        <span class="text-xs text-neutral-500 hover:text-main-600 hover:underline">UPS NE Region</span>
-                      </a>
-                      <span class="text-xs text-neutral-400 ml-auto">3 days ago</span>
+                <a href="report-clickthrough.html" class="block">
+                  <div class="flex items-center gap-4">
+                    <img src="assets/email4.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-neutral-600 mb-1.5 hover:text-main-600">Email campaign sent</p>
+                      <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-1.5">
+                          <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
+                          <span class="text-xs text-neutral-500">UPS NE Region</span>
+                        </div>
+                        <span class="text-xs text-neutral-400">3 days ago</span>
+                      </div>
                     </div>
                   </div>
                 </a>
@@ -958,7 +1005,7 @@
         <div class="flex items-center justify-between px-6 py-4 border-b border-neutral-100">
           <h2 class="text-lg font-semibold text-neutral-900">Customize widget</h2>
           <button onclick="closeCustomizeWidgetModal()" class="text-neutral-400 hover:text-neutral-600 transition-colors">
-            <i data-lucide="x" class="w-5 h-5"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
           </button>
         </div>
         
@@ -967,7 +1014,7 @@
           <!-- Left - Configuration -->
           <div class="flex-1 p-6 overflow-y-auto border-r border-neutral-100">
             <div class="space-y-6">
-              <!-- Chart Type & Channel -->
+              <!-- Chart Type & Metric Type -->
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-medium text-neutral-700 mb-2">Chart type</label>
@@ -981,19 +1028,20 @@
                       <option value="line">Line</option>
                       <option value="leaderboard">Leaderboard</option>
                     </select>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </div>
                 </div>
                 <div>
-                  <label class="block text-sm font-medium text-neutral-700 mb-2">Channel</label>
+                  <label class="block text-sm font-medium text-neutral-700 mb-2">Metric type</label>
                   <div class="relative">
-                    <select id="widget-channel" onchange="updateStatsSelectionUI()" class="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent">
-                      <option value="email">Email</option>
-                      <option value="social">Social</option>
-                      <option value="sms">SMS</option>
+                    <select id="widget-channel" onchange="updateStatsSelectionUI(); updateWidgetPreview();" class="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent">
+                      <option value="email">Email Engagement</option>
+                      <option value="social">Social Engagement</option>
+                      <option value="sms">SMS Engagement</option>
                       <option value="contacts">Contacts</option>
+                      <option value="workspace-usage">Workspace Usage</option>
                     </select>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </div>
                 </div>
               </div>
@@ -1020,7 +1068,7 @@
                       <option value="ups-newyork">UPS New York</option>
                       <option value="ups-newjersey">UPS New Jersey</option>
                     </select>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </div>
                 </div>
                 <div>
@@ -1033,7 +1081,7 @@
                       <option value="year-to-date">Year to date</option>
                       <option value="custom">Custom</option>
                     </select>
-                    <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </div>
                 </div>
               </div>
@@ -1388,7 +1436,7 @@
             <!-- Report -->
             <button onclick="createAction('report')" class="w-full flex items-center gap-4 p-3 rounded-xl hover:bg-neutral-50 transition-colors group">
               <div class="w-10 h-10 bg-warning-100 rounded-xl flex items-center justify-center text-warning-600 group-hover:bg-warning-200 transition-colors">
-                <i data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
               </div>
               <div class="flex-1 text-left">
                 <p class="text-sm font-medium text-neutral-900">Report</p>
@@ -1479,13 +1527,26 @@
   </div>
 
   <script>
-    lucide.createIcons();
+    // Declare all global variables at the top to avoid temporal dead zone issues
+    let currentWidgetId = null;
+    let dashboardWidgets = [];
+    let activeDropdown = null;
     
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+    
+    // Initialize icons
+    safeCreateIcons();
+
     // Toggle author bar visibility
     function toggleAuthorBar() {
       const bar = document.getElementById('author-bar');
       bar.classList.toggle('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
 
     // Get workspace name from URL parameter
@@ -1533,7 +1594,7 @@
       document.getElementById(type + '-metric-dropdown').classList.add('hidden');
       
       // Reinitialize icons for the checkmarks
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Approval Modal Functions
@@ -1553,7 +1614,7 @@
       updateCommentCount();
       
       // Reinitialize icons
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closeApprovalModal() {
@@ -1662,7 +1723,6 @@
     }
     
     // Widget Menu Functions
-    let currentWidgetId = null;
     
     function toggleWidgetMenu(event, widgetId) {
       event.stopPropagation();
@@ -1676,7 +1736,7 @@
       
       const menu = document.getElementById(`widget-menu-${widgetId}`);
       menu.classList.toggle('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // Close widget menus when clicking outside
@@ -1736,7 +1796,7 @@
         }, 10);
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     // All available metrics organized by category
@@ -1809,7 +1869,7 @@
       // Initialize with default chart type
       updateStatsSelectionUI();
       updateWidgetPreview();
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function getWidgetConfig(widgetId) {
@@ -1838,7 +1898,7 @@
           <select id="${id}" onchange="updateWidgetPreview()" class="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent">
             ${options}
           </select>
-          <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
         </div>
       `;
     }
@@ -1902,7 +1962,7 @@
       }
       
       container.innerHTML = html;
-      lucide.createIcons();
+      safeCreateIcons();
       updateWidgetPreview();
     }
 
@@ -1939,7 +1999,7 @@
           </div>
           <div class="flex items-baseline gap-2">
             <span class="text-3xl font-semibold text-neutral-900">${metric.sample}</span>
-            ${showTrends ? '<i data-lucide="arrow-up" class="w-4 h-4 text-success-600"></i>' : ''}
+            ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
           </div>
         `;
       } else if (chartType === '2-stats') {
@@ -1954,14 +2014,14 @@
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-xl font-semibold text-neutral-900">${metric1.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric1.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-xl font-semibold text-neutral-900">${metric2.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric2.label}</p>
             </div>
@@ -1981,28 +2041,28 @@
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-lg font-normal text-neutral-900">${metric1.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric1.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-lg font-normal text-neutral-900">${metric2.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric2.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-lg font-normal text-neutral-900">${metric3.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric3.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-lg font-normal text-neutral-900">${metric4.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-down" class="w-3 h-3 text-danger-400"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-danger-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric4.label}</p>
             </div>
@@ -2167,11 +2227,11 @@
       }
       
       preview.innerHTML = previewHTML;
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
-    // Dashboard widgets storage
-    let dashboardWidgets = JSON.parse(localStorage.getItem('dashboardWidgets') || 'null');
+    // Dashboard widgets storage - load from localStorage
+    dashboardWidgets = JSON.parse(localStorage.getItem('dashboardWidgets') || 'null');
     
     // Default widgets if no storage exists
     const defaultWidgets = [
@@ -2286,7 +2346,7 @@
         return `
           <div class="flex items-baseline gap-2 mt-2">
             <span class="text-3xl font-bold text-neutral-900">${metric.sample}</span>
-            ${showTrends ? '<i data-lucide="arrow-up" class="w-4 h-4 text-success-600"></i>' : ''}
+            ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
           </div>
         `;
       } else if (widget.chartType === '2-stats') {
@@ -2297,14 +2357,14 @@
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-2xl font-bold text-neutral-900">${metric1.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500 mt-1">${metric1.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-2xl font-bold text-neutral-900">${metric2.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500 mt-1">${metric2.label}</p>
             </div>
@@ -2320,28 +2380,28 @@
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-xl font-semibold text-neutral-900">${metric1.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric1.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-xl font-semibold text-neutral-900">${metric2.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric2.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-xl font-semibold text-neutral-900">${metric3.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-up" class="w-3 h-3 text-success-600"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-success-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric3.label}</p>
             </div>
             <div>
               <div class="flex items-baseline gap-1.5">
                 <span class="text-xl font-semibold text-neutral-900">${metric4.sample}</span>
-                ${showTrends ? '<i data-lucide="arrow-down" class="w-3 h-3 text-danger-400"></i>' : ''}
+                ${showTrends ? '<svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-danger-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg>' : ''}
               </div>
               <p class="text-xs text-neutral-500">${metric4.label}</p>
             </div>
@@ -2466,8 +2526,8 @@
                   <i data-lucide="settings-2" class="w-4 h-4"></i>
                   Customize
                 </button>
-                <a href="folder-reporting.html?channel=${widget.channel}" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
-                  <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                <a href="folder-reporting.html?channel=${widget.channel}&source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                   Full report
                 </a>
                 <button onclick="deleteWidget('${widget.id}')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
@@ -2482,7 +2542,7 @@
       `;
       
       leftColumn.insertAdjacentHTML('beforeend', widgetHTML);
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function updateWidgetInDOM(widgetId, widget) {
@@ -2504,7 +2564,7 @@
         }
         // Add new content
         headerDiv.insertAdjacentHTML('afterend', generateWidgetContent(widget));
-        lucide.createIcons();
+        safeCreateIcons();
       }
     }
     
@@ -2557,7 +2617,7 @@
       modal.classList.remove('hidden');
       document.getElementById('custom-widget-name').value = '';
       document.getElementById('custom-widget-description').value = '';
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closeSaveCustomWidgetDialog() {
@@ -2623,7 +2683,6 @@
     }
     
     // Toggle header dropdowns
-    let activeDropdown = null;
     function toggleDropdown(dropdownId) {
       const dropdown = document.getElementById(dropdownId);
       const allDropdowns = ['user-dropdown', 'org-dropdown', 'notifications-dropdown', 'help-dropdown'];
@@ -2647,7 +2706,7 @@
           orgChevron.style.transform = dropdownId === 'org-dropdown' && !dropdown.classList.contains('hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
         
-        lucide.createIcons();
+        safeCreateIcons();
       }
     }
     
@@ -2688,7 +2747,7 @@
           searchInput.select();
         }
       }, 100);
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closeGlobalSearchDialog() {
@@ -2858,7 +2917,7 @@
           html += `<p class="px-3 pt-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">Reports</p>
             <div class="space-y-0.5 mb-3">`;
           matchedReports.forEach(r => {
-            html += `<a href="folder-reporting.html" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors block">
+            html += `<a href="folder-reporting.html?source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors block">
               <div class="w-10 h-10 bg-warning-100 rounded-xl flex items-center justify-center">
                 <i data-lucide="bar-chart-2" class="w-5 h-5 text-warning-600"></i>
               </div>
@@ -2877,7 +2936,7 @@
       // Show search results, keep recent activity below
       searchResultsSection.innerHTML = html;
       searchResultsSection.classList.remove('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function switchWorkspace(name) {
@@ -2890,7 +2949,7 @@
       const dialog = document.getElementById('quick-actions-dialog');
       dialog.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closeQuickActionsDialog() {
@@ -2943,7 +3002,7 @@
       document.getElementById('modal-create-folder').checked = false;
       document.getElementById('modal-folder-name-container').classList.add('hidden');
       document.body.style.overflow = 'hidden';
-      lucide.createIcons();
+      safeCreateIcons();
     }
 
     function openCreateFolderModal() {
@@ -2951,7 +3010,7 @@
       document.getElementById('modal-create-folder').checked = true;
       document.getElementById('modal-folder-name-container').classList.remove('hidden');
       document.body.style.overflow = 'hidden';
-      lucide.createIcons();
+      safeCreateIcons();
     }
 
     function closeCreateWorkspaceModal() {
@@ -2972,7 +3031,7 @@
         </button>
       `;
       workspaceList.appendChild(newItem);
-      lucide.createIcons();
+      safeCreateIcons();
       updateModalWorkspaceNumbers();
     }
 
@@ -3043,8 +3102,8 @@
     }
 
     // Data mode toggle - check URL param first, then sessionStorage
-    const urlParams = new URLSearchParams(window.location.search);
-    const urlDataMode = urlParams.get('data');
+    const dataUrlParams = new URLSearchParams(window.location.search);
+    const urlDataMode = dataUrlParams.get('data');
     let currentDataMode = urlDataMode || sessionStorage.getItem('dataMode') || 'filled';
     
     function setDataMode(mode, updateUrl = true) {
@@ -3070,7 +3129,7 @@
         emptyBtn.className = 'px-2.5 py-1 text-xs rounded text-neutral-400 hover:text-white';
         renderFilledDashboard();
       }
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function renderEmptyDashboard() {
@@ -3237,10 +3296,12 @@
               <img src="assets/email1.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-neutral-600 mb-1.5">Campaign approval request</p>
-                <div class="flex items-center gap-2">
-                  <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
-                  <span class="text-xs text-neutral-500">UPS Greenwich</span>
-                  <span class="text-xs text-neutral-400 ml-auto">5 m ago</span>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
+                    <span class="text-xs text-neutral-500">UPS Greenwich</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">5 m ago</span>
                 </div>
               </div>
             </div>
@@ -3253,10 +3314,12 @@
               <img src="assets/email2.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-neutral-600 mb-1.5">Campaign approval request</p>
-                <div class="flex items-center gap-2">
-                  <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
-                  <span class="text-xs text-neutral-500">UPS Greenwich</span>
-                  <span class="text-xs text-neutral-400 ml-auto">1 hr ago</span>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-accent-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GE</div>
+                    <span class="text-xs text-neutral-500">UPS Greenwich</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">1 hr ago</span>
                 </div>
               </div>
             </div>
@@ -3265,15 +3328,17 @@
           <!-- New Workspace Created -->
           <a href="workspaces-list.html" data-type="workspaces" class="block bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow group cursor-pointer">
             <div class="flex items-center gap-4">
-              <div class="w-16 h-16 rounded-full bg-main-200 flex items-center justify-center flex-shrink-0">
-                <i data-lucide="layout-grid" class="w-6 h-6 text-main-600"></i>
+              <div class="w-16 h-16 rounded-full bg-main-100 flex items-center justify-center flex-shrink-0">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-main-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>
               </div>
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-neutral-600 mb-1.5">New GE workspace created</p>
-                <div class="flex items-center gap-2">
-                  <div class="w-5 h-5 bg-success-600 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GL</div>
-                  <span class="text-xs text-neutral-500">UPS Global</span>
-                  <span class="text-xs text-neutral-400 ml-auto">1 day ago</span>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-success-600 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">GL</div>
+                    <span class="text-xs text-neutral-500">UPS Global</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">1 day ago</span>
                 </div>
               </div>
             </div>
@@ -3285,10 +3350,12 @@
               <img src="assets/email3.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-neutral-600 mb-1.5">Email campaign scheduled</p>
-                <div class="flex items-center gap-2">
-                  <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
-                  <span class="text-xs text-neutral-500">UPS NE Region</span>
-                  <span class="text-xs text-neutral-400 ml-auto">2 days ago</span>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
+                    <span class="text-xs text-neutral-500">UPS NE Region</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">2 days ago</span>
                 </div>
               </div>
             </div>
@@ -3300,10 +3367,12 @@
               <img src="assets/email4.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
               <div class="flex-1 min-w-0">
                 <p class="text-sm font-medium text-neutral-600 mb-1.5">Email campaign sent</p>
-                <div class="flex items-center gap-2">
-                  <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
-                  <span class="text-xs text-neutral-500">UPS NE Region</span>
-                  <span class="text-xs text-neutral-400 ml-auto">3 days ago</span>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-main-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NE</div>
+                    <span class="text-xs text-neutral-500">UPS NE Region</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">3 days ago</span>
                 </div>
               </div>
             </div>
@@ -3317,7 +3386,7 @@
         }
       }
       
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function updateMetric(id, value, isEmpty) {

@@ -5,11 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Campaign Approval - CTCT for Teams</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     tailwind.config = {
       theme: {
         extend: {
@@ -880,8 +887,15 @@
   </footer>
 
   <script>
+    // Safe lucide helper
+    function safeCreateIcons() {
+      if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+      }
+    }
+
     // Initialize Lucide icons
-    lucide.createIcons();
+    safeCreateIcons();
     
     // Toggle header dropdowns
     let activeDropdown = null;
@@ -903,7 +917,7 @@
         if (orgChevron) {
           orgChevron.style.transform = dropdownId === 'org-dropdown' && !dropdown.classList.contains('hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
         }
-        lucide.createIcons();
+        safeCreateIcons();
       }
     }
     
@@ -950,7 +964,7 @@
     // Preview Modal
     function openPreviewModal(campaignId) {
       document.getElementById('preview-modal').classList.remove('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closePreviewModal() {
@@ -978,7 +992,7 @@
       }
       
       modal.classList.remove('hidden');
-      lucide.createIcons();
+      safeCreateIcons();
     }
     
     function closeApprovalModal() {
