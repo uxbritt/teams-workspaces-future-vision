@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Option A: Evolutionary - Improved Current Structure</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: {
+              50: '#f0f7ff', 100: '#e0f0ff', 200: '#b9e0fe', 300: '#7cc8fd', 400: '#36aaf8',
+              500: '#0c8ce9', 600: '#006fc7', 700: '#0059a1', 800: '#054b85', 900: '#0a406e'
+            },
+            neutral: {
+              50: '#fafbfc', 100: '#f4f6f8', 200: '#e9eef3', 300: '#d5dce5', 400: '#b8c4d0',
+              500: '#8d9cad', 600: '#64748b', 700: '#475569', 800: '#334155', 900: '#1e293b'
+            },
+            success: {
+              50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
+              500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d'
+            },
+            warning: {
+              50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24',
+              500: '#f59e0b', 600: '#d97706', 700: '#b45309', 800: '#92400e', 900: '#78350f'
+            },
+            accent: {
+              50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe', 400: '#c084fc',
+              500: '#a855f7', 600: '#9333ea', 700: '#7c3aed', 800: '#6b21a8', 900: '#581c87'
+            },
+            ups: { brown: '#351c15', gold: '#ffb500' }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { line-height: 1.5; background: #f4f6f8; }
+    .nav-item:hover { background: #e9eef3; }
+    .nav-item.active { background: #e0f0ff; color: #006fc7; font-weight: 500; }
+    .pulse-ring { animation: pulse-ring 2s ease-out 3; }
+    @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(6, 111, 199, 0.4); } 100% { box-shadow: 0 0 0 12px rgba(6, 111, 199, 0); } }
+  </style>
+</head>
+<body>
+  <!-- Back Link -->
+  <a href="index.html" class="fixed top-3 right-4 z-50 flex items-center gap-2 px-3 py-1.5 bg-white border border-neutral-200 rounded-lg text-sm text-neutral-600 hover:bg-neutral-50 shadow-sm font-medium">
+    <i data-lucide="arrow-left" class="w-4 h-4"></i> All Prototypes
+  </a>
+
+  <!-- Option Label -->
+  <div class="fixed top-3 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-warning-100 border border-warning-300 rounded-lg shadow-sm">
+    <p class="text-sm font-semibold text-warning-800">Option A: Evolutionary — Matching Tested Prototype + Feedback Fixes</p>
+  </div>
+
+  <!-- Onboarding Tooltip - Addresses "didn't see top button" feedback -->
+  <div id="onboarding" class="fixed bottom-6 left-72 z-50 bg-neutral-900 text-white p-4 rounded-xl shadow-xl max-w-xs">
+    <button onclick="document.getElementById('onboarding').style.display='none'" class="absolute top-2 right-2 text-neutral-400 hover:text-white">
+      <i data-lucide="x" class="w-4 h-4"></i>
+    </button>
+    <div class="flex items-start gap-3">
+      <div class="w-8 h-8 bg-main-500 rounded-lg flex items-center justify-center flex-shrink-0">
+        <i data-lucide="lightbulb" class="w-4 h-4"></i>
+      </div>
+      <div>
+        <p class="font-semibold mb-1">Quick tip</p>
+        <p class="text-sm text-neutral-300">Use <strong>"Switch teams"</strong> to navigate between your Hub and Workspaces. Look for the arrows!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex h-screen">
+    <!-- Left Sidebar - Matching tested prototype -->
+    <aside class="w-64 bg-white border-r border-neutral-200 flex flex-col">
+      <!-- Logo Area - Matching prototype -->
+      <div class="p-5 border-b border-neutral-100">
+        <div class="flex items-center gap-2">
+          <div class="relative">
+            <img src="assets/upsLogo.png" alt="UPS" class="w-14 h-14 object-contain">
+            <img src="assets/ctctLogo.png" alt="Constant Contact" class="absolute -bottom-1 -right-1 w-6 h-6 object-contain border-2 border-white rounded-full bg-white">
+          </div>
+        </div>
+      </div>
+
+      <!-- IMPROVED: Switch Teams Button with better affordance -->
+      <!-- Feedback: "didn't realize top button was clickable", "Expected dropdown arrow" -->
+      <div class="p-4 border-b border-neutral-100">
+        <button onclick="openTeamSwitcher()" class="w-full flex items-center justify-between px-4 py-3 text-neutral-700 hover:bg-neutral-100 rounded-xl border border-neutral-200 transition-colors pulse-ring" id="switch-teams-btn">
+          <span class="font-medium">Switch teams</span>
+          <!-- IMPROVED: More prominent arrow indicator -->
+          <div class="flex items-center gap-1 text-main-600">
+            <i data-lucide="arrow-left-right" class="w-5 h-5"></i>
+            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+          </div>
+        </button>
+        
+        <!-- ADDED: Current location indicator - Addresses "no visual cue for current location" -->
+        <div class="mt-3 px-3 py-2 bg-main-50 rounded-lg border border-main-200">
+          <p class="text-xs text-main-600 font-medium mb-1">Currently viewing:</p>
+          <div class="flex items-center gap-2">
+            <div class="w-6 h-6 bg-success-400 rounded-full flex items-center justify-center text-white text-xs font-medium" id="current-icon">GR</div>
+            <span class="text-sm font-semibold text-neutral-900" id="current-name">UPS Greenwich</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Create Button - Matching prototype -->
+      <div class="px-4 py-3">
+        <button class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-main-500 text-white rounded-xl font-medium hover:bg-main-600 transition-colors shadow-sm">
+          <i data-lucide="pencil" class="w-5 h-5"></i>
+          Create
+        </button>
+      </div>
+
+      <!-- My Workspace Section - Matching prototype -->
+      <div class="flex-1 overflow-y-auto px-3">
+        <p class="px-3 py-2 text-sm font-semibold text-neutral-700">My workspace</p>
+        <nav class="space-y-0.5">
+          <div class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <i data-lucide="mail" class="w-5 h-5 text-neutral-500"></i>
+            Campaigns
+          </div>
+          <div class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <i data-lucide="users" class="w-5 h-5 text-neutral-500"></i>
+            Contacts
+          </div>
+          <div class="nav-item flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <div class="flex items-center gap-3">
+              <i data-lucide="send" class="w-5 h-5 text-neutral-500"></i>
+              Channels
+            </div>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400"></i>
+          </div>
+          <div class="nav-item flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <div class="flex items-center gap-3">
+              <i data-lucide="user-check" class="w-5 h-5 text-neutral-500"></i>
+              Audience
+            </div>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400"></i>
+          </div>
+          <div class="nav-item flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <div class="flex items-center gap-3">
+              <i data-lucide="image" class="w-5 h-5 text-neutral-500"></i>
+              Assets
+            </div>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400"></i>
+          </div>
+          <div class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <i data-lucide="bar-chart-3" class="w-5 h-5 text-neutral-500"></i>
+            Reporting
+          </div>
+          <div class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <i data-lucide="settings-2" class="w-5 h-5 text-neutral-500"></i>
+            Automations
+          </div>
+          <div class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <i data-lucide="plug" class="w-5 h-5 text-neutral-500"></i>
+            Integrations
+          </div>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content - Matching prototype workspace view -->
+    <main class="flex-1 overflow-y-auto">
+      <!-- Header -->
+      <div class="bg-white border-b border-neutral-200 px-8 py-6">
+        <div class="flex items-center justify-between">
+          <h1 class="text-2xl font-semibold text-neutral-900" id="page-title">UPS Greenwich workspace</h1>
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2">
+              <div class="w-20 h-2 bg-neutral-200 rounded-full">
+                <div class="w-2/5 h-2 bg-main-500 rounded-full"></div>
+              </div>
+              <span class="text-sm text-neutral-500">40%</span>
+              <i data-lucide="check-circle" class="w-4 h-4 text-neutral-300"></i>
+            </div>
+            <button class="px-4 py-2 border border-main-500 text-main-600 rounded-lg text-sm font-medium hover:bg-main-50">
+              Complete profile
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="px-8 py-8 max-w-6xl">
+        <!-- Get started section -->
+        <div class="mb-8">
+          <div class="flex items-center gap-3 mb-6">
+            <h2 class="text-xl font-semibold text-neutral-900">Get started with your goals</h2>
+            <span class="px-3 py-1 bg-main-100 text-main-700 rounded-full text-sm font-medium">Attract new customers</span>
+          </div>
+          <div class="grid grid-cols-2 gap-6">
+            <div class="bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+              <div class="h-48 bg-gradient-to-br from-main-100 to-success-100 flex items-center justify-center">
+                <div class="bg-white rounded-xl p-4 shadow-lg">
+                  <i data-lucide="file-text" class="w-12 h-12 text-main-500"></i>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3 class="font-semibold text-neutral-900 mb-2">Create a sign-up landing page</h3>
+                <p class="text-sm text-neutral-600">Collect new contacts with a form you can share in emails and on social.</p>
+              </div>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-2xl overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+              <div class="h-48 bg-gradient-to-br from-warning-100 to-accent-100 flex items-center justify-center">
+                <div class="bg-white rounded-xl p-4 shadow-lg">
+                  <i data-lucide="palette" class="w-12 h-12 text-warning-500"></i>
+                </div>
+              </div>
+              <div class="p-5">
+                <h3 class="font-semibold text-neutral-900 mb-2">Set up your brand assets</h3>
+                <p class="text-sm text-neutral-600">With just a few details we can start drafting custom creations for you. ✨</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reach your audience -->
+        <div class="mb-8">
+          <h2 class="text-xl font-semibold text-neutral-900 mb-6">Reach your audience</h2>
+          <div class="grid grid-cols-5 gap-4">
+            <div class="bg-white border border-neutral-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer text-center">
+              <div class="w-full aspect-video bg-main-50 rounded-lg mb-3 flex items-center justify-center">
+                <i data-lucide="mail" class="w-8 h-8 text-main-500"></i>
+              </div>
+              <p class="text-sm font-medium text-neutral-900">Emails</p>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer text-center">
+              <div class="w-full aspect-video bg-accent-50 rounded-lg mb-3 flex items-center justify-center">
+                <i data-lucide="share-2" class="w-8 h-8 text-accent-500"></i>
+              </div>
+              <p class="text-sm font-medium text-neutral-900">Social posts</p>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer text-center">
+              <div class="w-full aspect-video bg-success-50 rounded-lg mb-3 flex items-center justify-center">
+                <i data-lucide="calendar" class="w-8 h-8 text-success-500"></i>
+              </div>
+              <p class="text-sm font-medium text-neutral-900">Events</p>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer text-center">
+              <div class="w-full aspect-video bg-warning-50 rounded-lg mb-3 flex items-center justify-center">
+                <i data-lucide="file-input" class="w-8 h-8 text-warning-500"></i>
+              </div>
+              <p class="text-sm font-medium text-neutral-900">Sign-up forms</p>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-xl p-4 hover:shadow-md transition-shadow cursor-pointer text-center">
+              <div class="w-full aspect-video bg-neutral-100 rounded-lg mb-3 flex items-center justify-center">
+                <i data-lucide="zap" class="w-8 h-8 text-neutral-500"></i>
+              </div>
+              <p class="text-sm font-medium text-neutral-900">Automations</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent campaigns -->
+        <div>
+          <div class="flex items-center gap-4 mb-4">
+            <h2 class="text-xl font-semibold text-neutral-900">Recent campaigns</h2>
+            <a href="#" class="text-sm text-neutral-500 hover:text-neutral-700">View all</a>
+            <a href="#" class="text-sm text-neutral-500 hover:text-neutral-700 flex items-center gap-1">
+              View calendar <i data-lucide="calendar" class="w-4 h-4"></i>
+            </a>
+          </div>
+          <div class="bg-white border border-neutral-200 rounded-xl p-6">
+            <p class="text-neutral-500 text-center py-8">No campaigns yet. Create your first campaign to get started!</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Team Switcher Panel - Matching prototype design with improvements -->
+  <div id="team-switcher" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/30" onclick="closeTeamSwitcher()"></div>
+    <div class="absolute left-0 top-0 bottom-0 w-[420px] bg-white shadow-2xl flex flex-col">
+      <!-- Header with Back button -->
+      <div class="p-4 border-b border-neutral-200 flex items-center gap-4">
+        <button onclick="closeTeamSwitcher()" class="flex items-center gap-2 text-neutral-600 hover:text-neutral-900">
+          <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          <span class="font-medium">Back</span>
+        </button>
+        <div class="flex-1"></div>
+        <!-- Search - Critical for 100+ accounts per feedback -->
+        <div class="relative flex-1 max-w-xs">
+          <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"></i>
+          <input type="text" placeholder="Search" class="w-full pl-10 pr-4 py-2 border border-neutral-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-main-400 focus:border-main-400">
+        </div>
+      </div>
+
+      <!-- ADDED: Recently Used for scaling - per feedback "surfacing most used" -->
+      <div class="p-4 border-b border-neutral-100 bg-neutral-50">
+        <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-2">Recently Used</p>
+        <div class="flex gap-2 flex-wrap">
+          <button onclick="switchToAccount('Greenwich', 'GR', 'workspace')" class="flex items-center gap-2 px-3 py-1.5 bg-white border border-neutral-200 rounded-lg text-sm hover:bg-neutral-50">
+            <div class="w-5 h-5 bg-success-400 rounded-full flex items-center justify-center text-white text-xs">GR</div>
+            Greenwich
+          </button>
+          <button onclick="switchToAccount('Northeast', 'NE', 'hub')" class="flex items-center gap-2 px-3 py-1.5 bg-white border border-neutral-200 rounded-lg text-sm hover:bg-neutral-50">
+            <div class="w-5 h-5 bg-neutral-600 rounded-full flex items-center justify-center text-white text-xs">NE</div>
+            Northeast Hub
+          </button>
+        </div>
+      </div>
+
+      <!-- Account Tree - Matching prototype structure -->
+      <div class="flex-1 overflow-y-auto p-4">
+        <!-- Global -->
+        <div class="py-3 flex items-center">
+          <div class="w-8 h-8 bg-main-500 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">GL</div>
+          <span class="flex-1 font-medium text-neutral-900">UPS Global (me)</span>
+          <a href="#" onclick="switchToAccount('Global', 'GL', 'hub')" class="text-main-600 hover:underline text-sm font-medium px-2">Hub</a>
+          <a href="#" onclick="switchToAccount('Global', 'GL', 'workspace')" class="text-main-600 hover:underline text-sm font-medium px-2">Workspace</a>
+        </div>
+
+        <!-- Northeast - Expanded -->
+        <div class="ml-6">
+          <div class="py-3 flex items-center">
+            <button class="mr-2 text-neutral-400"><i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+            <div class="w-8 h-8 bg-neutral-600 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">NE</div>
+            <span class="flex-1 text-neutral-900">UPS Northeast</span>
+            <a href="#" onclick="switchToAccount('Northeast', 'NE', 'hub')" class="text-main-600 hover:underline text-sm font-medium px-2">Hub</a>
+            <a href="#" onclick="switchToAccount('Northeast', 'NE', 'workspace')" class="text-main-600 hover:underline text-sm font-medium px-2">Workspace</a>
+          </div>
+
+          <!-- Children -->
+          <div class="ml-10 space-y-1">
+            <div class="py-2.5 flex items-center bg-main-50 rounded-lg px-3 -mx-3 border border-main-200">
+              <div class="w-7 h-7 bg-success-400 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">GR</div>
+              <span class="flex-1 text-neutral-900 font-medium">UPS Greenwich</span>
+              <span class="text-xs text-main-600 font-medium mr-2">Current</span>
+              <a href="#" onclick="switchToAccount('Greenwich', 'GR', 'workspace')" class="text-main-600 hover:underline text-sm font-medium">Workspace</a>
+            </div>
+            <div class="py-2.5 flex items-center hover:bg-neutral-50 rounded-lg px-3 -mx-3">
+              <div class="w-7 h-7 bg-accent-400 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">MN</div>
+              <span class="flex-1 text-neutral-700">UPS Manhattan</span>
+              <a href="#" onclick="switchToAccount('Manhattan', 'MN', 'workspace')" class="text-main-600 hover:underline text-sm font-medium">Workspace</a>
+            </div>
+            <div class="py-2.5 flex items-center hover:bg-neutral-50 rounded-lg px-3 -mx-3">
+              <div class="w-7 h-7 bg-main-400 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">NY</div>
+              <span class="flex-1 text-neutral-700">UPS New York</span>
+              <a href="#" onclick="switchToAccount('New York', 'NY', 'workspace')" class="text-main-600 hover:underline text-sm font-medium">Workspace</a>
+            </div>
+            <div class="py-2.5 flex items-center px-3 -mx-3">
+              <div class="w-7 h-7 bg-neutral-300 rounded-full flex items-center justify-center text-neutral-500 text-xs font-medium mr-3">NJ</div>
+              <span class="flex-1 text-neutral-400">UPS New Jersey</span>
+              <span class="text-xs text-neutral-400">No access</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Southwest - Expanded -->
+        <div class="ml-6">
+          <div class="py-3 flex items-center">
+            <button class="mr-2 text-neutral-400"><i data-lucide="chevron-down" class="w-4 h-4"></i></button>
+            <div class="w-8 h-8 bg-warning-400 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">SW</div>
+            <span class="flex-1 text-neutral-900">UPS Southwest</span>
+            <a href="#" class="text-main-600 hover:underline text-sm font-medium px-2">Hub</a>
+            <a href="#" class="text-main-600 hover:underline text-sm font-medium px-2">Workspace</a>
+          </div>
+          <div class="ml-10 space-y-1">
+            <div class="py-2.5 flex items-center hover:bg-neutral-50 rounded-lg px-3 -mx-3">
+              <div class="w-7 h-7 bg-warning-300 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">AZ</div>
+              <span class="flex-1 text-neutral-700">UPS Arizona</span>
+              <a href="#" class="text-main-600 hover:underline text-sm font-medium">Workspace</a>
+            </div>
+            <div class="py-2.5 flex items-center hover:bg-neutral-50 rounded-lg px-3 -mx-3">
+              <div class="w-7 h-7 bg-accent-300 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">NV</div>
+              <span class="flex-1 text-neutral-700">UPS Nevada</span>
+              <a href="#" class="text-main-600 hover:underline text-sm font-medium">Workspace</a>
+            </div>
+            <div class="py-2.5 flex items-center px-3 -mx-3">
+              <div class="w-7 h-7 bg-neutral-300 rounded-full flex items-center justify-center text-neutral-500 text-xs font-medium mr-3">UT</div>
+              <span class="flex-1 text-neutral-400">UPS Utah</span>
+            </div>
+            <div class="py-2.5 flex items-center px-3 -mx-3">
+              <div class="w-7 h-7 bg-neutral-300 rounded-full flex items-center justify-center text-neutral-500 text-xs font-medium mr-3">CA</div>
+              <span class="flex-1 text-neutral-400">UPS California</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Midwest - Collapsed -->
+        <div class="ml-6">
+          <div class="py-3 flex items-center">
+            <button class="mr-2 text-neutral-400"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+            <div class="w-8 h-8 bg-success-500 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">MW</div>
+            <span class="flex-1 text-neutral-900">UPS Midwest</span>
+            <a href="#" class="text-main-600 hover:underline text-sm font-medium px-2">Hub</a>
+            <a href="#" class="text-main-600 hover:underline text-sm font-medium px-2">Workspace</a>
+          </div>
+        </div>
+
+        <!-- Central - Collapsed -->
+        <div class="ml-6">
+          <div class="py-3 flex items-center">
+            <button class="mr-2 text-neutral-400"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+            <div class="w-8 h-8 bg-accent-500 rounded-full flex items-center justify-center text-white text-xs font-medium mr-3">CT</div>
+            <span class="flex-1 text-neutral-900">UPS Central</span>
+            <a href="#" class="text-main-600 hover:underline text-sm font-medium px-2">Hub</a>
+            <a href="#" class="text-main-600 hover:underline text-sm font-medium px-2">Workspace</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help text for first-time users -->
+      <div class="p-4 border-t border-neutral-100 bg-neutral-50">
+        <p class="text-xs text-neutral-500 flex items-start gap-2">
+          <i data-lucide="info" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+          <span><strong>Hub</strong> = Manage all accounts in a region. <strong>Workspace</strong> = Work on campaigns for one account.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function openTeamSwitcher() {
+      document.getElementById('team-switcher').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeTeamSwitcher() {
+      document.getElementById('team-switcher').classList.add('hidden');
+    }
+
+    function switchToAccount(name, initials, type) {
+      document.getElementById('current-name').textContent = 'UPS ' + name;
+      document.getElementById('current-icon').textContent = initials;
+      document.getElementById('page-title').textContent = 'UPS ' + name + ' ' + type;
+      closeTeamSwitcher();
+    }
+  </script>
+</body>
+</html>

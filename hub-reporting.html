@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTCT for Teams — Folder Reporting</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ctct: {
+              blue: '#4B7BF5',
+              'blue-light': '#EEF4FF',
+              orange: '#F5A623'
+            }
+          },
+          fontFamily: {
+            sans: ['CTSans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    body { 
+      line-height: 1.5; 
+      background: #F8F9FB; 
+    }
+    .ai-gradient-text {
+      background: linear-gradient(90deg, #8B5CF6 0%, #3B82F6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    /* Modern chart styles - thin bars with blue/teal/green gradients */
+    .chart-bar {
+      background: linear-gradient(180deg, #3B82F6 0%, #14B8A6 100%);
+      border-radius: 4px 4px 0 0;
+      transition: height 0.3s ease;
+      width: 6px;
+    }
+    .chart-bar-teal {
+      background: linear-gradient(180deg, #14B8A6 0%, #6EE7B7 100%);
+      border-radius: 4px 4px 0 0;
+      width: 6px;
+    }
+    .chart-bar-green {
+      background: linear-gradient(180deg, #10B981 0%, #A7F3D0 100%);
+      border-radius: 4px 4px 0 0;
+      width: 6px;
+    }
+    .chart-bar-orange {
+      background: linear-gradient(180deg, #F59E0B 0%, #FCD34D 100%);
+      border-radius: 4px 4px 0 0;
+      width: 6px;
+    }
+    .chart-bar-blue {
+      background: linear-gradient(180deg, #0EA5E9 0%, #67E8F9 100%);
+      border-radius: 4px 4px 0 0;
+      width: 6px;
+    }
+    .donut-chart {
+      transform: rotate(-90deg);
+    }
+    .donut-segment {
+      fill: none;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.5s ease;
+    }
+    .line-chart-path {
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .area-fill {
+      opacity: 0.2;
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, #14B8A6 0%, #3B82F6 50%, #8B5CF6 100%);
+      border-radius: 999px;
+    }
+    .progress-bar-blue {
+      background: linear-gradient(90deg, #3B82F6 0%, #6366F1 100%);
+      border-radius: 999px;
+    }
+    .progress-bar-teal {
+      background: linear-gradient(90deg, #14B8A6 0%, #0EA5E9 100%);
+      border-radius: 999px;
+    }
+    .progress-bar-purple {
+      background: linear-gradient(90deg, #8B5CF6 0%, #A855F7 100%);
+      border-radius: 999px;
+    }
+    /* UI Kit style - thin horizontal progress */
+    .thin-progress-track {
+      height: 4px;
+      background: #E5E7EB;
+      border-radius: 999px;
+    }
+    .thin-progress-fill {
+      height: 4px;
+      background: linear-gradient(90deg, #14B8A6 0%, #0EA5E9 100%);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+    /* Ring progress indicator */
+    .ring-progress {
+      transform: rotate(-90deg);
+    }
+    .ring-track {
+      fill: none;
+      stroke: #E5E7EB;
+    }
+    .ring-fill {
+      fill: none;
+      stroke-linecap: round;
+      transition: stroke-dasharray 0.5s ease;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- SVG Gradient Definition for AI icon -->
+  <svg width="0" height="0" class="hidden">
+    <defs>
+      <linearGradient id="ai-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:#8B5CF6"/>
+        <stop offset="100%" style="stop-color:#3B82F6"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- Bottom Footer Bar -->
+  <div class="fixed bottom-0 left-0 right-0 h-12 bg-gray-800 flex items-center justify-between px-6 z-40">
+    <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-white text-sm">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> All Prototypes
+    </a>
+    <p class="text-sm text-gray-400">Folder Reporting — Filtered by Folder Workspaces</p>
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-1.5">
+        <span class="text-xs text-gray-400">data=</span>
+        <button id="toggle-empty" onclick="setDataMode('empty')" class="px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white">empty</button>
+        <button id="toggle-filled" onclick="setDataMode('filled')" class="px-2.5 py-1 text-xs rounded bg-gray-600 text-white">filled</button>
+      </div>
+      <a href="teams-signup-flow.html" onclick="sessionStorage.clear()" class="flex items-center gap-2 text-gray-400 hover:text-white text-sm">
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset
+      </a>
+    </div>
+  </div>
+
+  <!-- TOP BAR -->
+  <header class="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 flex items-center px-6 z-50">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <img src="assets/ctctLogo.png" alt="Constant Contact" class="w-8 h-8 object-contain">
+    </div>
+
+    <!-- Center - Search and Create -->
+    <div class="flex items-center gap-3 mx-auto">
+      <div class="relative">
+        <input type="text" placeholder="Search" class="w-48 pl-4 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent">
+        <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2"></i>
+      </div>
+      <button class="px-6 py-2 bg-ctct-blue hover:opacity-90 text-white rounded-lg font-medium text-sm">
+        Create
+      </button>
+    </div>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-3">
+      <button class="flex items-center gap-2 px-4 py-2 hover:bg-blue-50 rounded-full text-sm">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="url(#ai-gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+          <path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>
+        </svg>
+        <span class="font-medium ai-gradient-text">AI assistant</span>
+      </button>
+      
+      <button class="flex items-center gap-2 px-2 py-1 hover:bg-gray-50 rounded-lg text-sm">
+        <div class="w-6 h-6 bg-amber-800 rounded flex items-center justify-center">
+          <span class="text-amber-400 text-xs font-bold">u</span>
+        </div>
+        <span class="text-gray-700">UPS Global</span>
+        <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+      </button>
+      
+      <button class="p-2 text-gray-400 hover:text-gray-600">
+        <i data-lucide="help-circle" class="w-5 h-5"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="flex h-screen pt-16 pb-12">
+    <!-- Left Sidebar -->
+    <aside class="w-64 bg-white flex flex-col pt-3">
+      <!-- Navigation -->
+      <div class="flex-1 overflow-y-auto px-3">
+        <nav>
+          <!-- Org dashboard -->
+          <a href="option-b-northstar-empty.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Org dashboard</a>
+
+          <!-- Workspaces -->
+          <a href="workspaces-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Workspaces</a>
+
+          <!-- Campaign approval -->
+          <a href="campaign-approval.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Campaign approval</a>
+
+          <!-- Central send -->
+          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Central send</a>
+
+          <!-- Reporting (expandable) - Active -->
+          <div class="mb-1">
+            <button onclick="toggleSection('reporting')" class="w-full flex items-center justify-between py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl transition-colors focus:outline-none">
+              <span>Reporting</span>
+              <svg class="w-4 h-4 text-gray-400" id="reporting-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+            </button>
+            <div id="reporting-items" class="ml-4 mt-1">
+              <a href="#" class="block py-2.5 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl transition-colors">Campaign engagement</a>
+              <a href="#" class="block py-2.5 px-4 text-sm font-semibold text-slate-700 bg-sky-50 rounded-xl">Brand asset usage</a>
+              <a href="#" class="block py-2.5 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl transition-colors">Activity log</a>
+            </div>
+          </div>
+
+          <!-- Assets (expandable) -->
+          <div class="mb-1">
+            <button onclick="toggleSection('assets')" class="w-full flex items-center justify-between py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl transition-colors focus:outline-none">
+              <span>Assets</span>
+              <svg class="w-4 h-4 text-gray-400" id="assets-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+            </button>
+            <div id="assets-items" class="ml-4 mt-1">
+              <a href="#" class="block py-2.5 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl transition-colors">Templates</a>
+              <a href="#" class="block py-2.5 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl transition-colors">Brandkit</a>
+              <a href="#" class="block py-2.5 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl transition-colors">Image library</a>
+            </div>
+          </div>
+
+          <!-- Community -->
+          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Community</a>
+
+          <!-- Billing & settings -->
+          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl transition-colors">Billing & settings</a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto">
+      <!-- Header Section -->
+      <div class="bg-white border-b border-gray-100">
+        <!-- Breadcrumb -->
+        <div class="px-8 pt-4 pb-2">
+          <div id="breadcrumb-container" class="flex items-center gap-2 text-sm relative">
+            <!-- Breadcrumbs will be dynamically generated -->
+          </div>
+          
+          <!-- Breadcrumb overflow menu -->
+          <div id="breadcrumb-overflow-menu" class="hidden absolute left-8 top-16 w-64 bg-white border border-gray-200 rounded-xl shadow-lg z-50 py-2">
+            <div class="px-3 py-1.5 text-xs font-medium text-gray-400 uppercase tracking-wide">Navigation</div>
+            <div id="breadcrumb-overflow-items" class="max-h-64 overflow-y-auto">
+              <!-- Dynamic overflow items -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Tabs and Filters Row -->
+        <div class="px-8 pt-2 pb-0 flex items-center justify-between">
+          <div class="flex items-center gap-8">
+            <button id="tab-workspaces" onclick="switchTab('workspaces')" class="pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue">WORKSPACES</button>
+            <button id="tab-campaigns" onclick="switchTab('campaigns')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">MARKETING CAMPAIGNS</button>
+          </div>
+          <div class="flex items-center gap-3 pb-4">
+            <button class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
+              <span id="workspace-count-label">0</span> Workspaces
+            </button>
+            <button class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">1M</button>
+            <button id="filter-toggle-btn" onclick="toggleFilterBar()" class="p-2 border border-gray-200 rounded-lg text-gray-400 hover:bg-gray-50">
+              <i data-lucide="list-filter-plus" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dashboard Content -->
+      <div class="relative">
+        <!-- Filter Bar Overlay -->
+        <div id="filter-bar" class="hidden absolute top-0 left-0 right-0 z-10 bg-gray-100 px-8 py-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-gray-500">Filter by condition</span>
+              <button id="workspace-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600">1 Workspaces</button>
+              <span class="text-sm text-gray-400">AND</span>
+              <button class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600">Channel</button>
+              <span class="text-sm text-gray-400">AND</span>
+              <button class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600">Date-Range</button>
+            </div>
+            <div class="flex items-center gap-3">
+              <button class="text-sm text-gray-500 hover:text-gray-700">Reset</button>
+              <button class="px-5 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90">Apply</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- WORKSPACES TAB CONTENT -->
+        <div id="content-workspaces" class="p-8">
+          <!-- Top Row: Leaderboard + Channel Usage -->
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <!-- Workspace Leaderboard -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Workspace Leaderboard</h3>
+                  <p class="text-xs text-gray-500">Overall health by workspace</p>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600">
+                  <i data-lucide="sliders-horizontal" class="w-4 h-4"></i>
+                </button>
+              </div>
+              <div id="leaderboard-content" class="space-y-3">
+                <!-- Will be populated dynamically -->
+              </div>
+            </div>
+
+            <!-- Channel Usage + Asset Usage -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="mb-4">
+                <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Channel Usage</h3>
+                <p class="text-xs text-gray-500">Overall health by workspace</p>
+              </div>
+              <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="text-center">
+                  <p class="text-2xl font-bold text-gray-300">—</p>
+                  <p class="text-xs text-gray-500">SMS</p>
+                </div>
+                <div class="text-center">
+                  <p class="text-2xl font-bold text-gray-300">—</p>
+                  <p class="text-xs text-gray-500">Emails</p>
+                </div>
+                <div class="text-center">
+                  <p class="text-2xl font-bold text-gray-300">—</p>
+                  <p class="text-xs text-gray-500">Social</p>
+                </div>
+                <div class="text-center">
+                  <p class="text-2xl font-bold text-gray-300">—</p>
+                  <p class="text-xs text-gray-500">Autos</p>
+                </div>
+              </div>
+
+              <div class="border-t border-gray-100 pt-4">
+                <h4 class="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-3">Asset Usage</h4>
+                <div id="asset-usage-empty" class="flex items-center gap-6">
+                  <div class="w-20 h-20 rounded-full border-8 border-gray-100 flex items-center justify-center">
+                    <span class="text-xl font-bold text-gray-300">—</span>
+                  </div>
+                  <div class="text-sm text-gray-400">
+                    <p class="text-center py-4">No asset data yet</p>
+                  </div>
+                </div>
+                <div id="asset-usage-filled" class="hidden flex items-center gap-6">
+                  <!-- SVG Donut Chart -->
+                  <div class="relative w-24 h-24">
+                    <svg class="donut-chart w-24 h-24" viewBox="0 0 100 100">
+                      <defs>
+                        <linearGradient id="donut-teal" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" style="stop-color:#14B8A6"/>
+                          <stop offset="100%" style="stop-color:#0EA5E9"/>
+                        </linearGradient>
+                        <linearGradient id="donut-purple" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" style="stop-color:#8B5CF6"/>
+                          <stop offset="100%" style="stop-color:#A855F7"/>
+                        </linearGradient>
+                        <linearGradient id="donut-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+                          <stop offset="0%" style="stop-color:#3B82F6"/>
+                          <stop offset="100%" style="stop-color:#6366F1"/>
+                        </linearGradient>
+                      </defs>
+                      <circle class="donut-segment" cx="50" cy="50" r="40" stroke="#E5E7EB" stroke-width="10"/>
+                      <circle class="donut-segment" cx="50" cy="50" r="40" stroke="url(#donut-teal)" stroke-width="10" stroke-dasharray="100 151" stroke-dashoffset="0"/>
+                      <circle class="donut-segment" cx="50" cy="50" r="40" stroke="url(#donut-purple)" stroke-width="10" stroke-dasharray="75 176" stroke-dashoffset="-100"/>
+                      <circle class="donut-segment" cx="50" cy="50" r="40" stroke="url(#donut-blue)" stroke-width="10" stroke-dasharray="50 201" stroke-dashoffset="-175"/>
+                    </svg>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <span class="text-lg font-bold text-gray-700">89%</span>
+                    </div>
+                  </div>
+                  <div class="space-y-2 text-sm">
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500"></span> Templates <span class="text-gray-500 ml-auto">45%</span></div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500"></span> Brand kit <span class="text-gray-500 ml-auto">30%</span></div>
+                    <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"></span> Images <span class="text-gray-500 ml-auto">25%</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second Row: Approval Rate -->
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide mb-4">Campaign Approval Rate</h3>
+              <div class="grid grid-cols-3 gap-6">
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-gray-300">—</p>
+                  <p class="text-xs text-gray-500">Requests</p>
+                </div>
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-gray-300">—</p>
+                  <p class="text-xs text-gray-500">Approved</p>
+                </div>
+                <div class="text-center">
+                  <p class="text-3xl font-bold text-gray-300">—</p>
+                  <p class="text-xs text-gray-500">Rejected</p>
+                </div>
+              </div>
+            </div>
+            <div></div>
+          </div>
+
+          <!-- Activity Table -->
+          <div class="bg-white rounded-2xl border border-gray-100">
+            <div class="p-5 border-b border-gray-100">
+              <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Workspace Activity</h3>
+            </div>
+            
+            <!-- Table Header -->
+            <div class="grid grid-cols-8 gap-4 px-5 py-3 border-b border-gray-100 text-xs text-gray-500 uppercase tracking-wide">
+              <div class="col-span-2">Workspace</div>
+              <div class="text-center">Brand</div>
+              <div class="text-center">Templates</div>
+              <div class="text-center">Emails</div>
+              <div class="text-center">Social</div>
+              <div class="text-center">SMS</div>
+              <div class="text-center">Automations</div>
+            </div>
+
+            <!-- Table Body -->
+            <div id="workspace-activity-table">
+              <!-- Will be populated dynamically -->
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center justify-between px-5 py-4 border-t border-gray-100">
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span>Show</span>
+                <select class="border border-gray-200 rounded px-2 py-1 text-sm">
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                </select>
+              </div>
+              <div class="flex items-center gap-4 text-sm text-gray-500">
+                <span>1 / 1</span>
+                <div class="flex items-center gap-1">
+                  <button class="p-1 text-gray-300"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                  <button class="p-1 text-gray-300"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MARKETING CAMPAIGNS TAB CONTENT -->
+        <div id="content-campaigns" class="p-8 hidden">
+          <!-- Top Row: Campaign Performance + Email Performance -->
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <!-- Campaign Performance -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Campaign Performance</h3>
+                  <p class="text-xs text-gray-500">Engagement across all channels</p>
+                </div>
+                <div class="relative">
+                  <button onclick="toggleCardMenu('campaign-perf-menu')" class="p-1 hover:bg-gray-100 rounded-full">
+                    <i data-lucide="more-vertical" class="w-4 h-4 text-gray-400"></i>
+                  </button>
+                  <div id="campaign-perf-menu" class="hidden absolute right-0 top-full mt-1 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">View full report</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Export data</a>
+                  </div>
+                </div>
+              </div>
+              <div id="campaign-perf-empty" class="h-40 flex items-end justify-between px-4">
+                <div class="text-xs text-gray-400 flex flex-col justify-between h-full py-2">
+                  <span>1K</span>
+                  <span>500</span>
+                  <span>200</span>
+                  <span>100</span>
+                </div>
+                <div class="flex-1 flex items-end justify-around gap-4 h-32 border-b border-gray-100">
+                  <div class="flex flex-col items-center">
+                    <div class="w-8 h-8 bg-gray-100 rounded-t"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q1</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div class="w-8 h-12 bg-gray-100 rounded-t"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q2</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div class="w-8 h-16 bg-gray-100 rounded-t"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q3</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div class="w-8 h-10 bg-gray-100 rounded-t"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q4</span>
+                  </div>
+                </div>
+              </div>
+              <div id="campaign-perf-filled" class="h-40 hidden flex items-end justify-between px-4">
+                <div class="text-xs text-gray-400 flex flex-col justify-between h-full py-2">
+                  <span>1K</span>
+                  <span>500</span>
+                  <span>200</span>
+                  <span>100</span>
+                </div>
+                <div class="flex-1 flex items-end justify-around gap-3 h-32 border-b border-gray-100">
+                  <div class="flex flex-col items-center">
+                    <div class="chart-bar" style="height: 40px;"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q1</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div class="chart-bar-teal" style="height: 80px;"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q2</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div class="chart-bar-orange" style="height: 110px;"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q3</span>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <div class="chart-bar-green" style="height: 65px;"></div>
+                    <span class="text-xs text-gray-400 mt-2">Q4</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Performance -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Email Performance</h3>
+                  <p class="text-xs text-gray-500">Campaigns approved</p>
+                </div>
+                <div class="relative">
+                  <button onclick="toggleCardMenu('email-perf-menu')" class="p-1 hover:bg-gray-100 rounded-full">
+                    <i data-lucide="more-vertical" class="w-4 h-4 text-gray-400"></i>
+                  </button>
+                  <div id="email-perf-menu" class="hidden absolute right-0 top-full mt-1 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">View full report</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Export data</a>
+                  </div>
+                </div>
+              </div>
+              <div id="email-perf-empty" class="flex items-center gap-6">
+                <div class="w-28 h-28 rounded-full border-8 border-gray-100 flex items-center justify-center">
+                  <span class="text-2xl font-bold text-gray-300">—</span>
+                </div>
+                <div class="space-y-2 text-sm text-gray-400">
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> First time approval</div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> 2nd time approval</div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> 3rd time approval</div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> Denied</div>
+                </div>
+              </div>
+              <div id="email-perf-filled" class="hidden flex items-center gap-6">
+                <div class="relative w-28 h-28">
+                  <svg class="donut-chart w-28 h-28" viewBox="0 0 100 100">
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="#E5E7EB" stroke-width="12"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="url(#donut-teal)" stroke-width="12" stroke-dasharray="95 144" stroke-dashoffset="0"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="url(#donut-blue)" stroke-width="12" stroke-dasharray="50 189" stroke-dashoffset="-95"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="url(#donut-purple)" stroke-width="12" stroke-dasharray="45 194" stroke-dashoffset="-145"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="#F472B6" stroke-width="12" stroke-dasharray="20 219" stroke-dashoffset="-190"/>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-gray-700">94%</span>
+                    <span class="text-xs text-gray-400">approved</span>
+                  </div>
+                </div>
+                <div class="space-y-2 text-sm">
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500"></span> First time <span class="text-gray-500 ml-auto">45%</span></div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"></span> 2nd time <span class="text-gray-500 ml-auto">24%</span></div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500"></span> 3rd time <span class="text-gray-500 ml-auto">21%</span></div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-pink-400"></span> Denied <span class="text-gray-500 ml-auto">6%</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second Row: Social Engagement + Campaign Leaderboard -->
+          <div class="grid grid-cols-2 gap-6 mb-6">
+            <!-- Social Engagement -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Social Engagement</h3>
+                  <p class="text-xs text-gray-500">Template usage breakdown</p>
+                </div>
+                <div class="relative">
+                  <button onclick="toggleCardMenu('social-eng-menu')" class="p-1 hover:bg-gray-100 rounded-full">
+                    <i data-lucide="more-vertical" class="w-4 h-4 text-gray-400"></i>
+                  </button>
+                  <div id="social-eng-menu" class="hidden absolute right-0 top-full mt-1 w-40 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">View full report</a>
+                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Export data</a>
+                  </div>
+                </div>
+              </div>
+              <div id="social-eng-empty" class="flex items-center gap-6">
+                <div class="w-28 h-28 rounded-full border-8 border-gray-100 flex items-center justify-center">
+                  <span class="text-2xl font-bold text-gray-300">—</span>
+                </div>
+                <div class="space-y-2 text-sm text-gray-400">
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> eCard 2025</div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> VIP Club rewards</div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> Grand opening</div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gray-200"></span> Other</div>
+                </div>
+              </div>
+              <div id="social-eng-filled" class="hidden flex items-center gap-6">
+                <div class="relative w-28 h-28">
+                  <svg class="donut-chart w-28 h-28" viewBox="0 0 100 100">
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="#E5E7EB" stroke-width="12"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="url(#donut-teal)" stroke-width="12" stroke-dasharray="80 159" stroke-dashoffset="0"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="url(#donut-blue)" stroke-width="12" stroke-dasharray="65 174" stroke-dashoffset="-80"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="url(#donut-purple)" stroke-width="12" stroke-dasharray="45 194" stroke-dashoffset="-145"/>
+                    <circle class="donut-segment" cx="50" cy="50" r="38" stroke="#FBBF24" stroke-width="12" stroke-dasharray="30 209" stroke-dashoffset="-190"/>
+                  </svg>
+                  <div class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span class="text-xl font-bold text-gray-700">8.5k</span>
+                    <span class="text-xs text-gray-400">views</span>
+                  </div>
+                </div>
+                <div class="space-y-2 text-sm">
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-teal-500 to-cyan-500"></span> eCard 2025 <span class="text-gray-500 ml-auto">35%</span></div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500"></span> VIP Club <span class="text-gray-500 ml-auto">28%</span></div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-500 to-fuchsia-500"></span> Grand open <span class="text-gray-500 ml-auto">20%</span></div>
+                  <div class="flex items-center gap-2"><span class="w-3 h-3 rounded-full bg-yellow-400"></span> Other <span class="text-gray-500 ml-auto">17%</span></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Campaign Leaderboard -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="mb-4">
+                <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Campaign Leaderboard</h3>
+                <p class="text-xs text-gray-500">Performance by campaign</p>
+              </div>
+              <div id="campaign-leaderboard" class="space-y-4">
+                <div class="text-center py-8 text-gray-400">
+                  <p class="text-sm">No campaign data yet</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Campaign Activity Table -->
+          <div class="bg-white rounded-2xl border border-gray-100">
+            <div class="p-5 border-b border-gray-100">
+              <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Campaign Activity</h3>
+            </div>
+            
+            <!-- Table Header -->
+            <div class="grid grid-cols-8 gap-4 px-5 py-3 border-b border-gray-100 text-xs text-gray-500 uppercase tracking-wide">
+              <div class="col-span-2">Campaign</div>
+              <div class="text-center">Channel</div>
+              <div class="text-center">Click</div>
+              <div class="text-center">Views</div>
+              <div class="text-center">Bounces</div>
+              <div class="text-center">Audience</div>
+              <div class="text-center">Likes</div>
+            </div>
+
+            <!-- Table Body -->
+            <div id="campaign-activity-table">
+              <div class="px-5 py-12 text-center text-gray-400">
+                <i data-lucide="mail" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+                <p class="text-sm">No campaign activity yet</p>
+                <p class="text-xs text-gray-300 mt-1">Campaign activity will appear here once campaigns are sent</p>
+              </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="flex items-center justify-between px-5 py-4 border-t border-gray-100">
+              <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span>Show</span>
+                <select class="border border-gray-200 rounded px-2 py-1 text-sm">
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                </select>
+              </div>
+              <div class="flex items-center gap-4 text-sm text-gray-500">
+                <span>1 / 1</span>
+                <div class="flex items-center gap-1">
+                  <button class="p-1 text-gray-300"><i data-lucide="chevron-left" class="w-4 h-4"></i></button>
+                  <button class="p-1 text-gray-300"><i data-lucide="chevron-right" class="w-4 h-4"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Parse URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    let folderName = urlParams.get('folder') || sessionStorage.getItem('reportFolderName') || 'Untitled';
+    const workspacesParam = urlParams.get('workspaces');
+    
+    let workspaces = [];
+    if (workspacesParam) {
+      workspaces = workspacesParam.split(',').map(w => decodeURIComponent(w.trim())).filter(w => w);
+    } else {
+      // Fall back to sessionStorage
+      const storedWorkspaces = sessionStorage.getItem('reportWorkspaces');
+      if (storedWorkspaces) {
+        workspaces = JSON.parse(storedWorkspaces);
+      }
+    }
+    
+    // If still no workspaces, try to get from filled folders data
+    const currentDataModeInit = sessionStorage.getItem('dataMode') || 'filled';
+    if (workspaces.length === 0 && currentDataModeInit === 'filled') {
+      // Use sample data for filled state - regional folders with workspaces
+      const filledFoldersData = {
+        // US Regions
+        'UPS Northeast': ['UPS New York', 'UPS Connecticut', 'UPS Massachusetts', 'UPS New Jersey', 'UPS Pennsylvania'],
+        'UPS Southeast': ['UPS Florida', 'UPS Georgia', 'UPS North Carolina', 'UPS South Carolina', 'UPS Virginia'],
+        'UPS Southwest': ['UPS Texas', 'UPS Arizona', 'UPS New Mexico', 'UPS Oklahoma'],
+        'UPS Northwest': ['UPS Washington', 'UPS Oregon', 'UPS Idaho', 'UPS Montana'],
+        // EU Regions
+        'UPS UK & Ireland': ['UPS London', 'UPS Manchester', 'UPS Dublin', 'UPS Edinburgh'],
+        'UPS DACH': ['UPS Germany', 'UPS Austria', 'UPS Switzerland'],
+        'UPS Nordics': ['UPS Sweden', 'UPS Norway', 'UPS Denmark', 'UPS Finland'],
+        'UPS Southern Europe': ['UPS Spain', 'UPS Italy', 'UPS Portugal'],
+        // Parent Folders (aggregate all child folder workspaces)
+        'UPS US': ['UPS New York', 'UPS Connecticut', 'UPS Massachusetts', 'UPS New Jersey', 'UPS Pennsylvania', 'UPS Florida', 'UPS Georgia', 'UPS North Carolina', 'UPS South Carolina', 'UPS Virginia', 'UPS Texas', 'UPS Arizona', 'UPS New Mexico', 'UPS Oklahoma', 'UPS Washington', 'UPS Oregon', 'UPS Idaho', 'UPS Montana'],
+        'UPS EU': ['UPS London', 'UPS Manchester', 'UPS Dublin', 'UPS Edinburgh', 'UPS Germany', 'UPS Austria', 'UPS Switzerland', 'UPS Sweden', 'UPS Norway', 'UPS Denmark', 'UPS Finland', 'UPS Spain', 'UPS Italy', 'UPS Portugal']
+      };
+      if (filledFoldersData[folderName]) {
+        workspaces = filledFoldersData[folderName];
+      }
+    }
+    
+    // Render breadcrumbs with truncation (show last 2 items, ... at start for overflow)
+    function renderBreadcrumbs(path) {
+      const container = document.getElementById('breadcrumb-container');
+      const overflowMenu = document.getElementById('breadcrumb-overflow-menu');
+      const overflowItems = document.getElementById('breadcrumb-overflow-items');
+      
+      if (path.length <= 3) {
+        container.innerHTML = path.map((item, i) => {
+          const separator = i > 0 ? '<span class="text-gray-400">/</span>' : '';
+          if (item.isCurrent) {
+            if (item.isFolder) {
+              return `${separator}<span class="flex items-center gap-1.5 text-gray-900 font-medium"><i data-lucide="folder" class="w-4 h-4 text-gray-400"></i>${item.name}</span>`;
+            }
+            return `${separator}<span class="text-gray-900 font-medium">${item.name}</span>`;
+          }
+          if (item.isFolder) {
+            return `${separator}<a href="${item.href}" class="flex items-center gap-1.5 text-gray-500 hover:text-blue-600"><i data-lucide="folder" class="w-4 h-4"></i>${item.name}</a>`;
+          }
+          return `${separator}<a href="${item.href}" class="flex items-center gap-1.5 text-gray-500 hover:text-blue-600"><i data-lucide="home" class="w-4 h-4"></i>${item.name}</a>`;
+        }).join('');
+      } else {
+        const hiddenItems = path.slice(0, -2);
+        const visibleItems = path.slice(-2);
+        
+        overflowItems.innerHTML = hiddenItems.map(item => {
+          const icon = item.isFolder 
+            ? '<i data-lucide="folder" class="w-4 h-4 text-gray-400"></i>'
+            : '<i data-lucide="home" class="w-4 h-4 text-gray-400"></i>';
+          return `<a href="${item.href}" class="flex items-center gap-2.5 px-3 py-2 hover:bg-gray-50 text-sm text-gray-700">${icon}<span>${item.name}</span></a>`;
+        }).join('');
+        
+        let html = `<button onclick="toggleBreadcrumbMenu(e)" class="flex items-center gap-1 text-gray-400 hover:text-gray-600 px-1 py-0.5 rounded hover:bg-gray-100"><i data-lucide="more-horizontal" class="w-4 h-4"></i></button>`;
+        
+        visibleItems.forEach((item) => {
+          html += '<span class="text-gray-400">/</span>';
+          if (item.isCurrent) {
+            if (item.isFolder) {
+              html += `<span class="flex items-center gap-1.5 text-gray-900 font-medium"><i data-lucide="folder" class="w-4 h-4 text-gray-400"></i>${item.name}</span>`;
+            } else {
+              html += `<span class="text-gray-900 font-medium">${item.name}</span>`;
+            }
+          } else if (item.isFolder) {
+            html += `<a href="${item.href}" class="flex items-center gap-1.5 text-gray-500 hover:text-blue-600"><i data-lucide="folder" class="w-4 h-4"></i>${item.name}</a>`;
+          } else {
+            html += `<a href="${item.href}" class="text-gray-500 hover:text-gray-700">${item.name}</a>`;
+          }
+        });
+        
+        container.innerHTML = html;
+      }
+      lucide.createIcons();
+    }
+    
+    function toggleBreadcrumbMenu(e) {
+      e.stopPropagation();
+      document.getElementById('breadcrumb-overflow-menu').classList.toggle('hidden');
+      lucide.createIcons();
+    }
+    
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('breadcrumb-overflow-menu');
+      if (menu && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+    
+    // Build breadcrumb path
+    const folderUrl = `workspaces-list.html?view=grid&folder=${encodeURIComponent(folderName)}`;
+    const breadcrumbPath = [
+      { name: 'Org dashboard', href: 'option-b-northstar-empty.html', isFolder: false },
+      { name: 'Workspaces', href: 'workspaces-list.html', isFolder: false },
+      { name: folderName, href: folderUrl, isFolder: true },
+      { name: 'Reporting', href: null, isCurrent: true }
+    ];
+    renderBreadcrumbs(breadcrumbPath);
+    
+    // Update workspace count
+    document.getElementById('workspace-count-label').textContent = workspaces.length;
+    document.getElementById('workspace-filter-pill').textContent = `${workspaces.length} Workspaces`;
+    
+    // Helper functions
+    function getInitials(name) {
+      const words = name.split(' ').filter(w => w);
+      if (words.length >= 2) {
+        return (words[0][0] + words[1][0]).toUpperCase();
+      }
+      return name.substring(0, 2).toUpperCase();
+    }
+    
+    function getColor(name) {
+      const colors = ['bg-green-500', 'bg-blue-500', 'bg-purple-500', 'bg-orange-500', 'bg-teal-500', 'bg-pink-500'];
+      let hash = 0;
+      for (let i = 0; i < name.length; i++) {
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      return colors[Math.abs(hash) % colors.length];
+    }
+    
+    // Toggle section visibility
+    function toggleSection(section) {
+      const items = document.getElementById(`${section}-items`);
+      const chevron = document.getElementById(`${section}-chevron`);
+      if (items && chevron) {
+        items.classList.toggle('hidden');
+        chevron.style.transform = items.classList.contains('hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
+      }
+    }
+    
+    // Toggle card overflow menus
+    function toggleCardMenu(menuId) {
+      const menu = document.getElementById(menuId);
+      const allMenus = document.querySelectorAll('[id$="-menu"]');
+      
+      // Close all other menus
+      allMenus.forEach(m => {
+        if (m.id !== menuId && m.id.includes('-menu')) {
+          m.classList.add('hidden');
+        }
+      });
+      
+      // Toggle this menu
+      if (menu) menu.classList.toggle('hidden');
+    }
+    
+    // Close menus when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('[id$="-menu"]') && !e.target.closest('button')) {
+        document.querySelectorAll('[id$="-menu"]').forEach(m => {
+          if (m.id.includes('-menu')) m.classList.add('hidden');
+        });
+      }
+    });
+    
+    // Toggle filter bar visibility
+    function toggleFilterBar() {
+      const filterBar = document.getElementById('filter-bar');
+      const filterBtn = document.getElementById('filter-toggle-btn');
+      filterBar.classList.toggle('hidden');
+      
+      if (filterBar.classList.contains('hidden')) {
+        filterBtn.classList.remove('bg-gray-100', 'text-gray-600');
+        filterBtn.classList.add('text-gray-400');
+      } else {
+        filterBtn.classList.add('bg-gray-100', 'text-gray-600');
+        filterBtn.classList.remove('text-gray-400');
+      }
+    }
+    
+    // Switch tabs
+    function switchTab(tab) {
+      const tabWorkspaces = document.getElementById('tab-workspaces');
+      const tabCampaigns = document.getElementById('tab-campaigns');
+      const contentWorkspaces = document.getElementById('content-workspaces');
+      const contentCampaigns = document.getElementById('content-campaigns');
+      
+      if (tab === 'workspaces') {
+        tabWorkspaces.className = 'pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue';
+        tabCampaigns.className = 'pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent';
+        contentWorkspaces.classList.remove('hidden');
+        contentCampaigns.classList.add('hidden');
+      } else {
+        tabCampaigns.className = 'pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue';
+        tabWorkspaces.className = 'pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent';
+        contentCampaigns.classList.remove('hidden');
+        contentWorkspaces.classList.add('hidden');
+      }
+    }
+    
+    // Populate leaderboard with workspace placeholders
+    if (workspaces.length > 0) {
+      const leaderboardContent = document.getElementById('leaderboard-content');
+      const leaderboardRows = workspaces.slice(0, 5).map((name, index) => `
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 ${getColor(name)} rounded-full flex items-center justify-center text-white text-xs font-bold">${getInitials(name)}</div>
+            <span class="text-sm text-gray-700">${name}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-24 h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-gray-300 rounded-full" style="width: 0%"></div>
+            </div>
+            <span class="text-sm text-gray-400">—</span>
+          </div>
+        </div>
+      `).join('');
+      leaderboardContent.innerHTML = leaderboardRows;
+      
+      // Populate workspace activity table
+      const activityBody = document.getElementById('workspace-activity-table');
+      const activityRows = workspaces.map(name => `
+        <div class="grid grid-cols-8 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+          <div class="col-span-2 flex items-center gap-3">
+            <div class="w-8 h-8 ${getColor(name)} rounded-full flex items-center justify-center text-white text-xs font-bold">${getInitials(name)}</div>
+            <span class="text-sm text-gray-700">${name}</span>
+          </div>
+          <div class="text-center text-sm text-gray-400">—</div>
+          <div class="text-center text-sm text-gray-400">—</div>
+          <div class="text-center text-sm text-gray-400">—</div>
+          <div class="text-center text-sm text-gray-400">—</div>
+          <div class="text-center text-sm text-gray-400">—</div>
+          <div class="text-center text-sm text-gray-400 flex items-center justify-center">
+            <span>—</span>
+            <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300"></i>
+          </div>
+        </div>
+      `).join('');
+      activityBody.innerHTML = activityRows;
+    } else {
+      // Empty state
+      document.getElementById('leaderboard-content').innerHTML = `
+        <div class="text-center py-8 text-gray-400">
+          <p class="text-sm">No workspace data yet</p>
+        </div>
+      `;
+      document.getElementById('workspace-activity-table').innerHTML = `
+        <div class="px-5 py-12 text-center text-gray-400">
+          <i data-lucide="bar-chart-2" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+          <p class="text-sm">No activity data yet</p>
+          <p class="text-xs text-gray-300 mt-1">Activity will appear here once workspaces start sending campaigns</p>
+        </div>
+      `;
+    }
+    
+    // Data mode toggle
+    let currentDataMode = sessionStorage.getItem('dataMode') || 'filled';
+    
+    function setDataMode(mode) {
+      currentDataMode = mode;
+      sessionStorage.setItem('dataMode', mode);
+      
+      // Update toggle buttons
+      const emptyBtn = document.getElementById('toggle-empty');
+      const filledBtn = document.getElementById('toggle-filled');
+      
+      if (mode === 'empty') {
+        emptyBtn.className = 'px-2.5 py-1 text-xs rounded bg-gray-600 text-white';
+        filledBtn.className = 'px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white';
+        renderEmptyState();
+      } else {
+        filledBtn.className = 'px-2.5 py-1 text-xs rounded bg-gray-600 text-white';
+        emptyBtn.className = 'px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white';
+        renderFilledState();
+      }
+      
+      lucide.createIcons();
+    }
+    
+    function renderEmptyState() {
+      // Workspace Leaderboard - empty (UI kit style)
+      const leaderboardContent = document.getElementById('leaderboard-content');
+      if (workspaces.length > 0) {
+        leaderboardContent.innerHTML = workspaces.slice(0, 5).map(name => `
+          <div class="flex items-center gap-4 py-2">
+            <span class="text-sm text-gray-700 w-28 truncate">${name}</span>
+            <div class="flex-1 thin-progress-track">
+              <div class="thin-progress-fill" style="width: 0%; background: #E5E7EB;"></div>
+            </div>
+            <span class="text-sm text-gray-400 w-12 text-right">—</span>
+          </div>
+        `).join('');
+      }
+      
+      // Channel Usage - empty
+      document.querySelectorAll('#content-workspaces .grid-cols-4 .text-2xl').forEach(el => {
+        el.textContent = '—';
+        el.className = 'text-2xl font-bold text-gray-300';
+      });
+      
+      // Campaign Approval Rate - empty
+      document.querySelectorAll('#content-workspaces .grid-cols-3 .text-3xl').forEach(el => {
+        el.textContent = '—';
+        el.className = 'text-3xl font-bold text-gray-300';
+      });
+      
+      // Asset Usage - empty
+      const assetEmpty = document.getElementById('asset-usage-empty');
+      const assetFilled = document.getElementById('asset-usage-filled');
+      if (assetEmpty) assetEmpty.classList.remove('hidden');
+      if (assetFilled) assetFilled.classList.add('hidden');
+      
+      // Workspace Activity Table - empty
+      const activityBody = document.getElementById('workspace-activity-table');
+      if (workspaces.length > 0) {
+        activityBody.innerHTML = workspaces.map(name => `
+          <div class="grid grid-cols-8 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+            <div class="col-span-2 flex items-center gap-3">
+              <div class="w-8 h-8 ${getColor(name)} rounded-full flex items-center justify-center text-white text-xs font-bold">${getInitials(name)}</div>
+              <span class="text-sm text-gray-700">${name}</span>
+            </div>
+            <div class="text-center text-sm text-gray-400">—</div>
+            <div class="text-center text-sm text-gray-400">—</div>
+            <div class="text-center text-sm text-gray-400">—</div>
+            <div class="text-center text-sm text-gray-400">—</div>
+            <div class="text-center text-sm text-gray-400">—</div>
+            <div class="text-center text-sm text-gray-400 flex items-center justify-center">
+              <span>—</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300"></i>
+            </div>
+          </div>
+        `).join('');
+      }
+      
+      // Campaign Performance chart - empty
+      const campPerfEmpty = document.getElementById('campaign-perf-empty');
+      const campPerfFilled = document.getElementById('campaign-perf-filled');
+      if (campPerfEmpty) campPerfEmpty.classList.remove('hidden');
+      if (campPerfFilled) campPerfFilled.classList.add('hidden');
+      
+      // Email Performance donut - empty
+      const emailPerfEmpty = document.getElementById('email-perf-empty');
+      const emailPerfFilled = document.getElementById('email-perf-filled');
+      if (emailPerfEmpty) emailPerfEmpty.classList.remove('hidden');
+      if (emailPerfFilled) emailPerfFilled.classList.add('hidden');
+      
+      // Social Engagement donut - empty
+      const socialEngEmpty = document.getElementById('social-eng-empty');
+      const socialEngFilled = document.getElementById('social-eng-filled');
+      if (socialEngEmpty) socialEngEmpty.classList.remove('hidden');
+      if (socialEngFilled) socialEngFilled.classList.add('hidden');
+      
+      // Campaign tab - empty
+      document.getElementById('campaign-leaderboard').innerHTML = `
+        <div class="text-center py-8 text-gray-400">
+          <p class="text-sm">No campaign data yet</p>
+        </div>
+      `;
+      
+      document.getElementById('campaign-activity-table').innerHTML = `
+        <div class="px-5 py-12 text-center text-gray-400">
+          <i data-lucide="mail" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+          <p class="text-sm">No campaign activity yet</p>
+          <p class="text-xs text-gray-300 mt-1">Campaign activity will appear here once campaigns are sent</p>
+        </div>
+      `;
+    }
+    
+    function renderFilledState() {
+      const wsNames = workspaces.length > 0 ? workspaces : ['NJ Location', 'NY Location'];
+      const percentages = [98, 82, 65, 54, 45];
+      const progressClasses = ['progress-bar-teal', 'progress-bar-blue', 'progress-bar-purple'];
+      
+      // Workspace Leaderboard - UI kit style with thin progress bars
+      const leaderboardContent = document.getElementById('leaderboard-content');
+      const deltas = ['+0.48', '+0.32', '+0.75', '+0.21', '+0.65'];
+      leaderboardContent.innerHTML = wsNames.slice(0, 5).map((name, i) => `
+        <div class="flex items-center gap-4 py-2">
+          <span class="text-sm text-gray-700 w-28 truncate">${name}</span>
+          <div class="flex-1 thin-progress-track">
+            <div class="thin-progress-fill" style="width: ${percentages[i]}%"></div>
+          </div>
+          <span class="text-sm font-medium text-teal-500 w-12 text-right">${deltas[i]}</span>
+        </div>
+      `).join('');
+      
+      // Channel Usage - filled
+      const channelData = [3, 80, 132, 0];
+      const channelEls = document.querySelectorAll('#content-workspaces .grid-cols-4 .text-center');
+      channelEls.forEach((el, i) => {
+        if (i < 4) {
+          const valueEl = el.querySelector('.text-2xl');
+          if (valueEl) {
+            valueEl.textContent = channelData[i];
+            valueEl.className = 'text-2xl font-bold text-gray-900';
+          }
+        }
+      });
+      
+      // Campaign Approval Rate - filled
+      const approvalData = [52, 45, 7];
+      const approvalEls = document.querySelectorAll('#content-workspaces .grid-cols-3 .text-center');
+      approvalEls.forEach((el, i) => {
+        if (i < 3) {
+          const valueEl = el.querySelector('.text-3xl');
+          if (valueEl) {
+            valueEl.textContent = approvalData[i];
+            valueEl.className = 'text-3xl font-bold text-gray-900';
+          }
+        }
+      });
+      
+      // Asset Usage - filled
+      const assetEmpty = document.getElementById('asset-usage-empty');
+      const assetFilled = document.getElementById('asset-usage-filled');
+      if (assetEmpty) assetEmpty.classList.add('hidden');
+      if (assetFilled) assetFilled.classList.remove('hidden');
+      
+      // Workspace Activity Table - filled
+      const activityBody = document.getElementById('workspace-activity-table');
+      const activityData = [
+        { brand: '54%', templates: '80%', emails: '25%', social: '25%', sms: '25%', auto: '—' },
+        { brand: '—', templates: '80%', emails: '25%', social: '—', sms: '—', auto: '—' },
+      ];
+      activityBody.innerHTML = wsNames.map((name, i) => {
+        const data = activityData[i % 2];
+        return `
+          <div class="grid grid-cols-8 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+            <div class="col-span-2 flex items-center gap-3">
+              <div class="w-8 h-8 ${getColor(name)} rounded-full flex items-center justify-center text-white text-xs font-bold">${getInitials(name)}</div>
+              <span class="text-sm text-gray-700">${name}</span>
+            </div>
+            <div class="text-center text-sm ${data.brand === '—' ? 'text-gray-400' : 'text-gray-700'}">${data.brand}</div>
+            <div class="text-center text-sm text-blue-500">${data.templates}</div>
+            <div class="text-center text-sm text-gray-700">${data.emails}</div>
+            <div class="text-center text-sm ${data.social === '—' ? 'text-gray-400' : 'text-gray-700'}">${data.social}</div>
+            <div class="text-center text-sm ${data.sms === '—' ? 'text-gray-400' : 'text-gray-700'}">${data.sms}</div>
+            <div class="text-center text-sm text-gray-400 flex items-center justify-center">
+              <span>${data.auto}</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300"></i>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      // Campaign Performance chart - filled
+      const campPerfEmpty = document.getElementById('campaign-perf-empty');
+      const campPerfFilled = document.getElementById('campaign-perf-filled');
+      if (campPerfEmpty) campPerfEmpty.classList.add('hidden');
+      if (campPerfFilled) campPerfFilled.classList.remove('hidden');
+      
+      // Email Performance donut - filled
+      const emailPerfEmpty = document.getElementById('email-perf-empty');
+      const emailPerfFilled = document.getElementById('email-perf-filled');
+      if (emailPerfEmpty) emailPerfEmpty.classList.add('hidden');
+      if (emailPerfFilled) emailPerfFilled.classList.remove('hidden');
+      
+      // Social Engagement donut - filled
+      const socialEngEmpty = document.getElementById('social-eng-empty');
+      const socialEngFilled = document.getElementById('social-eng-filled');
+      if (socialEngEmpty) socialEngEmpty.classList.add('hidden');
+      if (socialEngFilled) socialEngFilled.classList.remove('hidden');
+      
+      // Campaign Leaderboard - UI kit style with ring indicators
+      const campaigns = [
+        { name: 'VIP Club rewards', count: '1280', label: 'Email opens', percent: 75, color: '#14B8A6' },
+        { name: 'Grand Opening', count: '2068', label: 'Social views', percent: 60, color: '#F59E0B' },
+        { name: 'Holiday Special', count: '2456', label: 'Click throughs', percent: 85, color: '#3B82F6' },
+      ];
+      const circumference = 2 * Math.PI * 18;
+      document.getElementById('campaign-leaderboard').innerHTML = campaigns.map(c => {
+        const dasharray = (c.percent / 100) * circumference;
+        return `
+        <div class="flex items-center gap-4 py-2">
+          <div class="relative w-12 h-12 flex-shrink-0">
+            <svg class="ring-progress w-12 h-12" viewBox="0 0 48 48">
+              <circle class="ring-track" cx="24" cy="24" r="18" stroke-width="4"/>
+              <circle class="ring-fill" cx="24" cy="24" r="18" stroke="${c.color}" stroke-width="4" stroke-dasharray="${dasharray} ${circumference}"/>
+            </svg>
+          </div>
+          <div class="flex-1">
+            <p class="text-lg font-bold text-gray-800">${c.count} <span class="text-sm font-normal text-gray-500">task</span></p>
+            <p class="text-xs text-gray-400">${c.label}</p>
+          </div>
+        </div>`;
+      }).join('');
+      
+      // Campaign Activity Table - filled
+      const campaignActivity = [
+        { name: 'VIP Club rewards', channel: 'Email', channelColor: 'text-blue-500', click: 643, views: 800, bounces: '1%', audience: '1.2k', likes: '—' },
+        { name: 'VIP Club rewards', channel: 'SMS', channelColor: 'text-green-500', click: '—', views: 20, bounces: '2%', audience: 54, likes: '—' },
+        { name: 'VIP Club rewards', channel: 'Facebook', channelColor: 'text-purple-500', click: '—', views: 343, bounces: '—', audience: '2.4k', likes: 123 },
+      ];
+      document.getElementById('campaign-activity-table').innerHTML = campaignActivity.map(c => `
+        <div class="grid grid-cols-8 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+          <div class="col-span-2 flex items-center gap-3">
+            <div class="w-10 h-10 bg-blue-50 rounded-lg flex items-center justify-center">
+              <i data-lucide="mail" class="w-5 h-5 text-blue-400"></i>
+            </div>
+            <span class="text-sm text-gray-700">${c.name}</span>
+          </div>
+          <div class="text-center text-sm ${c.channelColor}">${c.channel}</div>
+          <div class="text-center text-sm ${c.click === '—' ? 'text-gray-400' : 'text-gray-700'}">${c.click}</div>
+          <div class="text-center text-sm text-gray-700">${c.views}</div>
+          <div class="text-center text-sm ${c.bounces === '—' ? 'text-gray-400' : 'text-gray-700'}">${c.bounces}</div>
+          <div class="text-center text-sm text-gray-700">${c.audience}</div>
+          <div class="text-center text-sm ${c.likes === '—' ? 'text-gray-400' : 'text-gray-700'} flex items-center justify-center">
+            <span>${c.likes}</span>
+            <i data-lucide="chevron-right" class="w-4 h-4 ml-2 text-gray-300"></i>
+          </div>
+        </div>
+      `).join('');
+    }
+    
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Apply persisted data mode on page load
+    setDataMode(currentDataMode);
+  </script>
+</body>
+</html>

@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTCT for Teams — Workspace</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ctct: {
+              blue: '#4B7BF5',
+              'blue-light': '#EEF4FF',
+              orange: '#F5A623'
+            }
+          },
+          fontFamily: {
+            sans: ['CTSans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    body { 
+      line-height: 1.5; 
+      background: #F8F9FB; 
+    }
+    /* Modern chart styles - thin bars with blue/teal gradients */
+    .chart-bar {
+      background: linear-gradient(180deg, #14B8A6 0%, #6EE7B7 100%);
+      border-radius: 3px 3px 0 0;
+      width: 6px;
+      opacity: 0.4;
+      transition: opacity 0.2s, transform 0.2s;
+      cursor: pointer;
+      position: relative;
+    }
+    .chart-bar:hover {
+      opacity: 1;
+      transform: scaleY(1.05);
+    }
+    .chart-bar.active {
+      opacity: 1;
+    }
+    .chart-bar-teal {
+      background: linear-gradient(180deg, #14B8A6 0%, #6EE7B7 100%);
+      border-radius: 3px 3px 0 0;
+      width: 6px;
+      opacity: 0.4;
+      transition: opacity 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .chart-bar-teal:hover, .chart-bar-teal.active {
+      opacity: 1;
+    }
+    .chart-tooltip {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2937;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .chart-bar:hover .chart-tooltip,
+    .chart-bar-teal:hover .chart-tooltip {
+      opacity: 1;
+    }
+    /* Donut chart - thin stroke */
+    .donut-ring {
+      stroke-width: 3;
+      fill: none;
+    }
+    .donut-segment {
+      transition: stroke-dashoffset 0.3s;
+    }
+    .mini-donut {
+      transform: rotate(-90deg);
+    }
+    .mini-donut-segment {
+      fill: none;
+      stroke-linecap: round;
+    }
+  </style>
+</head>
+<body class="font-sans">
+  <!-- Bottom Footer Bar -->
+  <div class="fixed bottom-0 left-0 right-0 h-12 bg-gray-800 flex items-center justify-between px-6 z-40">
+    <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-white text-sm">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> All Prototypes
+    </a>
+    <p class="text-sm text-gray-400">Workspace Detail — Individual Workspace View</p>
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2 bg-gray-700 rounded-lg px-3 py-1.5">
+        <span class="text-xs text-gray-400">data=</span>
+        <button id="toggle-empty" onclick="setDataMode('empty')" class="px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white">empty</button>
+        <button id="toggle-filled" onclick="setDataMode('filled')" class="px-2.5 py-1 text-xs rounded bg-gray-600 text-white">filled</button>
+      </div>
+      <a href="teams-signup-flow.html" onclick="sessionStorage.clear()" class="flex items-center gap-2 text-gray-400 hover:text-white text-sm">
+        <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset
+      </a>
+    </div>
+  </div>
+
+  <div class="flex h-screen pb-10">
+    <!-- Left Sidebar (Workspace Nav) -->
+    <aside class="w-56 bg-white border-r border-gray-100 flex flex-col pt-6">
+      <div class="px-4 mb-6">
+        <a href="option-b-northstar-empty.html" class="flex items-center gap-2 text-gray-500 hover:text-gray-700 text-sm">
+          <i data-lucide="arrow-left" class="w-4 h-4"></i>
+          <span>Back to Org</span>
+        </a>
+      </div>
+      
+      <!-- Navigation -->
+      <div class="flex-1 overflow-y-auto px-3">
+        <nav>
+          <!-- Campaigns -->
+          <a id="campaigns-link" href="campaigns-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">
+            Campaigns
+          </a>
+          
+          <!-- Channels (expandable) -->
+          <button onclick="toggleSection('channels')" class="w-full flex items-center justify-between py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors focus:outline-none">
+            <span>Channels</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400" id="channels-chevron"></i>
+          </button>
+          <div id="channels-items" class="ml-4 hidden">
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Email</a>
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">SMS</a>
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Social</a>
+          </div>
+          
+          <!-- Audience (expandable) -->
+          <button onclick="toggleSection('audience')" class="w-full flex items-center justify-between py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors focus:outline-none">
+            <span>Audience</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400" id="audience-chevron"></i>
+          </button>
+          <div id="audience-items" class="ml-4 hidden">
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Contacts</a>
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Lists</a>
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Segments</a>
+          </div>
+          
+          <!-- Assets (expandable) -->
+          <button onclick="toggleSection('assets')" class="w-full flex items-center justify-between py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors focus:outline-none">
+            <span>Assets</span>
+            <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400" id="assets-chevron"></i>
+          </button>
+          <div id="assets-items" class="ml-4 hidden">
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Templates</a>
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Images</a>
+            <a href="#" class="block py-2 px-4 text-sm text-slate-500 hover:bg-sky-50 rounded-xl">Brand kit</a>
+          </div>
+          
+          <!-- Reporting -->
+          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">
+            Reporting
+          </a>
+          
+          <!-- Automations -->
+          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">
+            Automations
+          </a>
+          
+          <!-- Integrations -->
+          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">
+            Integrations
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto">
+      <!-- Header Bar -->
+      <div class="bg-white border-b border-gray-100 px-8 py-4">
+        <div class="flex items-center justify-between">
+          <!-- Breadcrumbs -->
+          <div id="breadcrumb-container" class="flex items-center gap-2 text-sm relative">
+            <!-- Breadcrumbs will be dynamically generated -->
+          </div>
+          
+          <!-- Breadcrumb overflow menu -->
+          <div id="breadcrumb-overflow-menu" class="hidden absolute left-8 top-16 w-64 bg-white border border-gray-200 rounded-xl shadow-lg z-50 py-2">
+            <div class="px-3 py-1.5 text-xs font-medium text-gray-400 uppercase tracking-wide">Navigation</div>
+            <div id="breadcrumb-overflow-items" class="max-h-64 overflow-y-auto">
+              <!-- Dynamic overflow items -->
+            </div>
+          </div>
+          <div class="flex items-center gap-4">
+            <a id="view-report-link" href="#" class="flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors">
+              <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+              View full report
+            </a>
+            <button class="px-5 py-2 bg-ctct-blue text-white rounded-full text-sm font-medium hover:opacity-90">
+              Share
+            </button>
+            <div class="flex items-center -space-x-2">
+              <img src="https://i.pravatar.cc/32?img=1" class="w-8 h-8 rounded-full border-2 border-white">
+              <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">JS</div>
+              <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">GF</div>
+              <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-gray-600 text-xs">+2</div>
+            </div>
+            <button class="p-2 text-gray-400 hover:text-gray-600">
+              <i data-lucide="settings" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="p-8">
+        <!-- Metrics Row -->
+        <div class="grid grid-cols-3 gap-5 mb-6">
+          <!-- Email Engagement Widget -->
+          <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm text-gray-500">Email engagement</h3>
+              <div class="relative">
+                <button onclick="toggleCardMenu('email-menu')" class="p-1 hover:bg-gray-100 rounded-full">
+                  <i data-lucide="more-vertical" class="w-4 h-4 text-gray-400"></i>
+                </button>
+                <div id="email-menu" class="hidden absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
+                  <button onclick="openWidgetCustomize('email')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="settings-2" class="w-4 h-4"></i>
+                    Customize
+                  </button>
+                  <a id="email-report-link" href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    View full report
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Mini bar chart -->
+            <div id="ws-email-chart-empty" class="flex items-end gap-1 h-16 mb-4">
+              <div class="flex-1 h-3 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-5 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-4 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-6 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-5 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-8 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-6 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-4 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-7 bg-gray-100 rounded-t"></div>
+              <div class="flex-1 h-5 bg-gray-100 rounded-t"></div>
+            </div>
+            <div id="ws-email-chart-filled" class="hidden flex items-end justify-around h-16 mb-4 px-1">
+              <div class="chart-bar" style="height: 24px;" title="Jul"><span class="chart-tooltip">Jul: 1.2k sends</span></div>
+              <div class="chart-bar" style="height: 40px;" title="Aug"><span class="chart-tooltip">Aug: 1.8k sends</span></div>
+              <div class="chart-bar" style="height: 32px;" title="Sep"><span class="chart-tooltip">Sep: 1.5k sends</span></div>
+              <div class="chart-bar" style="height: 48px;" title="Oct"><span class="chart-tooltip">Oct: 2.1k sends</span></div>
+              <div class="chart-bar" style="height: 36px;" title="Nov"><span class="chart-tooltip">Nov: 1.6k sends</span></div>
+              <div class="chart-bar active" style="height: 64px;" title="Dec"><span class="chart-tooltip">Dec: 2.4k sends (current)</span></div>
+            </div>
+            <div class="grid grid-cols-4 gap-2">
+              <div>
+                <p id="metric-sends" class="text-lg font-semibold text-gray-300">—</p>
+                <p class="text-xs text-gray-400">Sends</p>
+              </div>
+              <div>
+                <p id="metric-opens" class="text-lg font-semibold text-gray-300">—</p>
+                <p class="text-xs text-gray-400">Opens</p>
+              </div>
+              <div>
+                <p id="metric-clicks" class="text-lg font-semibold text-gray-300">—</p>
+                <p class="text-xs text-gray-400">Clicks</p>
+              </div>
+              <div>
+                <p id="metric-bounces" class="text-lg font-semibold text-gray-300">—</p>
+                <p class="text-xs text-gray-400">Bounces</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contacts Widget -->
+          <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm text-gray-500">Contacts</h3>
+              <div class="relative">
+                <button onclick="toggleCardMenu('contacts-menu')" class="p-1 hover:bg-gray-100 rounded-full">
+                  <i data-lucide="more-vertical" class="w-4 h-4 text-gray-400"></i>
+                </button>
+                <div id="contacts-menu" class="hidden absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
+                  <button onclick="openWidgetCustomize('contacts')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="settings-2" class="w-4 h-4"></i>
+                    Customize
+                  </button>
+                  <a id="contacts-report-link" href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    View full report
+                  </a>
+                </div>
+              </div>
+            </div>
+            <!-- Mini line chart -->
+            <div id="ws-contact-chart-empty" class="h-16 mb-3">
+              <svg class="w-full h-16" viewBox="0 0 200 60" preserveAspectRatio="none">
+                <path d="M0,45 Q50,40 100,42 T200,48" stroke="#E5E7EB" stroke-width="2" fill="none" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div id="ws-contact-chart-filled" class="hidden h-16 mb-3 relative group">
+              <svg class="w-full h-16" viewBox="0 0 200 60" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="ws-line-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" style="stop-color:#14B8A6"/>
+                    <stop offset="100%" style="stop-color:#0EA5E9"/>
+                  </linearGradient>
+                  <linearGradient id="ws-area-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                    <stop offset="0%" style="stop-color:#14B8A6;stop-opacity:0.15"/>
+                    <stop offset="100%" style="stop-color:#14B8A6;stop-opacity:0"/>
+                  </linearGradient>
+                </defs>
+                <path d="M0,45 Q25,40 50,35 T100,25 T150,18 T200,10 L200,60 L0,60 Z" fill="url(#ws-area-grad)"/>
+                <path d="M0,45 Q25,40 50,35 T100,25 T150,18 T200,10" stroke="url(#ws-line-grad)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Data points with hover -->
+                <circle cx="0" cy="45" r="3" fill="#14B8A6" opacity="0.4" class="cursor-pointer hover:opacity-100"/>
+                <circle cx="40" cy="38" r="3" fill="#14B8A6" opacity="0.4" class="cursor-pointer hover:opacity-100"/>
+                <circle cx="80" cy="30" r="3" fill="#14B8A6" opacity="0.4" class="cursor-pointer hover:opacity-100"/>
+                <circle cx="120" cy="22" r="3" fill="#14B8A6" opacity="0.4" class="cursor-pointer hover:opacity-100"/>
+                <circle cx="160" cy="16" r="3" fill="#14B8A6" opacity="0.4" class="cursor-pointer hover:opacity-100"/>
+                <circle cx="200" cy="10" r="5" fill="#0EA5E9" stroke="white" stroke-width="2"/><!-- Active point -->
+              </svg>
+              <div class="absolute top-0 right-0 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                Dec: 1,247 (+82)
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p id="metric-contacts" class="text-2xl font-semibold text-gray-300">—</p>
+                <p class="text-xs text-gray-400">Total contacts</p>
+              </div>
+              <div id="ws-contact-growth" class="hidden">
+                <span class="text-xs text-teal-600 bg-teal-50 px-2 py-1 rounded-full flex items-center gap-1">
+                  <i data-lucide="arrow-up-right" class="w-3 h-3"></i>
+                  <span id="metric-new-contacts">+0</span> this month
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social Engagement Widget -->
+          <div class="bg-white rounded-2xl border border-gray-100 p-5 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm text-gray-500">Social engagement</h3>
+              <div class="relative">
+                <button onclick="toggleCardMenu('social-menu')" class="p-1 hover:bg-gray-100 rounded-full">
+                  <i data-lucide="more-vertical" class="w-4 h-4 text-gray-400"></i>
+                </button>
+                <div id="social-menu" class="hidden absolute right-0 top-full mt-1 w-44 bg-white rounded-xl shadow-lg border border-gray-100 py-1 z-20">
+                  <button onclick="openWidgetCustomize('social')" class="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="settings-2" class="w-4 h-4"></i>
+                    Customize
+                  </button>
+                  <a id="social-report-link" href="#" class="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                    <i data-lucide="bar-chart-2" class="w-4 h-4"></i>
+                    View full report
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <!-- Mini donut chart -->
+              <div id="ws-social-chart-empty" class="relative w-20 h-20 flex-shrink-0">
+                <svg class="mini-donut w-20 h-20" viewBox="0 0 80 80">
+                  <circle cx="40" cy="40" r="30" fill="none" stroke="#E5E7EB" stroke-width="10" stroke-linecap="round"/>
+                </svg>
+                <span class="absolute inset-0 flex items-center justify-center text-lg font-bold text-gray-300">—</span>
+              </div>
+              <div id="ws-social-chart-filled" class="hidden relative w-24 h-24 flex-shrink-0 group cursor-pointer">
+                <svg class="mini-donut w-24 h-24" viewBox="0 0 96 96">
+                  <defs>
+                    <linearGradient id="ws-social-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" style="stop-color:#F59E0B"/>
+                      <stop offset="100%" style="stop-color:#FBBF24"/>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="48" cy="48" r="38" fill="none" stroke="#E5E7EB" stroke-width="5"/>
+                  <circle class="mini-donut-segment" cx="48" cy="48" r="38" stroke="url(#ws-social-grad)" stroke-width="5" stroke-dasharray="182 57" stroke-linecap="round" transform="rotate(-90 48 48)"/>
+                </svg>
+                <span class="absolute inset-0 flex items-center justify-center text-lg font-semibold text-gray-700">76%</span>
+                <div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                  8.5k views • 324 likes
+                </div>
+              </div>
+              <div class="flex-1 grid grid-cols-2 gap-3">
+                <div>
+                  <p id="metric-views" class="text-lg font-semibold text-gray-300">—</p>
+                  <p class="text-xs text-gray-400">Views</p>
+                </div>
+                <div>
+                  <p id="metric-likes" class="text-lg font-semibold text-gray-300">—</p>
+                  <p class="text-xs text-gray-400">Likes</p>
+                </div>
+                <div>
+                  <p id="metric-shares" class="text-lg font-semibold text-gray-300">—</p>
+                  <p class="text-xs text-gray-400">Shares</p>
+                </div>
+                <div>
+                  <p id="metric-comments" class="text-lg font-semibold text-gray-300">—</p>
+                  <p class="text-xs text-gray-400">Comments</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-6">
+          <!-- Left Column -->
+          <div class="col-span-2 space-y-6">
+            <!-- Upcoming Campaigns -->
+            <div class="bg-white rounded-2xl border border-gray-100 p-5">
+              <h3 class="text-sm font-medium text-gray-700 mb-4">Upcoming campaigns</h3>
+              
+              <!-- Calendar -->
+              <div class="flex gap-8">
+                <div class="flex-1">
+                  <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2">
+                    <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                  </div>
+                  <div class="grid grid-cols-7 gap-1 text-center text-sm">
+                    <span class="py-1.5 text-gray-300"></span>
+                    <span class="py-1.5 text-gray-400">1</span>
+                    <span class="py-1.5 text-gray-400">2</span>
+                    <span class="py-1.5 w-7 h-7 mx-auto rounded-full bg-ctct-blue text-white flex items-center justify-center">3</span>
+                    <span class="py-1.5 text-gray-400">4</span>
+                    <span class="py-1.5 text-gray-400">5</span>
+                    <span class="py-1.5 text-gray-300">6</span>
+                    <span class="py-1.5 text-gray-300">7</span>
+                    <span class="py-1.5 text-gray-400">8</span>
+                    <span class="py-1.5 text-gray-400">9</span>
+                    <span class="py-1.5 text-gray-400">10</span>
+                    <span class="py-1.5 text-gray-400">11</span>
+                    <span class="py-1.5 text-gray-400">12</span>
+                    <span class="py-1.5 text-gray-300">13</span>
+                    <span class="py-1.5 text-gray-300">14</span>
+                    <span class="py-1.5 text-gray-400">15</span>
+                    <span class="py-1.5 w-7 h-7 mx-auto rounded-full bg-green-400 text-white flex items-center justify-center">16</span>
+                    <span class="py-1.5 w-7 h-7 mx-auto rounded-full bg-green-400 text-white flex items-center justify-center">17</span>
+                    <span class="py-1.5 w-7 h-7 mx-auto rounded-full bg-green-400 text-white flex items-center justify-center">18</span>
+                    <span class="py-1.5 w-7 h-7 mx-auto rounded-full bg-ctct-blue text-white flex items-center justify-center">19</span>
+                    <span class="py-1.5 text-gray-300">20</span>
+                    <span class="py-1.5 w-7 h-7 mx-auto rounded-full bg-gray-200 text-gray-600 flex items-center justify-center">21</span>
+                    <span class="py-1.5 w-7 h-7 mx-auto rounded-full bg-gray-200 text-gray-600 flex items-center justify-center">22</span>
+                    <span class="py-1.5 text-gray-400">23</span>
+                    <span class="py-1.5 text-gray-400">24</span>
+                    <span class="py-1.5 text-gray-400">25</span>
+                    <span class="py-1.5 text-gray-400">26</span>
+                    <span class="py-1.5 text-gray-300">27</span>
+                    <span class="py-1.5 text-gray-300">28</span>
+                    <span class="py-1.5 text-gray-400">29</span>
+                    <span class="py-1.5 text-gray-400">30</span>
+                    <span class="py-1.5 text-gray-400">31</span>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2 text-sm">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-green-400"></span>
+                    <span class="text-gray-600">Emails</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-purple-300"></span>
+                    <span class="text-gray-600">SMS</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-ctct-blue"></span>
+                    <span class="text-gray-600">Social</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Brand Assets -->
+            <div id="brand-widget" class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-medium text-gray-700">Brand</h3>
+                  <span id="brand-count" class="text-sm text-gray-400">—</span>
+                </div>
+                <a href="#" class="text-xs text-blue-600 hover:text-blue-700 font-medium">Manage</a>
+              </div>
+              
+              <!-- Empty state -->
+              <div id="brand-empty" class="text-center py-8 text-gray-400">
+                <i data-lucide="palette" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+                <p class="text-sm">No brand assets yet</p>
+              </div>
+              
+              <!-- Filled state -->
+              <div id="brand-filled" class="hidden space-y-4">
+                <!-- Brand colors -->
+                <div>
+                  <p class="text-xs text-gray-400 mb-2">Colors</p>
+                  <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-lg shadow-sm border border-gray-200" style="background-color: #351c75;"></div>
+                    <div class="w-8 h-8 rounded-lg shadow-sm border border-gray-200" style="background-color: #4a90d9;"></div>
+                    <div class="w-8 h-8 rounded-lg shadow-sm border border-gray-200" style="background-color: #e67e22;"></div>
+                    <div class="w-8 h-8 rounded-lg shadow-sm border border-gray-200" style="background-color: #f5f5f5;"></div>
+                    <span class="text-xs text-gray-400">+2</span>
+                  </div>
+                </div>
+                
+                <!-- Logo -->
+                <div>
+                  <p class="text-xs text-gray-400 mb-2">Logo</p>
+                  <div class="flex items-center gap-3">
+                    <div class="w-16 h-10 bg-gray-900 rounded-lg flex items-center justify-center p-2">
+                      <img src="assets/upsLogo.png" class="max-w-full max-h-full object-contain filter brightness-0 invert">
+                    </div>
+                    <div class="w-16 h-10 bg-white rounded-lg border border-gray-200 flex items-center justify-center p-2">
+                      <img src="assets/upsLogo.png" class="max-w-full max-h-full object-contain">
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Templates -->
+                <div>
+                  <p class="text-xs text-gray-400 mb-2">Templates</p>
+                  <div class="flex items-center gap-2">
+                    <div class="w-12 h-16 bg-gradient-to-b from-purple-100 to-purple-50 rounded-lg border border-gray-200 flex items-center justify-center">
+                      <i data-lucide="mail" class="w-4 h-4 text-purple-400"></i>
+                    </div>
+                    <div class="w-12 h-16 bg-gradient-to-b from-blue-100 to-blue-50 rounded-lg border border-gray-200 flex items-center justify-center">
+                      <i data-lucide="mail" class="w-4 h-4 text-blue-400"></i>
+                    </div>
+                    <div class="w-12 h-16 bg-gradient-to-b from-teal-100 to-teal-50 rounded-lg border border-gray-200 flex items-center justify-center">
+                      <i data-lucide="mail" class="w-4 h-4 text-teal-400"></i>
+                    </div>
+                    <span class="text-xs text-gray-400">+4</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="space-y-6">
+            <!-- Recent Campaigns -->
+            <div id="recent-campaigns-widget" class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="flex items-center justify-between mb-4">
+                <div class="flex items-center gap-2">
+                  <h3 class="text-sm font-medium text-gray-700">Recent campaigns</h3>
+                  <span id="recent-campaigns-count" class="text-sm text-gray-400">—</span>
+                </div>
+                <div class="flex items-center gap-1 text-xs text-gray-400">
+                  <button class="p-1 hover:bg-gray-100 rounded"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
+                  <span>—</span>
+                  <button class="p-1 hover:bg-gray-100 rounded"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+                </div>
+              </div>
+              
+              <!-- Empty state -->
+              <div id="recent-campaigns-empty" class="text-center py-8 text-gray-400">
+                <i data-lucide="mail" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+                <p class="text-sm">No campaigns yet</p>
+              </div>
+              <!-- Filled state (hidden by default) -->
+              <div id="recent-campaigns-filled" class="space-y-3 hidden">
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                    <span class="text-sm text-gray-700">Holiday Newsletter</span>
+                  </div>
+                  <span class="text-xs text-gray-400">2 days ago</span>
+                </div>
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-blue-400"></span>
+                    <span class="text-sm text-gray-700">New Year Promo</span>
+                  </div>
+                  <span class="text-xs text-gray-400">5 days ago</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Drafts -->
+            <div id="drafts-widget" class="bg-white rounded-2xl border border-gray-100 p-5">
+              <div class="flex items-center gap-2 mb-4">
+                <h3 class="text-sm font-medium text-gray-700">Drafts</h3>
+                <span id="drafts-count" class="text-sm text-gray-400">—</span>
+              </div>
+              
+              <!-- Empty state -->
+              <div id="drafts-empty" class="text-center py-8 text-gray-400">
+                <i data-lucide="file-text" class="w-8 h-8 mx-auto mb-2 opacity-50"></i>
+                <p class="text-sm">No drafts yet</p>
+              </div>
+              <!-- Filled state (hidden by default) -->
+              <div id="drafts-filled" class="space-y-3 hidden">
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                  <span class="text-sm text-gray-700">Welcome Series Email</span>
+                  <span class="text-xs text-gray-400">Draft</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Get workspace name from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const workspaceName = urlParams.get('workspace') || 'Workspace';
+    const folderName = urlParams.get('folder');
+    
+    // Update title
+    document.title = `CTCT for Teams — ${workspaceName}`;
+    
+    // Render breadcrumbs with truncation (show last 2 items, ... at start for overflow)
+    function renderBreadcrumbs(path) {
+      const container = document.getElementById('breadcrumb-container');
+      const overflowMenu = document.getElementById('breadcrumb-overflow-menu');
+      const overflowItems = document.getElementById('breadcrumb-overflow-items');
+      
+      if (path.length <= 3) {
+        container.innerHTML = path.map((item, i) => {
+          const separator = i > 0 ? '<span class="text-gray-400">/</span>' : '';
+          if (item.isCurrent) {
+            return `${separator}<span class="text-gray-900 font-medium">${item.name}</span>`;
+          }
+          if (item.isFolder) {
+            return `${separator}<a href="${item.href}" class="flex items-center gap-1.5 text-gray-500 hover:text-blue-600"><i data-lucide="folder" class="w-4 h-4"></i>${item.name}</a>`;
+          }
+          return `${separator}<a href="${item.href}" class="text-gray-500 hover:text-gray-700">${item.name}</a>`;
+        }).join('');
+      } else {
+        const hiddenItems = path.slice(0, -2);
+        const visibleItems = path.slice(-2);
+        
+        overflowItems.innerHTML = hiddenItems.map(item => {
+          const icon = item.isFolder 
+            ? '<i data-lucide="folder" class="w-4 h-4 text-gray-400"></i>'
+            : '<i data-lucide="home" class="w-4 h-4 text-gray-400"></i>';
+          return `<a href="${item.href}" class="flex items-center gap-2.5 px-3 py-2 hover:bg-gray-50 text-sm text-gray-700">${icon}<span>${item.name}</span></a>`;
+        }).join('');
+        
+        let html = `<button onclick="toggleBreadcrumbMenu(event)" class="flex items-center gap-1 text-gray-400 hover:text-gray-600 px-1 py-0.5 rounded hover:bg-gray-100"><i data-lucide="more-horizontal" class="w-4 h-4"></i></button>`;
+        
+        visibleItems.forEach((item) => {
+          html += '<span class="text-gray-400">/</span>';
+          if (item.isCurrent) {
+            html += `<span class="text-gray-900 font-medium">${item.name}</span>`;
+          } else if (item.isFolder) {
+            html += `<a href="${item.href}" class="flex items-center gap-1.5 text-gray-500 hover:text-blue-600"><i data-lucide="folder" class="w-4 h-4"></i>${item.name}</a>`;
+          } else {
+            html += `<a href="${item.href}" class="text-gray-500 hover:text-gray-700">${item.name}</a>`;
+          }
+        });
+        
+        container.innerHTML = html;
+      }
+      lucide.createIcons();
+    }
+    
+    function toggleBreadcrumbMenu(e) {
+      e.stopPropagation();
+      document.getElementById('breadcrumb-overflow-menu').classList.toggle('hidden');
+      lucide.createIcons();
+    }
+    
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('breadcrumb-overflow-menu');
+      if (menu && !menu.contains(e.target)) {
+        menu.classList.add('hidden');
+      }
+    });
+    
+    // Build breadcrumb path
+    const breadcrumbPath = [
+      { name: 'Org dashboard', href: 'option-b-northstar-empty.html', isFolder: false },
+      { name: 'Workspaces', href: 'workspaces-list.html', isFolder: false }
+    ];
+    
+    // Set up breadcrumbs and navigation links
+    if (folderName) {
+      const folderUrl = `workspaces-list.html?view=grid&folder=${encodeURIComponent(folderName)}`;
+      breadcrumbPath.push({ name: folderName, href: folderUrl, isFolder: true });
+      // Set report link with workspace filter
+      document.getElementById('view-report-link').href = `workspace-reporting.html?workspace=${encodeURIComponent(workspaceName)}&folder=${encodeURIComponent(folderName)}`;
+      // Set campaigns link with workspace context
+      document.getElementById('campaigns-link').href = `campaigns-list.html?workspace=${encodeURIComponent(workspaceName)}&folder=${encodeURIComponent(folderName)}`;
+    } else {
+      // Set campaigns link with workspace context (no folder)
+      document.getElementById('campaigns-link').href = `campaigns-list.html?workspace=${encodeURIComponent(workspaceName)}`;
+      // Set report link with just workspace filter
+      document.getElementById('view-report-link').href = `workspace-reporting.html?workspace=${encodeURIComponent(workspaceName)}`;
+    }
+    
+    // Add current workspace (not a link)
+    breadcrumbPath.push({ name: workspaceName, href: null, isCurrent: true });
+    renderBreadcrumbs(breadcrumbPath);
+    
+    // Toggle expandable sections
+    function toggleSection(section) {
+      const items = document.getElementById(section + '-items');
+      const chevron = document.getElementById(section + '-chevron');
+      
+      if (items.classList.contains('hidden')) {
+        items.classList.remove('hidden');
+        chevron.style.transform = 'rotate(180deg)';
+      } else {
+        items.classList.add('hidden');
+        chevron.style.transform = 'rotate(0deg)';
+      }
+    }
+    
+    // Toggle card overflow menus
+    function toggleCardMenu(menuId) {
+      const menu = document.getElementById(menuId);
+      const allMenus = document.querySelectorAll('[id$="-menu"]');
+      
+      // Close all other menus
+      allMenus.forEach(m => {
+        if (m.id !== menuId) {
+          m.classList.add('hidden');
+        }
+      });
+      
+      // Toggle this menu
+      menu.classList.toggle('hidden');
+    }
+    
+    // Open widget customize dialog (placeholder)
+    function openWidgetCustomize(widgetType) {
+      // Close menu
+      document.querySelectorAll('[id$="-menu"]').forEach(m => m.classList.add('hidden'));
+      alert(`Customize ${widgetType} widget settings coming soon!`);
+    }
+    
+    // Set up report links with workspace context
+    function setupReportLinks() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const workspace = urlParams.get('workspace') || '';
+      const folder = urlParams.get('folder') || '';
+      
+      const baseUrl = 'workspace-reporting.html';
+      const params = new URLSearchParams();
+      if (workspace) params.set('workspace', workspace);
+      if (folder) params.set('folder', folder);
+      
+      // Email report link
+      const emailLink = document.getElementById('email-report-link');
+      if (emailLink) {
+        const emailParams = new URLSearchParams(params);
+        emailParams.set('channel', 'email');
+        emailLink.href = `${baseUrl}?${emailParams.toString()}`;
+      }
+      
+      // Contacts report link
+      const contactsLink = document.getElementById('contacts-report-link');
+      if (contactsLink) {
+        const contactsParams = new URLSearchParams(params);
+        contactsParams.set('channel', 'contacts');
+        contactsLink.href = `${baseUrl}?${contactsParams.toString()}`;
+      }
+      
+      // Social report link
+      const socialLink = document.getElementById('social-report-link');
+      if (socialLink) {
+        const socialParams = new URLSearchParams(params);
+        socialParams.set('channel', 'social');
+        socialLink.href = `${baseUrl}?${socialParams.toString()}`;
+      }
+    }
+    
+    // Call on page load
+    setupReportLinks();
+    
+    // Close menus when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('[id$="-menu"]') && !e.target.closest('button')) {
+        document.querySelectorAll('[id$="-menu"]').forEach(m => m.classList.add('hidden'));
+      }
+    });
+    
+    // Initialize Lucide icons
+    lucide.createIcons();
+
+    // Data mode toggle
+    let currentDataMode = sessionStorage.getItem('dataMode') || 'filled';
+    
+    function setDataMode(mode) {
+      currentDataMode = mode;
+      sessionStorage.setItem('dataMode', mode);
+      
+      const emptyBtn = document.getElementById('toggle-empty');
+      const filledBtn = document.getElementById('toggle-filled');
+      
+      if (mode === 'empty') {
+        emptyBtn.className = 'px-2.5 py-1 text-xs rounded bg-gray-600 text-white';
+        filledBtn.className = 'px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white';
+        renderEmptyState();
+      } else {
+        filledBtn.className = 'px-2.5 py-1 text-xs rounded bg-gray-600 text-white';
+        emptyBtn.className = 'px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white';
+        renderFilledState();
+      }
+      lucide.createIcons();
+    }
+    
+    function updateMetric(id, value, isEmpty) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.textContent = value;
+        if (isEmpty) {
+          el.classList.remove('text-gray-900');
+          el.classList.add('text-gray-300');
+        } else {
+          el.classList.remove('text-gray-300');
+          el.classList.add('text-gray-900');
+        }
+      }
+    }
+    
+    function renderEmptyState() {
+      // Email chart toggle
+      const wsEmailEmpty = document.getElementById('ws-email-chart-empty');
+      const wsEmailFilled = document.getElementById('ws-email-chart-filled');
+      if (wsEmailEmpty) wsEmailEmpty.classList.remove('hidden');
+      if (wsEmailFilled) wsEmailFilled.classList.add('hidden');
+      
+      // Email metrics
+      updateMetric('metric-sends', '—', true);
+      updateMetric('metric-opens', '—', true);
+      updateMetric('metric-clicks', '—', true);
+      updateMetric('metric-bounces', '—', true);
+      
+      // Contact chart toggle
+      const wsContactEmpty = document.getElementById('ws-contact-chart-empty');
+      const wsContactFilled = document.getElementById('ws-contact-chart-filled');
+      const wsContactGrowth = document.getElementById('ws-contact-growth');
+      if (wsContactEmpty) wsContactEmpty.classList.remove('hidden');
+      if (wsContactFilled) wsContactFilled.classList.add('hidden');
+      if (wsContactGrowth) wsContactGrowth.classList.add('hidden');
+      
+      // Contacts metrics
+      updateMetric('metric-contacts', '—', true);
+      updateMetric('metric-new-contacts', '—', true);
+      
+      // Social chart toggle
+      const wsSocialEmpty = document.getElementById('ws-social-chart-empty');
+      const wsSocialFilled = document.getElementById('ws-social-chart-filled');
+      if (wsSocialEmpty) wsSocialEmpty.classList.remove('hidden');
+      if (wsSocialFilled) wsSocialFilled.classList.add('hidden');
+      
+      // Social metrics
+      updateMetric('metric-views', '—', true);
+      updateMetric('metric-likes', '—', true);
+      updateMetric('metric-shares', '—', true);
+      updateMetric('metric-comments', '—', true);
+      
+      // Recent campaigns
+      document.getElementById('recent-campaigns-count').textContent = '—';
+      document.getElementById('recent-campaigns-empty').classList.remove('hidden');
+      document.getElementById('recent-campaigns-filled').classList.add('hidden');
+      
+      // Drafts
+      document.getElementById('drafts-count').textContent = '—';
+      document.getElementById('drafts-empty').classList.remove('hidden');
+      document.getElementById('drafts-filled').classList.add('hidden');
+      
+      // Brand
+      const brandCount = document.getElementById('brand-count');
+      const brandEmpty = document.getElementById('brand-empty');
+      const brandFilled = document.getElementById('brand-filled');
+      if (brandCount) brandCount.textContent = '—';
+      if (brandEmpty) brandEmpty.classList.remove('hidden');
+      if (brandFilled) brandFilled.classList.add('hidden');
+    }
+    
+    function renderFilledState() {
+      // Email chart toggle
+      const wsEmailEmpty = document.getElementById('ws-email-chart-empty');
+      const wsEmailFilled = document.getElementById('ws-email-chart-filled');
+      if (wsEmailEmpty) wsEmailEmpty.classList.add('hidden');
+      if (wsEmailFilled) wsEmailFilled.classList.remove('hidden');
+      
+      // Email metrics
+      updateMetric('metric-sends', '2.4k', false);
+      updateMetric('metric-opens', '74%', false);
+      updateMetric('metric-clicks', '18%', false);
+      updateMetric('metric-bounces', '0.2%', false);
+      
+      // Contact chart toggle
+      const wsContactEmpty = document.getElementById('ws-contact-chart-empty');
+      const wsContactFilled = document.getElementById('ws-contact-chart-filled');
+      const wsContactGrowth = document.getElementById('ws-contact-growth');
+      if (wsContactEmpty) wsContactEmpty.classList.add('hidden');
+      if (wsContactFilled) wsContactFilled.classList.remove('hidden');
+      if (wsContactGrowth) wsContactGrowth.classList.remove('hidden');
+      
+      // Contacts metrics
+      updateMetric('metric-contacts', '1,247', false);
+      updateMetric('metric-new-contacts', '+82', false);
+      
+      // Social chart toggle
+      const wsSocialEmpty = document.getElementById('ws-social-chart-empty');
+      const wsSocialFilled = document.getElementById('ws-social-chart-filled');
+      if (wsSocialEmpty) wsSocialEmpty.classList.add('hidden');
+      if (wsSocialFilled) wsSocialFilled.classList.remove('hidden');
+      
+      // Social metrics
+      updateMetric('metric-views', '8.5k', false);
+      updateMetric('metric-likes', '324', false);
+      updateMetric('metric-shares', '45', false);
+      updateMetric('metric-comments', '67', false);
+      
+      // Recent campaigns
+      document.getElementById('recent-campaigns-count').textContent = '2';
+      document.getElementById('recent-campaigns-empty').classList.add('hidden');
+      document.getElementById('recent-campaigns-filled').classList.remove('hidden');
+      
+      // Drafts
+      document.getElementById('drafts-count').textContent = '1';
+      document.getElementById('drafts-empty').classList.add('hidden');
+      document.getElementById('drafts-filled').classList.remove('hidden');
+      
+      // Brand
+      const brandCount = document.getElementById('brand-count');
+      const brandEmpty = document.getElementById('brand-empty');
+      const brandFilled = document.getElementById('brand-filled');
+      if (brandCount) brandCount.textContent = '6 assets';
+      if (brandEmpty) brandEmpty.classList.add('hidden');
+      if (brandFilled) brandFilled.classList.remove('hidden');
+    }
+    
+    // Apply persisted data mode on page load
+    setDataMode(currentDataMode);
+  </script>
+</body>
+</html>
+

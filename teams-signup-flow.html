@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTCT for Teams — Signup Flow</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['CTSans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* CT Sans Font Family */
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, rgba(75, 141, 207, 0.9) 0%, #98D0AF 75%, #FFFFFF 100%);
+    }
+  </style>
+</head>
+<body class="bg-slate-100 min-h-screen font-sans">
+
+  <!-- Step 1: Pricing Page -->
+  <div id="step-1" class="min-h-screen pb-12">
+    <!-- Header -->
+    <header class="bg-blue-600 py-3 px-6 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/ctctLogo.png" alt="Constant Contact" class="h-9 object-contain brightness-0 invert">
+        <span class="text-white font-semibold text-lg leading-tight">Constant<br>Contact</span>
+      </div>
+      <button class="text-white/80 hover:text-white transition-colors">
+        <i data-lucide="x" class="w-6 h-6"></i>
+      </button>
+    </header>
+
+    <!-- Pricing Content -->
+    <div class="max-w-6xl mx-auto px-6 py-10">
+      <h1 class="text-4xl font-bold text-center text-gray-900 mb-8 italic">Clear pricing, big potential.</h1>
+
+      <!-- Controls - Matching mockup exactly -->
+      <div class="flex justify-center mb-10">
+        <div class="inline-flex bg-white border border-gray-200 rounded-2xl">
+          <!-- Left Section -->
+          <div class="p-5 pr-6">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-base font-semibold text-gray-900">Prepay and nonprofit discounts</span>
+              <i data-lucide="help-circle" class="w-5 h-5 text-blue-600 ml-3"></i>
+            </div>
+            
+            <div class="flex items-center gap-6">
+              <!-- Segmented Control -->
+              <div class="inline-flex rounded-lg border border-gray-200">
+                <button class="px-5 py-3 text-sm text-gray-500 rounded-l-lg hover:bg-gray-50">Monthly</button>
+                <button class="px-5 py-3 text-sm text-gray-500 border-l border-gray-200 hover:bg-gray-50 text-center leading-tight">
+                  Prepay<br>6 months<br><span class="text-blue-600 font-semibold text-xs">SAVE 10%</span>
+                </button>
+                <button class="px-5 py-3 text-sm text-gray-900 font-medium border-2 border-blue-600 rounded-lg -my-px -mr-px text-center leading-tight bg-white">
+                  Prepay<br>12 months<br><span class="text-blue-600 font-semibold text-xs">SAVE 15%</span>
+                </button>
+              </div>
+
+              <!-- Nonprofit -->
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-gray-600">Nonprofit?</span>
+                <button class="w-12 h-7 bg-gray-200 rounded-full relative">
+                  <span class="absolute left-1 top-1 w-5 h-5 bg-white rounded-full shadow"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <div class="w-px bg-gray-200 my-4"></div>
+
+          <!-- Right Section -->
+          <div class="p-5 pl-6 flex items-center gap-8">
+            <button class="flex items-center gap-2 text-sm text-gray-700">
+              <span>🇺🇸</span>
+              <span>USD ($)</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400"></i>
+            </button>
+            
+            <div class="flex items-center gap-4">
+              <span class="text-sm text-gray-600">Number of contacts</span>
+              <select class="border border-gray-200 rounded-lg px-4 py-2.5 text-sm bg-white min-w-[100px]">
+                <option>0–500</option>
+                <option>501–1000</option>
+                <option>1001–2500</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Plans -->
+      <div class="grid grid-cols-4 gap-5 mb-6">
+        <!-- Lite -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Lite</h2>
+          <div class="mb-4">
+            <span class="text-gray-400 line-through">$12</span>
+            <div class="flex items-baseline">
+              <span class="text-gray-900">$</span>
+              <span class="text-5xl font-bold text-gray-900">10</span>
+              <span class="text-xl font-bold text-gray-900">.20</span>
+              <span class="text-gray-500 text-sm ml-1">/month*</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1"><span class="font-semibold text-gray-700">$122.40</span> billed every 12 months</p>
+          </div>
+          <p class="text-gray-600 text-sm mb-6">Start strong with drag-and-drop templates and AI content.</p>
+          <button class="w-full py-3 border-2 border-blue-600 text-blue-600 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-colors">Select Lite</button>
+        </div>
+
+        <!-- Standard -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Standard</h2>
+          <div class="mb-4">
+            <span class="text-gray-400 line-through">$35</span>
+            <div class="flex items-baseline">
+              <span class="text-gray-900">$</span>
+              <span class="text-5xl font-bold text-gray-900">29</span>
+              <span class="text-xl font-bold text-gray-900">.75</span>
+              <span class="text-gray-500 text-sm ml-1">/month*</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1"><span class="font-semibold text-gray-700">$357</span> billed every 12 months</p>
+          </div>
+          <p class="text-gray-600 text-sm mb-6">Level up with automation, segmentation, and social media ads.</p>
+          <button class="w-full py-3 border-2 border-blue-600 text-blue-600 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-colors">Select Standard</button>
+        </div>
+
+        <!-- Premium -->
+        <div class="bg-white border border-gray-200 rounded-2xl p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Premium</h2>
+          <div class="mb-4">
+            <span class="text-gray-400 line-through">$35</span>
+            <div class="flex items-baseline">
+              <span class="text-gray-900">$</span>
+              <span class="text-5xl font-bold text-gray-900">29</span>
+              <span class="text-xl font-bold text-gray-900">.75</span>
+              <span class="text-gray-500 text-sm ml-1">/month*</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1"><span class="font-semibold text-gray-700">$357</span> billed every 12 months</p>
+          </div>
+          <p class="text-gray-600 text-sm mb-6">Level up with automation, segmentation, and social media ads.</p>
+          <button class="w-full py-3 border-2 border-blue-600 text-blue-600 rounded-full font-semibold hover:bg-blue-600 hover:text-white transition-colors">Select Premium</button>
+        </div>
+
+        <!-- Teams -->
+        <div class="bg-white border-2 border-blue-600 rounded-2xl p-6">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">Teams</h2>
+          <div class="mb-4">
+            <span class="text-gray-400 line-through">$80</span>
+            <div class="flex items-baseline">
+              <span class="text-gray-900">$</span>
+              <span class="text-5xl font-bold text-gray-900">68</span>
+              <span class="text-gray-500 text-sm ml-1">/month*</span>
+            </div>
+            <p class="text-sm text-gray-500 mt-1"><span class="font-semibold text-gray-700">$816</span> billed every 12 months</p>
+          </div>
+          <p class="text-gray-600 text-sm mb-6">Perfect for companies with multiple departments — each team gets its own workspace but remains part of the bigger structure.</p>
+          <button onclick="goToStep(2)" class="w-full py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">Select Teams</button>
+        </div>
+      </div>
+
+      <p class="text-center text-gray-500 text-sm">*Plan price is based on number of contacts and email sends. <a href="#" class="text-orange-500 hover:underline">Overage fees may apply.</a></p>
+    </div>
+  </div>
+
+  <!-- Step 2: Create Workspace -->
+  <div id="step-2" class="min-h-screen gradient-bg hidden pb-12">
+    <div class="min-h-screen flex items-center justify-center p-8">
+      <!-- Semi-transparent container -->
+      <div class="bg-white/20 backdrop-blur-sm rounded-3xl p-12 max-w-5xl w-full flex gap-12 items-center">
+        <!-- Left: Workspace Preview Card -->
+        <div class="flex-1 flex flex-col items-center justify-center">
+          <img src="assets/workspace_card_preview.png" alt="Workspace preview" class="max-w-sm rounded-2xl shadow-2xl">
+        </div>
+
+        <!-- Right: Get Started Content -->
+        <div class="flex-1">
+          <h2 class="text-3xl font-bold text-white mb-4">Get started with team workspaces</h2>
+          <p class="text-white/80 mb-6 leading-relaxed text-lg">Organize and manage related campaigns, contacts, and branding in dedicated workspaces, control access, and measure performance effectively.</p>
+          
+          <ul class="space-y-3 mb-8">
+            <li class="flex items-center gap-3 text-white">
+              <span class="w-1.5 h-1.5 bg-white/60 rounded-full flex-shrink-0"></span>
+              Group campaigns, branding, and contacts
+            </li>
+            <li class="flex items-center gap-3 text-white">
+              <span class="w-1.5 h-1.5 bg-white/60 rounded-full flex-shrink-0"></span>
+              Manage member access
+            </li>
+            <li class="flex items-center gap-3 text-white">
+              <span class="w-1.5 h-1.5 bg-white/60 rounded-full flex-shrink-0"></span>
+              Compare workspace performance
+            </li>
+            <li class="flex items-center gap-3 text-white">
+              <span class="w-1.5 h-1.5 bg-white/60 rounded-full flex-shrink-0"></span>
+              Monitor usage of brand assets
+            </li>
+          </ul>
+
+          <button onclick="goToStep(3)" class="inline-flex items-center gap-3 px-8 py-4 bg-white rounded-xl text-blue-600 font-semibold text-base hover:bg-gray-50 transition-colors shadow-lg">
+            <i data-lucide="shapes" class="w-5 h-5"></i>
+            Create a workspace
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 3: Create Workspaces Form -->
+  <div id="step-3" class="min-h-screen gradient-bg hidden pb-12">
+    <div class="min-h-screen flex items-center justify-center p-8">
+      <div class="bg-white rounded-2xl shadow-xl p-8 max-w-lg w-full">
+        <div class="flex items-center gap-3 mb-6">
+          <button onclick="goToStep(2)" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+          </button>
+          <h2 class="text-xl font-bold text-gray-900">Set up your workspaces</h2>
+        </div>
+
+        <p class="text-gray-600 text-sm mb-6">Add the workspaces you need to get started. You can always add more later.</p>
+
+        <!-- Workspace List -->
+        <div id="workspace-list" class="space-y-3 mb-4">
+          <div class="workspace-item flex items-center gap-3">
+            <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 text-xs font-bold">1</div>
+            <input type="text" id="workspace-name-input" placeholder="e.g., New Jersey location" class="flex-1 px-3.5 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+            <button onclick="removeWorkspace(this)" class="text-gray-300 hover:text-gray-500 p-1 hidden">
+              <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Add Workspace Button -->
+        <button onclick="addWorkspace()" class="flex items-center gap-2 text-blue-600 text-sm font-medium hover:text-blue-700 mb-6">
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          Add another workspace
+        </button>
+
+        <!-- Folder Grouping Option -->
+        <div class="bg-gray-50 rounded-xl p-5 mb-6">
+          <div class="flex items-start gap-3">
+            <input type="checkbox" id="create-folder" class="mt-1 w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+            <div>
+              <label for="create-folder" class="block text-sm font-medium text-gray-900 cursor-pointer">Group these workspaces in a Folder</label>
+              <p class="text-xs text-gray-500 mt-1">Folders let you see rolled-up reporting across workspaces and manage shared assets.</p>
+            </div>
+          </div>
+          
+          <!-- Folder Name Input (shown when checkbox is checked) -->
+          <div id="folder-name-container" class="mt-4 hidden">
+            <label class="block text-sm font-medium text-gray-700 mb-1.5">Folder name</label>
+            <input type="text" id="folder-name-input" placeholder="e.g., Northeast region" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent bg-white">
+          </div>
+        </div>
+
+        <button onclick="createWorkspaces()" class="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors">
+          Create workspaces
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 4: Success / Go to Dashboard -->
+  <div id="step-4" class="min-h-screen gradient-bg hidden pb-12">
+    <div class="min-h-screen flex items-center justify-center p-8">
+      <div class="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full text-center">
+        <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
+          <i data-lucide="check" class="w-7 h-7 text-green-600"></i>
+        </div>
+        <h2 class="text-xl font-bold text-gray-900 mb-2">You're all set!</h2>
+        <p class="text-gray-600 text-sm mb-6"><span id="workspace-name-display">Your workspaces have</span> been created.</p>
+
+        <a id="go-to-workspace-link" href="workspaces-list.html" class="block w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors">
+          View your workspaces
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Footer Bar -->
+  <div class="fixed bottom-0 left-0 right-0 h-10 bg-gray-800 flex items-center justify-between px-4 z-40">
+    <a href="index.html" class="flex items-center gap-2 text-gray-400 hover:text-white text-sm transition-colors">
+      <i data-lucide="arrow-left" class="w-4 h-4"></i> All Prototypes
+    </a>
+    <p class="text-sm text-gray-400">Teams Signup Flow — Pricing → Create Workspace → Dashboard</p>
+    <div class="flex items-center gap-2">
+      <span class="text-sm text-gray-500">Step</span>
+      <span id="step-indicator" class="text-sm text-white font-medium">1/4</span>
+    </div>
+  </div>
+
+  <script>
+    // Clear session storage when starting fresh signup flow
+    sessionStorage.removeItem('folders');
+    sessionStorage.removeItem('workspaces');
+    
+    lucide.createIcons();
+
+    let workspaceCount = 1;
+
+    function goToStep(step) {
+      // Hide all steps
+      document.getElementById('step-1').classList.add('hidden');
+      document.getElementById('step-2').classList.add('hidden');
+      document.getElementById('step-3').classList.add('hidden');
+      document.getElementById('step-4').classList.add('hidden');
+      
+      // Show target step
+      document.getElementById('step-' + step).classList.remove('hidden');
+      
+      // Update indicator
+      document.getElementById('step-indicator').textContent = step + '/4';
+      
+      // Re-init icons
+      lucide.createIcons();
+    }
+
+    function addWorkspace() {
+      workspaceCount++;
+      const workspaceList = document.getElementById('workspace-list');
+      const newItem = document.createElement('div');
+      newItem.className = 'workspace-item flex items-center gap-3';
+      newItem.innerHTML = `
+        <div class="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 text-xs font-bold">${workspaceCount}</div>
+        <input type="text" placeholder="e.g., Connecticut location" class="flex-1 px-3.5 py-2.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent workspace-input">
+        <button onclick="removeWorkspace(this)" class="text-gray-400 hover:text-red-500 p-1">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      `;
+      workspaceList.appendChild(newItem);
+      lucide.createIcons();
+      updateWorkspaceNumbers();
+    }
+
+    function removeWorkspace(btn) {
+      if (document.querySelectorAll('.workspace-item').length > 1) {
+        btn.closest('.workspace-item').remove();
+        workspaceCount--;
+        updateWorkspaceNumbers();
+      }
+    }
+
+    function updateWorkspaceNumbers() {
+      const items = document.querySelectorAll('.workspace-item');
+      items.forEach((item, index) => {
+        const numberDiv = item.querySelector('.w-8');
+        numberDiv.textContent = index + 1;
+      });
+    }
+
+    // Folder checkbox toggle
+    document.getElementById('create-folder').addEventListener('change', function() {
+      const folderContainer = document.getElementById('folder-name-container');
+      if (this.checked) {
+        folderContainer.classList.remove('hidden');
+      } else {
+        folderContainer.classList.add('hidden');
+      }
+    });
+
+    function createWorkspaces() {
+      // Get all workspace names
+      const inputs = document.querySelectorAll('#workspace-list input');
+      const workspaces = [];
+      inputs.forEach(input => {
+        if (input.value.trim()) {
+          workspaces.push(input.value.trim());
+        }
+      });
+
+      const firstWorkspace = workspaces[0] || 'My Workspace';
+      const folderName = document.getElementById('folder-name-input').value.trim();
+      const createFolder = document.getElementById('create-folder').checked && folderName;
+
+      // Update success screen
+      if (workspaces.length > 1) {
+        document.getElementById('workspace-name-display').textContent = workspaces.length + ' workspaces have';
+      } else if (workspaces.length === 1) {
+        document.getElementById('workspace-name-display').textContent = '"' + firstWorkspace + '" has';
+      } else {
+        document.getElementById('workspace-name-display').textContent = 'Your workspace has';
+      }
+
+      // Build URL with params - go to workspaces list
+      let url = 'workspaces-list.html?';
+      if (createFolder) {
+        url += 'folder=' + encodeURIComponent(folderName) + '&';
+      }
+      url += 'workspaces=' + encodeURIComponent(workspaces.join(','));
+      document.getElementById('go-to-workspace-link').href = url;
+
+      goToStep(4);
+    }
+  </script>
+</body>
+</html>
