@@ -402,26 +402,40 @@
           </div>
         </div>
 
+        <!-- Free Trial Banner -->
+        <div class="bg-green-50 border border-green-200 rounded-xl p-4 mb-4">
+          <div class="flex items-center gap-2 mb-1">
+            <i data-lucide="gift" class="w-5 h-5 text-green-600"></i>
+            <span class="text-green-800 font-semibold">Free for 30 days</span>
+          </div>
+          <p class="text-green-700 text-sm">Try Teams risk-free. No charge until your trial ends.</p>
+        </div>
+
         <!-- Order Summary -->
         <div class="bg-gray-50 rounded-xl p-4 mb-6">
           <div class="flex justify-between text-sm mb-2">
             <span class="text-gray-600">Teams plan (annual)</span>
-            <span class="text-gray-900 font-medium">$816.00</span>
+            <span class="text-gray-400 line-through">$816.00</span>
           </div>
           <div class="flex justify-between text-sm mb-2">
-            <span class="text-gray-600">15% prepay discount</span>
-            <span class="text-green-600 font-medium">-$144.00</span>
+            <span class="text-gray-600">30-day free trial</span>
+            <span class="text-green-600 font-medium">-$816.00</span>
           </div>
-          <div class="border-t border-gray-200 pt-2 mt-2 flex justify-between">
-            <span class="text-gray-900 font-semibold">Total today</span>
-            <span class="text-gray-900 font-bold">$672.00</span>
+          <div class="border-t border-gray-200 pt-3 mt-2">
+            <div class="flex justify-between mb-1">
+              <span class="text-gray-900 font-semibold">Total today</span>
+              <span class="text-gray-900 font-bold text-lg">$0.00</span>
+            </div>
+            <p class="text-xs text-gray-500">You'll be charged $672.00/year after your trial ends on Feb 7, 2026</p>
           </div>
         </div>
 
         <button onclick="completePayment()" class="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-          <i data-lucide="lock" class="w-4 h-4"></i>
-          Complete purchase
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          Start free trial
         </button>
+
+        <p class="text-xs text-gray-400 text-center mt-3">No obligation · Cancel anytime before trial ends</p>
 
         <div class="flex items-center justify-center gap-4 mt-4">
           <div class="flex items-center gap-1 text-xs text-gray-400">
@@ -429,8 +443,8 @@
             Secure checkout
           </div>
           <div class="flex items-center gap-1 text-xs text-gray-400">
-            <i data-lucide="undo-2" class="w-3.5 h-3.5"></i>
-            30-day money back
+            <i data-lucide="credit-card" class="w-3.5 h-3.5"></i>
+            No charge today
           </div>
         </div>
       </div>
