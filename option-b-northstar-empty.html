@@ -3029,12 +3029,21 @@
       window.location.href = 'workspaces-list.html';
     }
 
-    // Data mode toggle
-    let currentDataMode = sessionStorage.getItem('dataMode') || 'filled';
+    // Data mode toggle - check URL param first, then sessionStorage
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlDataMode = urlParams.get('data');
+    let currentDataMode = urlDataMode || sessionStorage.getItem('dataMode') || 'filled';
     
-    function setDataMode(mode) {
+    function setDataMode(mode, updateUrl = true) {
       currentDataMode = mode;
       sessionStorage.setItem('dataMode', mode);
+      
+      // Update URL parameter
+      if (updateUrl) {
+        const url = new URL(window.location);
+        url.searchParams.set('data', mode);
+        window.history.replaceState({}, '', url);
+      }
       
       const emptyBtn = document.getElementById('toggle-empty');
       const filledBtn = document.getElementById('toggle-filled');
