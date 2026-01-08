@@ -186,7 +186,7 @@
             <p class="text-sm text-gray-500 mt-1"><span class="font-semibold text-gray-700">$816</span> billed every 12 months</p>
           </div>
           <p class="text-gray-600 text-sm mb-6">Perfect for companies with multiple departments — each team gets its own workspace but remains part of the bigger structure.</p>
-          <button onclick="goToStep(2)" class="w-full py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">Select Teams</button>
+          <button onclick="goToStep(4)" class="w-full py-3 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors">Select Teams</button>
         </div>
       </div>
 
@@ -291,8 +291,139 @@
     </div>
   </div>
 
-  <!-- Step 4: Success / Go to Dashboard -->
-  <div id="step-4" class="min-h-screen gradient-bg hidden pb-12">
+  <!-- Step 4: Create Account -->
+  <div id="step-4" class="min-h-screen bg-slate-50 hidden">
+    <div class="min-h-screen flex items-center justify-center p-8">
+      <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
+        <div class="text-center mb-6">
+          <img src="assets/ctctLogo.png" alt="Constant Contact" class="h-10 mx-auto mb-4">
+          <h2 class="text-2xl font-bold text-gray-900">Create your account</h2>
+          <p class="text-gray-500 text-sm mt-1">Get started with Constant Contact Teams</p>
+        </div>
+
+        <!-- Social Login -->
+        <div class="space-y-3 mb-6">
+          <button class="w-full flex items-center justify-center gap-3 py-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+            <span class="text-gray-700 font-medium text-sm">Continue with Google</span>
+          </button>
+          <button class="w-full flex items-center justify-center gap-3 py-3 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors">
+            <svg class="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <span class="text-gray-700 font-medium text-sm">Continue with Facebook</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3 mb-6">
+          <div class="flex-1 h-px bg-gray-200"></div>
+          <span class="text-xs text-gray-400 uppercase">or</span>
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+
+        <!-- Form Fields (pre-filled) -->
+        <div class="space-y-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Organization name</label>
+            <input type="text" value="Acme Marketing Co" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+            <input type="email" value="sarah@acmemarketing.com" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input type="password" value="••••••••••••" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+          </div>
+        </div>
+
+        <button onclick="goToStep(5)" class="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors">
+          Continue
+        </button>
+
+        <p class="text-xs text-gray-400 text-center mt-4">
+          By continuing, you agree to our <a href="#" class="text-blue-600">Terms</a> and <a href="#" class="text-blue-600">Privacy Policy</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 5: Payment Method -->
+  <div id="step-5" class="min-h-screen bg-slate-50 hidden">
+    <div class="min-h-screen flex items-center justify-center p-8">
+      <div class="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full">
+        <div class="flex items-center gap-3 mb-6">
+          <button onclick="goToStep(4)" class="text-gray-400 hover:text-gray-600 transition-colors">
+            <i data-lucide="arrow-left" class="w-5 h-5"></i>
+          </button>
+          <div>
+            <h2 class="text-xl font-bold text-gray-900">Payment method</h2>
+            <p class="text-gray-500 text-sm">Teams plan · $68/month</p>
+          </div>
+        </div>
+
+        <!-- Payment Form (pre-filled) -->
+        <div class="space-y-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Card number</label>
+            <div class="relative">
+              <input type="text" value="4242 4242 4242 4242" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent pr-12">
+              <div class="absolute right-3 top-1/2 -translate-y-1/2 flex gap-1">
+                <div class="w-8 h-5 bg-blue-700 rounded text-white text-[8px] font-bold flex items-center justify-center">VISA</div>
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Expiry</label>
+              <input type="text" value="12/28" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">CVC</label>
+              <input type="text" value="123" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Name on card</label>
+            <input type="text" value="Sarah Johnson" class="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
+          </div>
+        </div>
+
+        <!-- Order Summary -->
+        <div class="bg-gray-50 rounded-xl p-4 mb-6">
+          <div class="flex justify-between text-sm mb-2">
+            <span class="text-gray-600">Teams plan (annual)</span>
+            <span class="text-gray-900 font-medium">$816.00</span>
+          </div>
+          <div class="flex justify-between text-sm mb-2">
+            <span class="text-gray-600">15% prepay discount</span>
+            <span class="text-green-600 font-medium">-$144.00</span>
+          </div>
+          <div class="border-t border-gray-200 pt-2 mt-2 flex justify-between">
+            <span class="text-gray-900 font-semibold">Total today</span>
+            <span class="text-gray-900 font-bold">$672.00</span>
+          </div>
+        </div>
+
+        <button onclick="completePayment()" class="w-full py-3 bg-blue-600 text-white rounded-xl font-semibold text-sm hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+          <i data-lucide="lock" class="w-4 h-4"></i>
+          Complete purchase
+        </button>
+
+        <div class="flex items-center justify-center gap-4 mt-4">
+          <div class="flex items-center gap-1 text-xs text-gray-400">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            Secure checkout
+          </div>
+          <div class="flex items-center gap-1 text-xs text-gray-400">
+            <i data-lucide="undo-2" class="w-3.5 h-3.5"></i>
+            30-day money back
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 6: Success / Go to Dashboard -->
+  <div id="step-6" class="min-h-screen gradient-bg hidden pb-12">
     <div class="min-h-screen flex items-center justify-center p-8">
       <div class="bg-white rounded-2xl shadow-xl p-8 max-w-sm w-full text-center">
         <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-5">
@@ -363,30 +494,33 @@
     }
 
     function goToStep(step) {
-      // If option 2 is selected and we're going to step 2, skip directly to onboarding
-      if (currentOnboardingFlow === 'option2' && step === 2) {
-        // Set data mode to onboarding and redirect
-        sessionStorage.setItem('dataMode', 'onboarding');
-        sessionStorage.removeItem('onboardingTooltipDismissed');
-        window.location.href = 'workspaces-list.html?data=onboarding';
-        return;
-      }
-      
       // Hide all steps
-      document.getElementById('step-1').classList.add('hidden');
-      document.getElementById('step-2').classList.add('hidden');
-      document.getElementById('step-3').classList.add('hidden');
-      document.getElementById('step-4').classList.add('hidden');
+      for (let i = 1; i <= 6; i++) {
+        const stepEl = document.getElementById('step-' + i);
+        if (stepEl) stepEl.classList.add('hidden');
+      }
       
       // Show target step
       document.getElementById('step-' + step).classList.remove('hidden');
       
       // Update indicator
-      const totalSteps = currentOnboardingFlow === 'option2' ? 2 : 4;
+      const totalSteps = currentOnboardingFlow === 'option2' ? 3 : 6;
       document.getElementById('step-indicator').textContent = step + '/' + totalSteps;
       
       // Re-init icons
       lucide.createIcons();
+    }
+    
+    function completePayment() {
+      if (currentOnboardingFlow === 'option2') {
+        // Skip workspace setup, go directly to onboarding
+        sessionStorage.setItem('dataMode', 'onboarding');
+        sessionStorage.removeItem('onboardingTooltipDismissed');
+        window.location.href = 'workspaces-list.html?data=onboarding';
+      } else {
+        // Go to workspace setup step
+        goToStep(2);
+      }
     }
 
     function addWorkspace() {
@@ -463,7 +597,7 @@
       url += 'workspaces=' + encodeURIComponent(workspaces.join(','));
       document.getElementById('go-to-workspace-link').href = url;
 
-      goToStep(4);
+      goToStep(6);
     }
   </script>
 </body>
