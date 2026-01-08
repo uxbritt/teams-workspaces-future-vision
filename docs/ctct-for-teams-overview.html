@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTCT for Teams - Product Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: {
+              50: '#f0f7ff', 100: '#e0f0ff', 200: '#b9e0fe', 300: '#7cc8fd', 400: '#36aaf8',
+              500: '#0c8ce9', 600: '#006fc7', 700: '#0059a1', 800: '#054b85', 900: '#0a406e'
+            },
+            neutral: {
+              50: '#fafbfc', 100: '#f4f6f8', 200: '#e9eef3', 300: '#d5dce5', 400: '#b8c4d0',
+              500: '#8d9cad', 600: '#64748b', 700: '#475569', 800: '#334155', 900: '#1e293b', 950: '#0a0a0a'
+            }
+          },
+          fontFamily: {
+            sans: ['CTSans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="bg-neutral-950 min-h-screen font-sans">
+  <div class="max-w-4xl mx-auto px-6 py-12">
+    <!-- Header -->
+    <div class="mb-8">
+      <a href="report-clickthrough.html" class="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-300 text-sm font-medium mb-4 transition-colors">
+        <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Presentation
+      </a>
+      <div class="flex items-center gap-4 mb-3">
+        <img src="assets/ctctLogo.png" alt="Constant Contact" class="w-10 h-10 object-contain">
+        <h1 class="text-3xl font-semibold text-white">CTCT for Teams</h1>
+        <span class="px-3 py-1 bg-neutral-800 text-neutral-400 text-sm font-medium rounded-full">Product Overview</span>
+      </div>
+      <p class="text-neutral-400 text-lg mb-4">Enabling franchises and multi-location organizations to manage multiple accounts under one umbrella</p>
+      <div class="flex items-center gap-4">
+        <a href="https://ctct.atlassian.net/wiki/spaces/PDM/pages/14134345800/Overview+CTCT+for+Teams" target="_blank" class="inline-flex items-center gap-2 text-neutral-500 hover:text-neutral-300 text-sm transition-colors">
+          <i data-lucide="file-text" class="w-4 h-4"></i> Confluence Source
+        </a>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="flex items-center gap-6 mb-10 pb-6 border-b border-neutral-800">
+      <div class="flex items-center gap-2">
+        <i data-lucide="user" class="w-4 h-4 text-neutral-600"></i>
+        <span class="text-xs text-neutral-600">PM</span>
+        <span class="text-sm text-neutral-300">Catherine Hamet</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <i data-lucide="palette" class="w-4 h-4 text-neutral-600"></i>
+        <span class="text-xs text-neutral-600">Design</span>
+        <span class="text-sm text-neutral-300">Britt Garcia</span>
+      </div>
+    </div>
+
+    <!-- Executive Summary -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">Executive Summary</h2>
+      <p class="text-neutral-300 mb-6">
+        <strong class="text-white">CTCT for Teams</strong> is the proposed name for the product currently known internally as "Indirect" — specifically Franchise/Multi-Location. 
+        The offering enables customers to access and manage multiple Direct accounts under one umbrella.
+      </p>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4 text-center">
+          <p class="text-2xl font-bold text-white">3</p>
+          <p class="text-xs text-neutral-500">Versions planned</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4 text-center">
+          <p class="text-2xl font-bold text-white">4/5</p>
+          <p class="text-xs text-neutral-500">User confidence</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4 text-center">
+          <p class="text-2xl font-bold text-white">2026</p>
+          <p class="text-xs text-neutral-500">Target year</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- User Stories -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">User Stories</h2>
+      
+      <!-- Super Admin -->
+      <div class="mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 bg-neutral-500 rounded-full"></span>
+          <h3 class="text-white font-medium">Super Admin</h3>
+          <span class="text-xs text-neutral-600">Global Enterprise Marketing Chief</span>
+        </div>
+        <p class="text-sm text-neutral-500 italic mb-3 pl-4">"As the global enterprise marketing chief, I want to..."</p>
+        <div class="grid grid-cols-2 gap-2 pl-4">
+          <div class="text-sm text-neutral-400">• Manage all locations</div>
+          <div class="text-sm text-neutral-400">• Approve campaigns</div>
+          <div class="text-sm text-neutral-400">• Share brand-approved assets</div>
+          <div class="text-sm text-neutral-400">• View rollup reports</div>
+          <div class="text-sm text-neutral-400">• Manage member permissions</div>
+          <div class="text-sm text-neutral-400">• Identify top performers</div>
+          <div class="text-sm text-neutral-400">• Send org-wide communications</div>
+          <div class="text-sm text-neutral-400">• Identify who needs support</div>
+        </div>
+      </div>
+
+      <!-- Regional Manager -->
+      <div class="mb-6">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 bg-neutral-500 rounded-full"></span>
+          <h3 class="text-white font-medium">Regional Manager</h3>
+        </div>
+        <p class="text-sm text-neutral-500 italic mb-3 pl-4">"As a regional manager, I want to..."</p>
+        <div class="grid grid-cols-2 gap-2 pl-4">
+          <div class="text-sm text-neutral-400">• Access global brand assets</div>
+          <div class="text-sm text-neutral-400">• Report on regional performance</div>
+          <div class="text-sm text-neutral-400">• Share assets with my locations</div>
+          <div class="text-sm text-neutral-400">• Manage member permissions</div>
+          <div class="text-sm text-neutral-400">• Manage my regional locations</div>
+          <div class="text-sm text-neutral-400">• Identify top & struggling locations</div>
+        </div>
+      </div>
+
+      <!-- Location Manager -->
+      <div class="mb-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2 h-2 bg-neutral-500 rounded-full"></span>
+          <h3 class="text-white font-medium">Location Manager</h3>
+          <span class="text-xs text-neutral-600">Little time, focused on operations</span>
+        </div>
+        <p class="text-sm text-neutral-500 italic mb-3 pl-4">"As a location manager, I want to..."</p>
+        <div class="grid grid-cols-2 gap-2 pl-4">
+          <div class="text-sm text-neutral-400">• Stay updated with latest assets</div>
+          <div class="text-sm text-neutral-400">• View my workspace reporting</div>
+          <div class="text-sm text-neutral-400">• Start campaigns quickly</div>
+          <div class="text-sm text-neutral-400">• Manage my contacts</div>
+          <div class="text-sm text-neutral-400">• Access brand assets</div>
+          <div class="text-sm text-neutral-400">• Use campaign templates</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Current Gaps -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">Current Gaps</h2>
+      <div class="space-y-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <span class="text-neutral-600 font-mono text-sm">1</span>
+            <div>
+              <h3 class="text-white font-medium mb-1">Limited Visibility & Navigation</h3>
+              <p class="text-sm text-neutral-500 mb-2">Users can only see teams immediately beneath them. Larger multi-tier organizations must impersonate repeatedly.</p>
+              <p class="text-sm text-neutral-400">→ <span class="text-neutral-300">Fast access to any workspace in hierarchy</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <span class="text-neutral-600 font-mono text-sm">2</span>
+            <div>
+              <h3 class="text-white font-medium mb-1">No Roll-up Reporting</h3>
+              <p class="text-sm text-neutral-500 mb-2">Hubs must impersonate individual workspaces to determine performance. No org-level analysis possible.</p>
+              <p class="text-sm text-neutral-400">→ <span class="text-neutral-300">True roll-up reporting with comparisons</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <span class="text-neutral-600 font-mono text-sm">3</span>
+            <div>
+              <h3 class="text-white font-medium mb-1">Inconsistent Terminology</h3>
+              <p class="text-sm text-neutral-500 mb-2">Multiple terms: multi-account, parent, partner, child, sub-account, grandchild.</p>
+              <p class="text-sm text-neutral-400">→ <span class="text-neutral-300">Folder = grouping, Workspace = team</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+          <div class="flex items-start gap-3">
+            <span class="text-neutral-600 font-mono text-sm">4</span>
+            <div>
+              <h3 class="text-white font-medium mb-1">Irrelevant Dashboard</h3>
+              <p class="text-sm text-neutral-500 mb-2">Current dashboard shows partner metrics irrelevant for franchise customers.</p>
+              <p class="text-sm text-neutral-400">→ <span class="text-neutral-300">Franchise-specific metrics and top performers</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Terminology -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">Terminology</h2>
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <i data-lucide="folder-tree" class="w-4 h-4 text-neutral-500"></i>
+            <h3 class="text-white font-medium">Folders</h3>
+          </div>
+          <p class="text-sm text-neutral-500">Navigation & access control. Groups workspaces for rollup. NOT workspaces themselves.</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <i data-lucide="building-2" class="w-4 h-4 text-neutral-500"></i>
+            <h3 class="text-white font-medium">Workspaces</h3>
+          </div>
+          <p class="text-sm text-neutral-500">Where work happens. Direct accounts for campaigns, contacts, marketing.</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+          <div class="flex items-center gap-2 mb-2">
+            <i data-lucide="tags" class="w-4 h-4 text-neutral-500"></i>
+            <h3 class="text-white font-medium">Tags</h3>
+          </div>
+          <p class="text-sm text-neutral-500">Flexible reporting. Cross-cutting groupings independent of folder structure.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Milestones -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">Milestones</h2>
+      <div class="space-y-3">
+        <div class="flex gap-4 items-start">
+          <div class="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">V1</div>
+          <div class="pt-2">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-white font-medium">Navigation & Account Management</h3>
+              <span class="text-xs text-neutral-600">Q1</span>
+            </div>
+            <p class="text-sm text-neutral-500">Teams navigation, consistent terminology, managed account details page</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">V2</div>
+          <div class="pt-2">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-white font-medium">Insights & Reporting</h3>
+              <span class="text-xs text-neutral-600">Q2</span>
+            </div>
+            <p class="text-sm text-neutral-500">Franchise dashboard, folder reporting page with workspace comparisons</p>
+          </div>
+        </div>
+        <div class="flex gap-4 items-start">
+          <div class="w-10 h-10 bg-neutral-800 rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0">V3</div>
+          <div class="pt-2">
+            <div class="flex items-center gap-2 mb-1">
+              <h3 class="text-white font-medium">Advanced Controls</h3>
+              <span class="text-xs text-neutral-600">Q3</span>
+            </div>
+            <p class="text-sm text-neutral-500">Custom fields for accounts, AI-driven insights and recommendations</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UXR Findings -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">UXR Findings</h2>
+      <p class="text-sm text-neutral-500 mb-4">2 moderated + 2 unmoderated sessions validated direction of navigation, terminology, and reporting concepts.</p>
+      
+      <div class="grid grid-cols-2 gap-6 mb-4">
+        <div>
+          <h3 class="text-xs text-neutral-600 uppercase tracking-wide mb-2">What Worked</h3>
+          <ul class="space-y-1 text-sm text-neutral-400">
+            <li>• Pricing page clarity</li>
+            <li>• Hub vs. workspace terminology</li>
+            <li>• "Hub and spoke" mental model</li>
+            <li>• Navigation confidence</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xs text-neutral-600 uppercase tracking-wide mb-2">Pain Points</h3>
+          <ul class="space-y-1 text-sm text-neutral-400">
+            <li>• Workspace/hub switch discoverability</li>
+            <li>• Terminology gaps</li>
+            <li>• Context visibility</li>
+            <li>• Scalability (25–100+ workspaces)</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="text-sm text-neutral-400 bg-neutral-900 border border-neutral-800 rounded-lg p-3">
+        <strong class="text-white">Overall:</strong> Confidence rated 4/5. Primary barriers are discoverability and scale handling — not conceptual understanding.
+      </p>
+
+      <!-- Sessions -->
+      <div class="mt-4 space-y-2">
+        <div class="flex items-center justify-between p-2 bg-neutral-900/50 rounded border border-neutral-800/50">
+          <span class="text-sm text-neutral-400">12/09/25 — Unmoderated Session 2</span>
+          <a href="https://app.usertesting.com/v/c50458b9-2db4-4f01-8765-5aef76fe32eb?encrypted_video_handle=6bfb1579-c2c1-413f-9b8d-ccdbea1ce793#!/transcript&shared_via=link&share_id=vBRJgGwX4w" target="_blank" class="text-xs text-neutral-500 hover:text-neutral-300 flex items-center gap-1">
+            Transcript <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+        <div class="flex items-center justify-between p-2 bg-neutral-900/50 rounded border border-neutral-800/50">
+          <span class="text-sm text-neutral-400">12/05/25 — Unmoderated Session 1</span>
+          <a href="https://app.usertesting.com/v/781f4a58-d3f9-4d30-ad04-9ff0f3ed09a2?encrypted_video_handle=476bd4a4-809b-44d4-9a69-4a2e4d21465b#!/transcript&shared_via=link&share_id=tjtNQigDBn" target="_blank" class="text-xs text-neutral-500 hover:text-neutral-300 flex items-center gap-1">
+            Transcript <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+        <div class="flex items-center justify-between p-2 bg-neutral-900/50 rounded border border-neutral-800/50">
+          <span class="text-sm text-neutral-400">12/02/25 — Moderated Session (House of Color)</span>
+          <a href="https://docs.google.com/document/d/12a6FYOh-uF7aBP5UDB99SmM-dE7ccP-_JBa1PdMkr2M/edit?usp=sharing" target="_blank" class="text-xs text-neutral-500 hover:text-neutral-300 flex items-center gap-1">
+            Transcript <i data-lucide="external-link" class="w-3 h-3"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Progress -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">Progress</h2>
+      <ul class="space-y-2 text-sm text-neutral-400">
+        <li class="flex items-start gap-2">
+          <i data-lucide="check" class="w-4 h-4 text-neutral-600 mt-0.5 flex-shrink-0"></i>
+          Clear problem space defined; early concepts explored
+        </li>
+        <li class="flex items-start gap-2">
+          <i data-lucide="check" class="w-4 h-4 text-neutral-600 mt-0.5 flex-shrink-0"></i>
+          Prototype mockups for navigation, dashboards, reporting
+        </li>
+        <li class="flex items-start gap-2">
+          <i data-lucide="check" class="w-4 h-4 text-neutral-600 mt-0.5 flex-shrink-0"></i>
+          2 moderated + 3 unmoderated user tests with iterative improvements
+        </li>
+        <li class="flex items-start gap-2">
+          <i data-lucide="check" class="w-4 h-4 text-neutral-600 mt-0.5 flex-shrink-0"></i>
+          Three shippable versions: V1 Q1, V2 Q2, V3 Q3
+        </li>
+      </ul>
+    </section>
+
+    <!-- Resourcing -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">Resourcing Ask</h2>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-lg p-4">
+        <div class="grid grid-cols-2 gap-6 mb-4">
+          <div>
+            <p class="text-2xl font-bold text-white">+2</p>
+            <p class="text-sm text-neutral-500">Senior full-stack developers (Charizard)</p>
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-white">~4</p>
+            <p class="text-sm text-neutral-500">Backend team for scalable roll-up reporting</p>
+          </div>
+        </div>
+        <p class="text-xs text-neutral-600">Required to deliver roadmap in 2026 and support scale demanded by CTCT for Teams customers.</p>
+      </div>
+    </section>
+
+    <!-- Conclusion -->
+    <section class="mb-10">
+      <h2 class="text-sm font-medium text-neutral-500 uppercase tracking-wide mb-3">Conclusion</h2>
+      <p class="text-neutral-400 mb-2">
+        CTCT for Teams expands our footprint with franchises and multi-location organizations. Strategy, user feedback, and roadmap are clear — requires additional investment to bring to market by H1 2026.
+      </p>
+      <p class="text-neutral-300">
+        With requested resources, this becomes a flagship organizational marketing platform.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-6 border-t border-neutral-800">
+      <div class="flex items-center justify-between text-xs text-neutral-600">
+        <a href="https://ctct.atlassian.net/wiki/spaces/PDM/pages/14134345800/Overview+CTCT+for+Teams" target="_blank" class="hover:text-neutral-400 flex items-center gap-1">
+          <i data-lucide="file-text" class="w-3 h-3"></i> Confluence Source
+        </a>
+        <span>Last updated: Jan 2026</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

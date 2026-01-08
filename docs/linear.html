@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Linear-Style Navigation - UPS Northeast Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: {
+              50: '#f0f7ff', 100: '#e0f0ff', 200: '#b9e0fe', 300: '#7cc8fd', 400: '#36aaf8',
+              500: '#0c8ce9', 600: '#006fc7', 700: '#0059a1', 800: '#054b85', 900: '#0a406e'
+            },
+            neutral: {
+              50: '#fafbfc', 100: '#f4f6f8', 200: '#e9eef3', 300: '#d5dce5', 400: '#b8c4d0',
+              500: '#8d9cad', 600: '#64748b', 700: '#475569', 800: '#334155', 900: '#1e293b'
+            },
+            success: {
+              50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
+              500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d'
+            },
+            warning: {
+              50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24',
+              500: '#f59e0b', 600: '#d97706', 700: '#b45309', 800: '#92400e', 900: '#78350f'
+            },
+            accent: {
+              50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe', 400: '#c084fc',
+              500: '#a855f7', 600: '#9333ea', 700: '#7c3aed', 800: '#6b21a8', 900: '#581c87'
+            },
+            ups: { brown: '#351c15', gold: '#ffb500' }
+          },
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body { line-height: 1.5; }
+    .gradient-header { background: linear-gradient(135deg, #a5b4fc 0%, #67e8f9 50%, #d8b4fe 100%); }
+    .nav-item:hover { background: #f4f6f8; }
+    .nav-item.active { background: #e0f0ff; color: #006fc7; }
+    .row-item:hover { background: #fafbfc; }
+    kbd { font-family: ui-monospace, monospace; font-size: 0.75rem; padding: 0.125rem 0.375rem; background: #e9eef3; border-radius: 0.25rem; color: #64748b; }
+  </style>
+</head>
+<body class="bg-neutral-100">
+  <!-- Back Link -->
+  <a href="index.html" class="fixed top-3 right-4 z-50 flex items-center gap-2 px-3 py-1.5 bg-white border border-neutral-200 rounded-lg text-sm text-neutral-600 hover:bg-neutral-50 shadow-sm font-medium">
+    <i data-lucide="arrow-left" class="w-4 h-4"></i> All Prototypes
+  </a>
+
+  <div class="flex h-screen">
+    <!-- Sidebar -->
+    <aside class="w-56 bg-white border-r border-neutral-200 flex flex-col">
+      <!-- Workspace Dropdown -->
+      <div class="p-3 border-b border-neutral-100">
+        <button onclick="openCommandPalette()" class="w-full flex items-center gap-3 px-3 py-2 hover:bg-neutral-100 rounded-lg">
+          <img src="assets/upsLogo.png" alt="UPS" class="w-7 h-7 object-contain">
+          <span class="flex-1 text-left text-sm font-semibold text-neutral-900">UPS Northeast</span>
+          <i data-lucide="chevron-down" class="w-4 h-4 text-neutral-400"></i>
+        </button>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 p-3 space-y-1">
+        <div class="nav-item active flex items-center gap-2 px-3 py-2 rounded-lg text-sm cursor-pointer font-medium" onclick="showDashboardView()">
+          <i data-lucide="inbox" class="w-4 h-4"></i>
+          Dashboard
+        </div>
+        <div class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-700 cursor-pointer" onclick="showCampaignsView()">
+          <i data-lucide="mail" class="w-4 h-4"></i>
+          Campaigns
+          <span class="ml-auto text-xs text-neutral-400">23</span>
+        </div>
+        <div class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-700 cursor-pointer">
+          <i data-lucide="layout-template" class="w-4 h-4"></i>
+          Templates
+        </div>
+        <div class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-700 cursor-pointer">
+          <i data-lucide="users" class="w-4 h-4"></i>
+          Contacts
+        </div>
+        <div class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-700 cursor-pointer">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+          Reports
+        </div>
+
+        <div class="pt-4">
+          <p class="px-3 mb-2 text-xs font-semibold text-neutral-400 uppercase tracking-wider">Teams</p>
+          <div class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <div class="w-4 h-4 bg-success-400 rounded flex items-center justify-center text-white text-xs">G</div>
+            Greenwich
+          </div>
+          <div class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <div class="w-4 h-4 bg-accent-400 rounded flex items-center justify-center text-white text-xs">N</div>
+            New York
+          </div>
+          <div class="nav-item flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-neutral-700 cursor-pointer">
+            <div class="w-4 h-4 bg-main-400 rounded flex items-center justify-center text-white text-xs">N</div>
+            New Jersey
+          </div>
+        </div>
+      </nav>
+
+      <!-- Bottom -->
+      <div class="p-3 border-t border-neutral-100">
+        <button onclick="openCommandPalette()" class="w-full flex items-center justify-between px-3 py-2 text-sm text-neutral-500 hover:bg-neutral-100 rounded-lg">
+          <span class="flex items-center gap-2">
+            <i data-lucide="command" class="w-4 h-4"></i>
+            Command menu
+          </span>
+          <kbd>⌘K</kbd>
+        </button>
+        <div class="flex items-center gap-3 px-3 py-2 mt-1">
+          <div class="w-7 h-7 bg-ups-brown rounded-full flex items-center justify-center text-ups-gold text-xs font-medium">JD</div>
+          <span class="text-sm text-neutral-700">Jane Doe</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden">
+      <!-- Header -->
+      <header class="gradient-header px-6 py-5">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-white/80 text-sm mb-1 flex items-center gap-2">
+              UPS Global <i data-lucide="chevron-right" class="w-3 h-3"></i> UPS Northeast
+            </p>
+            <h1 class="text-2xl font-semibold text-white">UPS Northeast hub</h1>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 bg-white/20 rounded-full px-3 py-1">
+              <div class="w-16 h-2 bg-main-400 rounded-full"></div>
+              <span class="text-white text-sm">40%</span>
+            </div>
+            <button class="px-4 py-2 bg-white text-neutral-800 rounded-lg text-sm font-medium hover:bg-neutral-100">
+              Complete profile
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard View -->
+      <div class="flex-1 overflow-y-auto p-6" id="dashboard-view">
+        <!-- Stats -->
+        <div class="grid grid-cols-4 gap-4 mb-6">
+          <div class="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+            <p class="text-sm text-neutral-500 mb-1">Click rate</p>
+            <p class="text-3xl font-semibold text-main-600">45%</p>
+          </div>
+          <div class="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+            <p class="text-sm text-neutral-500 mb-1">Open rate</p>
+            <p class="text-3xl font-semibold text-main-600">60%</p>
+          </div>
+          <div class="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+            <p class="text-sm text-neutral-500 mb-1">Campaigns sent</p>
+            <p class="text-3xl font-semibold text-neutral-900">56,000</p>
+          </div>
+          <div class="bg-white border border-neutral-200 rounded-xl p-5 shadow-sm">
+            <p class="text-sm text-neutral-500 mb-1">Full report</p>
+            <div class="text-main-500"><i data-lucide="trending-up" class="w-8 h-8"></i></div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+          <!-- Promo Card -->
+          <div class="bg-white border border-neutral-200 rounded-xl p-6 shadow-sm">
+            <div class="flex items-start gap-4">
+              <div class="flex-1">
+                <h3 class="font-semibold text-neutral-900 mb-2">Customize your invite page</h3>
+                <p class="text-sm text-neutral-600 mb-4">Personalize your invite page with your name, plans, and promo codes to maximize conversions.</p>
+                <button class="px-5 py-2.5 bg-main-500 text-white rounded-lg text-sm font-medium hover:bg-main-600">
+                  Learn more
+                </button>
+              </div>
+              <div class="w-20 h-20 bg-warning-100 rounded-xl flex items-center justify-center">
+                <i data-lucide="file-edit" class="w-10 h-10 text-warning-500"></i>
+              </div>
+            </div>
+          </div>
+
+          <!-- Performance Chart -->
+          <div class="bg-white border border-neutral-200 rounded-xl p-6 shadow-sm">
+            <h3 class="font-semibold text-neutral-900 mb-4">Top performing teams</h3>
+            <div class="space-y-3">
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-neutral-700 w-24">Greenwich</span>
+                <div class="flex-1 bg-neutral-100 rounded-full h-2.5">
+                  <div class="bg-accent-300 h-2.5 rounded-full" style="width: 85%"></div>
+                </div>
+                <span class="text-sm text-neutral-600 w-10 font-medium">85%</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-neutral-700 w-24">New York</span>
+                <div class="flex-1 bg-neutral-100 rounded-full h-2.5">
+                  <div class="bg-accent-300 h-2.5 rounded-full" style="width: 82%"></div>
+                </div>
+                <span class="text-sm text-neutral-600 w-10 font-medium">82%</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-neutral-700 w-24">New Jersey</span>
+                <div class="flex-1 bg-neutral-100 rounded-full h-2.5">
+                  <div class="bg-accent-200 h-2.5 rounded-full" style="width: 78%"></div>
+                </div>
+                <span class="text-sm text-neutral-600 w-10 font-medium">78%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Campaigns -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-semibold text-neutral-900">Recent campaigns</h3>
+            <button onclick="showCampaignsView()" class="text-main-600 text-sm font-medium hover:underline">View all</button>
+          </div>
+          <div class="grid grid-cols-3 gap-4">
+            <div class="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow shadow-sm">
+              <div class="p-4 flex items-start gap-3">
+                <div class="w-8 h-8 bg-success-100 rounded-full flex items-center justify-center text-xs font-medium text-success-700">GW</div>
+                <div class="flex-1">
+                  <p class="font-medium text-neutral-900 text-sm">Holiday Shipping Promo</p>
+                </div>
+                <button class="text-neutral-400"><i data-lucide="more-vertical" class="w-4 h-4"></i></button>
+              </div>
+              <div class="px-4 pb-4">
+                <div class="aspect-video bg-gradient-to-br from-success-200 to-success-300 rounded-lg flex items-center justify-center mb-3">
+                  <i data-lucide="package" class="w-12 h-12 text-success-700"></i>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                  <div><p class="text-neutral-500">Sent</p><p class="font-medium text-neutral-900">2.4K</p></div>
+                  <div><p class="text-neutral-500">Opens</p><p class="font-medium text-success-600">58%</p></div>
+                  <div><p class="text-neutral-500">Clicks</p><p class="font-medium text-main-600">12%</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow shadow-sm">
+              <div class="p-4 flex items-start gap-3">
+                <div class="w-8 h-8 bg-accent-100 rounded-full flex items-center justify-center text-xs font-medium text-accent-700">NY</div>
+                <div class="flex-1">
+                  <p class="font-medium text-neutral-900 text-sm">Express Delivery Update</p>
+                </div>
+                <button class="text-neutral-400"><i data-lucide="more-vertical" class="w-4 h-4"></i></button>
+              </div>
+              <div class="px-4 pb-4">
+                <div class="aspect-video bg-gradient-to-br from-accent-200 to-accent-300 rounded-lg flex items-center justify-center mb-3">
+                  <i data-lucide="truck" class="w-12 h-12 text-accent-700"></i>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                  <div><p class="text-neutral-500">Sent</p><p class="font-medium text-neutral-900">1.8K</p></div>
+                  <div><p class="text-neutral-500">Opens</p><p class="font-medium text-success-600">62%</p></div>
+                  <div><p class="text-neutral-500">Clicks</p><p class="font-medium text-main-600">15%</p></div>
+                </div>
+              </div>
+            </div>
+            <div class="bg-white border border-neutral-200 rounded-xl overflow-hidden hover:shadow-md transition-shadow shadow-sm">
+              <div class="p-4 flex items-start gap-3">
+                <div class="w-8 h-8 bg-warning-100 rounded-full flex items-center justify-center text-xs font-medium text-warning-700">NJ</div>
+                <div class="flex-1">
+                  <p class="font-medium text-neutral-900 text-sm">New Location Opening</p>
+                </div>
+                <button class="text-neutral-400"><i data-lucide="more-vertical" class="w-4 h-4"></i></button>
+              </div>
+              <div class="px-4 pb-4">
+                <div class="aspect-video bg-gradient-to-br from-warning-200 to-warning-300 rounded-lg flex items-center justify-center mb-3">
+                  <i data-lucide="map-pin" class="w-12 h-12 text-warning-700"></i>
+                </div>
+                <div class="grid grid-cols-3 gap-2 text-center text-xs">
+                  <div><p class="text-neutral-500">Sent</p><p class="text-neutral-400">–</p></div>
+                  <div><p class="text-neutral-500">Opens</p><p class="text-neutral-400">–</p></div>
+                  <div><p class="text-neutral-500">Clicks</p><p class="text-neutral-400">–</p></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Campaigns View -->
+      <div class="flex-1 overflow-y-auto hidden" id="campaigns-view">
+        <div class="border-b border-neutral-200 px-6 py-3 flex items-center justify-between bg-white">
+          <div class="flex items-center gap-4">
+            <h2 class="text-lg font-semibold text-neutral-900">Campaigns</h2>
+            <div class="flex gap-2">
+              <button class="px-3 py-1.5 bg-neutral-100 text-neutral-700 rounded-lg text-sm font-medium">All</button>
+              <button class="px-3 py-1.5 text-neutral-500 rounded-lg text-sm hover:bg-neutral-100">Sent</button>
+              <button class="px-3 py-1.5 text-neutral-500 rounded-lg text-sm hover:bg-neutral-100">Draft</button>
+              <button class="px-3 py-1.5 text-neutral-500 rounded-lg text-sm hover:bg-neutral-100">Scheduled</button>
+            </div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="relative">
+              <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"></i>
+              <input type="text" placeholder="Search..." class="pl-10 pr-4 py-2 border border-neutral-200 rounded-lg text-sm w-48 focus:outline-none focus:ring-2 focus:ring-main-400">
+            </div>
+            <button class="flex items-center gap-2 px-4 py-2 bg-main-500 text-white rounded-lg text-sm font-medium hover:bg-main-600">
+              <i data-lucide="plus" class="w-4 h-4"></i> New Campaign
+            </button>
+          </div>
+        </div>
+
+        <div class="divide-y divide-neutral-100 bg-white">
+          <div class="row-item px-6 py-4 flex items-center gap-4 cursor-pointer">
+            <div class="flex items-center gap-1">
+              <div class="w-3 h-3 bg-success-400 rounded-full"></div>
+            </div>
+            <span class="w-20 text-xs text-neutral-500 font-medium">CAM-001</span>
+            <span class="flex-1 text-sm text-neutral-900 font-medium">Holiday Shipping Promo</span>
+            <span class="px-2 py-0.5 bg-success-100 text-success-700 text-xs rounded font-medium">Sent</span>
+            <span class="text-sm text-neutral-500 w-24">2,450 sent</span>
+            <span class="text-sm text-neutral-500 w-24">58% opens</span>
+            <div class="w-8 h-8 bg-success-100 rounded-full flex items-center justify-center text-success-700 text-xs font-medium">GR</div>
+          </div>
+          <div class="row-item px-6 py-4 flex items-center gap-4 cursor-pointer">
+            <div class="flex items-center gap-1">
+              <div class="w-3 h-3 bg-success-400 rounded-full"></div>
+            </div>
+            <span class="w-20 text-xs text-neutral-500 font-medium">CAM-002</span>
+            <span class="flex-1 text-sm text-neutral-900 font-medium">Express Delivery Update</span>
+            <span class="px-2 py-0.5 bg-success-100 text-success-700 text-xs rounded font-medium">Sent</span>
+            <span class="text-sm text-neutral-500 w-24">1,820 sent</span>
+            <span class="text-sm text-neutral-500 w-24">62% opens</span>
+            <div class="w-8 h-8 bg-accent-100 rounded-full flex items-center justify-center text-accent-700 text-xs font-medium">NY</div>
+          </div>
+          <div class="row-item px-6 py-4 flex items-center gap-4 cursor-pointer">
+            <div class="flex items-center gap-1">
+              <div class="w-3 h-3 bg-warning-400 rounded-full"></div>
+            </div>
+            <span class="w-20 text-xs text-neutral-500 font-medium">CAM-003</span>
+            <span class="flex-1 text-sm text-neutral-900 font-medium">New Location Opening</span>
+            <span class="px-2 py-0.5 bg-warning-100 text-warning-700 text-xs rounded font-medium">Draft</span>
+            <span class="text-sm text-neutral-400 w-24">–</span>
+            <span class="text-sm text-neutral-400 w-24">–</span>
+            <div class="w-8 h-8 bg-warning-100 rounded-full flex items-center justify-center text-warning-700 text-xs font-medium">NJ</div>
+          </div>
+          <div class="row-item px-6 py-4 flex items-center gap-4 cursor-pointer">
+            <div class="flex items-center gap-1">
+              <div class="w-3 h-3 bg-main-400 rounded-full"></div>
+            </div>
+            <span class="w-20 text-xs text-neutral-500 font-medium">CAM-004</span>
+            <span class="flex-1 text-sm text-neutral-900 font-medium">Quarterly Business Review</span>
+            <span class="px-2 py-0.5 bg-main-100 text-main-700 text-xs rounded font-medium">Scheduled</span>
+            <span class="text-sm text-neutral-400 w-24">Dec 20</span>
+            <span class="text-sm text-neutral-400 w-24">–</span>
+            <div class="w-8 h-8 bg-neutral-100 rounded-full flex items-center justify-center text-neutral-700 text-xs font-medium">NE</div>
+          </div>
+          <div class="row-item px-6 py-4 flex items-center gap-4 cursor-pointer">
+            <div class="flex items-center gap-1">
+              <div class="w-3 h-3 bg-success-400 rounded-full"></div>
+            </div>
+            <span class="w-20 text-xs text-neutral-500 font-medium">CAM-005</span>
+            <span class="flex-1 text-sm text-neutral-900 font-medium">Package Tracking Update</span>
+            <span class="px-2 py-0.5 bg-success-100 text-success-700 text-xs rounded font-medium">Sent</span>
+            <span class="text-sm text-neutral-500 w-24">5,200 sent</span>
+            <span class="text-sm text-neutral-500 w-24">72% opens</span>
+            <div class="w-8 h-8 bg-success-100 rounded-full flex items-center justify-center text-success-700 text-xs font-medium">GR</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Command Palette Modal -->
+  <div id="command-palette" class="fixed inset-0 bg-black/50 z-50 hidden items-start justify-center pt-32">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg mx-4 border border-neutral-200 overflow-hidden">
+      <div class="flex items-center gap-3 px-4 py-3 border-b border-neutral-100">
+        <i data-lucide="search" class="w-5 h-5 text-neutral-400"></i>
+        <input type="text" id="command-input" placeholder="Type a command or search..." class="flex-1 outline-none text-sm" autofocus>
+        <kbd>esc</kbd>
+      </div>
+      <div class="max-h-80 overflow-y-auto p-2">
+        <p class="px-3 py-2 text-xs font-semibold text-neutral-400 uppercase tracking-wider">Switch Workspace</p>
+        <div class="space-y-1">
+          <div class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-neutral-100 cursor-pointer">
+            <div class="w-7 h-7 bg-ups-brown rounded-lg flex items-center justify-center text-ups-gold text-xs font-bold">G</div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-neutral-900">UPS Global</p>
+              <p class="text-xs text-neutral-500">Global Admin</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-main-50 cursor-pointer">
+            <div class="w-7 h-7 bg-neutral-600 rounded-lg flex items-center justify-center text-white text-xs font-bold">N</div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-neutral-900">UPS Northeast</p>
+              <p class="text-xs text-neutral-500">Current workspace</p>
+            </div>
+            <i data-lucide="check" class="w-4 h-4 text-main-600"></i>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-neutral-100 cursor-pointer">
+            <div class="w-7 h-7 bg-warning-400 rounded-lg flex items-center justify-center text-white text-xs font-bold">S</div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-neutral-900">UPS Southwest</p>
+              <p class="text-xs text-neutral-500">4 teams</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-neutral-100 cursor-pointer">
+            <div class="w-7 h-7 bg-success-400 rounded-lg flex items-center justify-center text-white text-xs font-bold">M</div>
+            <div class="flex-1">
+              <p class="text-sm font-medium text-neutral-900">UPS Midwest</p>
+              <p class="text-xs text-neutral-500">6 teams</p>
+            </div>
+          </div>
+        </div>
+        <p class="px-3 py-2 mt-2 text-xs font-semibold text-neutral-400 uppercase tracking-wider">Actions</p>
+        <div class="space-y-1">
+          <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer">
+            <i data-lucide="plus" class="w-4 h-4 text-neutral-500"></i>
+            <span class="text-sm text-neutral-700">Create new campaign</span>
+            <kbd class="ml-auto">C</kbd>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer">
+            <i data-lucide="user-plus" class="w-4 h-4 text-neutral-500"></i>
+            <span class="text-sm text-neutral-700">Invite team member</span>
+            <kbd class="ml-auto">I</kbd>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer">
+            <i data-lucide="bar-chart-3" class="w-4 h-4 text-neutral-500"></i>
+            <span class="text-sm text-neutral-700">View reports</span>
+            <kbd class="ml-auto">R</kbd>
+          </div>
+          <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-neutral-100 cursor-pointer">
+            <i data-lucide="settings" class="w-4 h-4 text-neutral-500"></i>
+            <span class="text-sm text-neutral-700">Settings</span>
+            <kbd class="ml-auto">S</kbd>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function openCommandPalette() {
+      document.getElementById('command-palette').classList.remove('hidden');
+      document.getElementById('command-palette').classList.add('flex');
+      document.getElementById('command-input').focus();
+      lucide.createIcons();
+    }
+    function closeCommandPalette() {
+      document.getElementById('command-palette').classList.add('hidden');
+      document.getElementById('command-palette').classList.remove('flex');
+    }
+    function showDashboardView() {
+      document.getElementById('campaigns-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+      document.querySelectorAll('.nav-item').forEach((el, i) => {
+        el.classList.remove('active');
+        if (i === 0) el.classList.add('active');
+      });
+    }
+    function showCampaignsView() {
+      document.getElementById('dashboard-view').classList.add('hidden');
+      document.getElementById('campaigns-view').classList.remove('hidden');
+      document.querySelectorAll('.nav-item').forEach((el, i) => {
+        el.classList.remove('active');
+        if (i === 1) el.classList.add('active');
+      });
+      lucide.createIcons();
+    }
+    
+    document.getElementById('command-palette').addEventListener('click', function(e) { if (e.target === this) closeCommandPalette(); });
+    document.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') { e.preventDefault(); openCommandPalette(); }
+      if (e.key === 'Escape') { closeCommandPalette(); }
+    });
+  </script>
+</body>
+</html>
