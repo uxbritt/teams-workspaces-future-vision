@@ -316,8 +316,8 @@
     <p class="text-sm text-gray-400">Teams Signup Flow</p>
     <div class="flex items-center gap-3">
       <div class="flex items-center gap-2 bg-gray-700 rounded-lg px-2 py-1">
-        <button id="flow-option1" onclick="setOnboardingFlow('option1')" class="px-2.5 py-1 text-xs rounded bg-gray-600 text-white">Option 1: Setup Workspaces</button>
-        <button id="flow-option2" onclick="setOnboardingFlow('option2')" class="px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white">Option 2: Skip to Onboarding</button>
+        <button id="flow-option1" onclick="setOnboardingFlow('option1')" class="px-2.5 py-1 text-xs rounded text-gray-400 hover:text-white">Option 1: Setup Workspaces</button>
+        <button id="flow-option2" onclick="setOnboardingFlow('option2')" class="px-2.5 py-1 text-xs rounded bg-gray-600 text-white">Option 2: Skip to Onboarding</button>
       </div>
       <div class="border-l border-gray-600 h-6 mx-1"></div>
       <span class="text-sm text-gray-500">Step</span>
@@ -333,7 +333,7 @@
     lucide.createIcons();
 
     let workspaceCount = 1;
-    let currentOnboardingFlow = 'option1'; // option1 = setup workspaces, option2 = skip to onboarding
+    let currentOnboardingFlow = 'option2'; // option1 = setup workspaces, option2 = skip to onboarding (default)
     
     function setOnboardingFlow(flow) {
       currentOnboardingFlow = flow;
