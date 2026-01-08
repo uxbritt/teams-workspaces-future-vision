@@ -1240,15 +1240,29 @@
       
       // Re-render based on current view mode
       if (currentDataMode === 'onboarding') {
+        // Hide tree/grid views for onboarding
+        document.getElementById('tree-view-container').classList.add('hidden');
         renderOnboardingView();
-      } else if (viewMode === 'tree') {
-        // Hide onboarding elements
-        hideOnboardingElements();
-        renderTreeView();
       } else {
+        // Hide onboarding elements first
         hideOnboardingElements();
-        renderContent();
+        
+        // Show correct view based on viewMode
+        const treeContainer = document.getElementById('tree-view-container');
+        const hubsSection = document.getElementById('hubs-section');
+        
+        if (viewMode === 'tree') {
+          treeContainer.classList.remove('hidden');
+          hubsSection.classList.add('hidden');
+          renderTreeView();
+        } else {
+          treeContainer.classList.add('hidden');
+          hubsSection.classList.remove('hidden');
+          renderContent();
+        }
       }
+      
+      lucide.createIcons();
     }
     
     // Hide onboarding-specific elements
@@ -1258,6 +1272,12 @@
       
       const spotlightCard = document.querySelector('.onboarding-spotlight');
       if (spotlightCard) spotlightCard.classList.remove('onboarding-spotlight');
+      
+      // Clear onboarding content from hubsContainer
+      const hubsContainer = document.getElementById('hubs-container');
+      if (hubsContainer && hubsContainer.querySelector('.onboarding-tooltip')) {
+        hubsContainer.innerHTML = '';
+      }
     }
     
     // Render onboarding view with default workspace and tooltip
