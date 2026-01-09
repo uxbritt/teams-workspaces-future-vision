@@ -242,15 +242,15 @@
         </div>
         <div class="space-y-1 max-h-32 overflow-y-auto">
           <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
-            <input type="checkbox" checked class="rounded text-ctct-blue w-4 h-4">
-            <span class="text-sm text-neutral-700">All Folders</span>
+            <input type="checkbox" id="folder-all" checked class="rounded text-ctct-blue w-4 h-4" onchange="handleFilterChange('folder', 'all')">
+            <span class="text-sm text-neutral-700 font-medium">All Folders</span>
           </label>
           <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
-            <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+            <input type="checkbox" class="folder-checkbox rounded text-ctct-blue w-4 h-4" data-name="UPS Northeast" onchange="handleFilterChange('folder', 'northeast')">
             <span class="text-sm text-neutral-700">UPS Northeast</span>
           </label>
           <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
-            <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+            <input type="checkbox" class="folder-checkbox rounded text-ctct-blue w-4 h-4" data-name="UPS Southeast" onchange="handleFilterChange('folder', 'southeast')">
             <span class="text-sm text-neutral-700">UPS Southeast</span>
           </label>
         </div>
@@ -265,17 +265,29 @@
         </div>
         <div class="space-y-1 max-h-40 overflow-y-auto">
           <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
-            <input type="checkbox" checked class="rounded text-ctct-blue w-4 h-4">
+            <input type="checkbox" id="workspace-all" checked class="rounded text-ctct-blue w-4 h-4" onchange="handleFilterChange('workspace', 'all')">
             <span class="text-sm text-neutral-700 font-medium">All Workspaces</span>
             <span class="text-xs text-neutral-400 ml-auto">18</span>
           </label>
           <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
-            <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+            <input type="checkbox" id="workspace-ny" class="workspace-checkbox rounded text-ctct-blue w-4 h-4" data-name="UPS New York" onchange="handleFilterChange('workspace', 'ny')">
             <span class="text-sm text-neutral-700">UPS New York</span>
           </label>
           <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
-            <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+            <input type="checkbox" id="workspace-ct" class="workspace-checkbox rounded text-ctct-blue w-4 h-4" data-name="UPS Connecticut" onchange="handleFilterChange('workspace', 'ct')">
             <span class="text-sm text-neutral-700">UPS Connecticut</span>
+          </label>
+          <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
+            <input type="checkbox" id="workspace-ma" class="workspace-checkbox rounded text-ctct-blue w-4 h-4" data-name="UPS Massachusetts" onchange="handleFilterChange('workspace', 'ma')">
+            <span class="text-sm text-neutral-700">UPS Massachusetts</span>
+          </label>
+          <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
+            <input type="checkbox" id="workspace-nj" class="workspace-checkbox rounded text-ctct-blue w-4 h-4" data-name="UPS New Jersey" onchange="handleFilterChange('workspace', 'nj')">
+            <span class="text-sm text-neutral-700">UPS New Jersey</span>
+          </label>
+          <label class="flex items-center gap-3 px-3 py-2 hover:bg-neutral-50 rounded-lg cursor-pointer">
+            <input type="checkbox" id="workspace-pa" class="workspace-checkbox rounded text-ctct-blue w-4 h-4" data-name="UPS Pennsylvania" onchange="handleFilterChange('workspace', 'pa')">
+            <span class="text-sm text-neutral-700">UPS Pennsylvania</span>
           </label>
         </div>
       </div>
@@ -2421,16 +2433,31 @@ function safeCreateIcons() {
       folders: 'all'
     };
     
-    // Handle asset type filter checkbox changes
-    function handleAssetFilterChange(type) {
-      const allCheckbox = document.getElementById('asset-all');
-      const specificCheckboxes = document.querySelectorAll('.asset-type-checkbox');
+    // Generic handler for all filter checkbox changes
+    function handleFilterChange(filterType, itemType) {
+      let allCheckbox, specificCheckboxes, filterKey;
       
-      if (type === 'all') {
+      if (filterType === 'folder') {
+        allCheckbox = document.getElementById('folder-all');
+        specificCheckboxes = document.querySelectorAll('.folder-checkbox');
+        filterKey = 'folders';
+      } else if (filterType === 'workspace') {
+        allCheckbox = document.getElementById('workspace-all');
+        specificCheckboxes = document.querySelectorAll('.workspace-checkbox');
+        filterKey = 'workspaces';
+      } else if (filterType === 'asset') {
+        allCheckbox = document.getElementById('asset-all');
+        specificCheckboxes = document.querySelectorAll('.asset-type-checkbox');
+        filterKey = 'assetTypes';
+      }
+      
+      if (!allCheckbox || !specificCheckboxes) return;
+      
+      if (itemType === 'all') {
         // When "All" is clicked, uncheck all specific ones
         if (allCheckbox.checked) {
           specificCheckboxes.forEach(cb => cb.checked = false);
-          currentFilters.assetTypes = 'all';
+          currentFilters[filterKey] = 'all';
         }
       } else {
         // When a specific one is clicked
@@ -2440,27 +2467,67 @@ function safeCreateIcons() {
           // Uncheck "All" when any specific is checked
           allCheckbox.checked = false;
           
-          // Build list of selected types
-          const selectedTypes = [];
-          if (document.getElementById('asset-templates').checked) selectedTypes.push('Templates');
-          if (document.getElementById('asset-images').checked) selectedTypes.push('Images');
-          if (document.getElementById('asset-logos').checked) selectedTypes.push('Logos');
-          if (document.getElementById('asset-colors').checked) selectedTypes.push('Colors');
+          // Build list of selected items
+          const selectedItems = [];
+          specificCheckboxes.forEach(cb => {
+            if (cb.checked) {
+              selectedItems.push(cb.dataset.name || cb.id);
+            }
+          });
           
-          currentFilters.assetTypes = selectedTypes.join(', ');
+          currentFilters[filterKey] = selectedItems.join(', ');
+          
+          // Update workspace count if workspaces
+          if (filterType === 'workspace') {
+            currentFilters.workspaceCount = selectedItems.length;
+          }
         } else {
           // If nothing specific is checked, check "All" again
           allCheckbox.checked = true;
-          currentFilters.assetTypes = 'all';
+          currentFilters[filterKey] = 'all';
+          if (filterType === 'workspace') {
+            currentFilters.workspaceCount = 18;
+          }
         }
       }
     }
     
+    // Legacy handler for asset types (uses the generic one)
+    function handleAssetFilterChange(type) {
+      handleFilterChange('asset', type);
+    }
+    
     // Apply filters and update data
     function applyFilters() {
-      // Read current checkbox states
-      const allCheckbox = document.getElementById('asset-all');
-      if (allCheckbox && allCheckbox.checked) {
+      // Read workspace filter state
+      const wsAllCheckbox = document.getElementById('workspace-all');
+      if (wsAllCheckbox && wsAllCheckbox.checked) {
+        currentFilters.workspaces = 'all';
+        currentFilters.workspaceCount = 18;
+      } else {
+        const selectedWs = [];
+        document.querySelectorAll('.workspace-checkbox:checked').forEach(cb => {
+          selectedWs.push(cb.dataset.name);
+        });
+        currentFilters.workspaces = selectedWs.length > 0 ? selectedWs.join(', ') : 'all';
+        currentFilters.workspaceCount = selectedWs.length || 18;
+      }
+      
+      // Read folder filter state
+      const folderAllCheckbox = document.getElementById('folder-all');
+      if (folderAllCheckbox && folderAllCheckbox.checked) {
+        currentFilters.folders = 'all';
+      } else {
+        const selectedFolders = [];
+        document.querySelectorAll('.folder-checkbox:checked').forEach(cb => {
+          selectedFolders.push(cb.dataset.name);
+        });
+        currentFilters.folders = selectedFolders.length > 0 ? selectedFolders.join(', ') : 'all';
+      }
+      
+      // Read asset type filter state
+      const assetAllCheckbox = document.getElementById('asset-all');
+      if (assetAllCheckbox && assetAllCheckbox.checked) {
         currentFilters.assetTypes = 'all';
       } else {
         const selectedTypes = [];
@@ -2477,22 +2544,17 @@ function safeCreateIcons() {
       // Update the data based on filters
       updateReportData();
       
-      // Update visible data in the table
-      filterAssetTable();
+      // Filter visible data
+      filterPageContent();
       
       showToast('Filters applied', 'success');
     }
     
-    // Filter the asset table based on selected types
-    function filterAssetTable() {
+    // Filter all page content based on current filters
+    function filterPageContent() {
+      // Filter asset table rows
       const rows = document.querySelectorAll('#content-workspaces table tbody tr');
-      const allCheckbox = document.getElementById('asset-all');
-      
-      if (allCheckbox && allCheckbox.checked) {
-        // Show all rows
-        rows.forEach(row => row.classList.remove('hidden'));
-        return;
-      }
+      const assetAllChecked = document.getElementById('asset-all')?.checked;
       
       const showTemplates = document.getElementById('asset-templates')?.checked;
       const showImages = document.getElementById('asset-images')?.checked;
@@ -2504,33 +2566,73 @@ function safeCreateIcons() {
         if (!typeCell) return;
         
         const type = typeCell.textContent.toLowerCase();
-        let shouldShow = false;
+        let shouldShow = assetAllChecked;
         
-        if (showTemplates && type.includes('template')) shouldShow = true;
-        if (showImages && type.includes('image')) shouldShow = true;
-        if (showLogos && type.includes('logo')) shouldShow = true;
-        if (showColors && type.includes('color')) shouldShow = true;
-        
-        // If nothing is selected, show all
-        if (!showTemplates && !showImages && !showLogos && !showColors) {
-          shouldShow = true;
+        if (!assetAllChecked) {
+          if (showTemplates && type.includes('template')) shouldShow = true;
+          if (showImages && type.includes('image')) shouldShow = true;
+          if (showLogos && type.includes('logo')) shouldShow = true;
+          if (showColors && type.includes('color')) shouldShow = true;
+          
+          // If nothing selected, show all
+          if (!showTemplates && !showImages && !showLogos && !showColors) {
+            shouldShow = true;
+          }
         }
         
-        if (shouldShow) {
-          row.classList.remove('hidden');
-        } else {
-          row.classList.add('hidden');
-        }
+        row.style.display = shouldShow ? '' : 'none';
       });
+      
+      // Filter workspace leaderboard items
+      const leaderboardItems = document.querySelectorAll('#content-workspaces .space-y-4 > a');
+      const wsAllChecked = document.getElementById('workspace-all')?.checked;
+      
+      leaderboardItems.forEach(item => {
+        const wsName = item.querySelector('span.text-sm')?.textContent?.toLowerCase() || '';
+        let shouldShow = wsAllChecked;
+        
+        if (!wsAllChecked) {
+          const checkedWs = document.querySelectorAll('.workspace-checkbox:checked');
+          checkedWs.forEach(cb => {
+            if (wsName.includes(cb.dataset.name?.split(' ').pop()?.toLowerCase() || '')) {
+              shouldShow = true;
+            }
+          });
+          
+          // If nothing selected, show all
+          if (checkedWs.length === 0) {
+            shouldShow = true;
+          }
+        }
+        
+        item.style.display = shouldShow ? '' : 'none';
+      });
+      
+      // Update visible count
+      const visibleRows = document.querySelectorAll('#content-workspaces table tbody tr:not([style*="display: none"])').length;
+      const countText = document.querySelector('#content-workspaces .text-sm.text-neutral-500');
+      if (countText && countText.textContent.includes('Showing')) {
+        countText.textContent = `Showing ${visibleRows} of 247 assets`;
+      }
+    }
+    
+    // Legacy filter function
+    function filterAssetTable() {
+      filterPageContent();
     }
     
     // Reset all filters in the drawer
     function resetFilters() {
-      // Reset checkboxes
-      const allCheckbox = document.getElementById('asset-all');
-      if (allCheckbox) allCheckbox.checked = true;
+      // Reset all "All" checkboxes
+      ['folder-all', 'workspace-all', 'asset-all'].forEach(id => {
+        const cb = document.getElementById(id);
+        if (cb) cb.checked = true;
+      });
       
-      document.querySelectorAll('.asset-type-checkbox').forEach(cb => cb.checked = false);
+      // Uncheck all specific checkboxes
+      document.querySelectorAll('.folder-checkbox, .workspace-checkbox, .asset-type-checkbox').forEach(cb => {
+        cb.checked = false;
+      });
       
       // Reset date range
       setDateRange('1M');
@@ -2543,6 +2645,14 @@ function safeCreateIcons() {
         assetTypes: 'all',
         folders: 'all'
       };
+      
+      // Show all content
+      document.querySelectorAll('#content-workspaces table tbody tr').forEach(row => {
+        row.style.display = '';
+      });
+      document.querySelectorAll('#content-workspaces .space-y-4 > a').forEach(item => {
+        item.style.display = '';
+      });
       
       updateFilterSummary();
       showToast('Filters reset', 'info');
