@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reporting JTBD — CTCT for Teams</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: {
+              50: '#f0f7ff', 100: '#e0f0ff', 200: '#b9e0fe', 300: '#7cc8fd', 400: '#36aaf8',
+              500: '#0c8ce9', 600: '#006fc7', 700: '#0059a1', 800: '#054b85', 900: '#0a406e'
+            },
+            accent: {
+              50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe', 400: '#c084fc',
+              500: '#a855f7', 600: '#9333ea', 700: '#7c3aed', 800: '#6b21a8', 900: '#581c87'
+            }
+          },
+          fontFamily: {
+            sans: ['CTSans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    .slide {
+      display: none;
+      animation: fadeIn 0.4s ease-out;
+    }
+    .slide.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #0c8ce9 0%, #06b6d4 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    body {
+      background: #000;
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans bg-black text-white">
+
+  <!-- Slide Container -->
+  <div class="min-h-screen flex items-center justify-center pb-16 px-8">
+    
+    <!-- Slide 1: Title -->
+    <div id="slide-1" class="slide active flex-col items-center justify-center text-center max-w-5xl w-full">
+      <div class="mb-8">
+        <span class="inline-block px-4 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-sm font-medium mb-6">CTCT for Teams — Reporting</span>
+        <h1 class="text-5xl font-bold text-white mb-6 leading-tight">Org Reporting<br><span class="gradient-text">Jobs To Be Done</span></h1>
+        <p class="text-xl text-zinc-400 mb-8">Understanding what users need from cross-workspace reporting</p>
+        <div class="flex items-center justify-center gap-8 text-sm">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-main-400">3</div>
+            <div class="text-zinc-500">User Types</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-white">5</div>
+            <div class="text-zinc-500">Core Jobs</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-cyan-400">4</div>
+            <div class="text-zinc-500">Key Gaps</div>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-zinc-500 mt-8">
+        <span class="text-sm">Click anywhere to continue</span>
+      </div>
+    </div>
+
+    <!-- Slide 2: The Problem Today -->
+    <div id="slide-2" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Current State</span>
+        <h2 class="text-4xl font-bold text-white mb-3">The Reporting Problem</h2>
+        <p class="text-lg text-zinc-500 mb-8">What's broken for multi-location customers today</p>
+        
+        <div class="grid grid-cols-2 gap-5 text-left">
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">No Roll-up Visibility</h3>
+            <p class="text-zinc-500 text-sm">Must impersonate each workspace individually to check campaign performance. No aggregate view.</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">Time-Consuming Process</h3>
+            <p class="text-zinc-500 text-sm">Checking 25+ locations means 25+ login switches. Hours wasted on manual data gathering.</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">No Comparisons</h3>
+            <p class="text-zinc-500 text-sm">Can't compare workspace performance side-by-side. No way to identify top or low performers.</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">Manual Exports</h3>
+            <p class="text-zinc-500 text-sm">Leadership reports require exporting data from each account and combining in spreadsheets.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: User Types -->
+    <div id="slide-3" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Users</span>
+        <h2 class="text-4xl font-bold text-white mb-3">Who Needs Reporting?</h2>
+        <p class="text-lg text-zinc-500 mb-8">Three distinct user types with different reporting needs</p>
+        
+        <div class="grid grid-cols-3 gap-5 text-left">
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="w-14 h-14 bg-main-900/30 border border-main-800/50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-main-400">O</span>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">Org Admin</h3>
+            <p class="text-zinc-400 text-sm mb-4">Marketing Director, VP level</p>
+            <ul class="text-zinc-500 text-sm space-y-2">
+              <li>• See all locations at once</li>
+              <li>• Compare regional performance</li>
+              <li>• Export for leadership</li>
+              <li>• Identify struggling locations</li>
+            </ul>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="w-14 h-14 bg-cyan-900/30 border border-cyan-800/50 rounded-2xl flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-cyan-400">R</span>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">Regional Manager</h3>
+            <p class="text-zinc-400 text-sm mb-4">Oversees 5-15 locations</p>
+            <ul class="text-zinc-500 text-sm space-y-2">
+              <li>• See their region's workspaces</li>
+              <li>• Compare locations in region</li>
+              <li>• Drill into problem areas</li>
+              <li>• Report up to Org Admin</li>
+            </ul>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="w-14 h-14 bg-zinc-800 border border-zinc-700 rounded-2xl flex items-center justify-center mb-4">
+              <span class="text-2xl font-bold text-zinc-400">W</span>
+            </div>
+            <h3 class="text-white font-semibold text-lg mb-2">Workspace User</h3>
+            <p class="text-zinc-400 text-sm mb-4">Local marketer, single location</p>
+            <ul class="text-zinc-500 text-sm space-y-2">
+              <li>• See their own campaigns</li>
+              <li>• Track send performance</li>
+              <li>• Compare to previous periods</li>
+              <li>• No need for cross-workspace</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Jobs To Be Done -->
+    <div id="slide-4" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">JTBD Framework</span>
+        <h2 class="text-4xl font-bold text-white mb-3">Core Reporting Jobs</h2>
+        <p class="text-lg text-zinc-500 mb-8">What users are trying to accomplish</p>
+        
+        <div class="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden">
+          <table class="w-full text-left text-sm">
+            <thead class="bg-zinc-900">
+              <tr>
+                <th class="px-5 py-3 text-xs text-zinc-500 uppercase tracking-wide w-1/4">When I...</th>
+                <th class="px-5 py-3 text-xs text-zinc-500 uppercase tracking-wide w-1/3">I want to...</th>
+                <th class="px-5 py-3 text-xs text-zinc-500 uppercase tracking-wide w-1/3">So I can...</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-800">
+              <tr class="hover:bg-zinc-900/50">
+                <td class="px-5 py-4 text-zinc-400">Review monthly results</td>
+                <td class="px-5 py-4 text-white">See all workspaces side-by-side</td>
+                <td class="px-5 py-4 text-zinc-400">Identify top and low performers</td>
+              </tr>
+              <tr class="hover:bg-zinc-900/50">
+                <td class="px-5 py-4 text-zinc-400">Notice underperformance</td>
+                <td class="px-5 py-4 text-white">Quickly see which locations need help</td>
+                <td class="px-5 py-4 text-zinc-400">Intervene before it gets worse</td>
+              </tr>
+              <tr class="hover:bg-zinc-900/50">
+                <td class="px-5 py-4 text-zinc-400">Have a stakeholder meeting</td>
+                <td class="px-5 py-4 text-white">Export aggregate metrics</td>
+                <td class="px-5 py-4 text-zinc-400">Prove ROI and justify budget</td>
+              </tr>
+              <tr class="hover:bg-zinc-900/50">
+                <td class="px-5 py-4 text-zinc-400">See a concerning metric</td>
+                <td class="px-5 py-4 text-white">Click through to the specific campaign</td>
+                <td class="px-5 py-4 text-zinc-400">Understand what went wrong</td>
+              </tr>
+              <tr class="hover:bg-zinc-900/50">
+                <td class="px-5 py-4 text-zinc-400">Plan next quarter</td>
+                <td class="px-5 py-4 text-white">See performance trends over time</td>
+                <td class="px-5 py-4 text-zinc-400">Make informed decisions</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: User Testing Insights -->
+    <div id="slide-5" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Research Insights</span>
+        <h2 class="text-4xl font-bold text-white mb-3">What Users Said</h2>
+        <p class="text-lg text-zinc-500 mb-8">Reporting-related feedback from user testing sessions</p>
+        
+        <div class="grid grid-cols-2 gap-5 text-left">
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-white font-bold text-sm">VL</div>
+              <div>
+                <div class="text-white font-semibold">victorialeo</div>
+                <div class="text-zinc-600 text-xs">70 locations, 5/5 confidence</div>
+              </div>
+            </div>
+            <p class="text-zinc-300 italic text-sm">"I manage 70 locations across 5 states. Having everything in one view would save me hours every week."</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-white font-bold text-sm">BJ</div>
+              <div>
+                <div class="text-white font-semibold">beautyjunky</div>
+                <div class="text-zinc-600 text-xs">No multi-location experience</div>
+              </div>
+            </div>
+            <p class="text-zinc-300 italic text-sm">"I would want visibility into performance... some kind of metrics, like visibility into performance."</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-white font-bold text-sm">E3</div>
+              <div>
+                <div class="text-white font-semibold">elite314</div>
+                <div class="text-zinc-600 text-xs">V1 tester, 4/5 confidence</div>
+              </div>
+            </div>
+            <p class="text-zinc-300 italic text-sm">"Reporting is a really big one. Being able to look at my reporting and switch between accounts quickly."</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-zinc-900 rounded-full flex items-center justify-center text-white font-bold text-sm">CH</div>
+              <div>
+                <div class="text-white font-semibold">cha</div>
+                <div class="text-zinc-600 text-xs">1 location, 1.5/5 confidence</div>
+              </div>
+            </div>
+            <p class="text-zinc-300 italic text-sm">"I'd want to see what's happening at each location without having to click into each one separately."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Proposed Solution -->
+    <div id="slide-6" class="slide flex-col items-center justify-center max-w-5xl w-full">
+      <div class="w-full text-center">
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Solution</span>
+        <h2 class="text-4xl font-bold text-white mb-3">Proposed Reporting Features</h2>
+        <p class="text-lg text-zinc-500 mb-8">How we solve the core reporting jobs</p>
+        
+        <div class="grid grid-cols-2 gap-5 text-left">
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-main-900/30 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-main-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+              </div>
+              <h3 class="text-white font-semibold">Org Dashboard Widgets</h3>
+            </div>
+            <p class="text-zinc-500 text-sm">Aggregate metrics across all workspaces. Configurable widgets for email, SMS, social engagement.</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-main-900/30 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-main-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+              </div>
+              <h3 class="text-white font-semibold">Workspace Leaderboard</h3>
+            </div>
+            <p class="text-zinc-500 text-sm">Rank workspaces by performance. See top and low performers at a glance. Click to drill in.</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-main-900/30 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-main-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              </div>
+              <h3 class="text-white font-semibold">Full Report Page</h3>
+            </div>
+            <p class="text-zinc-500 text-sm">Detailed campaign-level data across workspaces. Filterable by date, channel, folder, workspace.</p>
+          </div>
+          
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
+            <div class="flex items-center gap-3 mb-3">
+              <div class="w-10 h-10 bg-main-900/30 rounded-lg flex items-center justify-center">
+                <svg class="w-5 h-5 text-main-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+              <h3 class="text-white font-semibold">Export & Share</h3>
+            </div>
+            <p class="text-zinc-500 text-sm">Export reports as CSV/PDF. Schedule automated reports. Share links with stakeholders.</p>
+          </div>
+        </div>
+        
+        <div class="mt-8 flex items-center justify-center gap-4">
+          <a href="option-b-northstar-empty.html" class="px-5 py-2.5 bg-white hover:bg-zinc-200 text-black rounded-lg text-sm font-medium transition-colors">
+            Explore Prototype
+          </a>
+          <a href="folder-reporting.html?source=dashboard" class="px-5 py-2.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white rounded-lg text-sm font-medium transition-colors">
+            View Report Page
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Big Left Arrow -->
+  <button onclick="prevSlide()" class="fixed left-6 top-1/2 -translate-y-1/2 w-14 h-14 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-white transition-all z-50">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+  </button>
+  
+  <!-- Big Right Arrow -->
+  <button onclick="nextSlide()" class="fixed right-6 top-1/2 -translate-y-1/2 w-14 h-14 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-full flex items-center justify-center text-zinc-400 hover:text-white transition-all z-50">
+    <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+  </button>
+
+  <!-- Navigation Footer -->
+  <div class="fixed bottom-0 left-0 right-0 px-8 py-4 flex items-center justify-between bg-gradient-to-t from-black to-transparent">
+    <a href="index.html" class="text-zinc-600 hover:text-white text-sm transition-colors">Back to Hub</a>
+    
+    <div class="flex items-center gap-1.5">
+      <button onclick="goToSlide(1)" class="dot w-2.5 h-2.5 rounded-full bg-white transition-all"></button>
+      <button onclick="goToSlide(2)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+      <button onclick="goToSlide(3)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+      <button onclick="goToSlide(4)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+      <button onclick="goToSlide(5)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+      <button onclick="goToSlide(6)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+    </div>
+    
+    <div class="flex items-center gap-2">
+      <span class="text-sm text-zinc-600">Slide</span>
+      <span id="slide-counter" class="text-sm text-white font-medium">1 / 6</span>
+    </div>
+  </div>
+
+  <script>
+    const totalSlides = 6;
+    let currentSlide = parseInt(sessionStorage.getItem('reportingJtbdSlide')) || 1;
+    if (currentSlide > totalSlides) currentSlide = 1;
+
+    function showSlide(n) {
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      const slideEl = document.getElementById('slide-' + n);
+      if (!slideEl) {
+        n = 1;
+      }
+      document.getElementById('slide-' + n).classList.add('active');
+      document.getElementById('slide-counter').textContent = n + ' / ' + totalSlides;
+      
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        if (i + 1 === n) {
+          dot.classList.remove('bg-zinc-700');
+          dot.classList.add('bg-white');
+        } else {
+          dot.classList.remove('bg-white');
+          dot.classList.add('bg-zinc-700');
+        }
+      });
+      
+      currentSlide = n;
+      sessionStorage.setItem('reportingJtbdSlide', n);
+    }
+
+    function nextSlide() {
+      if (currentSlide < totalSlides) {
+        showSlide(currentSlide + 1);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 1) {
+        showSlide(currentSlide - 1);
+      }
+    }
+
+    function goToSlide(n) {
+      showSlide(n);
+    }
+
+    if (currentSlide > 1) {
+      showSlide(currentSlide);
+    }
+
+    // Click anywhere to advance
+    document.querySelector('.min-h-screen').addEventListener('click', (e) => {
+      if (!e.target.closest('a') && !e.target.closest('button')) {
+        nextSlide();
+      }
+    });
+  </script>
+</body>
+</html>
+
