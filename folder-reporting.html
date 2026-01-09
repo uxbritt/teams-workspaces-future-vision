@@ -2167,6 +2167,12 @@ function safeCreateIcons() {
     // Update filter pills based on URL parameters
     updateFilterPills();
     
+    // Check for tab parameter and switch to it
+    const tabParam = urlParams.get('tab');
+    if (tabParam && ['workspaces', 'campaigns', 'comparison'].includes(tabParam)) {
+      switchTab(tabParam);
+    }
+    
     // Check if coming from dashboard - show loading modal
     const source = urlParams.get('source');
     const campaignsCount = urlParams.get('campaigns') || '47';
