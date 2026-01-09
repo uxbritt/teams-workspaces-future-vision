@@ -553,94 +553,278 @@
               </div>
             </div>
 
-            <!-- Brand Kit Usage -->
+            <!-- Brand Assets Detail Table -->
             <div class="bg-white rounded-2xl border border-neutral-100 p-5">
-              <div class="mb-4">
-                <h3 class="text-sm font-semibold text-neutral-700 uppercase tracking-wide">Brand Kit Usage</h3>
-                <p class="text-xs text-neutral-500">Colors, logos, and assets adoption</p>
-              </div>
-              
-              <!-- Brand Colors -->
-              <div class="mb-5">
-                <p class="text-xs font-medium text-neutral-500 mb-2">Brand Colors</p>
+              <div class="flex items-center justify-between mb-4">
+                <div>
+                  <h3 class="text-sm font-semibold text-neutral-700 uppercase tracking-wide">Brand Assets Library</h3>
+                  <p class="text-xs text-neutral-500">Detailed usage across all workspaces</p>
+                </div>
                 <div class="flex items-center gap-2">
-                  <div class="flex -space-x-1">
-                    <div class="w-8 h-8 rounded-full bg-[#351C15] border-2 border-white" title="UPS Brown"></div>
-                    <div class="w-8 h-8 rounded-full bg-[#FFB500] border-2 border-white" title="UPS Gold"></div>
-                    <div class="w-8 h-8 rounded-full bg-[#00205B] border-2 border-white" title="UPS Navy"></div>
-                    <div class="w-8 h-8 rounded-full bg-[#FFFFFF] border-2 border-neutral-200" title="White"></div>
-                    <div class="w-8 h-8 rounded-full bg-[#333333] border-2 border-white" title="Dark Gray"></div>
-                    <div class="w-8 h-8 rounded-full bg-[#F5F5F5] border-2 border-neutral-200" title="Light Gray"></div>
-                  </div>
-                  <span class="text-sm text-neutral-500 ml-2">6 colors • 94% adoption</span>
+                  <button onclick="filterAssetType('all')" class="asset-filter-btn px-3 py-1.5 text-xs font-medium bg-ctct-blue text-white rounded-full">All</button>
+                  <button onclick="filterAssetType('templates')" class="asset-filter-btn px-3 py-1.5 text-xs font-medium text-neutral-500 hover:bg-neutral-100 rounded-full">Templates</button>
+                  <button onclick="filterAssetType('images')" class="asset-filter-btn px-3 py-1.5 text-xs font-medium text-neutral-500 hover:bg-neutral-100 rounded-full">Images</button>
+                  <button onclick="filterAssetType('logos')" class="asset-filter-btn px-3 py-1.5 text-xs font-medium text-neutral-500 hover:bg-neutral-100 rounded-full">Logos</button>
                 </div>
               </div>
               
-              <!-- Logo Usage -->
-              <div class="mb-5">
-                <p class="text-xs font-medium text-neutral-500 mb-2">Logo Usage</p>
-                <div class="grid grid-cols-3 gap-3">
-                  <div class="p-3 bg-neutral-50 rounded-lg text-center">
-                    <img src="assets/upsLogo.png" class="w-10 h-10 mx-auto mb-1 object-contain">
-                    <p class="text-xs text-neutral-600">Primary</p>
-                    <p class="text-xs text-green-600 font-medium">847 uses</p>
-                  </div>
-                  <div class="p-3 bg-neutral-50 rounded-lg text-center">
-                    <div class="w-10 h-10 mx-auto mb-1 bg-[#351C15] rounded flex items-center justify-center">
-                      <span class="text-xs text-white font-bold">UPS</span>
-                    </div>
-                    <p class="text-xs text-neutral-600">Icon</p>
-                    <p class="text-xs text-blue-600 font-medium">234 uses</p>
-                  </div>
-                  <div class="p-3 bg-neutral-50 rounded-lg text-center">
-                    <div class="w-10 h-10 mx-auto mb-1 bg-white border border-neutral-200 rounded flex items-center justify-center">
-                      <span class="text-xs text-[#351C15] font-bold">UPS</span>
-                    </div>
-                    <p class="text-xs text-neutral-600">Light</p>
-                    <p class="text-xs text-neutral-500 font-medium">128 uses</p>
-                  </div>
-                </div>
+              <!-- Asset Table -->
+              <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                  <thead>
+                    <tr class="border-b border-neutral-100">
+                      <th class="text-left py-3 px-4 font-semibold text-neutral-600">Asset</th>
+                      <th class="text-left py-3 px-4 font-semibold text-neutral-600">Type</th>
+                      <th class="text-center py-3 px-4 font-semibold text-neutral-600">Total Uses</th>
+                      <th class="text-left py-3 px-4 font-semibold text-neutral-600">Top Workspaces</th>
+                      <th class="text-center py-3 px-4 font-semibold text-neutral-600">Last Used</th>
+                      <th class="text-center py-3 px-4 font-semibold text-neutral-600">Trend</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- Email Template Row -->
+                    <tr class="border-b border-neutral-50 hover:bg-neutral-50">
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-4">
+                          <div class="w-20 h-14 rounded-lg border border-neutral-200 overflow-hidden bg-gradient-to-b from-[#351C15] to-[#4a2a1f] flex flex-col">
+                            <div class="h-3 bg-[#FFB500] flex items-center justify-center">
+                              <span class="text-[6px] text-[#351C15] font-bold">UPS</span>
+                            </div>
+                            <div class="flex-1 p-1 flex flex-col gap-0.5">
+                              <div class="h-1 bg-white/20 rounded-full w-3/4"></div>
+                              <div class="h-1 bg-white/20 rounded-full w-full"></div>
+                              <div class="h-1 bg-white/20 rounded-full w-1/2"></div>
+                            </div>
+                          </div>
+                          <div>
+                            <p class="text-sm font-medium text-neutral-800">Holiday Newsletter</p>
+                            <p class="text-xs text-neutral-400">Created Dec 1, 2024</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-4 px-4">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Email Template</span>
+                      </td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-lg font-semibold text-neutral-800">847</span>
+                      </td>
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-1">
+                          <span class="px-2 py-0.5 bg-blue-50 text-blue-600 text-xs rounded">NY</span>
+                          <span class="px-2 py-0.5 bg-green-50 text-green-600 text-xs rounded">CT</span>
+                          <span class="px-2 py-0.5 bg-purple-50 text-purple-600 text-xs rounded">MA</span>
+                          <span class="text-xs text-neutral-400">+5</span>
+                        </div>
+                      </td>
+                      <td class="text-center py-4 px-4 text-sm text-neutral-500">2 hrs ago</td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-green-600 text-sm font-medium flex items-center justify-center gap-1">
+                          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                          +12%
+                        </span>
+                      </td>
+                    </tr>
+                    
+                    <!-- Image Asset Row -->
+                    <tr class="border-b border-neutral-50 hover:bg-neutral-50">
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-4">
+                          <img src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=80&h=56&fit=crop" class="w-20 h-14 rounded-lg object-cover">
+                          <div>
+                            <p class="text-sm font-medium text-neutral-800">Delivery Driver Hero</p>
+                            <p class="text-xs text-neutral-400">hero-driver-01.jpg</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-4 px-4">
+                        <span class="px-2 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">Image</span>
+                      </td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-lg font-semibold text-neutral-800">234</span>
+                      </td>
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-1">
+                          <span class="px-2 py-0.5 bg-blue-50 text-blue-600 text-xs rounded">NY</span>
+                          <span class="px-2 py-0.5 bg-amber-50 text-amber-600 text-xs rounded">NJ</span>
+                          <span class="text-xs text-neutral-400">+3</span>
+                        </div>
+                      </td>
+                      <td class="text-center py-4 px-4 text-sm text-neutral-500">1 day ago</td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-green-600 text-sm font-medium flex items-center justify-center gap-1">
+                          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                          +8%
+                        </span>
+                      </td>
+                    </tr>
+                    
+                    <!-- Email Template Row 2 -->
+                    <tr class="border-b border-neutral-50 hover:bg-neutral-50">
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-4">
+                          <div class="w-20 h-14 rounded-lg border border-neutral-200 overflow-hidden bg-white flex flex-col">
+                            <div class="h-3 bg-[#351C15] flex items-center justify-center">
+                              <div class="w-4 h-2 bg-[#FFB500] rounded-sm"></div>
+                            </div>
+                            <div class="flex-1 p-1 flex flex-col gap-0.5">
+                              <div class="h-1 bg-neutral-200 rounded-full w-2/3"></div>
+                              <div class="h-1 bg-neutral-200 rounded-full w-full"></div>
+                              <div class="h-2 bg-[#FFB500] rounded w-1/3"></div>
+                            </div>
+                          </div>
+                          <div>
+                            <p class="text-sm font-medium text-neutral-800">Promotional Offer</p>
+                            <p class="text-xs text-neutral-400">Created Nov 15, 2024</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-4 px-4">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Email Template</span>
+                      </td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-lg font-semibold text-neutral-800">156</span>
+                      </td>
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-1">
+                          <span class="px-2 py-0.5 bg-green-50 text-green-600 text-xs rounded">CT</span>
+                          <span class="px-2 py-0.5 bg-teal-50 text-teal-600 text-xs rounded">PA</span>
+                          <span class="text-xs text-neutral-400">+4</span>
+                        </div>
+                      </td>
+                      <td class="text-center py-4 px-4 text-sm text-neutral-500">3 days ago</td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-neutral-400 text-sm font-medium flex items-center justify-center gap-1">
+                          —
+                        </span>
+                      </td>
+                    </tr>
+                    
+                    <!-- Logo Asset Row -->
+                    <tr class="border-b border-neutral-50 hover:bg-neutral-50">
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-4">
+                          <div class="w-20 h-14 rounded-lg border border-neutral-200 bg-neutral-50 flex items-center justify-center">
+                            <img src="assets/upsLogo.png" class="w-12 h-12 object-contain">
+                          </div>
+                          <div>
+                            <p class="text-sm font-medium text-neutral-800">Primary Logo</p>
+                            <p class="text-xs text-neutral-400">ups-logo-primary.png</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-4 px-4">
+                        <span class="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">Logo</span>
+                      </td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-lg font-semibold text-neutral-800">1,209</span>
+                      </td>
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-1">
+                          <span class="text-xs text-neutral-500">All 18 workspaces</span>
+                        </div>
+                      </td>
+                      <td class="text-center py-4 px-4 text-sm text-neutral-500">1 hr ago</td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-green-600 text-sm font-medium flex items-center justify-center gap-1">
+                          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                          +5%
+                        </span>
+                      </td>
+                    </tr>
+                    
+                    <!-- Image Asset Row 2 -->
+                    <tr class="border-b border-neutral-50 hover:bg-neutral-50">
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-4">
+                          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=80&h=56&fit=crop" class="w-20 h-14 rounded-lg object-cover">
+                          <div>
+                            <p class="text-sm font-medium text-neutral-800">Package Delivery</p>
+                            <p class="text-xs text-neutral-400">delivery-package-02.jpg</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-4 px-4">
+                        <span class="px-2 py-1 bg-amber-100 text-amber-700 text-xs rounded-full">Image</span>
+                      </td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-lg font-semibold text-neutral-800">124</span>
+                      </td>
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-1">
+                          <span class="px-2 py-0.5 bg-purple-50 text-purple-600 text-xs rounded">MA</span>
+                          <span class="px-2 py-0.5 bg-blue-50 text-blue-600 text-xs rounded">NY</span>
+                          <span class="text-xs text-neutral-400">+2</span>
+                        </div>
+                      </td>
+                      <td class="text-center py-4 px-4 text-sm text-neutral-500">5 days ago</td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-red-500 text-sm font-medium flex items-center justify-center gap-1">
+                          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg>
+                          -3%
+                        </span>
+                      </td>
+                    </tr>
+                    
+                    <!-- Email Template Row 3 -->
+                    <tr class="hover:bg-neutral-50">
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-4">
+                          <div class="w-20 h-14 rounded-lg border border-neutral-200 overflow-hidden bg-gradient-to-br from-[#FFB500] to-[#e5a300] flex flex-col">
+                            <div class="h-3 bg-[#351C15] flex items-center justify-center">
+                              <span class="text-[6px] text-white font-bold">SALE</span>
+                            </div>
+                            <div class="flex-1 p-1 flex items-center justify-center">
+                              <span class="text-[8px] text-[#351C15] font-bold">50% OFF</span>
+                            </div>
+                          </div>
+                          <div>
+                            <p class="text-sm font-medium text-neutral-800">Flash Sale Banner</p>
+                            <p class="text-xs text-neutral-400">Created Oct 28, 2024</p>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="py-4 px-4">
+                        <span class="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">Email Template</span>
+                      </td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-lg font-semibold text-neutral-800">98</span>
+                      </td>
+                      <td class="py-4 px-4">
+                        <div class="flex items-center gap-1">
+                          <span class="px-2 py-0.5 bg-amber-50 text-amber-600 text-xs rounded">NJ</span>
+                          <span class="px-2 py-0.5 bg-teal-50 text-teal-600 text-xs rounded">PA</span>
+                          <span class="text-xs text-neutral-400">+2</span>
+                        </div>
+                      </td>
+                      <td class="text-center py-4 px-4 text-sm text-neutral-500">1 week ago</td>
+                      <td class="text-center py-4 px-4">
+                        <span class="text-green-600 text-sm font-medium flex items-center justify-center gap-1">
+                          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                          +22%
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-
-              <!-- Most Used Images -->
-              <div>
-                <p class="text-xs font-medium text-neutral-500 mb-2">Most Popular Images</p>
-                <div class="flex gap-2">
-                  <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=80&h=60&fit=crop" class="w-16 h-12 rounded-lg object-cover">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 rounded-lg flex items-center justify-center transition-opacity">
-                      <span class="text-xs text-white">156</span>
-                    </div>
-                  </div>
-                  <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=80&h=60&fit=crop" class="w-16 h-12 rounded-lg object-cover">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 rounded-lg flex items-center justify-center transition-opacity">
-                      <span class="text-xs text-white">124</span>
-                    </div>
-                  </div>
-                  <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=80&h=60&fit=crop" class="w-16 h-12 rounded-lg object-cover">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 rounded-lg flex items-center justify-center transition-opacity">
-                      <span class="text-xs text-white">98</span>
-                    </div>
-                  </div>
-                  <div class="relative group">
-                    <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=80&h=60&fit=crop" class="w-16 h-12 rounded-lg object-cover">
-                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 rounded-lg flex items-center justify-center transition-opacity">
-                      <span class="text-xs text-white">87</span>
-                    </div>
-                  </div>
+              
+              <!-- Pagination -->
+              <div class="flex items-center justify-between mt-4 pt-4 border-t border-neutral-100">
+                <p class="text-sm text-neutral-500">Showing 6 of 247 assets</p>
+                <div class="flex items-center gap-2">
+                  <button class="px-3 py-1.5 text-sm text-neutral-400 border border-neutral-200 rounded-lg cursor-not-allowed">Previous</button>
+                  <button class="px-3 py-1.5 text-sm text-neutral-700 border border-neutral-200 rounded-lg hover:bg-neutral-50">Next</button>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Second Row: Detailed Table -->
-          <div class="bg-white rounded-2xl border border-neutral-100 p-5">
+          <!-- Usage by Workspace Table -->
+          <div class="bg-white rounded-2xl border border-neutral-100 p-5 mt-6">
             <div class="flex items-center justify-between mb-4">
               <div>
-                <h3 class="text-sm font-semibold text-neutral-700 uppercase tracking-wide">Brand Asset Details by Workspace</h3>
-                <p class="text-xs text-neutral-500">Complete breakdown of template, color, logo, and image usage</p>
+                <h3 class="text-sm font-semibold text-neutral-700 uppercase tracking-wide">Usage Summary by Workspace</h3>
+                <p class="text-xs text-neutral-500">Template, color, logo, and image usage per workspace</p>
               </div>
               <a href="option-b-northstar-empty.html" class="text-sm text-ctct-blue hover:underline">← Back to Dashboard</a>
             </div>
