@@ -277,8 +277,8 @@
       <!-- Navigation -->
       <div class="flex-1 overflow-y-auto px-3">
         <nav>
-          <!-- Home -->
-          <a href="option-b-northstar-empty.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Home</a>
+          <!-- Org Dashboard -->
+          <a href="option-b-northstar-empty.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Org Dashboard</a>
 
           <!-- Workspaces - Active -->
           <a href="workspaces-list.html" class="block py-3 px-4 text-sm font-semibold text-slate-700 bg-sky-50 rounded-xl mb-1">Workspaces</a>
@@ -387,6 +387,17 @@
         <!-- Tree View Container (shown by default) -->
         <div id="tree-view-container" class="">
           <div class="bg-white rounded-2xl border border-gray-100 p-6">
+            <!-- Expand/Collapse All Controls -->
+            <div class="flex items-center gap-3 mb-4 pb-4 border-b border-gray-100">
+              <button onclick="expandAllNodes()" class="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 8 4-4 4 4"/><path d="M7 4v16"/><path d="m21 16-4 4-4-4"/><path d="M17 20V4"/></svg>
+                Expand All
+              </button>
+              <button onclick="collapseAllNodes()" class="flex items-center gap-1.5 px-3 py-1.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 20 4-4-4-4"/><path d="M11 16H3"/><path d="m17 4-4 4 4 4"/><path d="M13 8h8"/></svg>
+                Collapse All
+              </button>
+            </div>
             <div id="tree-content" class="space-y-2">
               <!-- Tree nodes will be dynamically inserted here -->
             </div>
@@ -566,6 +577,47 @@
     
     // Tree view state (must be defined before renderTreeView is called)
     const expandedNodes = new Set();
+    
+    // Expand all nodes by default on first load
+    function initExpandedNodes() {
+      // Add all folder nodes to expanded set
+      filledFolders.forEach(folder => {
+        const folderData = typeof folder === 'object' ? folder : { name: folder };
+        const nodeId = `folder-${folderData.name.replace(/\s+/g, '-')}`;
+        expandedNodes.add(nodeId);
+        
+        // Also expand child folders
+        if (folderData.isParentHub && childFoldersData[folderData.name]) {
+          childFoldersData[folderData.name].forEach(child => {
+            const childNodeId = `hub-${child.name.replace(/\s+/g, '-')}`;
+            expandedNodes.add(childNodeId);
+          });
+        }
+      });
+    }
+    
+    // Expand all nodes
+    function expandAllNodes() {
+      filledFolders.forEach(folder => {
+        const folderData = typeof folder === 'object' ? folder : { name: folder };
+        const nodeId = `folder-${folderData.name.replace(/\s+/g, '-')}`;
+        expandedNodes.add(nodeId);
+        
+        if (folderData.isParentHub && childFoldersData[folderData.name]) {
+          childFoldersData[folderData.name].forEach(child => {
+            const childNodeId = `hub-${child.name.replace(/\s+/g, '-')}`;
+            expandedNodes.add(childNodeId);
+          });
+        }
+      });
+      renderTreeView();
+    }
+    
+    // Collapse all nodes
+    function collapseAllNodes() {
+      expandedNodes.clear();
+      renderTreeView();
+    }
     
     // Child folders data (shown when drilling into parent folder)
     const childFoldersData = {
@@ -941,6 +993,9 @@
       // Default to 'filled' if no valid mode in sessionStorage
       setDataMode(currentDataMode || 'filled', false);
     }
+    
+    // Expand all tree nodes by default for better initial view
+    initExpandedNodes();
     
     // Set view mode from URL or default to tree (skip if onboarding mode)
     if (currentDataMode !== 'onboarding') {
@@ -1688,7 +1743,7 @@
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <span class="font-medium text-gray-900 block">${folderData.name}</span>
+                  <span class="font-medium text-gray-900 block">${folderData.name} <span class="text-gray-400 font-normal">Region Folder</span></span>
                   <span class="text-xs text-gray-500">${folderData.folders} folders · ${totalWorkspaces} workspaces · ${members} members</span>
                 </div>
               </div>
@@ -1705,7 +1760,7 @@
                           </button>
                           <div class="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center text-gray-500 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div>
                           <div class="flex-1 min-w-0">
-                            <span class="font-medium text-gray-900 text-sm block">${childFolder.name}</span>
+                            <span class="font-medium text-gray-900 text-sm block">${childFolder.name} <span class="text-gray-400 font-normal">Region Folder</span></span>
                             <span class="text-xs text-gray-400">${childFolder.workspaces.length} workspaces · ${childFolder.contacts} contacts</span>
                           </div>
                         </div>
@@ -1715,7 +1770,7 @@
                               <a href="workspace-detail.html?workspace=${encodeURIComponent(ws)}&folder=${encodeURIComponent(childFolder.name)}" class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg group">
                                 <div class="w-4 h-4"></div>
                                 <div class="w-6 h-6 ${getColor(ws)} rounded-full flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">${getInitials(ws)}</div>
-                                <span class="text-sm text-gray-700 flex-1">${ws}</span>
+                                <span class="text-sm text-gray-700 flex-1">${ws} <span class="text-gray-400">Workspace</span></span>
                                 <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-gray-300 opacity-0 group-hover:opacity-100"></i>
                               </a>
                             `).join('')}
@@ -1738,7 +1793,7 @@
                 </button>
                 <div class="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center text-gray-500 flex-shrink-0"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div>
                 <div class="flex-1 min-w-0">
-                  <span class="font-medium text-gray-900 block">${folderData.name}</span>
+                  <span class="font-medium text-gray-900 block">${folderData.name} <span class="text-gray-400 font-normal">Folder</span></span>
                   <span class="text-xs text-gray-500">${folderData.workspaces.length} workspaces</span>
                 </div>
               </div>
@@ -1748,7 +1803,7 @@
                     <a href="workspace-detail.html?workspace=${encodeURIComponent(ws)}&folder=${encodeURIComponent(folderData.name)}" class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg group">
                       <div class="w-4 h-4"></div>
                       <div class="w-6 h-6 ${getColor(ws)} rounded-full flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0">${getInitials(ws)}</div>
-                      <span class="text-sm text-gray-700 flex-1">${ws}</span>
+                      <span class="text-sm text-gray-700 flex-1">${ws} <span class="text-gray-400">Workspace</span></span>
                       <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-gray-300 opacity-0 group-hover:opacity-100"></i>
                     </a>
                   `).join('')}
@@ -1771,7 +1826,7 @@
                   <a href="workspace-detail.html?workspace=${encodeURIComponent(wsName)}" class="flex items-center gap-3 p-2 hover:bg-gray-50 rounded-lg group">
                     <div class="w-6 h-6"></div>
                     <div class="w-8 h-8 ${getColor(wsName)} rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0">${getInitials(wsName)}</div>
-                    <span class="text-sm text-gray-700 flex-1">${wsName}</span>
+                    <span class="text-sm text-gray-700 flex-1">${wsName} <span class="text-gray-400">Workspace</span></span>
                     <i data-lucide="chevron-right" class="w-4 h-4 text-gray-300 opacity-0 group-hover:opacity-100"></i>
                   </a>
                 `;
