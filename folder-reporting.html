@@ -2021,35 +2021,39 @@ function safeCreateIcons() {
       // Workspace pill
       const workspacePillText = document.getElementById('workspace-pill-text');
       const workspacePill = document.getElementById('workspace-filter-pill');
-      if (selectedWorkspace) {
-        workspacePillText.textContent = selectedWorkspace;
-        workspacePill.classList.remove('border-gray-200', 'text-gray-600');
-        workspacePill.classList.add('border-ctct-blue', 'text-ctct-blue', 'font-medium');
-      } else if (workspaces.length > 0) {
-        workspacePillText.textContent = `${workspaces.length} Workspaces`;
-        workspacePill.classList.remove('border-ctct-blue', 'text-ctct-blue', 'font-medium');
-        workspacePill.classList.add('border-gray-200', 'text-gray-600');
-      } else {
-        workspacePillText.textContent = 'All Workspaces';
+      if (workspacePillText && workspacePill) {
+        if (selectedWorkspace) {
+          workspacePillText.textContent = selectedWorkspace;
+          workspacePill.classList.remove('border-gray-200', 'text-gray-600');
+          workspacePill.classList.add('border-ctct-blue', 'text-ctct-blue', 'font-medium');
+        } else if (workspaces.length > 0) {
+          workspacePillText.textContent = `${workspaces.length} Workspaces`;
+          workspacePill.classList.remove('border-ctct-blue', 'text-ctct-blue', 'font-medium');
+          workspacePill.classList.add('border-gray-200', 'text-gray-600');
+        } else {
+          workspacePillText.textContent = 'All Workspaces';
+        }
       }
       
       // Channel pill
       const channelPillText = document.getElementById('channel-pill-text');
       const channelPill = document.getElementById('channel-filter-pill');
-      if (channelFilter && channelFilter !== 'all') {
-        const channelNames = {
-          'email': 'Email',
-          'sms': 'SMS',
-          'social': 'Social',
-          'automation': 'Automations'
-        };
-        channelPillText.textContent = channelNames[channelFilter] || channelFilter;
-        channelPill.classList.remove('border-gray-200', 'text-gray-600');
-        channelPill.classList.add('border-ctct-blue', 'text-ctct-blue', 'font-medium');
-      } else {
-        channelPillText.textContent = 'All Channels';
-        channelPill.classList.remove('border-ctct-blue', 'text-ctct-blue', 'font-medium');
-        channelPill.classList.add('border-gray-200', 'text-gray-600');
+      if (channelPillText && channelPill) {
+        if (channelFilter && channelFilter !== 'all') {
+          const channelNames = {
+            'email': 'Email',
+            'sms': 'SMS',
+            'social': 'Social',
+            'automation': 'Automations'
+          };
+          channelPillText.textContent = channelNames[channelFilter] || channelFilter;
+          channelPill.classList.remove('border-gray-200', 'text-gray-600');
+          channelPill.classList.add('border-ctct-blue', 'text-ctct-blue', 'font-medium');
+        } else {
+          channelPillText.textContent = 'All Channels';
+          channelPill.classList.remove('border-ctct-blue', 'text-ctct-blue', 'font-medium');
+          channelPill.classList.add('border-gray-200', 'text-gray-600');
+        }
       }
       
       // Date range pill
@@ -2063,7 +2067,7 @@ function safeCreateIcons() {
         '1Y': 'Last 1 Year',
         'all': 'All Time'
       };
-      datePillText.textContent = dateRangeLabels[dateRange] || 'Last 1 Month';
+      if (datePillText) datePillText.textContent = dateRangeLabels[dateRange] || 'Last 1 Month';
       
       // Update date range button in header
       const dateRangeBtn = document.getElementById('date-range-btn');
@@ -2081,9 +2085,11 @@ function safeCreateIcons() {
       window.location.href = url.toString();
     }
     
-    // Update workspace count
-    document.getElementById('workspace-count-label').textContent = workspaces.length;
-    document.getElementById('workspace-filter-pill').textContent = `${workspaces.length} Workspaces`;
+    // Update workspace count (if elements exist)
+    const wsCountLabel = document.getElementById('workspace-count-label');
+    const wsFilterPill = document.getElementById('workspace-filter-pill');
+    if (wsCountLabel) wsCountLabel.textContent = workspaces.length;
+    if (wsFilterPill) wsFilterPill.textContent = `${workspaces.length} Workspaces`;
     
     // Helper functions
     function getInitials(name) {
@@ -2405,7 +2411,8 @@ function safeCreateIcons() {
         'medium': 'Medium Performers',
         'low': 'Low Performers'
       };
-      document.getElementById('perf-pill-text').textContent = labels[level];
+      const perfPillText = document.getElementById('perf-pill-text');
+      if (perfPillText) perfPillText.textContent = labels[level];
       document.getElementById('perf-dropdown').classList.add('hidden');
     }
     
