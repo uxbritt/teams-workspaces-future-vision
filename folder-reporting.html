@@ -374,17 +374,8 @@
       <!-- Header Bar -->
       <div class="bg-white border-b border-neutral-100 px-8 py-4">
         <div class="flex items-center justify-between">
-          <!-- Breadcrumbs -->
-          <div class="flex items-center gap-2 text-sm">
-            <button class="p-1 text-neutral-400 hover:text-neutral-600">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/></svg>
-            </button>
-            <span class="text-neutral-300">/</span>
-            <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-            <span class="text-neutral-600 font-medium">Reporting</span>
-            <span class="text-neutral-300">/</span>
-            <span id="breadcrumb-report-type" class="text-neutral-800 font-medium">Brand Usage</span>
-          </div>
+          <!-- Page Title -->
+          <h1 id="report-page-title" class="text-xl font-semibold text-neutral-800">Brand Usage</h1>
           
           <!-- Actions -->
           <div class="flex items-center gap-3">
@@ -395,47 +386,6 @@
               <span id="active-filter-badge" class="hidden px-1.5 py-0.5 bg-ctct-blue text-white text-xs rounded-full font-medium">3</span>
             </button>
             
-            <!-- Export Dropdown -->
-            <div class="relative">
-              <button onclick="toggleExportMenu()" class="px-4 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90 flex items-center gap-2">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                Export
-              </button>
-              <div id="export-menu" class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-neutral-100 py-2 z-30">
-                <button onclick="exportReport('csv')" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
-                  <svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  Export as CSV
-                </button>
-                <button onclick="exportReport('pdf')" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
-                  <svg class="w-4 h-4 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                  Export as PDF
-                </button>
-                <button onclick="exportReport('excel')" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
-                  <svg class="w-4 h-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
-                  Export as Excel
-                </button>
-                <div class="border-t border-neutral-100 my-2"></div>
-                <button onclick="scheduleReport()" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
-                  <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                  Schedule Report
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="bg-white border-b border-neutral-200 px-8 py-5">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-4">
-            <h1 id="report-page-title" class="text-xl font-semibold text-neutral-800">Workspace Performance</h1>
-            <!-- Filter Drawer Toggle -->
-            <button onclick="toggleFilterDrawer()" id="filter-drawer-toggle" class="flex items-center gap-2 px-3 py-2 border border-neutral-200 rounded-lg text-sm text-neutral-600 hover:bg-neutral-50 hover:border-neutral-300 transition-colors">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-              <span>Filters</span>
-              <span id="active-filter-badge" class="hidden px-1.5 py-0.5 bg-ctct-blue text-white text-xs rounded-full font-medium">3</span>
-            </button>
-          </div>
-          <div class="flex items-center gap-3">
             <!-- Export Dropdown -->
             <div class="relative">
               <button onclick="toggleExportMenu()" class="px-4 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90 flex items-center gap-2">
@@ -1851,7 +1801,7 @@ function safeCreateIcons() {
       const contentWorkspaces = document.getElementById('content-workspaces');
       const contentCampaigns = document.getElementById('content-campaigns');
       const contentComparison = document.getElementById('content-comparison');
-      const breadcrumbReportType = document.getElementById('breadcrumb-report-type');
+      const pageTitle = document.getElementById('report-page-title');
       
       // Define classes
       const inactiveClass = 'w-full flex items-center gap-3 py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors text-left';
@@ -1867,19 +1817,19 @@ function safeCreateIcons() {
       if (contentCampaigns) contentCampaigns.classList.add('hidden');
       if (contentComparison) contentComparison.classList.add('hidden');
       
-      // Activate selected tab
+      // Activate selected tab and update page title to match nav item
       if (tab === 'workspaces') {
         if (navWorkspaces) navWorkspaces.className = activeClass;
         if (contentWorkspaces) contentWorkspaces.classList.remove('hidden');
-        if (breadcrumbReportType) breadcrumbReportType.textContent = 'Brand Usage';
+        if (pageTitle) pageTitle.textContent = 'Brand Usage';
       } else if (tab === 'campaigns') {
         if (navCampaigns) navCampaigns.className = activeClass;
         if (contentCampaigns) contentCampaigns.classList.remove('hidden');
-        if (breadcrumbReportType) breadcrumbReportType.textContent = 'Campaigns';
+        if (pageTitle) pageTitle.textContent = 'Campaigns';
       } else if (tab === 'comparison') {
         if (navComparison) navComparison.className = activeClass;
         if (contentComparison) contentComparison.classList.remove('hidden');
-        if (breadcrumbReportType) breadcrumbReportType.textContent = 'Comparison';
+        if (pageTitle) pageTitle.textContent = 'Comparison';
       }
       
       // Update URL
