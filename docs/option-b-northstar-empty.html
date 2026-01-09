@@ -1035,11 +1035,16 @@
                   <label class="block text-sm font-medium text-neutral-700 mb-2">Metric type</label>
                   <div class="relative">
                     <select id="widget-channel" onchange="updateStatsSelectionUI(); updateWidgetPreview();" class="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent">
-                      <option value="email">Email Engagement</option>
-                      <option value="social">Social Engagement</option>
-                      <option value="sms">SMS Engagement</option>
-                      <option value="contacts">Contacts</option>
-                      <option value="workspace-usage">Workspace Usage</option>
+                      <optgroup label="Channel Engagement">
+                        <option value="email">Email</option>
+                        <option value="social">Social</option>
+                        <option value="sms">SMS</option>
+                      </optgroup>
+                      <optgroup label="Workspace">
+                        <option value="workspace">Workspace Usage</option>
+                        <option value="contacts">Contacts</option>
+                        <option value="automation">Automations</option>
+                      </optgroup>
                     </select>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </div>
@@ -1840,6 +1845,28 @@
         { value: 'growth-rate', label: 'Growth rate', format: 'percent', sample: '+5.2%' },
         { value: 'unsubscribed', label: 'Unsubscribed', format: 'number', sample: '56' },
         { value: 'engagement-score', label: 'Avg engagement score', format: 'number', sample: '72' }
+      ],
+      workspace: [
+        { value: 'active-workspaces', label: 'Active workspaces', format: 'number', sample: '12' },
+        { value: 'total-workspaces', label: 'Total workspaces', format: 'number', sample: '18' },
+        { value: 'workspace-activity', label: 'Weekly activity', format: 'percent', sample: '78%' },
+        { value: 'templates-used', label: 'Templates used', format: 'number', sample: '156' },
+        { value: 'template-adoption', label: 'Template adoption', format: 'percent', sample: '85%' },
+        { value: 'brandkit-compliance', label: 'Brand kit compliance', format: 'percent', sample: '92%' },
+        { value: 'assets-uploaded', label: 'Assets uploaded', format: 'number', sample: '2,340' },
+        { value: 'storage-used', label: 'Storage used', format: 'number', sample: '4.2 GB' },
+        { value: 'team-members', label: 'Team members', format: 'number', sample: '47' },
+        { value: 'pending-approvals', label: 'Pending approvals', format: 'number', sample: '8' },
+        { value: 'approval-rate', label: 'Approval rate', format: 'percent', sample: '94%' },
+        { value: 'avg-approval-time', label: 'Avg approval time', format: 'number', sample: '2.4 hrs' }
+      ],
+      automation: [
+        { value: 'active-automations', label: 'Active automations', format: 'number', sample: '23' },
+        { value: 'total-runs', label: 'Total runs', format: 'number', sample: '1,456' },
+        { value: 'success-rate', label: 'Success rate', format: 'percent', sample: '99.2%' },
+        { value: 'emails-triggered', label: 'Emails triggered', format: 'number', sample: '8,920' },
+        { value: 'revenue-generated', label: 'Revenue generated', format: 'currency', sample: '$12,450' },
+        { value: 'avg-conversion', label: 'Avg conversion', format: 'percent', sample: '8.4%' }
       ]
     };
 
@@ -1884,7 +1911,21 @@
     }
     
     function getMetricsForChannel(channel) {
+      // Handle legacy "workspace-usage" value
+      if (channel === 'workspace-usage') channel = 'workspace';
       return allMetrics[channel] || allMetrics.email;
+    }
+    
+    function getChannelLabel(channel) {
+      const labels = {
+        'email': 'Email Engagement',
+        'social': 'Social Engagement',
+        'sms': 'SMS Engagement',
+        'contacts': 'Contact Metrics',
+        'workspace': 'Workspace Usage',
+        'automation': 'Automation Metrics'
+      };
+      return labels[channel] || channel;
     }
 
     function buildMetricDropdown(id, selectedValue, channel) {
@@ -1977,7 +2018,7 @@
       const showTrends = document.getElementById('widget-show-trends')?.checked ?? true;
       const preview = document.getElementById('widget-preview');
       
-      const channelLabel = channel === 'email' ? 'Email' : channel === 'social' ? 'Social' : channel === 'sms' ? 'SMS' : 'Contacts';
+      const channelLabel = getChannelLabel(channel);
       const config = chartTypeConfig[chartType];
       
       // Get selected stats

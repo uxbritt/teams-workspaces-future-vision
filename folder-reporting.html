@@ -334,15 +334,49 @@
           <div class="flex items-center gap-8">
             <button id="tab-workspaces" onclick="switchTab('workspaces')" class="pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue">WORKSPACES</button>
             <button id="tab-campaigns" onclick="switchTab('campaigns')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">MARKETING CAMPAIGNS</button>
+            <button id="tab-comparison" onclick="switchTab('comparison')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">COMPARISON</button>
           </div>
           <div class="flex items-center gap-3 pb-4">
             <button class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
               <span id="workspace-count-label">0</span> Workspaces
             </button>
-            <button id="date-range-btn" class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">1M</button>
-            <button id="filter-toggle-btn" onclick="toggleFilterBar()" class="p-2 border border-gray-200 rounded-lg bg-gray-100 text-gray-600">
-              <i data-lucide="list-filter-plus" class="w-4 h-4"></i>
+            <button id="date-range-btn" onclick="openDateRangeModal()" class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span id="date-range-text">1M</span>
             </button>
+            <button id="filter-toggle-btn" onclick="toggleFilterBar()" class="p-2 border border-gray-200 rounded-lg bg-gray-100 text-gray-600">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+            </button>
+            <!-- Export Dropdown -->
+            <div class="relative">
+              <button onclick="toggleExportMenu()" class="px-4 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90 flex items-center gap-2">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Export
+              </button>
+              <div id="export-menu" class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-30">
+                <button onclick="exportReport('csv')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                  <svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Export as CSV
+                </button>
+                <button onclick="exportReport('pdf')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                  <svg class="w-4 h-4 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  Export as PDF
+                </button>
+                <button onclick="exportReport('excel')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                  <svg class="w-4 h-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+                  Export as Excel
+                </button>
+                <div class="border-t border-gray-100 my-2"></div>
+                <button onclick="scheduleReport()" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                  <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  Schedule Report
+                </button>
+                <button onclick="shareReport()" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                  <svg class="w-4 h-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                  Share Report Link
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -350,25 +384,183 @@
       <!-- Dashboard Content -->
       <div class="relative">
         <!-- Filter Bar Overlay -->
-        <div id="filter-bar" class="absolute top-0 left-0 right-0 z-10 bg-gray-100 px-8 py-4">
+        <div id="filter-bar" class="absolute top-0 left-0 right-0 z-10 bg-gray-50 border-b border-gray-200 px-8 py-4">
           <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <span class="text-sm text-gray-500">Filter by condition</span>
-              <button id="workspace-filter-pill" class="px-4 py-2 bg-white border border-ctct-blue rounded-full text-sm text-ctct-blue font-medium">
-                <span id="workspace-pill-text">All Workspaces</span>
-              </button>
-              <span class="text-sm text-gray-400">AND</span>
-              <button id="channel-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600">
-                <span id="channel-pill-text">All Channels</span>
-              </button>
-              <span class="text-sm text-gray-400">AND</span>
-              <button id="date-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600">
-                <span id="date-pill-text">Last 1 Month</span>
+            <div class="flex items-center gap-3 flex-wrap">
+              <span class="text-sm text-gray-500 font-medium">Filters:</span>
+              
+              <!-- Folder Filter -->
+              <div class="relative">
+                <button onclick="toggleFilterDropdown('folder-dropdown')" id="folder-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+                  <span id="folder-pill-text">All Folders</span>
+                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div id="folder-dropdown" class="hidden absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40 max-h-64 overflow-y-auto">
+                  <div class="px-3 py-2 border-b border-gray-100">
+                    <input type="text" placeholder="Search folders..." class="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm">
+                  </div>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" checked class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">All Folders</span>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS Northeast</span>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS Southeast</span>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS Southwest</span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Workspace Filter -->
+              <div class="relative">
+                <button onclick="toggleFilterDropdown('workspace-dropdown')" id="workspace-filter-pill" class="px-4 py-2 bg-white border border-ctct-blue rounded-full text-sm text-ctct-blue font-medium flex items-center gap-2">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+                  <span id="workspace-pill-text">All Workspaces</span>
+                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div id="workspace-dropdown" class="hidden absolute left-0 top-full mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40 max-h-80 overflow-y-auto">
+                  <div class="px-3 py-2 border-b border-gray-100">
+                    <input type="text" placeholder="Search workspaces..." class="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm">
+                  </div>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" checked class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700 font-medium">All Workspaces</span>
+                  </label>
+                  <div class="border-t border-gray-100 my-1"></div>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS New York</span>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS Connecticut</span>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS Massachusetts</span>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS New Jersey</span>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">UPS Pennsylvania</span>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Channel Filter -->
+              <div class="relative">
+                <button onclick="toggleFilterDropdown('channel-dropdown')" id="channel-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  <span id="channel-pill-text">All Channels</span>
+                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div id="channel-dropdown" class="hidden absolute left-0 top-full mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40">
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" checked class="rounded text-ctct-blue">
+                    <span class="text-sm text-gray-700">All Channels</span>
+                  </label>
+                  <div class="border-t border-gray-100 my-1"></div>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                      <span class="text-sm text-gray-700">Email</span>
+                    </div>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                      <span class="text-sm text-gray-700">SMS</span>
+                    </div>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                      <span class="text-sm text-gray-700">Social</span>
+                    </div>
+                  </label>
+                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
+                    <input type="checkbox" class="rounded text-ctct-blue">
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
+                      <span class="text-sm text-gray-700">Automations</span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              
+              <!-- Date Range Filter -->
+              <div class="relative">
+                <button onclick="toggleFilterDropdown('date-dropdown')" id="date-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span id="date-pill-text">Last 1 Month</span>
+                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div id="date-dropdown" class="hidden absolute left-0 top-full mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40">
+                  <button onclick="setDateRange('7D')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 7 Days</button>
+                  <button onclick="setDateRange('1M')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 text-blue-600 font-medium">Last 1 Month</button>
+                  <button onclick="setDateRange('3M')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 3 Months</button>
+                  <button onclick="setDateRange('6M')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 6 Months</button>
+                  <button onclick="setDateRange('1Y')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 1 Year</button>
+                  <div class="border-t border-gray-100 my-1"></div>
+                  <button onclick="openCustomDateRange()" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                    <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    Custom Range...
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Performance Filter (NEW) -->
+              <div class="relative">
+                <button onclick="toggleFilterDropdown('perf-dropdown')" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
+                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+                  <span id="perf-pill-text">All Performance</span>
+                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div id="perf-dropdown" class="hidden absolute left-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40">
+                  <button onclick="setPerformanceFilter('all')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 text-blue-600 font-medium">All Performance</button>
+                  <button onclick="setPerformanceFilter('high')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                    High Performers (>25% open)
+                  </button>
+                  <button onclick="setPerformanceFilter('medium')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-amber-500 rounded-full"></span>
+                    Medium (15-25% open)
+                  </button>
+                  <button onclick="setPerformanceFilter('low')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+                    <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                    Low Performers (<15% open)
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Comparison Toggle (NEW) -->
+              <button onclick="toggleComparisonMode()" id="comparison-toggle" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
+                <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                Compare
               </button>
             </div>
+            
             <div class="flex items-center gap-3">
-              <button onclick="resetFilters()" class="text-sm text-gray-500 hover:text-gray-700">Reset</button>
-              <button class="px-5 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90">Apply</button>
+              <span class="text-xs text-gray-400" id="active-filters-count">3 filters active</span>
+              <button onclick="resetFilters()" class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">
+                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                Reset
+              </button>
+              <button onclick="applyFilters()" class="px-5 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90">Apply</button>
             </div>
           </div>
         </div>
@@ -932,6 +1124,309 @@
             </div>
           </div>
         </div>
+
+        <!-- WORKSPACE COMPARISON TAB CONTENT (NEW) -->
+        <div id="content-comparison" class="p-8 pt-20 hidden">
+          <!-- Comparison Header -->
+          <div class="bg-white rounded-2xl border border-gray-100 p-6 mb-6">
+            <div class="flex items-center justify-between mb-6">
+              <div>
+                <h2 class="text-lg font-semibold text-gray-800">Workspace Comparison</h2>
+                <p class="text-sm text-gray-500">Compare performance metrics across selected workspaces</p>
+              </div>
+              <div class="flex items-center gap-3">
+                <select id="comparison-metric" class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 bg-white">
+                  <option value="opens">Open Rate</option>
+                  <option value="clicks">Click Rate</option>
+                  <option value="bounces">Bounce Rate</option>
+                  <option value="sends">Total Sends</option>
+                  <option value="revenue">Revenue</option>
+                </select>
+                <select id="comparison-period" class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 bg-white">
+                  <option value="current">This Month</option>
+                  <option value="previous">vs Previous Month</option>
+                  <option value="yoy">vs Same Month Last Year</option>
+                </select>
+              </div>
+            </div>
+            
+            <!-- Comparison Chart Area -->
+            <div class="relative h-64 border border-gray-100 rounded-xl bg-gray-50 p-4">
+              <!-- Y-axis labels -->
+              <div class="absolute left-2 top-4 bottom-4 flex flex-col justify-between text-xs text-gray-400">
+                <span>30%</span>
+                <span>20%</span>
+                <span>10%</span>
+                <span>0%</span>
+              </div>
+              
+              <!-- Bars Container -->
+              <div class="ml-10 h-full flex items-end justify-around gap-4">
+                <!-- NY -->
+                <div class="flex flex-col items-center flex-1">
+                  <div class="relative w-full max-w-16 flex items-end gap-1 h-48">
+                    <div class="flex-1 bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-md" style="height: 85%"></div>
+                    <div class="flex-1 bg-gradient-to-t from-blue-300 to-blue-200 rounded-t-md opacity-60" style="height: 70%"></div>
+                  </div>
+                  <span class="text-xs text-gray-600 mt-2 font-medium">NY</span>
+                  <span class="text-xs text-green-600 font-medium">+2.1%</span>
+                </div>
+                
+                <!-- CT -->
+                <div class="flex flex-col items-center flex-1">
+                  <div class="relative w-full max-w-16 flex items-end gap-1 h-48">
+                    <div class="flex-1 bg-gradient-to-t from-teal-500 to-teal-400 rounded-t-md" style="height: 70%"></div>
+                    <div class="flex-1 bg-gradient-to-t from-teal-300 to-teal-200 rounded-t-md opacity-60" style="height: 65%"></div>
+                  </div>
+                  <span class="text-xs text-gray-600 mt-2 font-medium">CT</span>
+                  <span class="text-xs text-green-600 font-medium">+0.8%</span>
+                </div>
+                
+                <!-- MA -->
+                <div class="flex flex-col items-center flex-1">
+                  <div class="relative w-full max-w-16 flex items-end gap-1 h-48">
+                    <div class="flex-1 bg-gradient-to-t from-purple-500 to-purple-400 rounded-t-md" style="height: 60%"></div>
+                    <div class="flex-1 bg-gradient-to-t from-purple-300 to-purple-200 rounded-t-md opacity-60" style="height: 75%"></div>
+                  </div>
+                  <span class="text-xs text-gray-600 mt-2 font-medium">MA</span>
+                  <span class="text-xs text-red-600 font-medium">-1.2%</span>
+                </div>
+                
+                <!-- NJ -->
+                <div class="flex flex-col items-center flex-1">
+                  <div class="relative w-full max-w-16 flex items-end gap-1 h-48">
+                    <div class="flex-1 bg-gradient-to-t from-orange-500 to-orange-400 rounded-t-md" style="height: 75%"></div>
+                    <div class="flex-1 bg-gradient-to-t from-orange-300 to-orange-200 rounded-t-md opacity-60" style="height: 68%"></div>
+                  </div>
+                  <span class="text-xs text-gray-600 mt-2 font-medium">NJ</span>
+                  <span class="text-xs text-green-600 font-medium">+1.5%</span>
+                </div>
+                
+                <!-- PA -->
+                <div class="flex flex-col items-center flex-1">
+                  <div class="relative w-full max-w-16 flex items-end gap-1 h-48">
+                    <div class="flex-1 bg-gradient-to-t from-pink-500 to-pink-400 rounded-t-md" style="height: 55%"></div>
+                    <div class="flex-1 bg-gradient-to-t from-pink-300 to-pink-200 rounded-t-md opacity-60" style="height: 50%"></div>
+                  </div>
+                  <span class="text-xs text-gray-600 mt-2 font-medium">PA</span>
+                  <span class="text-xs text-green-600 font-medium">+0.5%</span>
+                </div>
+              </div>
+              
+              <!-- Legend -->
+              <div class="absolute top-4 right-4 flex items-center gap-4 text-xs">
+                <div class="flex items-center gap-1.5">
+                  <div class="w-3 h-3 bg-gradient-to-t from-blue-500 to-blue-400 rounded"></div>
+                  <span class="text-gray-600">Current Period</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <div class="w-3 h-3 bg-gray-300 rounded"></div>
+                  <span class="text-gray-600">Previous Period</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Detailed Comparison Table -->
+          <div class="bg-white rounded-2xl border border-gray-100">
+            <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+              <h3 class="text-sm font-semibold text-gray-700 uppercase tracking-wide">Detailed Comparison</h3>
+              <div class="flex items-center gap-3">
+                <button onclick="exportComparison()" class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Export Comparison
+                </button>
+              </div>
+            </div>
+            
+            <!-- Table Header -->
+            <div class="grid grid-cols-10 gap-4 px-5 py-3 border-b border-gray-100 text-xs text-gray-500 uppercase tracking-wide bg-gray-50">
+              <div class="col-span-2">Workspace</div>
+              <div class="text-center">Sends</div>
+              <div class="text-center">Open Rate</div>
+              <div class="text-center">Click Rate</div>
+              <div class="text-center">Bounce</div>
+              <div class="text-center">Unsubs</div>
+              <div class="text-center">Revenue</div>
+              <div class="text-center">vs Prev</div>
+              <div class="text-center">Trend</div>
+            </div>
+            
+            <!-- Table Body -->
+            <div id="comparison-table">
+              <!-- UPS New York -->
+              <div class="grid grid-cols-10 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                <div class="col-span-2 flex items-center gap-3">
+                  <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs font-bold">NY</div>
+                  <div>
+                    <span class="text-sm text-gray-700 font-medium">UPS New York</span>
+                    <span class="block text-xs text-gray-400">12 campaigns</span>
+                  </div>
+                </div>
+                <div class="text-center text-sm text-gray-700 flex items-center justify-center">2,450</div>
+                <div class="text-center">
+                  <span class="text-sm font-medium text-green-600">28.4%</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">4.2%</div>
+                <div class="text-center text-sm text-gray-700">1.1%</div>
+                <div class="text-center text-sm text-gray-700">0.3%</div>
+                <div class="text-center text-sm text-gray-700">$12.4k</div>
+                <div class="text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                    +2.1%
+                  </span>
+                </div>
+                <div class="text-center">
+                  <svg class="w-16 h-6 mx-auto" viewBox="0 0 60 20">
+                    <polyline fill="none" stroke="#22C55E" stroke-width="2" points="0,15 10,12 20,10 30,8 40,6 50,7 60,5"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- UPS Connecticut -->
+              <div class="grid grid-cols-10 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                <div class="col-span-2 flex items-center gap-3">
+                  <div class="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center text-white text-xs font-bold">CT</div>
+                  <div>
+                    <span class="text-sm text-gray-700 font-medium">UPS Connecticut</span>
+                    <span class="block text-xs text-gray-400">8 campaigns</span>
+                  </div>
+                </div>
+                <div class="text-center text-sm text-gray-700">1,820</div>
+                <div class="text-center">
+                  <span class="text-sm font-medium text-green-600">26.1%</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">3.8%</div>
+                <div class="text-center text-sm text-gray-700">0.9%</div>
+                <div class="text-center text-sm text-gray-700">0.4%</div>
+                <div class="text-center text-sm text-gray-700">$8.2k</div>
+                <div class="text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                    +0.8%
+                  </span>
+                </div>
+                <div class="text-center">
+                  <svg class="w-16 h-6 mx-auto" viewBox="0 0 60 20">
+                    <polyline fill="none" stroke="#22C55E" stroke-width="2" points="0,12 10,11 20,13 30,10 40,9 50,8 60,7"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- UPS Massachusetts -->
+              <div class="grid grid-cols-10 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                <div class="col-span-2 flex items-center gap-3">
+                  <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs font-bold">MA</div>
+                  <div>
+                    <span class="text-sm text-gray-700 font-medium">UPS Massachusetts</span>
+                    <span class="block text-xs text-gray-400">10 campaigns</span>
+                  </div>
+                </div>
+                <div class="text-center text-sm text-gray-700">3,120</div>
+                <div class="text-center">
+                  <span class="text-sm font-medium text-amber-600">22.7%</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">2.9%</div>
+                <div class="text-center text-sm text-gray-700">1.5%</div>
+                <div class="text-center text-sm text-gray-700">0.5%</div>
+                <div class="text-center text-sm text-gray-700">$9.8k</div>
+                <div class="text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-medium text-red-600">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                    -1.2%
+                  </span>
+                </div>
+                <div class="text-center">
+                  <svg class="w-16 h-6 mx-auto" viewBox="0 0 60 20">
+                    <polyline fill="none" stroke="#EF4444" stroke-width="2" points="0,8 10,9 20,7 30,10 40,12 50,11 60,13"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- UPS New Jersey -->
+              <div class="grid grid-cols-10 gap-4 px-5 py-4 border-b border-gray-50 hover:bg-gray-50 transition-colors">
+                <div class="col-span-2 flex items-center gap-3">
+                  <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center text-white text-xs font-bold">NJ</div>
+                  <div>
+                    <span class="text-sm text-gray-700 font-medium">UPS New Jersey</span>
+                    <span class="block text-xs text-gray-400">9 campaigns</span>
+                  </div>
+                </div>
+                <div class="text-center text-sm text-gray-700">2,890</div>
+                <div class="text-center">
+                  <span class="text-sm font-medium text-green-600">25.3%</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">3.5%</div>
+                <div class="text-center text-sm text-gray-700">1.2%</div>
+                <div class="text-center text-sm text-gray-700">0.4%</div>
+                <div class="text-center text-sm text-gray-700">$10.5k</div>
+                <div class="text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                    +1.5%
+                  </span>
+                </div>
+                <div class="text-center">
+                  <svg class="w-16 h-6 mx-auto" viewBox="0 0 60 20">
+                    <polyline fill="none" stroke="#22C55E" stroke-width="2" points="0,14 10,12 20,11 30,9 40,8 50,9 60,6"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <!-- UPS Pennsylvania -->
+              <div class="grid grid-cols-10 gap-4 px-5 py-4 hover:bg-gray-50 transition-colors">
+                <div class="col-span-2 flex items-center gap-3">
+                  <div class="w-8 h-8 bg-pink-500 rounded-full flex items-center justify-center text-white text-xs font-bold">PA</div>
+                  <div>
+                    <span class="text-sm text-gray-700 font-medium">UPS Pennsylvania</span>
+                    <span class="block text-xs text-gray-400">8 campaigns</span>
+                  </div>
+                </div>
+                <div class="text-center text-sm text-gray-700">1,540</div>
+                <div class="text-center">
+                  <span class="text-sm font-medium text-amber-600">21.9%</span>
+                </div>
+                <div class="text-center text-sm text-gray-700">2.6%</div>
+                <div class="text-center text-sm text-gray-700">1.8%</div>
+                <div class="text-center text-sm text-gray-700">0.6%</div>
+                <div class="text-center text-sm text-gray-700">$6.2k</div>
+                <div class="text-center">
+                  <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
+                    <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                    +0.5%
+                  </span>
+                </div>
+                <div class="text-center">
+                  <svg class="w-16 h-6 mx-auto" viewBox="0 0 60 20">
+                    <polyline fill="none" stroke="#22C55E" stroke-width="2" points="0,12 10,13 20,11 30,10 40,11 50,9 60,10"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Summary Row -->
+            <div class="grid grid-cols-10 gap-4 px-5 py-4 bg-gray-50 border-t border-gray-200 font-medium">
+              <div class="col-span-2 flex items-center gap-3">
+                <div class="w-8 h-8 bg-gray-700 rounded-full flex items-center justify-center text-white text-xs font-bold">Σ</div>
+                <span class="text-sm text-gray-800">Total / Average</span>
+              </div>
+              <div class="text-center text-sm text-gray-800">11,820</div>
+              <div class="text-center text-sm text-gray-800">24.9%</div>
+              <div class="text-center text-sm text-gray-800">3.4%</div>
+              <div class="text-center text-sm text-gray-800">1.3%</div>
+              <div class="text-center text-sm text-gray-800">0.4%</div>
+              <div class="text-center text-sm text-gray-800">$47.1k</div>
+              <div class="text-center">
+                <span class="inline-flex items-center gap-1 text-xs font-medium text-green-600">
+                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
+                  +0.7%
+                </span>
+              </div>
+              <div class="text-center text-sm text-gray-500">—</div>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   </div>
@@ -1177,21 +1672,177 @@ function safeCreateIcons() {
     function switchTab(tab) {
       const tabWorkspaces = document.getElementById('tab-workspaces');
       const tabCampaigns = document.getElementById('tab-campaigns');
+      const tabComparison = document.getElementById('tab-comparison');
       const contentWorkspaces = document.getElementById('content-workspaces');
       const contentCampaigns = document.getElementById('content-campaigns');
+      const contentComparison = document.getElementById('content-comparison');
+      
+      // Reset all tabs
+      const inactiveClass = 'pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent';
+      const activeClass = 'pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue';
+      
+      tabWorkspaces.className = inactiveClass;
+      tabCampaigns.className = inactiveClass;
+      tabComparison.className = inactiveClass;
+      
+      contentWorkspaces.classList.add('hidden');
+      contentCampaigns.classList.add('hidden');
+      contentComparison.classList.add('hidden');
       
       if (tab === 'workspaces') {
-        tabWorkspaces.className = 'pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue';
-        tabCampaigns.className = 'pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent';
+        tabWorkspaces.className = activeClass;
         contentWorkspaces.classList.remove('hidden');
-        contentCampaigns.classList.add('hidden');
-      } else {
-        tabCampaigns.className = 'pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue';
-        tabWorkspaces.className = 'pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent';
+      } else if (tab === 'campaigns') {
+        tabCampaigns.className = activeClass;
         contentCampaigns.classList.remove('hidden');
-        contentWorkspaces.classList.add('hidden');
+      } else if (tab === 'comparison') {
+        tabComparison.className = activeClass;
+        contentComparison.classList.remove('hidden');
       }
     }
+    
+    // Toggle filter dropdowns
+    function toggleFilterDropdown(dropdownId) {
+      const dropdown = document.getElementById(dropdownId);
+      const allDropdowns = ['folder-dropdown', 'workspace-dropdown', 'channel-dropdown', 'date-dropdown', 'perf-dropdown'];
+      
+      allDropdowns.forEach(id => {
+        if (id !== dropdownId) {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
+        }
+      });
+      
+      if (dropdown) {
+        dropdown.classList.toggle('hidden');
+      }
+    }
+    
+    // Toggle export menu
+    function toggleExportMenu() {
+      const menu = document.getElementById('export-menu');
+      if (menu) menu.classList.toggle('hidden');
+    }
+    
+    // Export report
+    function exportReport(format) {
+      const formatNames = { csv: 'CSV', pdf: 'PDF', excel: 'Excel' };
+      showToast(`Exporting report as ${formatNames[format]}...`, 'success');
+      document.getElementById('export-menu').classList.add('hidden');
+      
+      // Simulate download
+      setTimeout(() => {
+        showToast(`Report exported successfully!`, 'success');
+      }, 1500);
+    }
+    
+    // Schedule report
+    function scheduleReport() {
+      document.getElementById('export-menu').classList.add('hidden');
+      showToast('Opening schedule dialog...', 'info');
+    }
+    
+    // Share report
+    function shareReport() {
+      document.getElementById('export-menu').classList.add('hidden');
+      navigator.clipboard.writeText(window.location.href);
+      showToast('Report link copied to clipboard!', 'success');
+    }
+    
+    // Export comparison
+    function exportComparison() {
+      showToast('Exporting comparison report...', 'success');
+    }
+    
+    // Show toast notification
+    function showToast(message, type = 'info') {
+      const toast = document.createElement('div');
+      const bgColor = type === 'success' ? 'bg-green-600' : type === 'error' ? 'bg-red-600' : 'bg-blue-600';
+      toast.className = `fixed bottom-20 right-6 ${bgColor} text-white px-6 py-3 rounded-lg shadow-lg z-50 animate-fade-in`;
+      toast.textContent = message;
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+    
+    // Set date range
+    function setDateRange(range) {
+      const rangeLabels = {
+        '7D': 'Last 7 Days',
+        '1M': 'Last 1 Month',
+        '3M': 'Last 3 Months',
+        '6M': 'Last 6 Months',
+        '1Y': 'Last 1 Year'
+      };
+      
+      document.getElementById('date-pill-text').textContent = rangeLabels[range];
+      document.getElementById('date-range-text').textContent = range;
+      document.getElementById('date-dropdown').classList.add('hidden');
+      
+      // Update URL
+      const url = new URL(window.location);
+      url.searchParams.set('dateRange', range);
+      window.history.replaceState({}, '', url);
+    }
+    
+    // Open custom date range picker
+    function openCustomDateRange() {
+      document.getElementById('date-dropdown').classList.add('hidden');
+      showToast('Custom date range picker coming soon', 'info');
+    }
+    
+    // Open date range modal
+    function openDateRangeModal() {
+      toggleFilterDropdown('date-dropdown');
+    }
+    
+    // Set performance filter
+    function setPerformanceFilter(level) {
+      const labels = {
+        'all': 'All Performance',
+        'high': 'High Performers',
+        'medium': 'Medium Performers',
+        'low': 'Low Performers'
+      };
+      document.getElementById('perf-pill-text').textContent = labels[level];
+      document.getElementById('perf-dropdown').classList.add('hidden');
+    }
+    
+    // Toggle comparison mode
+    function toggleComparisonMode() {
+      const btn = document.getElementById('comparison-toggle');
+      const isActive = btn.classList.contains('bg-ctct-blue');
+      
+      if (isActive) {
+        btn.classList.remove('bg-ctct-blue', 'text-white', 'border-ctct-blue');
+        btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+      } else {
+        btn.classList.add('bg-ctct-blue', 'text-white', 'border-ctct-blue');
+        btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+        switchTab('comparison');
+      }
+    }
+    
+    // Apply filters
+    function applyFilters() {
+      showToast('Filters applied', 'success');
+    }
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('[onclick*="toggleFilterDropdown"]') && !e.target.closest('[id$="-dropdown"]')) {
+        ['folder-dropdown', 'workspace-dropdown', 'channel-dropdown', 'date-dropdown', 'perf-dropdown'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('hidden');
+        });
+      }
+      if (!e.target.closest('[onclick*="toggleExportMenu"]') && !e.target.closest('#export-menu')) {
+        const menu = document.getElementById('export-menu');
+        if (menu) menu.classList.add('hidden');
+      }
+    });
     
     // Populate leaderboard with workspace placeholders
     if (workspaces.length > 0) {
