@@ -329,24 +329,24 @@
     <main class="flex-1 overflow-y-auto">
       <!-- Header Section -->
       <div class="bg-white border-b border-gray-100">
-        <!-- Tabs and Filters Row -->
+        <!-- Tabs and Actions Row -->
         <div class="px-8 pt-6 pb-0 flex items-center justify-between">
-          <div class="flex items-center gap-8">
-            <button id="tab-workspaces" onclick="switchTab('workspaces')" class="pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue">WORKSPACES</button>
-            <button id="tab-campaigns" onclick="switchTab('campaigns')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">MARKETING CAMPAIGNS</button>
-            <button id="tab-comparison" onclick="switchTab('comparison')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">COMPARISON</button>
+          <div class="flex items-center gap-6">
+            <!-- Filter Drawer Toggle -->
+            <button onclick="toggleFilterDrawer()" id="filter-drawer-toggle" class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+              <span>Filters</span>
+              <span id="active-filter-badge" class="hidden px-1.5 py-0.5 bg-ctct-blue text-white text-xs rounded-full font-medium">3</span>
+            </button>
+            
+            <!-- Tabs -->
+            <div class="flex items-center gap-8">
+              <button id="tab-workspaces" onclick="switchTab('workspaces')" class="pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue">WORKSPACES</button>
+              <button id="tab-campaigns" onclick="switchTab('campaigns')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">CAMPAIGNS</button>
+              <button id="tab-comparison" onclick="switchTab('comparison')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">COMPARISON</button>
+            </div>
           </div>
           <div class="flex items-center gap-3 pb-4">
-            <button class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50">
-              <span id="workspace-count-label">0</span> Workspaces
-            </button>
-            <button id="date-range-btn" onclick="openDateRangeModal()" class="px-4 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 flex items-center gap-2">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span id="date-range-text">1M</span>
-            </button>
-            <button id="filter-toggle-btn" onclick="toggleFilterBar()" class="p-2 border border-gray-200 rounded-lg bg-gray-100 text-gray-600">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-            </button>
             <!-- Export Dropdown -->
             <div class="relative">
               <button onclick="toggleExportMenu()" class="px-4 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90 flex items-center gap-2">
@@ -382,191 +382,177 @@
       </div>
 
       <!-- Dashboard Content -->
-      <div class="relative">
-        <!-- Filter Bar Overlay -->
-        <div id="filter-bar" class="absolute top-0 left-0 right-0 z-10 bg-gray-50 border-b border-gray-200 px-8 py-4">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3 flex-wrap">
-              <span class="text-sm text-gray-500 font-medium">Filters:</span>
-              
-              <!-- Folder Filter -->
-              <div class="relative">
-                <button onclick="toggleFilterDropdown('folder-dropdown')" id="folder-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                  <span id="folder-pill-text">All Folders</span>
-                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+      <div class="relative flex">
+        <!-- Filter Drawer -->
+        <div id="filter-drawer" class="hidden w-80 bg-white border-r border-gray-200 flex-shrink-0 overflow-y-auto" style="max-height: calc(100vh - 130px);">
+          <!-- Drawer Header -->
+          <div class="sticky top-0 bg-white border-b border-gray-100 px-5 py-4 flex items-center justify-between z-10">
+            <h3 class="text-sm font-semibold text-gray-800 uppercase tracking-wide">Filters</h3>
+            <button onclick="toggleFilterDrawer()" class="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+          
+          <!-- Drawer Content -->
+          <div class="p-5 space-y-6">
+            
+            <!-- Date Range Section -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Date Range</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button onclick="setDateRange('7D')" class="date-range-btn px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:border-ctct-blue hover:text-ctct-blue transition-colors">7D</button>
+                <button onclick="setDateRange('1M')" class="date-range-btn px-3 py-2 border border-ctct-blue bg-ctct-blue/5 rounded-lg text-sm text-ctct-blue font-medium">1M</button>
+                <button onclick="setDateRange('3M')" class="date-range-btn px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:border-ctct-blue hover:text-ctct-blue transition-colors">3M</button>
+                <button onclick="setDateRange('6M')" class="date-range-btn px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:border-ctct-blue hover:text-ctct-blue transition-colors">6M</button>
+                <button onclick="setDateRange('1Y')" class="date-range-btn px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:border-ctct-blue hover:text-ctct-blue transition-colors">1Y</button>
+                <button onclick="openCustomDateRange()" class="px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:border-ctct-blue hover:text-ctct-blue transition-colors flex items-center justify-center gap-1">
+                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/></svg>
                 </button>
-                <div id="folder-dropdown" class="hidden absolute left-0 top-full mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40 max-h-64 overflow-y-auto">
-                  <div class="px-3 py-2 border-b border-gray-100">
-                    <input type="text" placeholder="Search folders..." class="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm">
-                  </div>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" checked class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">All Folders</span>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS Northeast</span>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS Southeast</span>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS Southwest</span>
-                  </label>
-                </div>
               </div>
-              
-              <!-- Workspace Filter -->
-              <div class="relative">
-                <button onclick="toggleFilterDropdown('workspace-dropdown')" id="workspace-filter-pill" class="px-4 py-2 bg-white border border-ctct-blue rounded-full text-sm text-ctct-blue font-medium flex items-center gap-2">
-                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-                  <span id="workspace-pill-text">All Workspaces</span>
-                  <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div id="workspace-dropdown" class="hidden absolute left-0 top-full mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40 max-h-80 overflow-y-auto">
-                  <div class="px-3 py-2 border-b border-gray-100">
-                    <input type="text" placeholder="Search workspaces..." class="w-full px-3 py-1.5 border border-gray-200 rounded-lg text-sm">
-                  </div>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" checked class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700 font-medium">All Workspaces</span>
-                  </label>
-                  <div class="border-t border-gray-100 my-1"></div>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS New York</span>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS Connecticut</span>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS Massachusetts</span>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS New Jersey</span>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">UPS Pennsylvania</span>
-                  </label>
-                </div>
-              </div>
-              
-              <!-- Channel Filter -->
-              <div class="relative">
-                <button onclick="toggleFilterDropdown('channel-dropdown')" id="channel-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                  <span id="channel-pill-text">All Channels</span>
-                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div id="channel-dropdown" class="hidden absolute left-0 top-full mt-2 w-52 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40">
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" checked class="rounded text-ctct-blue">
-                    <span class="text-sm text-gray-700">All Channels</span>
-                  </label>
-                  <div class="border-t border-gray-100 my-1"></div>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
-                      <span class="text-sm text-gray-700">Email</span>
-                    </div>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                      <span class="text-sm text-gray-700">SMS</span>
-                    </div>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
-                      <span class="text-sm text-gray-700">Social</span>
-                    </div>
-                  </label>
-                  <label class="flex items-center gap-3 px-4 py-2.5 hover:bg-gray-50 cursor-pointer">
-                    <input type="checkbox" class="rounded text-ctct-blue">
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
-                      <span class="text-sm text-gray-700">Automations</span>
-                    </div>
-                  </label>
-                </div>
-              </div>
-              
-              <!-- Date Range Filter -->
-              <div class="relative">
-                <button onclick="toggleFilterDropdown('date-dropdown')" id="date-filter-pill" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  <span id="date-pill-text">Last 1 Month</span>
-                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div id="date-dropdown" class="hidden absolute left-0 top-full mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40">
-                  <button onclick="setDateRange('7D')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 7 Days</button>
-                  <button onclick="setDateRange('1M')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 text-blue-600 font-medium">Last 1 Month</button>
-                  <button onclick="setDateRange('3M')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 3 Months</button>
-                  <button onclick="setDateRange('6M')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 6 Months</button>
-                  <button onclick="setDateRange('1Y')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50">Last 1 Year</button>
-                  <div class="border-t border-gray-100 my-1"></div>
-                  <button onclick="openCustomDateRange()" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
-                    <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                    Custom Range...
-                  </button>
-                </div>
-              </div>
-              
-              <!-- Performance Filter (NEW) -->
-              <div class="relative">
-                <button onclick="toggleFilterDropdown('perf-dropdown')" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
-                  <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-                  <span id="perf-pill-text">All Performance</span>
-                  <svg class="w-3 h-3 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-                </button>
-                <div id="perf-dropdown" class="hidden absolute left-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-40">
-                  <button onclick="setPerformanceFilter('all')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 bg-blue-50 text-blue-600 font-medium">All Performance</button>
-                  <button onclick="setPerformanceFilter('high')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                    High Performers (&gt;25% open)
-                  </button>
-                  <button onclick="setPerformanceFilter('medium')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-amber-500 rounded-full"></span>
-                    Medium (15-25% open)
-                  </button>
-                  <button onclick="setPerformanceFilter('low')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                    Low Performers (&lt;15% open)
-                  </button>
-                </div>
-              </div>
-              
-              <!-- Comparison Toggle (NEW) -->
-              <button onclick="toggleComparisonMode()" id="comparison-toggle" class="px-4 py-2 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:border-gray-300 flex items-center gap-2">
-                <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                Compare
-              </button>
             </div>
             
-            <div class="flex items-center gap-3">
-              <span class="text-xs text-gray-400" id="active-filters-count">3 filters active</span>
-              <button onclick="resetFilters()" class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">
-                <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-                Reset
-              </button>
-              <button onclick="applyFilters()" class="px-5 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90">Apply</button>
+            <!-- Folders Section -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Folders</label>
+              <div class="relative mb-2">
+                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" placeholder="Search folders..." class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent">
+              </div>
+              <div class="space-y-1 max-h-40 overflow-y-auto">
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">All Folders</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS Northeast</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS Southeast</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS Southwest</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS Northwest</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Workspaces Section -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Workspaces</label>
+              <div class="relative mb-2">
+                <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" placeholder="Search workspaces..." class="w-full pl-9 pr-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent">
+              </div>
+              <div class="space-y-1 max-h-48 overflow-y-auto">
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700 font-medium">All Workspaces</span>
+                  <span class="text-xs text-gray-400 ml-auto">18</span>
+                </label>
+                <div class="border-t border-gray-100 my-1"></div>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS New York</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS Connecticut</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS Massachusetts</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS New Jersey</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">UPS Pennsylvania</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Channels Section -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Channels</label>
+              <div class="space-y-1">
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" checked class="rounded text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">All Channels</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="w-2 h-2 bg-purple-500 rounded-full"></span>
+                  <span class="text-sm text-gray-700">Email</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span class="text-sm text-gray-700">SMS</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  <span class="text-sm text-gray-700">Social</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="checkbox" class="rounded text-ctct-blue w-4 h-4">
+                  <span class="w-2 h-2 bg-orange-500 rounded-full"></span>
+                  <span class="text-sm text-gray-700">Automations</span>
+                </label>
+              </div>
+            </div>
+            
+            <!-- Performance Section -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-3">Performance</label>
+              <div class="space-y-1">
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="radio" name="performance" checked class="text-ctct-blue w-4 h-4">
+                  <span class="text-sm text-gray-700">All Performance</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="radio" name="performance" class="text-ctct-blue w-4 h-4">
+                  <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                  <span class="text-sm text-gray-700">High (&gt;25% open)</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="radio" name="performance" class="text-ctct-blue w-4 h-4">
+                  <span class="w-2 h-2 bg-amber-500 rounded-full"></span>
+                  <span class="text-sm text-gray-700">Medium (15-25%)</span>
+                </label>
+                <label class="flex items-center gap-3 px-3 py-2 hover:bg-gray-50 rounded-lg cursor-pointer">
+                  <input type="radio" name="performance" class="text-ctct-blue w-4 h-4">
+                  <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                  <span class="text-sm text-gray-700">Low (&lt;15% open)</span>
+                </label>
+              </div>
             </div>
           </div>
+          
+          <!-- Drawer Footer -->
+          <div class="sticky bottom-0 bg-white border-t border-gray-100 px-5 py-4 flex items-center gap-3">
+            <button onclick="resetFilters()" class="flex-1 px-4 py-2.5 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors">
+              Reset All
+            </button>
+            <button onclick="applyFilters(); toggleFilterDrawer();" class="flex-1 px-4 py-2.5 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90 transition-colors">
+              Apply Filters
+            </button>
+          </div>
         </div>
-
+        
+        <!-- Main Report Content (grows to fill space) -->
+        <div class="flex-1 min-w-0 overflow-y-auto" style="max-height: calc(100vh - 130px);">
+        
         <!-- WORKSPACES TAB CONTENT -->
-        <div id="content-workspaces" class="p-8 pt-20">
+        <div id="content-workspaces" class="p-8">
           <!-- Top Row: Leaderboard + Channel Usage -->
           <div class="grid grid-cols-2 gap-6 mb-6">
             <!-- Workspace Leaderboard -->
@@ -723,7 +709,7 @@
         </div>
 
         <!-- MARKETING CAMPAIGNS TAB CONTENT -->
-        <div id="content-campaigns" class="p-8 pt-20 hidden">
+        <div id="content-campaigns" class="p-8 hidden">
           <!-- Top Row: Campaign Performance + Email Performance -->
           <div class="grid grid-cols-2 gap-6 mb-6">
             <!-- Campaign Performance -->
@@ -1126,7 +1112,7 @@
         </div>
 
         <!-- WORKSPACE COMPARISON TAB CONTENT (NEW) -->
-        <div id="content-comparison" class="p-8 pt-20 hidden">
+        <div id="content-comparison" class="p-8 hidden">
           <!-- Comparison Header -->
           <div class="bg-white rounded-2xl border border-gray-100 p-6 mb-6">
             <div class="flex items-center justify-between mb-6">
@@ -1427,7 +1413,8 @@
             </div>
           </div>
         </div>
-      </div>
+        </div><!-- Close flex-1 min-w-0 -->
+      </div><!-- Close relative flex -->
     </main>
   </div>
 
@@ -1642,30 +1629,25 @@ function safeCreateIcons() {
       }
     });
     
-    // Toggle filter bar visibility
-    function toggleFilterBar() {
-      const filterBar = document.getElementById('filter-bar');
-      const filterBtn = document.getElementById('filter-toggle-btn');
-      const contentWorkspaces = document.getElementById('content-workspaces');
-      const contentCampaigns = document.getElementById('content-campaigns');
+    // Toggle filter drawer visibility
+    function toggleFilterDrawer() {
+      const drawer = document.getElementById('filter-drawer');
+      const toggle = document.getElementById('filter-drawer-toggle');
       
-      filterBar.classList.toggle('hidden');
+      drawer.classList.toggle('hidden');
       
-      if (filterBar.classList.contains('hidden')) {
-        filterBtn.classList.remove('bg-gray-100', 'text-gray-600');
-        filterBtn.classList.add('text-gray-400');
-        contentWorkspaces.classList.remove('pt-20');
-        contentWorkspaces.classList.add('pt-8');
-        contentCampaigns.classList.remove('pt-20');
-        contentCampaigns.classList.add('pt-8');
+      if (drawer.classList.contains('hidden')) {
+        toggle.classList.remove('bg-ctct-blue/10', 'border-ctct-blue', 'text-ctct-blue');
+        toggle.classList.add('border-gray-200', 'text-gray-600');
       } else {
-        filterBtn.classList.add('bg-gray-100', 'text-gray-600');
-        filterBtn.classList.remove('text-gray-400');
-        contentWorkspaces.classList.remove('pt-8');
-        contentWorkspaces.classList.add('pt-20');
-        contentCampaigns.classList.remove('pt-8');
-        contentCampaigns.classList.add('pt-20');
+        toggle.classList.add('bg-ctct-blue/10', 'border-ctct-blue', 'text-ctct-blue');
+        toggle.classList.remove('border-gray-200', 'text-gray-600');
       }
+    }
+    
+    // Legacy function for backward compatibility
+    function toggleFilterBar() {
+      toggleFilterDrawer();
     }
     
     // Switch tabs
@@ -1777,9 +1759,28 @@ function safeCreateIcons() {
         '1Y': 'Last 1 Year'
       };
       
-      document.getElementById('date-pill-text').textContent = rangeLabels[range];
-      document.getElementById('date-range-text').textContent = range;
-      document.getElementById('date-dropdown').classList.add('hidden');
+      // Update active button state in drawer
+      document.querySelectorAll('.date-range-btn').forEach(btn => {
+        btn.classList.remove('border-ctct-blue', 'bg-ctct-blue/5', 'text-ctct-blue', 'font-medium');
+        btn.classList.add('border-gray-200', 'text-gray-600');
+      });
+      
+      // Find and activate the clicked button
+      document.querySelectorAll('.date-range-btn').forEach(btn => {
+        if (btn.textContent.trim() === range) {
+          btn.classList.add('border-ctct-blue', 'bg-ctct-blue/5', 'text-ctct-blue', 'font-medium');
+          btn.classList.remove('border-gray-200', 'text-gray-600');
+        }
+      });
+      
+      // Update any legacy elements if they exist
+      const datePillText = document.getElementById('date-pill-text');
+      const dateRangeText = document.getElementById('date-range-text');
+      const dateDropdown = document.getElementById('date-dropdown');
+      
+      if (datePillText) datePillText.textContent = rangeLabels[range];
+      if (dateRangeText) dateRangeText.textContent = range;
+      if (dateDropdown) dateDropdown.classList.add('hidden');
       
       // Update URL
       const url = new URL(window.location);
