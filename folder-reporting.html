@@ -173,7 +173,7 @@
   </div>
 
   <!-- TOP BAR -->
-  <header class="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-100 flex items-center px-6 z-50">
+  <header class="fixed top-0 left-0 right-0 h-16 bg-white border-b border-neutral-100 flex items-center px-6 z-50">
     <!-- Logo -->
     <div class="flex items-center">
       <img src="assets/ctctLogo.png" alt="Constant Contact" class="w-8 h-8 object-contain">
@@ -182,10 +182,10 @@
     <!-- Center - Search and Create -->
     <div class="flex items-center gap-3 mx-auto">
       <div class="relative">
-        <input type="text" placeholder="Search" class="w-48 pl-4 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent">
-        <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="topbar-search-input" placeholder="Search" class="w-48 pl-4 pr-10 py-2 border border-neutral-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent">
+        <svg class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </div>
-      <button class="px-6 py-2 bg-ctct-blue hover:opacity-90 text-white rounded-lg font-medium text-sm">
+      <button onclick="openQuickActionsDialog()" class="px-6 py-2 bg-ctct-blue hover:opacity-90 text-white rounded-lg font-medium text-sm">
         Create
       </button>
     </div>
@@ -194,100 +194,147 @@
     <div class="flex items-center gap-3">
       <!-- User Avatar Dropdown -->
       <div class="relative">
-        <button onclick="toggleHeaderDropdown('user-dropdown')" class="w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-blue-200 transition-colors">
+        <button onclick="toggleDropdown('user-dropdown')" class="w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-main-200 transition-colors">
           <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
         </button>
-        <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-[60]">
-          <div class="flex items-center gap-3 px-5 pb-4 border-b border-gray-100">
+        <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-neutral-100 py-4 z-[60]">
+          <div class="flex items-center gap-3 px-5 pb-4 border-b border-neutral-100">
             <div class="w-14 h-14 rounded-full overflow-hidden">
               <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
             </div>
             <div>
-              <p class="text-base font-semibold text-gray-800">AriaSmith</p>
-              <p class="text-sm text-gray-500">Account owner</p>
+              <p class="text-base font-semibold text-neutral-800">AriaSmith</p>
+              <p class="text-sm text-neutral-500">Account owner</p>
             </div>
           </div>
           <div class="pt-3 px-2">
-            <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Profile</a>
-            <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Settings</a>
-            <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Log out</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Profile</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Settings</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Log out</a>
           </div>
         </div>
       </div>
 
       <!-- Organization Dropdown -->
       <div class="relative">
-        <button onclick="toggleHeaderDropdown('org-dropdown')" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg text-sm transition-colors">
-          <span class="text-gray-700 font-medium">UPS Global</span>
-          <i data-lucide="chevron-down" class="w-4 h-4 text-gray-400 transition-transform" id="org-dropdown-chevron"></i>
+        <button onclick="toggleDropdown('org-dropdown')" class="flex items-center gap-2 px-3 py-2 hover:bg-neutral-50 rounded-lg text-sm transition-colors">
+          <img src="assets/upsLogo.png" alt="UPS" class="w-6 h-6 object-contain">
+          <span class="text-neutral-700 font-medium">UPS Global</span>
+          <svg class="w-4 h-4 text-neutral-400 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
         </button>
-        <div id="org-dropdown" class="hidden absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-[60]">
-          <div class="flex items-center gap-3 px-5 pb-4 border-b border-gray-100">
-            <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center overflow-hidden">
+        <div id="org-dropdown" class="hidden absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-neutral-100 py-4 z-[60]">
+          <div class="flex items-center gap-3 px-5 pb-4 border-b border-neutral-100">
+            <div class="w-14 h-14 rounded-xl bg-neutral-100 flex items-center justify-center overflow-hidden">
               <img src="assets/upsLogo.png" alt="UPS" class="w-10 h-10 object-contain">
             </div>
             <div>
-              <p class="text-base font-semibold text-gray-800">UPS Global</p>
-              <p class="text-sm text-gray-500">Enterprise</p>
+              <p class="text-base font-semibold text-neutral-800">UPS Global</p>
+              <p class="text-sm text-neutral-500">Enterprise</p>
             </div>
           </div>
           <div class="pt-3 px-2">
-            <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Members</a>
-            <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Settings</a>
-            <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Integrations</a>
-            <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Plans and pricing</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Members</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Settings</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Integrations</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Plans and pricing</a>
           </div>
         </div>
       </div>
 
-      <!-- Notifications -->
+      <!-- Notifications Dropdown -->
       <div class="relative">
-        <button onclick="toggleHeaderDropdown('notifications-dropdown')" class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg relative transition-colors">
-          <i data-lucide="bell" class="w-5 h-5"></i>
-          <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-amber-500 rounded-full border-2 border-white"></span>
+        <button onclick="toggleDropdown('notifications-dropdown')" class="p-2 text-main-500 hover:bg-main-50 rounded-lg relative transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-warning-500 rounded-full border-2 border-white"></span>
         </button>
-        <div id="notifications-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 z-[60]">
-          <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Recent Activity</h3>
+        <div id="notifications-dropdown" class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-2xl shadow-xl border border-neutral-100 z-[60]">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+            <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Recent Activity</h3>
+            <button class="p-1 text-neutral-400 hover:text-neutral-600">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/></svg>
+            </button>
           </div>
-          <div class="max-h-64 overflow-y-auto p-3 space-y-2">
-            <a href="campaigns-list.html?openApproval=1" class="flex items-center gap-3 p-2 rounded-xl hover:bg-gray-50">
-              <div class="w-10 h-8 rounded bg-gray-100"></div>
-              <div class="flex-1">
-                <p class="text-sm font-medium text-gray-800">Campaign approval request</p>
-                <p class="text-xs text-gray-400">1 hr ago</p>
+          <div class="max-h-96 overflow-y-auto p-3 space-y-2">
+            <div class="flex items-start gap-3 p-3 rounded-xl border border-neutral-100 hover:border-neutral-200 hover:bg-neutral-50 transition-colors relative">
+              <span class="absolute top-3 right-3 w-2.5 h-2.5 bg-warning-400 rounded-full"></span>
+              <a href="campaigns-list.html?openApproval=1" class="w-16 h-12 rounded-lg overflow-hidden bg-neutral-100 flex-shrink-0">
+                <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=100&h=80&fit=crop" alt="Campaign" class="w-full h-full object-cover">
+              </a>
+              <div class="flex-1 min-w-0">
+                <a href="campaigns-list.html?openApproval=1" class="text-sm font-medium text-neutral-800 hover:text-main-600">Campaign approval request</a>
+                <div class="flex items-center gap-2 mt-1">
+                  <a href="workspace-detail.html?workspace=UPS%20Greenwich" class="inline-flex items-center gap-1 px-1.5 py-0.5 bg-success-100 text-success-700 text-xs font-medium rounded hover:bg-success-200">
+                    <span>GR</span>
+                    <span class="hover:underline">UPS Greenwich</span>
+                  </a>
+                  <span class="text-xs text-neutral-400">1 hr ago</span>
+                </div>
               </div>
-            </a>
+            </div>
+            <div class="flex items-start gap-3 p-3 rounded-xl border border-neutral-100 hover:border-neutral-200 hover:bg-neutral-50 transition-colors">
+              <a href="workspace-detail.html?workspace=GE%20Workspace" class="w-16 h-12 rounded-lg bg-main-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-main-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+              </a>
+              <div class="flex-1 min-w-0">
+                <a href="workspace-detail.html?workspace=GE%20Workspace" class="text-sm font-medium text-neutral-800 hover:text-main-600">New GE workspace created</a>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="text-xs text-neutral-400">1 day ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="border-t border-neutral-100 px-5 py-3">
+            <a href="#" class="text-sm text-main-600 hover:text-main-700 font-medium">View all activity</a>
           </div>
         </div>
       </div>
 
-      <!-- Help -->
+      <!-- Help Dropdown -->
       <div class="relative">
-        <button onclick="toggleHeaderDropdown('help-dropdown')" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors">
-          <i data-lucide="help-circle" class="w-5 h-5"></i>
+        <button onclick="toggleDropdown('help-dropdown')" class="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-50 rounded-lg transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
         </button>
-        <div id="help-dropdown" class="hidden absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 z-[60]">
-          <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
-            <h3 class="text-base font-semibold text-gray-800">Help & Training</h3>
-            <button onclick="toggleHeaderDropdown('help-dropdown')" class="p-1 text-gray-400 hover:text-gray-600">
-              <i data-lucide="x" class="w-5 h-5"></i>
+        <div id="help-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-neutral-100 z-[60]">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+            <h3 class="text-base font-semibold text-neutral-800">Help & Training</h3>
+            <button onclick="toggleDropdown('help-dropdown')" class="p-1 text-neutral-400 hover:text-neutral-600">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
             </button>
           </div>
           <div class="p-4">
             <div class="relative mb-4">
-              <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-              <input type="text" placeholder="Search Knowledge Base" class="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg text-sm">
+              <svg class="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" placeholder="Search Knowledge Base" class="w-full pl-10 pr-4 py-2.5 border border-neutral-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent">
             </div>
-            <div class="space-y-2">
-              <a href="#" class="block py-2 text-sm text-gray-600 hover:text-blue-600">Create an email</a>
-              <a href="#" class="block py-2 text-sm text-gray-600 hover:text-blue-600">Browse Knowledge Base</a>
+            <div class="mb-4">
+              <h4 class="text-sm font-semibold text-neutral-800 mb-2">Popular articles</h4>
+              <a href="#" class="block py-2 text-sm text-neutral-600 hover:text-main-600">Create an email</a>
+              <a href="#" class="block py-2 text-sm text-neutral-600 hover:text-main-600">Create and send an SMS marketing message</a>
+            </div>
+            <div class="mb-4">
+              <h4 class="text-sm font-semibold text-neutral-800 mb-2">Looking for something else?</h4>
+              <a href="#" class="flex items-center gap-3 py-2 text-sm text-neutral-600 hover:text-main-600">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Get Product Training
+              </a>
+              <a href="#" class="flex items-center gap-3 py-2 text-sm text-neutral-600 hover:text-main-600">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                Browse Knowledge Base
+              </a>
+              <a href="#" class="flex items-center gap-3 py-2 text-sm text-neutral-600 hover:text-main-600">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Watch "How tos" on Youtube
+              </a>
             </div>
           </div>
           <div class="px-4 pb-4 space-y-2">
-            <a href="#" class="flex items-center justify-between p-3 border border-gray-200 rounded-xl hover:bg-gray-50">
-              <span class="text-sm text-gray-700">Contact Us</span>
-              <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+            <a href="#" class="flex items-center justify-between p-3 border border-neutral-200 rounded-xl hover:bg-neutral-50 transition-colors">
+              <span class="text-sm text-neutral-700">Contact Us</span>
+              <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#" class="flex items-center justify-between p-3 border border-neutral-200 rounded-xl hover:bg-neutral-50 transition-colors">
+              <span class="text-sm text-neutral-700">Visit Help Center</span>
+              <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
           </div>
         </div>
@@ -296,82 +343,107 @@
   </header>
 
   <div class="flex h-screen pt-16 pb-12">
-    <!-- Left Sidebar -->
-    <aside class="w-64 bg-white flex flex-col pt-3">
-      <!-- Navigation -->
+    <!-- Left Sidebar - Contextual Reporting Nav -->
+    <aside class="w-64 bg-white border-r border-neutral-100 flex flex-col">
+      <!-- Back to Org -->
+      <div class="px-4 py-4 border-b border-neutral-100">
+        <a href="option-b-northstar-empty.html" class="flex items-center gap-2 text-sm text-neutral-500 hover:text-neutral-700 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to Org
+        </a>
+      </div>
+      
+      <!-- Reporting Title -->
+      <div class="px-5 py-4">
+        <h2 class="text-lg font-semibold text-neutral-800">Reporting</h2>
+        <p class="text-xs text-neutral-400 mt-0.5">Organization analytics</p>
+      </div>
+      
+      <!-- Report Types Navigation -->
       <div class="flex-1 overflow-y-auto px-3">
-        <nav>
-          <!-- Org Dashboard -->
-          <a href="option-b-northstar-empty.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Org Dashboard</a>
-
-          <!-- Workspaces -->
-          <a href="workspaces-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Workspaces</a>
-
-          <!-- Reporting - Active -->
-          <a href="folder-reporting.html" class="block py-3 px-4 text-sm font-semibold text-slate-700 bg-sky-50 rounded-xl mb-1">Reporting</a>
-
-          <!-- Campaigns -->
-          <a href="campaigns-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Campaigns</a>
-
-          <!-- Contacts -->
-          <a href="contacts-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Contacts</a>
-
-          <!-- Brands -->
-          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Brands</a>
-
-          <!-- Automations -->
-          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl transition-colors">Automations</a>
+        <nav class="space-y-1">
+          <!-- Workspaces Report -->
+          <button onclick="switchTab('workspaces')" id="nav-workspaces" class="w-full flex items-center gap-3 py-3 px-4 text-sm font-medium text-ctct-blue bg-main-50 rounded-xl transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            Workspaces
+          </button>
+          
+          <!-- Campaigns Report -->
+          <button onclick="switchTab('campaigns')" id="nav-campaigns" class="w-full flex items-center gap-3 py-3 px-4 text-sm text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Marketing Campaigns
+          </button>
+          
+          <!-- Comparison Report -->
+          <button onclick="switchTab('comparison')" id="nav-comparison" class="w-full flex items-center gap-3 py-3 px-4 text-sm text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Comparison
+          </button>
         </nav>
+        
+        <!-- Divider -->
+        <div class="border-t border-neutral-100 my-4"></div>
+        
+        <!-- Saved Reports Section -->
+        <div class="px-1">
+          <h3 class="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2 px-3">Saved Reports</h3>
+          <a href="#" class="flex items-center gap-3 py-2.5 px-3 text-sm text-neutral-600 hover:bg-neutral-50 rounded-lg transition-colors">
+            <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Q4 Email Performance
+          </a>
+          <a href="#" class="flex items-center gap-3 py-2.5 px-3 text-sm text-neutral-600 hover:bg-neutral-50 rounded-lg transition-colors">
+            <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Northeast Monthly
+          </a>
+          <button class="flex items-center gap-2 py-2.5 px-3 text-sm text-main-600 hover:text-main-700 transition-colors">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Save current report
+          </button>
+        </div>
       </div>
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto">
-      <!-- Header Section -->
-      <div class="bg-white border-b border-gray-100">
-        <!-- Tabs and Actions Row -->
-        <div class="px-8 pt-6 pb-0 flex items-center justify-between">
-          <div class="flex items-center gap-6">
+    <main class="flex-1 overflow-y-auto bg-neutral-100">
+
+      <!-- Page Header -->
+      <div class="bg-white border-b border-neutral-200 px-8 py-5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <h1 id="report-page-title" class="text-xl font-semibold text-neutral-800">Workspace Performance</h1>
             <!-- Filter Drawer Toggle -->
-            <button onclick="toggleFilterDrawer()" id="filter-drawer-toggle" class="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-colors">
+            <button onclick="toggleFilterDrawer()" id="filter-drawer-toggle" class="flex items-center gap-2 px-3 py-2 border border-neutral-200 rounded-lg text-sm text-neutral-600 hover:bg-neutral-50 hover:border-neutral-300 transition-colors">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
               <span>Filters</span>
               <span id="active-filter-badge" class="hidden px-1.5 py-0.5 bg-ctct-blue text-white text-xs rounded-full font-medium">3</span>
             </button>
-            
-            <!-- Tabs -->
-            <div class="flex items-center gap-8">
-              <button id="tab-workspaces" onclick="switchTab('workspaces')" class="pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue">WORKSPACES</button>
-              <button id="tab-campaigns" onclick="switchTab('campaigns')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">CAMPAIGNS</button>
-              <button id="tab-comparison" onclick="switchTab('comparison')" class="pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent">COMPARISON</button>
-            </div>
           </div>
-          <div class="flex items-center gap-3 pb-4">
+          <div class="flex items-center gap-3">
             <!-- Export Dropdown -->
             <div class="relative">
               <button onclick="toggleExportMenu()" class="px-4 py-2 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90 flex items-center gap-2">
                 <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 Export
               </button>
-              <div id="export-menu" class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 z-30">
-                <button onclick="exportReport('csv')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+              <div id="export-menu" class="hidden absolute right-0 top-full mt-2 w-56 bg-white rounded-xl shadow-xl border border-neutral-100 py-2 z-30">
+                <button onclick="exportReport('csv')" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
                   <svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                   Export as CSV
                 </button>
-                <button onclick="exportReport('pdf')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                <button onclick="exportReport('pdf')" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
                   <svg class="w-4 h-4 text-red-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                   Export as PDF
                 </button>
-                <button onclick="exportReport('excel')" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                <button onclick="exportReport('excel')" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
                   <svg class="w-4 h-4 text-emerald-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
                   Export as Excel
                 </button>
-                <div class="border-t border-gray-100 my-2"></div>
-                <button onclick="scheduleReport()" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                <div class="border-t border-neutral-100 my-2"></div>
+                <button onclick="scheduleReport()" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
                   <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                   Schedule Report
                 </button>
-                <button onclick="shareReport()" class="w-full px-4 py-2.5 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center gap-3">
+                <button onclick="shareReport()" class="w-full px-4 py-2.5 text-left text-sm text-neutral-700 hover:bg-neutral-50 flex items-center gap-3">
                   <svg class="w-4 h-4 text-purple-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                   Share Report Link
                 </button>
@@ -1559,7 +1631,8 @@ function safeCreateIcons() {
     
     // Toggle header dropdowns
     let activeHeaderDropdown = null;
-    function toggleHeaderDropdown(dropdownId) {
+    // Toggle dropdown menus (used by top bar)
+    function toggleDropdown(dropdownId) {
       const dropdown = document.getElementById(dropdownId);
       const allDropdowns = ['user-dropdown', 'org-dropdown', 'notifications-dropdown', 'help-dropdown'];
       
@@ -1572,7 +1645,19 @@ function safeCreateIcons() {
       
       if (dropdown) {
         dropdown.classList.toggle('hidden');
-        activeHeaderDropdown = dropdown.classList.contains('hidden') ? null : dropdownId;
+      }
+    }
+    
+    // Open quick actions dialog (Create button)
+    function openQuickActionsDialog() {
+      alert('Quick Actions Dialog - Create Email, SMS, Campaign, etc.');
+    }
+    
+    // Legacy function
+    function toggleHeaderDropdown(dropdownId) {
+      toggleDropdown(dropdownId);
+      const dropdown = document.getElementById(dropdownId);
+      if (dropdown) {
         const orgChevron = document.getElementById('org-dropdown-chevron');
         if (orgChevron) {
           orgChevron.style.transform = dropdownId === 'org-dropdown' && !dropdown.classList.contains('hidden') ? 'rotate(180deg)' : 'rotate(0deg)';
@@ -1652,35 +1737,48 @@ function safeCreateIcons() {
     
     // Switch tabs
     function switchTab(tab) {
-      const tabWorkspaces = document.getElementById('tab-workspaces');
-      const tabCampaigns = document.getElementById('tab-campaigns');
-      const tabComparison = document.getElementById('tab-comparison');
+      // Get nav buttons and content panels
+      const navWorkspaces = document.getElementById('nav-workspaces');
+      const navCampaigns = document.getElementById('nav-campaigns');
+      const navComparison = document.getElementById('nav-comparison');
       const contentWorkspaces = document.getElementById('content-workspaces');
       const contentCampaigns = document.getElementById('content-campaigns');
       const contentComparison = document.getElementById('content-comparison');
+      const pageTitle = document.getElementById('report-page-title');
       
-      // Reset all tabs
-      const inactiveClass = 'pb-4 text-sm text-gray-500 hover:text-gray-700 border-b-2 border-transparent';
-      const activeClass = 'pb-4 text-sm font-semibold text-ctct-blue border-b-2 border-ctct-blue';
+      // Define classes
+      const inactiveClass = 'w-full flex items-center gap-3 py-3 px-4 text-sm text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors';
+      const activeClass = 'w-full flex items-center gap-3 py-3 px-4 text-sm font-medium text-ctct-blue bg-main-50 rounded-xl transition-colors';
       
-      tabWorkspaces.className = inactiveClass;
-      tabCampaigns.className = inactiveClass;
-      tabComparison.className = inactiveClass;
+      // Reset all nav items
+      if (navWorkspaces) navWorkspaces.className = inactiveClass;
+      if (navCampaigns) navCampaigns.className = inactiveClass;
+      if (navComparison) navComparison.className = inactiveClass;
       
-      contentWorkspaces.classList.add('hidden');
-      contentCampaigns.classList.add('hidden');
-      contentComparison.classList.add('hidden');
+      // Hide all content
+      if (contentWorkspaces) contentWorkspaces.classList.add('hidden');
+      if (contentCampaigns) contentCampaigns.classList.add('hidden');
+      if (contentComparison) contentComparison.classList.add('hidden');
       
+      // Activate selected tab
       if (tab === 'workspaces') {
-        tabWorkspaces.className = activeClass;
-        contentWorkspaces.classList.remove('hidden');
+        if (navWorkspaces) navWorkspaces.className = activeClass;
+        if (contentWorkspaces) contentWorkspaces.classList.remove('hidden');
+        if (pageTitle) pageTitle.textContent = 'Workspace Performance';
       } else if (tab === 'campaigns') {
-        tabCampaigns.className = activeClass;
-        contentCampaigns.classList.remove('hidden');
+        if (navCampaigns) navCampaigns.className = activeClass;
+        if (contentCampaigns) contentCampaigns.classList.remove('hidden');
+        if (pageTitle) pageTitle.textContent = 'Campaign Analytics';
       } else if (tab === 'comparison') {
-        tabComparison.className = activeClass;
-        contentComparison.classList.remove('hidden');
+        if (navComparison) navComparison.className = activeClass;
+        if (contentComparison) contentComparison.classList.remove('hidden');
+        if (pageTitle) pageTitle.textContent = 'Workspace Comparison';
       }
+      
+      // Update URL
+      const url = new URL(window.location);
+      url.searchParams.set('tab', tab);
+      window.history.replaceState({}, '', url);
     }
     
     // Toggle filter dropdowns
