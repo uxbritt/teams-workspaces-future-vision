@@ -3,17 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CTCT for Teams — Product Overview</title>
+  <title>CTCT for Teams — Strategic Focus</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
   <script>
-    // Safe lucide helper
-    function safeCreateIcons() {
-      if (typeof lucide !== 'undefined' && lucide.createIcons) {
-        lucide.createIcons();
-      }
-    }
-
     tailwind.config = {
       theme: {
         extend: {
@@ -29,13 +21,6 @@
             success: {
               50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80',
               500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d'
-            },
-            warning: {
-              50: '#fffbeb', 100: '#fef3c7', 200: '#fde68a', 300: '#fcd34d', 400: '#fbbf24',
-              500: '#f59e0b', 600: '#d97706', 700: '#b45309', 800: '#92400e', 900: '#78350f'
-            },
-            danger: {
-              400: '#f87171', 500: '#ef4444', 600: '#dc2626'
             }
           },
           fontFamily: {
@@ -89,6 +74,12 @@
       background: linear-gradient(135deg, #0f0f1a 0%, #131825 25%, #0a0e17 50%, #0d1220 75%, #0f0f1a 100%);
       background-attachment: fixed;
     }
+    .pillar-card {
+      transition: all 0.3s ease;
+    }
+    .pillar-card:hover {
+      transform: translateY(-4px);
+    }
   </style>
 </head>
 <body class="min-h-screen font-sans">
@@ -99,255 +90,182 @@
     <!-- Slide 1: Title -->
     <div id="slide-1" class="slide active flex-col items-center justify-center text-center max-w-5xl w-full">
       <div class="mb-8">
-        <span class="inline-block px-4 py-1.5 bg-zinc-900 text-zinc-400 rounded-full text-sm font-medium mb-6">CTCT for Teams — Product</span>
-        <h1 class="text-5xl font-bold text-white mb-6 leading-tight">Product Overview<br><span class="gradient-text">Current State & Roadmap</span></h1>
-        <p class="text-xl text-zinc-400">What we've built, problems to solve, and where we're headed</p>
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <span class="inline-block px-4 py-1.5 bg-zinc-900 text-zinc-400 rounded-full text-sm font-medium">CTCT for Teams</span>
+          <span class="inline-block px-3 py-1.5 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 rounded-full text-xs font-semibold">FML Market Focus</span>
+        </div>
+        <h1 class="text-5xl font-bold text-white mb-6 leading-tight">Strategic Product<br><span class="gradient-text">Recommendation</span></h1>
+        <p class="text-xl text-zinc-400 max-w-2xl mx-auto">4 pillars to focus on for the Franchise Multi Location (FML) market based on competitive analysis of 9 enterprise platforms</p>
       </div>
-      <div class="flex items-center gap-3 text-zinc-400 mt-12">
+      <div class="flex items-center gap-6 mt-12">
+        <div class="flex items-center gap-2 text-zinc-500">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span class="text-sm">9 Platforms Analyzed</span>
+        </div>
+        <div class="w-px h-4 bg-zinc-700"></div>
+        <div class="flex items-center gap-2 text-zinc-500">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span class="text-sm">3 User Personas</span>
+        </div>
+        <div class="w-px h-4 bg-zinc-700"></div>
+        <div class="flex items-center gap-2 text-zinc-500">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          <span class="text-sm">User Testing Complete</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 text-zinc-500 mt-10">
         <span class="text-sm">Click anywhere or use navigation to continue</span>
       </div>
     </div>
 
-    <!-- Slide 2: 2025 Wins -->
-    <div id="slide-2" class="slide flex-col items-center justify-center max-w-5xl w-full">
+    <!-- Slide 2: 4 Pillars -->
+    <div id="slide-2" class="slide flex-col items-center justify-center max-w-6xl w-full">
       <div class="w-full text-center">
-        <span class="inline-block px-3 py-1 bg-emerald-900/50 text-emerald-400 rounded-full text-xs font-medium mb-4">2025 Wins</span>
-        <h2 class="text-5xl font-bold text-white mb-4">What We've Built</h2>
-        <p class="text-xl text-zinc-400 mb-10">Customer-centric innovation that drove real growth</p>
-        
-        <div class="grid grid-cols-3 gap-5 text-left">
-          <!-- SSO Automation -->
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
-                <i data-lucide="key" class="w-5 h-5 text-emerald-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">SSO Automation</h3>
-            </div>
-            <p class="text-zinc-300 text-sm mb-2">Weeks → Seconds</p>
-            <p class="text-zinc-500 text-xs">Frictionless partner onboarding replaced a manual, error-prone process</p>
-            <p class="text-emerald-400 text-xs mt-3 font-medium">RoomVu: 500 → 1,500 seats</p>
-          </div>
-          
-          <!-- In-Product Growth Triggers -->
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
-                <i data-lucide="trending-up" class="w-5 h-5 text-emerald-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">Growth Triggers</h3>
-            </div>
-            <p class="text-zinc-300 text-sm mb-2">Indirect PLG</p>
-            <p class="text-zinc-500 text-xs">Recognize scaling customers and connect them to Indirect Sales</p>
-            <p class="text-emerald-400 text-xs mt-3 font-medium">1,177 gross adds in H2 '25</p>
-          </div>
-          
-          <!-- Contact Copy -->
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
-                <i data-lucide="copy" class="w-5 h-5 text-emerald-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">Contact Copy</h3>
-            </div>
-            <p class="text-zinc-300 text-sm mb-2">Friction-free migration</p>
-            <p class="text-zinc-500 text-xs">Move contacts to child accounts — fast, compliant, stress-free</p>
-            <p class="text-emerald-400 text-xs mt-3 font-medium">Beta: 9 partners, 186 accounts</p>
-          </div>
+        <div class="flex items-center justify-center gap-3 mb-4">
+          <span class="inline-block px-3 py-1 bg-zinc-800 text-zinc-400 rounded-full text-xs font-medium">Teams Plan — FML Market</span>
         </div>
-
-        <div class="grid grid-cols-2 gap-5 text-left mt-5">
-          <!-- Central Send -->
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
-                <i data-lucide="send" class="w-5 h-5 text-emerald-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">Central Send</h3>
-            </div>
-            <p class="text-zinc-300 text-sm mb-2">One campaign, all accounts</p>
-            <p class="text-zinc-500 text-xs">Send to contact lists across multiple child accounts at once</p>
-          </div>
-          
-          <!-- Campaign Approval -->
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-emerald-900/50 rounded-lg flex items-center justify-center">
-                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">Campaign Approval</h3>
-            </div>
-            <p class="text-zinc-300 text-sm mb-2">Review before send</p>
-            <p class="text-zinc-500 text-xs">Partners review and approve campaigns before team members send</p>
-          </div>
-        </div>
+        <h2 class="text-4xl font-bold text-white mb-3">4 Strategic Pillars</h2>
+        <p class="text-lg text-zinc-400 mb-10">Based on competitive analysis and market research findings</p>
         
-        <p class="text-zinc-500 text-sm mt-8">These wins built the foundation — now we tackle the remaining gaps</p>
-      </div>
-    </div>
-
-    <!-- Slide 3: Current Problems -->
-    <div id="slide-3" class="slide flex-col items-center justify-center max-w-5xl w-full">
-      <div class="w-full text-center">
-        <span class="inline-block px-3 py-1 bg-red-900/50 text-red-400 rounded-full text-xs font-medium mb-4">Current State</span>
-        <h2 class="text-5xl font-bold text-white mb-4">Problems to Solve</h2>
-        <p class="text-xl text-zinc-400 mb-10">What enterprise customers struggle with in our current Indirect product</p>
-        
-        <div class="grid grid-cols-2 gap-5 text-left">
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-red-950 rounded-lg flex items-center justify-center">
-                <i data-lucide="eye-off" class="w-5 h-5 text-red-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">Limited Visibility</h3>
+        <!-- 4 Pillar Cards -->
+        <div class="grid grid-cols-2 gap-6 mb-8">
+          
+          <!-- Pillar 1: Hierarchical Navigation -->
+          <div class="pillar-card bg-black border-2 border-emerald-500/50 rounded-2xl p-6 text-left relative">
+            <div class="absolute -top-3 left-6 flex items-center gap-1.5 px-3 py-1 bg-emerald-500 text-black text-xs font-bold rounded-full">
+              <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              Priority 1
             </div>
-            <p class="text-zinc-300 text-sm mb-2">Users can only see teams immediately beneath them</p>
-            <p class="text-zinc-400 text-xs">Multi-tier orgs must impersonate repeatedly to navigate</p>
+            <div class="flex items-start gap-4 mt-2">
+              <div class="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">Hierarchical Navigation</h3>
+                <p class="text-zinc-400 text-sm mb-4">Parent → Region → Location tree structure that scales to 500+ business units without breaking</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Workspace folders</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Fast context switching</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Tree navigation</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-zinc-800">
+              <p class="text-xs text-zinc-500"><span class="text-emerald-400 font-medium">Market finding:</span> Flat models break at ~50 units. All enterprise leaders use hierarchical.</p>
+            </div>
           </div>
           
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-red-950 rounded-lg flex items-center justify-center">
-                <i data-lucide="bar-chart-2" class="w-5 h-5 text-red-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">No Roll-up Reporting</h3>
+          <!-- Pillar 2: Roll-up Reporting -->
+          <div class="pillar-card bg-black border border-zinc-700 rounded-2xl p-6 text-left relative">
+            <div class="absolute -top-3 left-6 px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full">
+              Priority 2
             </div>
-            <p class="text-zinc-300 text-sm mb-2">Must impersonate each workspace to check performance</p>
-            <p class="text-zinc-400 text-xs">No org-level analysis or cross-workspace comparisons</p>
-          </div>
-
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-red-950 rounded-lg flex items-center justify-center">
-                <i data-lucide="message-circle-question" class="w-5 h-5 text-red-400"></i>
+            <div class="flex items-start gap-4 mt-2">
+              <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-7 h-7 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
               </div>
-              <h3 class="text-white font-semibold">Confusing Terminology</h3>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">Roll-up Reporting</h3>
+                <p class="text-zinc-400 text-sm mb-4">Aggregate metrics across all locations without switching. Identify top and struggling performers.</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Org-level dashboards</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Performance leaderboards</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Cross-workspace views</span>
+                </div>
+              </div>
             </div>
-            <p class="text-zinc-300 text-sm mb-2">Multiple overlapping terms create confusion</p>
-            <p class="text-zinc-400 text-xs">Parent, partner, child, sub-account, grandchild...</p>
+            <div class="mt-4 pt-4 border-t border-zinc-800">
+              <p class="text-xs text-zinc-500"><span class="text-blue-400 font-medium">Market finding:</span> FranConnect, ServiceTitan, Crunchtime all provide real-time rollup as core value.</p>
+            </div>
           </div>
           
-          <div class="bg-black border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 bg-red-950 rounded-lg flex items-center justify-center">
-                <i data-lucide="layout-dashboard" class="w-5 h-5 text-red-400"></i>
-              </div>
-              <h3 class="text-white font-semibold">Irrelevant Dashboard</h3>
+          <!-- Pillar 3: Brand & Access Control -->
+          <div class="pillar-card bg-black border border-zinc-700 rounded-2xl p-6 text-left relative">
+            <div class="absolute -top-3 left-6 px-3 py-1 bg-amber-500 text-black text-xs font-bold rounded-full">
+              Priority 3
             </div>
-            <p class="text-zinc-300 text-sm mb-2">Current dashboard shows partner metrics</p>
-            <p class="text-zinc-400 text-xs">Not useful for franchise/multi-location customers</p>
+            <div class="flex items-start gap-4 mt-2">
+              <div class="w-14 h-14 bg-amber-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-7 h-7 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">Brand & Access Control</h3>
+                <p class="text-zinc-400 text-sm mb-4">Role-based permissions, brand-approved asset distribution, and approval workflows for campaign compliance.</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Brand kit sharing</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Campaign approval</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Template locking</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-zinc-800">
+              <p class="text-xs text-zinc-500"><span class="text-amber-400 font-medium">Market finding:</span> Ansira + BrandMuscle lead with local co-op spend and brand-approved templates.</p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 4: Product Roadmap -->
-    <div id="slide-4" class="slide flex-col items-center justify-center max-w-5xl w-full">
-      <div class="w-full">
-        <div class="text-center mb-6">
-          <span class="inline-block px-3 py-1 bg-zinc-900 text-zinc-400 rounded-full text-xs font-medium mb-4">Roadmap</span>
-          <h2 class="text-4xl font-bold text-white mb-2">Closing the Gaps</h2>
-          <p class="text-lg text-zinc-400">How we solve visibility, terminology, reporting & dashboard problems</p>
+          
+          <!-- Pillar 4: AI Capabilities -->
+          <div class="pillar-card bg-black border border-zinc-700 rounded-2xl p-6 text-left relative">
+            <div class="absolute -top-3 left-6 px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded-full">
+              Priority 4
+            </div>
+            <div class="flex items-start gap-4 mt-2">
+              <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center flex-shrink-0">
+                <svg class="w-7 h-7 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">AI Capabilities</h3>
+                <p class="text-zinc-400 text-sm mb-4">Predictive insights, generative content, and autonomous optimization. Emerging differentiator for enterprise.</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Predictive analytics</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Content generation</span>
+                  <span class="px-2 py-1 bg-zinc-800 text-zinc-400 rounded text-xs">Smart recommendations</span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-zinc-800">
+              <p class="text-xs text-zinc-500"><span class="text-purple-400 font-medium">Market finding:</span> Braze and SOCi set the enterprise AI bar. 150k+ AI agents deployed by SOCi.</p>
+            </div>
+          </div>
+          
         </div>
         
-        <!-- Roadmap Table -->
-        <div class="bg-black border border-zinc-800 rounded-xl overflow-hidden">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-zinc-800 bg-zinc-900/50">
-                <th class="text-left p-4 text-zinc-400 font-medium">Problem → Solution</th>
-                <th class="text-center p-4 text-zinc-400 font-medium">Today</th>
-                <th class="text-center p-4 text-zinc-400 font-medium">V1</th>
-                <th class="text-center p-4 text-zinc-400 font-medium">V2</th>
-                <th class="text-center p-4 text-zinc-400 font-medium">V3+</th>
-              </tr>
-            </thead>
-            <tbody>
-              <!-- Navigation & Terminology -->
-              <tr class="border-b border-zinc-800 bg-zinc-900/30">
-                <td colspan="5" class="p-2 px-4 text-zinc-500 text-xs uppercase tracking-wider">Navigation & Terminology</td>
-              </tr>
-              <tr class="border-b border-zinc-800/50">
-                <td class="p-3"><span class="text-white">Hierarchical navigation</span><br><span class="text-zinc-500 text-xs">Fast access to any workspace without impersonation</span></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-white inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-zinc-400 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-zinc-400 inline"></i></td>
-              </tr>
-              <tr class="border-b border-zinc-800/50">
-                <td class="p-3"><span class="text-white">Clear terminology</span><br><span class="text-zinc-500 text-xs">Workspaces + Folders replaces confusing parent/child</span></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-white inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-zinc-400 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-zinc-400 inline"></i></td>
-              </tr>
-              <!-- Reporting & Insights -->
-              <tr class="border-b border-zinc-800 bg-zinc-900/30">
-                <td colspan="5" class="p-2 px-4 text-zinc-500 text-xs uppercase tracking-wider">Reporting & Insights</td>
-              </tr>
-              <tr class="border-b border-zinc-800/50">
-                <td class="p-3"><span class="text-white">Roll-up reporting</span><br><span class="text-zinc-500 text-xs">Org-level analysis without impersonating every account</span></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-white inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-zinc-400 inline"></i></td>
-              </tr>
-              <tr class="border-b border-zinc-800/50">
-                <td class="p-3"><span class="text-white">Franchise dashboard</span><br><span class="text-zinc-500 text-xs">Relevant metrics for multi-location customers</span></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-white inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-zinc-400 inline"></i></td>
-              </tr>
-              <!-- Future Vision -->
-              <tr class="border-b border-zinc-800 bg-zinc-900/30">
-                <td colspan="5" class="p-2 px-4 text-zinc-500 text-xs uppercase tracking-wider">Future Vision</td>
-              </tr>
-              <tr class="border-b border-zinc-800/50">
-                <td class="p-3"><span class="text-white">Tags for flexible reporting</span><br><span class="text-zinc-500 text-xs">Slice data by region, brand, or custom attributes</span></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-white inline"></i></td>
-              </tr>
-              <tr class="border-b border-zinc-800/50">
-                <td class="p-3"><span class="text-white">Brand management</span><br><span class="text-zinc-500 text-xs">Centralized brand assets, templates, guidelines</span></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-white inline"></i></td>
-              </tr>
-              <tr>
-                <td class="p-3 flex items-center gap-2"><i data-lucide="sparkles" class="w-4 h-4 text-zinc-400"></i><span><span class="text-white">AI-driven insights</span><br><span class="text-zinc-500 text-xs">Predictive recommendations per workspace</span></span></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="minus" class="w-4 h-4 text-zinc-600 inline"></i></td>
-                <td class="text-center p-3"><i data-lucide="check" class="w-4 h-4 text-white inline"></i></td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- Summary Callout -->
+        <div class="bg-zinc-900/50 border border-zinc-700 rounded-xl p-5 flex items-center justify-between">
+          <div class="flex items-center gap-4">
+            <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+              <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="text-left">
+              <p class="text-white font-medium">Teams plan is the product tier for FML market</p>
+              <p class="text-zinc-500 text-sm">These 4 pillars differentiate from flat multi-account offerings like Mailchimp & ActiveCampaign</p>
+            </div>
+          </div>
+          <a href="research-dashboard.html" class="flex items-center gap-2 px-4 py-2 bg-zinc-800 hover:bg-zinc-700 text-white rounded-lg text-sm font-medium transition-colors">
+            View Research
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
         </div>
       </div>
     </div>
 
-    <!-- Slide 5: End -->
-    <div id="slide-5" class="slide flex-col items-center justify-center text-center max-w-4xl w-full">
-      <div class="w-20 h-20 bg-gradient-to-br from-emerald-800 to-main-900 rounded-2xl flex items-center justify-center mb-8">
-        <i data-lucide="rocket" class="w-10 h-10 text-white"></i>
+    <!-- Slide 3: End -->
+    <div id="slide-3" class="slide flex-col items-center justify-center text-center max-w-4xl w-full">
+      <div class="w-20 h-20 bg-zinc-800 rounded-2xl flex items-center justify-center mb-8">
+        <svg class="w-10 h-10 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
       </div>
-      <h2 class="text-5xl font-bold text-white mb-4">Product Overview Complete</h2>
-      <p class="text-xl text-zinc-400 mb-8">Ready to explore the UX research and prototype?</p>
+      <h2 class="text-5xl font-bold text-white mb-4">Ready to Explore</h2>
+      <p class="text-xl text-zinc-400 mb-8">Dive into research findings or try the prototype</p>
       <div class="flex gap-4">
         <button onclick="goToSlide(1)" class="px-6 py-3 bg-zinc-900 hover:bg-zinc-800 text-white rounded-xl font-medium transition-colors flex items-center gap-2">
-          <i data-lucide="rotate-ccw" class="w-4 h-4 text-white"></i>
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
           Restart
         </button>
-        <a href="report-clickthrough.html" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl font-medium transition-colors flex items-center gap-2">
-          <i data-lucide="presentation" class="w-4 h-4 text-white"></i>
-          UX Research
+        <a href="research-dashboard.html" class="px-6 py-3 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl font-medium transition-colors flex items-center gap-2">
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          Research
         </a>
         <a href="teams-signup-flow.html" class="px-6 py-3 border border-zinc-700 hover:bg-zinc-900 text-zinc-300 rounded-xl font-medium transition-colors flex items-center gap-2">
-          <i data-lucide="play-circle" class="w-4 h-4"></i>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
           Launch Prototype
         </a>
       </div>
@@ -368,7 +286,7 @@
   <!-- Navigation Footer -->
   <div class="fixed bottom-0 left-0 right-0 h-14 bg-black/90 backdrop-blur border-t border-zinc-800 flex items-center justify-between px-6">
     <a href="index.html" class="flex items-center gap-2 text-zinc-400 hover:text-white text-sm transition-colors">
-      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to Hub
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> Back to Dashboard
     </a>
     
     <!-- Dots -->
@@ -376,28 +294,22 @@
       <button onclick="goToSlide(1)" class="dot w-2.5 h-2.5 rounded-full bg-white transition-all"></button>
       <button onclick="goToSlide(2)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
       <button onclick="goToSlide(3)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
-      <button onclick="goToSlide(4)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
-      <button onclick="goToSlide(5)" class="dot w-2.5 h-2.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
     </div>
     
     <!-- Slide Counter -->
     <div class="flex items-center gap-2">
       <span class="text-sm text-zinc-400">Slide</span>
-      <span id="slide-counter" class="text-sm text-white font-medium">1 / 5</span>
+      <span id="slide-counter" class="text-sm text-white font-medium">1 / 3</span>
     </div>
   </div>
 
   <script>
-    // Safe lucide helper
-    function safeCreateIcons() {
-      if (typeof lucide !== 'undefined' && lucide.createIcons) {
-        lucide.createIcons();
-      }
-    }
+    const totalSlides = 3;
+    let currentSlide = parseInt(sessionStorage.getItem('productOverviewSlide')) || 1;
+    if (currentSlide > totalSlides) currentSlide = 1;
 
     // Initialize on DOM ready
     document.addEventListener('DOMContentLoaded', function() {
-      safeCreateIcons();
       if (currentSlide > 1) {
         showSlide(currentSlide);
       }
@@ -409,10 +321,6 @@
         }
       });
     });
-
-    const totalSlides = 5;
-    let currentSlide = parseInt(sessionStorage.getItem('productOverviewSlide')) || 1;
-    if (currentSlide > totalSlides) currentSlide = 1;
 
     function showSlide(n) {
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
@@ -435,7 +343,6 @@
       
       currentSlide = n;
       sessionStorage.setItem('productOverviewSlide', n);
-      safeCreateIcons();
     }
 
     function nextSlide() {
@@ -456,5 +363,3 @@
   </script>
 </body>
 </html>
-
-

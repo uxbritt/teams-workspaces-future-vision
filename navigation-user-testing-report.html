@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Testing Insights — CTCT for Teams Workspaces</title>
+  <title>V2 Navigation User Testing Report — CTCT for Teams</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -79,17 +79,17 @@
     <!-- Slide 1: Title (with color accent) -->
     <div id="slide-1" class="slide active flex-col items-center justify-center text-center max-w-5xl w-full">
       <div class="mb-8">
-        <span class="inline-block px-4 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-sm font-medium mb-6">CTCT for Teams — User Testing</span>
-        <h1 class="text-5xl font-bold text-white mb-6 leading-tight">Workspace Navigation<br><span class="gradient-text">Testing Insights</span></h1>
-        <p class="text-xl text-zinc-400 mb-8">V1 (Hub) vs V2 (Folder) Terminology Comparison</p>
+        <span class="inline-block px-4 py-1.5 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-sm font-medium mb-6">CTCT for Teams — User Testing Report</span>
+        <h1 class="text-5xl font-bold text-white mb-6 leading-tight">V2 Workspace Navigation<br><span class="gradient-text">User Testing Report</span></h1>
+        <p class="text-xl text-zinc-400 mb-8">Folder-based navigation with qualified multi-account participants</p>
         <div class="flex items-center justify-center gap-8 text-sm">
-          <div class="text-center">
-            <div class="text-3xl font-bold text-accent-400">7</div>
-            <div class="text-zinc-500">Moderated</div>
-          </div>
           <div class="text-center">
             <div class="text-3xl font-bold text-main-400">12</div>
             <div class="text-zinc-500">Unmoderated</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-accent-400">2</div>
+            <div class="text-zinc-500">Moderated (Qualified)</div>
           </div>
           <div class="text-center">
             <div class="text-3xl font-bold text-white">3</div>
@@ -102,116 +102,143 @@
       </div>
     </div>
 
-    <!-- Slide 2: Key Recommendations -->
-    <div id="slide-2" class="slide flex-col items-center justify-center max-w-5xl w-full">
-      <div class="w-full text-center">
-        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Summary</span>
-        <h2 class="text-4xl font-bold text-white mb-3">Key Recommendations</h2>
-        <p class="text-lg text-zinc-500 mb-8">Based on 7 moderated + 12 unmoderated sessions</p>
+    <!-- Slide 2: Session Recording + Key Recommendations -->
+    <div id="slide-2" class="slide flex-col items-center justify-center max-w-6xl w-full">
+      <div class="w-full">
+        <div class="text-center mb-6">
+          <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-3">Summary</span>
+          <h2 class="text-3xl font-bold text-white mb-2">Session Recording & Key Findings</h2>
+          <p class="text-zinc-500">Based on 2 qualified moderated + 12 unmoderated sessions</p>
+        </div>
         
-        <div class="grid grid-cols-3 gap-5 text-left">
-          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
-            <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-white">1</span>
+        <div class="grid grid-cols-2 gap-6">
+          <!-- Video Left -->
+          <div class="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden">
+            <video 
+              id="session-video"
+              controls 
+              autoplay
+              muted
+              class="w-full aspect-video"
+              onloadedmetadata="this.playbackRate = 2.0;"
+            >
+              <source src="assets/jan9 - test session 2 - Brit Teams workspace navigation.mp4" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>
+            <div class="p-4 border-t border-zinc-800">
+              <p class="text-zinc-400 text-sm"><strong class="text-white">Unmoderated Session:</strong> V2 Workspace Navigation — Jan 9, 2026</p>
             </div>
-            <h3 class="text-white font-semibold text-lg mb-2">Replace "Folder" with "Region"</h3>
-            <p class="text-zinc-500 text-sm">Users suggested "Region" or "Location" — terms that map to real-world geography they already understand.</p>
           </div>
           
-          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
-            <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-white">2</span>
+          <!-- Recommendations Right -->
+          <div class="space-y-4">
+            <div class="bg-zinc-950 border border-emerald-800/30 rounded-xl p-5">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-emerald-900/30 border border-emerald-800/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span class="text-xl font-bold text-emerald-400">1</span>
+                </div>
+                <div>
+                  <h3 class="text-white font-semibold mb-1">V2 Navigation Works</h3>
+                  <p class="text-zinc-500 text-sm">97% task success rate. Users found navigation "very simple" with "no issues."</p>
+                </div>
+              </div>
             </div>
-            <h3 class="text-white font-semibold text-lg mb-2">Add Onboarding Tooltips</h3>
-            <p class="text-zinc-500 text-sm">Users asked for guided walkthroughs and contextual hints. Design feels "flat" without guidance.</p>
-          </div>
-          
-          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
-            <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
-              <span class="text-2xl font-bold text-white">3</span>
+            
+            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span class="text-xl font-bold text-white">2</span>
+                </div>
+                <div>
+                  <h3 class="text-white font-semibold mb-1">Target Experienced Users</h3>
+                  <p class="text-zinc-500 text-sm">Both qualified participants rated 5/5 confidence. Prior enterprise experience creates instant comprehension.</p>
+                </div>
+              </div>
             </div>
-            <h3 class="text-white font-semibold text-lg mb-2">Clarify Hierarchy Levels</h3>
-            <p class="text-zinc-500 text-sm">"Organization" confused users. Make the Org, Region, Workspace levels visually distinct and labeled.</p>
+            
+            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
+              <div class="flex items-start gap-4">
+                <div class="w-10 h-10 bg-zinc-900 border border-zinc-800 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <span class="text-xl font-bold text-white">3</span>
+                </div>
+                <div>
+                  <h3 class="text-white font-semibold mb-1">Minor Hierarchy Polish</h3>
+                  <p class="text-zinc-500 text-sm">One failure on workspace navigation. Consider clearer visual cues for folder → workspace drilling.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Slide 3: Pain Points -->
+    <!-- Slide 3: Unmoderated Results Summary -->
     <div id="slide-3" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
-        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Friction</span>
-        <h2 class="text-4xl font-bold text-white mb-3">Critical Pain Points</h2>
-        <p class="text-lg text-zinc-500 mb-8">Consistent issues across novice users in both V1 and V2</p>
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Unmoderated Testing</span>
+        <h2 class="text-4xl font-bold text-white mb-3">12 Participants Summary</h2>
+        <p class="text-lg text-zinc-500 mb-8">V2 Workspace Navigation task performance</p>
         
-        <div class="grid grid-cols-2 gap-5 text-left">
-          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="text-zinc-400 font-bold text-sm">01</span>
-              </div>
-              <div>
-                <h3 class="text-white font-semibold mb-1">"Mid-level folder/hub" Undefined</h3>
-                <p class="text-zinc-500 text-sm">100% of users confused by this term. No mental model for hierarchy depth.</p>
-              </div>
-            </div>
+        <div class="grid grid-cols-3 gap-5 text-left mb-6">
+          <div class="bg-zinc-950 border border-emerald-800/50 rounded-xl p-5 text-center">
+            <div class="text-4xl font-bold text-emerald-400 mb-2">97%</div>
+            <div class="text-white font-medium mb-1">Overall Success Rate</div>
+            <div class="text-zinc-500 text-sm">35/36 tasks completed</div>
           </div>
           
-          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="text-zinc-400 font-bold text-sm">02</span>
-              </div>
-              <div>
-                <h3 class="text-white font-semibold mb-1">Org vs Folder vs Workspace Unclear</h3>
-                <p class="text-zinc-500 text-sm">Users couldn't distinguish levels. "I don't know what you mean by viewing the organization."</p>
-              </div>
-            </div>
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 text-center">
+            <div class="text-4xl font-bold text-white mb-2">0:25</div>
+            <div class="text-white font-medium mb-1">Avg Task Time</div>
+            <div class="text-zinc-500 text-sm">Consistent across all tasks</div>
           </div>
           
-          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="text-zinc-400 font-bold text-sm">03</span>
-              </div>
-              <div>
-                <h3 class="text-white font-semibold mb-1">Confidence Erosion</h3>
-                <p class="text-zinc-500 text-sm">One user dropped to 1.5/5 confidence, said "I feel pretty dumb" despite navigating correctly.</p>
-              </div>
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 text-center">
+            <div class="text-4xl font-bold text-white mb-2">2.3</div>
+            <div class="text-white font-medium mb-1">Avg Page Views</div>
+            <div class="text-zinc-500 text-sm">Efficient navigation paths</div>
+          </div>
+        </div>
+        
+        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5 text-left">
+          <h3 class="text-white font-semibold mb-3">Task Breakdown</h3>
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-zinc-400">Task 1: Sign up for Teams plan</span>
+              <span class="px-3 py-1 bg-emerald-900/50 border border-emerald-700/50 text-emerald-400 text-xs rounded-full">100% (12/12)</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-zinc-400">Task 2: Navigate to NY Workspace</span>
+              <span class="px-3 py-1 bg-amber-900/50 border border-amber-700/50 text-amber-400 text-xs rounded-full">91.7% (11/12)</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-zinc-400">Task 3: Navigate to Org Dashboard</span>
+              <span class="px-3 py-1 bg-emerald-900/50 border border-emerald-700/50 text-emerald-400 text-xs rounded-full">100% (12/12)</span>
             </div>
           </div>
-          
-          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
-            <div class="flex items-start gap-4">
-              <div class="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="text-zinc-400 font-bold text-sm">04</span>
-              </div>
-              <div>
-                <h3 class="text-white font-semibold mb-1">Design Feels "Flat"</h3>
-                <p class="text-zinc-500 text-sm">"No tips and tricks, no guidance. If I worked on it for the first time, I'd be like, what the hell?"</p>
-              </div>
-            </div>
-          </div>
+        </div>
+        
+        <div class="mt-6 p-4 bg-zinc-950 border border-zinc-800 rounded-xl">
+          <p class="text-zinc-400 text-sm"><strong class="text-amber-400">1 failure point:</strong> Task 2 (Navigate to NY Workspace) — P4 gave up after 38 seconds with only 2 page views. Indicates hierarchy navigation requires clearer visual cues.</p>
         </div>
       </div>
     </div>
 
-    <!-- Slide 4: Experienced User Highlight -->
+    <!-- Slide 4: victorialeo Success Case -->
     <div id="slide-4" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
         <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Success Case</span>
-        <h2 class="text-4xl font-bold text-white mb-3">When It Works</h2>
-        <p class="text-lg text-zinc-500 mb-8">Session 4: User with real multi-location experience</p>
+        <h2 class="text-4xl font-bold text-white mb-3">Moderated Session: victorialeo</h2>
+        <p class="text-lg text-zinc-500 mb-8">Qualified participant with extensive multi-location experience</p>
         
         <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-8 text-left max-w-3xl mx-auto">
           <div class="flex items-start gap-6">
             <div class="w-16 h-16 bg-zinc-900 border border-zinc-700 rounded-2xl flex items-center justify-center flex-shrink-0">
-              <span class="text-2xl font-bold text-white">S4</span>
+              <span class="text-2xl font-bold text-white">VL</span>
             </div>
             <div class="flex-1">
               <div class="flex items-center gap-3 mb-3">
                 <h3 class="text-white font-bold text-xl">victorialeo</h3>
-                <span class="px-2 py-0.5 bg-zinc-800 border border-zinc-700 text-white text-xs rounded-full">5/5 Confidence</span>
+                <span class="px-2 py-0.5 bg-emerald-800 border border-emerald-700 text-emerald-400 text-xs rounded-full">5/5 Confidence</span>
               </div>
               <p class="text-zinc-400 mb-4">33F | $150K+ | Managed <strong class="text-white">70 locations</strong> across <strong class="text-white">5 states</strong> | 8+ enterprise accounts</p>
               
@@ -219,10 +246,14 @@
                 <p class="text-zinc-300 italic">"I think it's very easy to navigate. I don't think it's very difficult to understand. It makes sense."</p>
               </div>
               
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-4">
+                <p class="text-zinc-300 italic">"It was very clear to me where I needed to click. I found the UPS New York workspace almost immediately."</p>
+              </div>
+              
               <div class="grid grid-cols-3 gap-3 text-center">
                 <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3">
                   <div class="text-white font-semibold">Very Easy</div>
-                  <div class="text-zinc-600 text-xs">Navigation</div>
+                  <div class="text-zinc-600 text-xs">All Tasks</div>
                 </div>
                 <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3">
                   <div class="text-white font-semibold">Intuitive</div>
@@ -238,106 +269,68 @@
         </div>
         
         <div class="mt-6 p-4 bg-zinc-950 border border-zinc-800 rounded-xl max-w-2xl mx-auto">
-          <p class="text-zinc-400 text-sm"><strong class="text-white">Key Insight:</strong> Users with prior enterprise account experience immediately understand the hierarchy. The design works — but only for those who already have the mental model.</p>
+          <p class="text-zinc-400 text-sm"><strong class="text-white">Key Insight:</strong> Users with prior enterprise multi-location experience immediately understand the folder/workspace hierarchy without additional guidance.</p>
         </div>
       </div>
     </div>
 
-    <!-- Slide 5: V1 vs V2 Comparison -->
+    <!-- Slide 5: BitterK Success Case -->
     <div id="slide-5" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
-        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Comparison</span>
-        <h2 class="text-4xl font-bold text-white mb-3">V1 "Hub" vs V2 "Folder"</h2>
-        <p class="text-lg text-zinc-500 mb-8">Did the terminology change improve understanding?</p>
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Success Case</span>
+        <h2 class="text-4xl font-bold text-white mb-3">Moderated Session: BitterK</h2>
+        <p class="text-lg text-zinc-500 mb-8">Second qualified participant with multi-account experience</p>
         
-        <div class="grid grid-cols-2 gap-6">
-          <!-- V1 Column -->
-          <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 text-left">
-            <div class="flex items-center gap-3 mb-5">
-              <div class="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-lg flex items-center justify-center">
-                <span class="text-zinc-400 font-bold">V1</span>
-              </div>
-              <div>
-                <h3 class="text-white font-semibold">Figma Prototype</h3>
-                <p class="text-zinc-600 text-sm">"Hub" terminology</p>
-              </div>
+        <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-8 text-left max-w-3xl mx-auto">
+          <div class="flex items-start gap-6">
+            <div class="w-16 h-16 bg-zinc-900 border border-zinc-700 rounded-2xl flex items-center justify-center flex-shrink-0">
+              <span class="text-2xl font-bold text-white">BK</span>
             </div>
-            
-            <div class="space-y-3 mb-5">
-              <div class="flex items-center gap-2">
-                <span class="text-white">+</span>
-                <span class="text-zinc-400 text-sm">"Hub & spoke" analogy clicked</span>
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-3">
+                <h3 class="text-white font-bold text-xl">BitterK</h3>
+                <span class="px-2 py-0.5 bg-emerald-800 border border-emerald-700 text-emerald-400 text-xs rounded-full">5/5 Confidence</span>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="text-white">+</span>
-                <span class="text-zinc-400 text-sm">Central location concept understood</span>
+              <p class="text-zinc-400 mb-4">59M | $150K+ | Managed <strong class="text-white">10-12 accounts</strong> using <strong class="text-white">HubSpot</strong></p>
+              
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-4">
+                <p class="text-zinc-300 italic">"It's very simple. No issues. I don't have a whole lot of comments because there's not a whole lot to mess up."</p>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="text-zinc-600">-</span>
-                <span class="text-zinc-500 text-sm">Initial navigation confusing</span>
+              
+              <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 mb-4">
+                <p class="text-zinc-300 italic">"We're used to the idea of expanding and shrinking things. So you just click a folder? Oh, there's five workspaces. I can click on it, open it up. So no issues."</p>
               </div>
-              <div class="flex items-center gap-2">
-                <span class="text-zinc-600">-</span>
-                <span class="text-zinc-500 text-sm">"Mid-level hub" unclear</span>
+              
+              <div class="grid grid-cols-3 gap-3 text-center">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3">
+                  <div class="text-white font-semibold">Very Easy</div>
+                  <div class="text-zinc-600 text-xs">All Tasks</div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3">
+                  <div class="text-white font-semibold">Clear</div>
+                  <div class="text-zinc-600 text-xs">Hierarchy</div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3">
+                  <div class="text-white font-semibold">Familiar</div>
+                  <div class="text-zinc-600 text-xs">Folder Pattern</div>
+                </div>
               </div>
-            </div>
-            
-            <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-center">
-              <div class="text-2xl font-bold text-white">4/5</div>
-              <div class="text-zinc-600 text-xs">Avg Confidence</div>
-            </div>
-          </div>
-          
-          <!-- V2 Column -->
-          <div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-6 text-left">
-            <div class="flex items-center gap-3 mb-5">
-              <div class="w-10 h-10 bg-zinc-900 border border-zinc-700 rounded-lg flex items-center justify-center">
-                <span class="text-white font-bold">V2</span>
-              </div>
-              <div>
-                <h3 class="text-white font-semibold">Coded Prototype</h3>
-                <p class="text-zinc-600 text-sm">"Folder" terminology</p>
-              </div>
-            </div>
-            
-            <div class="space-y-3 mb-5">
-              <div class="flex items-center gap-2">
-                <span class="text-white">+</span>
-                <span class="text-zinc-400 text-sm">Geographic navigation intuitive</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-white">+</span>
-                <span class="text-zinc-400 text-sm">Breadcrumbs helpful</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-zinc-600">-</span>
-                <span class="text-zinc-500 text-sm">"Folder" = just an icon to open</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-zinc-600">-</span>
-                <span class="text-zinc-500 text-sm">Lower confidence (except exp. user)</span>
-              </div>
-            </div>
-            
-            <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-3 text-center">
-              <div class="text-2xl font-bold text-white">2.5/5</div>
-              <div class="text-zinc-600 text-xs">Avg Confidence (novices)</div>
             </div>
           </div>
         </div>
         
-        <div class="mt-6 p-4 bg-zinc-950 border border-zinc-800 rounded-xl">
-          <p class="text-zinc-400 text-sm"><strong class="text-white">Finding:</strong> "Hub" actually resonated better conceptually than "Folder" — but both failed on hierarchy clarity. Users suggested "Region" and "Location" as alternatives.</p>
+        <div class="mt-6 p-4 bg-zinc-950 border border-zinc-800 rounded-xl max-w-2xl mx-auto">
+          <p class="text-zinc-400 text-sm"><strong class="text-white">Key Insight:</strong> Users with prior multi-account platform experience (HubSpot, enterprise tools) immediately grasped the folder/workspace hierarchy without guidance.</p>
         </div>
       </div>
     </div>
 
-    <!-- Slide 6: Session Details -->
+    <!-- Slide 6: Moderated Sessions Table -->
     <div id="slide-6" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
-        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Reference</span>
+        <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Qualified Participants</span>
         <h2 class="text-4xl font-bold text-white mb-3">Moderated Sessions</h2>
-        <p class="text-lg text-zinc-500 mb-8">7 participants across V1 and V2</p>
+        <p class="text-lg text-zinc-500 mb-8">2 participants with multi-account experience (met screening criteria)</p>
         
         <div class="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden">
           <table class="w-full text-left">
@@ -351,57 +344,26 @@
               </tr>
             </thead>
             <tbody class="divide-y divide-zinc-800">
-              <tr class="hover:bg-zinc-900/50">
-                <td class="px-5 py-4"><span class="px-2 py-1 bg-zinc-900 border border-zinc-700 text-zinc-400 text-xs rounded">V1</span></td>
-                <td class="px-5 py-4 text-white">elite314 <span class="text-zinc-600 text-sm">(40F)</span></td>
-                <td class="px-5 py-4 text-zinc-500">1 account</td>
-                <td class="px-5 py-4 text-white">4/5</td>
-                <td class="px-5 py-4"><a href="https://app.usertesting.com/v/c50458b9-2db4-4f01-8765-5aef76fe32eb?encrypted_video_handle=6bfb1579-c2c1-413f-9b8d-ccdbea1ce793#!/transcript" target="_blank" class="text-zinc-400 hover:text-white text-sm underline">View</a></td>
-              </tr>
-              <tr class="hover:bg-zinc-900/50">
-                <td class="px-5 py-4"><span class="px-2 py-1 bg-zinc-900 border border-zinc-700 text-white text-xs rounded">V2</span></td>
-                <td class="px-5 py-4 text-white">beautyjunky <span class="text-zinc-600 text-sm">(54F)</span></td>
-                <td class="px-5 py-4 text-zinc-500">None</td>
-                <td class="px-5 py-4 text-white">2-3/5</td>
-                <td class="px-5 py-4 text-zinc-700 text-sm">—</td>
-              </tr>
-              <tr class="hover:bg-zinc-900/50">
-                <td class="px-5 py-4"><span class="px-2 py-1 bg-zinc-900 border border-zinc-700 text-white text-xs rounded">V2</span></td>
-                <td class="px-5 py-4 text-white">iggy1.4 <span class="text-zinc-600 text-sm">(47F)</span></td>
-                <td class="px-5 py-4 text-zinc-500">None</td>
-                <td class="px-5 py-4 text-white">3/5</td>
-                <td class="px-5 py-4 text-zinc-700 text-sm">—</td>
-              </tr>
-              <tr class="hover:bg-zinc-900/50">
-                <td class="px-5 py-4"><span class="px-2 py-1 bg-zinc-900 border border-zinc-700 text-white text-xs rounded">V2</span></td>
-                <td class="px-5 py-4 text-white">cha <span class="text-zinc-600 text-sm">(51F)</span></td>
-                <td class="px-5 py-4 text-zinc-500">1 location</td>
-                <td class="px-5 py-4 text-zinc-400">1.5/5</td>
-                <td class="px-5 py-4 text-zinc-700 text-sm">—</td>
-              </tr>
-              <tr class="hover:bg-zinc-900/50 bg-zinc-900/30">
+              <tr class="hover:bg-zinc-900/50 bg-emerald-900/20">
                 <td class="px-5 py-4"><span class="px-2 py-1 bg-zinc-900 border border-zinc-700 text-white text-xs rounded">V2</span></td>
                 <td class="px-5 py-4 text-white font-semibold">victorialeo <span class="text-zinc-600 text-sm">(33F)</span></td>
-                <td class="px-5 py-4 text-white">70 locations</td>
+                <td class="px-5 py-4 text-emerald-400 font-medium">70 locations</td>
                 <td class="px-5 py-4 text-white font-semibold">5/5</td>
                 <td class="px-5 py-4"><a href="https://app.usertesting.com/v/ec2a026c-b0fc-440f-a319-f0773bedc8d6?encrypted_video_handle=3f771c91-ef0a-4fdf-9912-1ac594b12494#!/transcript" target="_blank" class="text-zinc-400 hover:text-white text-sm underline">View</a></td>
               </tr>
-              <tr class="hover:bg-zinc-900/50">
-                <td class="px-5 py-4"><span class="px-2 py-1 bg-zinc-900 border border-zinc-700 text-white text-xs rounded">V2</span></td>
-                <td class="px-5 py-4 text-white">Shortie01 <span class="text-zinc-600 text-sm">(65F)</span></td>
-                <td class="px-5 py-4 text-zinc-500">1 store</td>
-                <td class="px-5 py-4 text-zinc-400">3/5</td>
-                <td class="px-5 py-4 text-zinc-700 text-sm">—</td>
-              </tr>
-              <tr class="hover:bg-zinc-900/50 bg-zinc-900/30">
+              <tr class="hover:bg-zinc-900/50 bg-emerald-900/20">
                 <td class="px-5 py-4"><span class="px-2 py-1 bg-zinc-900 border border-zinc-700 text-white text-xs rounded">V2</span></td>
                 <td class="px-5 py-4 text-white font-semibold">BitterK <span class="text-zinc-600 text-sm">(59M)</span></td>
-                <td class="px-5 py-4 text-white">10-12 accounts</td>
+                <td class="px-5 py-4 text-emerald-400 font-medium">10-12 accounts</td>
                 <td class="px-5 py-4 text-white font-semibold">5/5</td>
                 <td class="px-5 py-4 text-zinc-700 text-sm">—</td>
               </tr>
             </tbody>
           </table>
+        </div>
+        
+        <div class="mt-6 p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl text-left">
+          <p class="text-sm text-zinc-400"><span class="text-white font-medium">Screening criteria:</span> Participants must have prior experience managing multiple business accounts or locations. 5 participants excluded due to lack of multi-account experience.</p>
         </div>
         
         <div class="mt-8 flex items-center justify-center gap-4">
@@ -523,7 +485,7 @@
 
   <!-- Navigation Footer -->
   <div class="fixed bottom-0 left-0 right-0 px-8 py-4 flex items-center justify-between bg-gradient-to-t from-black to-transparent">
-    <a href="index.html" class="text-zinc-600 hover:text-white text-sm transition-colors">Back to Hub</a>
+    <a href="research-dashboard.html" class="text-zinc-600 hover:text-white text-sm transition-colors">Back to Research</a>
     
     <div class="flex items-center gap-1.5">
       <button onclick="goToSlide(1)" class="dot w-2.5 h-2.5 rounded-full bg-white transition-all"></button>
