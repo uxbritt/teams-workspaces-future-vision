@@ -2823,41 +2823,83 @@
     // Search data
     const searchData = {
       folders: [
-        { name: 'US', type: 'folder', icon: 'folder', count: '8 workspaces' },
-        { name: 'EMEA', type: 'folder', icon: 'folder', count: '3 workspaces' },
-        { name: 'APAC', type: 'folder', icon: 'folder', count: '2 workspaces' },
-        { name: 'LATAM', type: 'folder', icon: 'folder', count: '2 workspaces' }
+        // Parent folders
+        { name: 'UPS US', type: 'folder', icon: 'folder', count: '18 workspaces' },
+        { name: 'UPS EU', type: 'folder', icon: 'folder', count: '14 workspaces' },
+        // US Regional folders
+        { name: 'UPS Northeast', type: 'folder', icon: 'folder', count: '5 workspaces', parent: 'UPS US' },
+        { name: 'UPS Southeast', type: 'folder', icon: 'folder', count: '5 workspaces', parent: 'UPS US' },
+        { name: 'UPS Southwest', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS US' },
+        { name: 'UPS Northwest', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS US' },
+        // EU Regional folders
+        { name: 'UPS UK & Ireland', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS EU' },
+        { name: 'UPS DACH', type: 'folder', icon: 'folder', count: '3 workspaces', parent: 'UPS EU' },
+        { name: 'UPS Nordics', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS EU' },
+        { name: 'UPS Southern Europe', type: 'folder', icon: 'folder', count: '3 workspaces', parent: 'UPS EU' }
       ],
       workspaces: [
-        { name: 'UPS Global', type: 'workspace', icon: 'G', color: 'bg-warning-800 text-warning-300' },
-        { name: 'UPS Northeast', type: 'workspace', icon: 'N', color: 'bg-success-500 text-white' },
-        { name: 'UPS Southwest', type: 'workspace', icon: 'S', color: 'bg-warning-500 text-white' },
-        { name: 'UPS Midwest', type: 'workspace', icon: 'M', color: 'bg-success-500 text-white' },
-        { name: 'UPS Foundation', type: 'workspace', icon: 'F', color: 'bg-accent-500 text-white' },
-        { name: 'New York', type: 'workspace', icon: 'NY', color: 'bg-ctct-blue text-white' },
-        { name: 'New York Metro', type: 'workspace', icon: 'NY', color: 'bg-main-500 text-white' },
-        { name: 'New York Upstate', type: 'workspace', icon: 'NY', color: 'bg-accent-500 text-white' },
-        { name: 'New York City', type: 'workspace', icon: 'NYC', color: 'bg-accent-600 text-white' },
-        { name: 'Los Angeles', type: 'workspace', icon: 'LA', color: 'bg-warning-600 text-white' },
-        { name: 'Chicago', type: 'workspace', icon: 'CH', color: 'bg-success-600 text-white' },
-        { name: 'Houston', type: 'workspace', icon: 'HO', color: 'bg-danger-500 text-white' },
-        { name: 'Phoenix', type: 'workspace', icon: 'PH', color: 'bg-warning-500 text-white' },
-        { name: 'Philadelphia', type: 'workspace', icon: 'PH', color: 'bg-main-600 text-white' }
+        // Standalone workspaces
+        { name: 'UPS Foundation', type: 'workspace', icon: 'UF', color: 'bg-accent-500 text-white' },
+        { name: 'UPS Student Program', type: 'workspace', icon: 'US', color: 'bg-main-500 text-white' },
+        // US Northeast workspaces
+        { name: 'UPS New York', type: 'workspace', icon: 'UN', color: 'bg-pink-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Connecticut', type: 'workspace', icon: 'UC', color: 'bg-teal-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Massachusetts', type: 'workspace', icon: 'UM', color: 'bg-indigo-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS New Jersey', type: 'workspace', icon: 'UN', color: 'bg-cyan-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Pennsylvania', type: 'workspace', icon: 'UP', color: 'bg-emerald-500 text-white', folder: 'UPS Northeast' },
+        // US Southeast workspaces
+        { name: 'UPS Florida', type: 'workspace', icon: 'UF', color: 'bg-orange-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS Georgia', type: 'workspace', icon: 'UG', color: 'bg-red-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS North Carolina', type: 'workspace', icon: 'UN', color: 'bg-blue-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS South Carolina', type: 'workspace', icon: 'US', color: 'bg-violet-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS Virginia', type: 'workspace', icon: 'UV', color: 'bg-amber-500 text-white', folder: 'UPS Southeast' },
+        // US Southwest workspaces
+        { name: 'UPS Texas', type: 'workspace', icon: 'UT', color: 'bg-rose-500 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS Arizona', type: 'workspace', icon: 'UA', color: 'bg-yellow-600 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS New Mexico', type: 'workspace', icon: 'UN', color: 'bg-lime-500 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS Oklahoma', type: 'workspace', icon: 'UO', color: 'bg-fuchsia-500 text-white', folder: 'UPS Southwest' },
+        // US Northwest workspaces
+        { name: 'UPS Washington', type: 'workspace', icon: 'UW', color: 'bg-sky-500 text-white', folder: 'UPS Northwest' },
+        { name: 'UPS Oregon', type: 'workspace', icon: 'UO', color: 'bg-green-600 text-white', folder: 'UPS Northwest' },
+        { name: 'UPS Idaho', type: 'workspace', icon: 'UI', color: 'bg-purple-500 text-white', folder: 'UPS Northwest' },
+        { name: 'UPS Montana', type: 'workspace', icon: 'UM', color: 'bg-slate-500 text-white', folder: 'UPS Northwest' },
+        // EU UK & Ireland workspaces
+        { name: 'UPS London', type: 'workspace', icon: 'UL', color: 'bg-red-600 text-white', folder: 'UPS UK & Ireland' },
+        { name: 'UPS Manchester', type: 'workspace', icon: 'UM', color: 'bg-blue-600 text-white', folder: 'UPS UK & Ireland' },
+        { name: 'UPS Dublin', type: 'workspace', icon: 'UD', color: 'bg-green-500 text-white', folder: 'UPS UK & Ireland' },
+        { name: 'UPS Edinburgh', type: 'workspace', icon: 'UE', color: 'bg-indigo-600 text-white', folder: 'UPS UK & Ireland' },
+        // EU DACH workspaces
+        { name: 'UPS Germany', type: 'workspace', icon: 'UG', color: 'bg-yellow-500 text-white', folder: 'UPS DACH' },
+        { name: 'UPS Austria', type: 'workspace', icon: 'UA', color: 'bg-red-500 text-white', folder: 'UPS DACH' },
+        { name: 'UPS Switzerland', type: 'workspace', icon: 'US', color: 'bg-rose-600 text-white', folder: 'UPS DACH' },
+        // EU Nordics workspaces
+        { name: 'UPS Sweden', type: 'workspace', icon: 'US', color: 'bg-blue-500 text-white', folder: 'UPS Nordics' },
+        { name: 'UPS Norway', type: 'workspace', icon: 'UN', color: 'bg-red-600 text-white', folder: 'UPS Nordics' },
+        { name: 'UPS Denmark', type: 'workspace', icon: 'UD', color: 'bg-rose-500 text-white', folder: 'UPS Nordics' },
+        { name: 'UPS Finland', type: 'workspace', icon: 'UF', color: 'bg-sky-600 text-white', folder: 'UPS Nordics' },
+        // EU Southern Europe workspaces
+        { name: 'UPS Spain', type: 'workspace', icon: 'US', color: 'bg-orange-600 text-white', folder: 'UPS Southern Europe' },
+        { name: 'UPS Italy', type: 'workspace', icon: 'UI', color: 'bg-green-600 text-white', folder: 'UPS Southern Europe' },
+        { name: 'UPS Portugal', type: 'workspace', icon: 'UP', color: 'bg-emerald-600 text-white', folder: 'UPS Southern Europe' }
       ],
       campaigns: [
-        { name: 'Holiday Shipping Promo', type: 'campaign', workspace: 'UPS Northeast' },
-        { name: 'Express Delivery Update', type: 'campaign', workspace: 'UPS Southwest' },
-        { name: 'New Location Announcement', type: 'campaign', workspace: 'UPS Midwest' },
-        { name: 'Summer Sale Blast', type: 'campaign', workspace: 'UPS Global' }
+        { name: 'Holiday Shipping Promo', type: 'campaign', workspace: 'UPS New York' },
+        { name: 'Express Delivery Update', type: 'campaign', workspace: 'UPS Texas' },
+        { name: 'New Location Announcement', type: 'campaign', workspace: 'UPS Florida' },
+        { name: 'Summer Sale Blast', type: 'campaign', workspace: 'UPS London' },
+        { name: 'Northeast Region Newsletter', type: 'campaign', workspace: 'UPS Northeast' },
+        { name: 'Q1 Promotional Campaign', type: 'campaign', workspace: 'UPS Germany' }
       ],
       lists: [
         { name: 'VIP Customers', type: 'list', count: '2.4k contacts' },
         { name: 'Newsletter Subscribers', type: 'list', count: '15.2k contacts' },
-        { name: 'Enterprise Clients', type: 'list', count: '892 contacts' }
+        { name: 'Enterprise Clients', type: 'list', count: '892 contacts' },
+        { name: 'Northeast Region Contacts', type: 'list', count: '12.4k contacts' }
       ],
       reports: [
-        { name: 'Q4 Performance Report', type: 'report', workspace: 'UPS Global' },
-        { name: 'Email Campaign Analysis', type: 'report', workspace: 'UPS Northeast' }
+        { name: 'Q4 Performance Report', type: 'report', workspace: 'UPS US' },
+        { name: 'Email Campaign Analysis', type: 'report', workspace: 'UPS Northeast' },
+        { name: 'Northeast Region Overview', type: 'report', workspace: 'UPS Northeast' }
       ]
     };
     
@@ -2905,13 +2947,14 @@
           html += `<p class="px-3 pt-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">Folders</p>
             <div class="space-y-0.5 mb-3">`;
           matchedFolders.forEach(f => {
+            const parentInfo = f.parent ? ` in ${f.parent}` : '';
             html += `<a href="workspaces-list.html?folder=${encodeURIComponent(f.name)}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors block">
               <div class="w-10 h-10 bg-warning-100 rounded-xl flex items-center justify-center">
                 <svg class="w-5 h-5 text-warning-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
               </div>
               <div class="text-left">
                 <p class="text-sm font-medium text-neutral-900">${f.name}</p>
-                <p class="text-xs text-neutral-400">Folder • ${f.count}</p>
+                <p class="text-xs text-neutral-400">Folder${parentInfo} • ${f.count}</p>
               </div>
             </a>`;
           });
@@ -2922,11 +2965,12 @@
           html += `<p class="px-3 pt-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">Workspaces</p>
             <div class="space-y-0.5 mb-3">`;
           matchedWorkspaces.forEach(w => {
+            const folderInfo = w.folder ? ` • ${w.folder}` : '';
             html += `<a href="workspace-detail.html?workspace=${encodeURIComponent(w.name)}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors block">
               <div class="w-10 h-10 ${w.color} rounded-xl flex items-center justify-center text-sm font-bold">${w.icon}</div>
               <div class="text-left">
                 <p class="text-sm font-medium text-neutral-900">${w.name}</p>
-                <p class="text-xs text-neutral-400">Workspace</p>
+                <p class="text-xs text-neutral-400">Workspace${folderInfo}</p>
               </div>
             </a>`;
           });
