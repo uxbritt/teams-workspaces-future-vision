@@ -3297,6 +3297,37 @@ function safeCreateIcons() {
     const source = urlParams.get('source');
     const campaignsCount = urlParams.get('campaigns') || '47';
     const workspacesCount = urlParams.get('workspaces') || '8';
+    const channelParam = urlParams.get('channel');
+    
+    // Update page title based on channel filter from dashboard
+    if (source === 'dashboard' && channelParam) {
+      const channelTitles = {
+        'email': 'Email Performance',
+        'social': 'Social Performance', 
+        'sms': 'SMS Performance',
+        'contacts': 'Contact Growth Report',
+        'workspaces': 'Workspace Performance'
+      };
+      const pageTitle = document.getElementById('report-page-title');
+      if (pageTitle && channelTitles[channelParam]) {
+        pageTitle.textContent = channelTitles[channelParam];
+      }
+      
+      // Update filter tag to show channel
+      const assetsTag = document.getElementById('filter-assets-tag');
+      if (assetsTag && channelParam !== 'workspaces') {
+        const channelLabels = {
+          'email': 'Email campaigns',
+          'social': 'Social posts',
+          'sms': 'SMS messages',
+          'contacts': 'All contacts'
+        };
+        assetsTag.innerHTML = `
+          <svg class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          ${channelLabels[channelParam] || 'All channels'}
+        `;
+      }
+    }
     
     if (source === 'dashboard') {
       showReportGeneratingModal(campaignsCount, workspacesCount);
