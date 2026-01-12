@@ -169,11 +169,11 @@
     
     <!-- Left Sidebar Navigation -->
     <aside class="w-56 bg-white border-r border-neutral-100 fixed left-0 top-16 bottom-0 overflow-y-auto">
-      <!-- Back to Dashboard -->
+      <!-- Back Link (dynamic based on role) -->
       <div class="p-4 border-b border-neutral-100">
-        <a href="option-b-northstar-empty.html" class="flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-800 transition-colors">
+        <a id="back-link" href="option-b-northstar-empty.html" class="flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-800 transition-colors">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
-          Back to Dashboard
+          <span id="back-link-text">Back to Dashboard</span>
         </a>
       </div>
       
@@ -510,18 +510,19 @@
       
       if (userNameDisplay) userNameDisplay.textContent = userName;
       
+      // Enterprise name always stays as "UPS Global"
+      if (enterpriseName) enterpriseName.textContent = 'UPS Global';
+      
       // Update titles based on role
       if (userRole === 'global') {
         // Full access - show everything
         if (userRoleDisplay) userRoleDisplay.textContent = 'Global Admin';
-        if (enterpriseName) enterpriseName.textContent = 'UPS Global';
         document.getElementById('people-title').textContent = 'Members of UPS Global';
         document.getElementById('workspaces-title').textContent = 'Workspaces in UPS Global';
       } else if (userRole === 'regional') {
         // Regional access - limited to Northeast or specific folder
         const folderName = accessFolder || 'UPS Northeast';
         if (userRoleDisplay) userRoleDisplay.textContent = 'Regional Manager';
-        if (enterpriseName) enterpriseName.textContent = folderName;
         document.getElementById('people-title').textContent = 'Members of ' + folderName;
         document.getElementById('workspaces-title').textContent = 'Workspaces in ' + folderName;
         document.getElementById('people-description').textContent = 'Manage members in your region. You can add members to workspaces within ' + folderName + ' and share workspaces with other team members.';
@@ -532,7 +533,6 @@
         // Location/workspace level - very limited access
         const wsName = accessWorkspace || 'UPS New York';
         if (userRoleDisplay) userRoleDisplay.textContent = 'Location Manager';
-        if (enterpriseName) enterpriseName.textContent = wsName;
         document.getElementById('people-title').textContent = 'Members of ' + wsName;
         document.getElementById('workspaces-title').textContent = 'Your Workspace';
         document.getElementById('people-description').textContent = 'View and add members to your workspace. Contact an admin for organization-level changes.';
@@ -547,6 +547,12 @@
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           Add members
         `;
+        
+        // Update back link to go to workspace instead of org dashboard
+        const backLink = document.getElementById('back-link');
+        const backLinkText = document.getElementById('back-link-text');
+        if (backLink) backLink.href = 'workspace-detail.html?workspace=' + encodeURIComponent(wsName);
+        if (backLinkText) backLinkText.textContent = 'Back to Workspace';
       }
       
       renderMembers();
