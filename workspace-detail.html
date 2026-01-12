@@ -220,145 +220,157 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="flex-1 overflow-y-auto">
-      <!-- Header Bar - Location Manager View (workspace-specific) -->
-      <div id="header-location" class="hidden bg-white border-b border-gray-100 px-6 py-3">
-        <div class="flex items-center justify-between">
-          <!-- Left: Search -->
-          <div class="flex items-center gap-4">
-            <button onclick="openWorkspaceSearch()" class="flex items-center gap-2 px-4 py-2 bg-gray-50 hover:bg-gray-100 rounded-lg text-sm text-gray-500 transition-colors w-64">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <span>Search campaigns, contacts...</span>
-            </button>
-          </div>
-          
-          <!-- Center: Create -->
+    <main class="flex-1 overflow-y-auto pt-16">
+      
+      <!-- TOP BAR - Fixed, matches org dashboard exactly -->
+      <header class="fixed top-0 left-56 right-0 h-16 bg-white border-b border-gray-100 flex items-center px-6 z-50">
+        <!-- Logo (shown for location managers only) -->
+        <div id="topbar-logo" class="hidden items-center">
+          <img src="assets/ctctLogo.png" alt="Constant Contact" class="w-8 h-8 object-contain">
+        </div>
+        
+        <!-- Center - Search and Create -->
+        <div class="flex items-center gap-3 mx-auto">
           <div class="relative">
-            <button onclick="toggleWorkspaceCreateMenu()" class="flex items-center gap-2 px-5 py-2.5 bg-ctct-blue text-white rounded-lg text-sm font-medium hover:opacity-90 transition-colors">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <input type="text" id="workspace-search-input" placeholder="Search" class="w-48 pl-4 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent">
+            <svg class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          </div>
+          <div class="relative">
+            <button onclick="toggleWorkspaceCreateMenu()" class="px-6 py-2 bg-ctct-blue hover:opacity-90 text-white rounded-lg font-medium text-sm">
               Create
             </button>
-            <div id="workspace-create-menu" class="hidden absolute right-0 top-full mt-2 w-56 bg-white border border-gray-200 rounded-xl shadow-lg z-50 py-2">
-              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+            <!-- Create Dropdown -->
+            <div id="workspace-create-menu" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 py-3 z-[60]">
+              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-xl mx-1">
                 <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                 Email Campaign
               </a>
-              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-xl mx-1">
                 <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 SMS Campaign
               </a>
-              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-xl mx-1">
                 <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                 Social Post
               </a>
-              <div class="border-t border-gray-100 my-1"></div>
-              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">
+              <div class="border-t border-gray-100 my-2 mx-3"></div>
+              <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 rounded-xl mx-1">
                 <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
                 Add Contact
               </a>
             </div>
           </div>
-          
-          <!-- Right: Notifications, Help, User -->
-          <div class="flex items-center gap-2">
-            <!-- Notifications -->
-            <div class="relative">
-              <button onclick="toggleNotificationsDropdown()" class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg relative">
-                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
-                <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-orange-400 rounded-full"></span>
-              </button>
-              <div id="notifications-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
-                <div class="p-4 border-b border-gray-100">
-                  <h3 class="font-medium text-gray-900">Notifications</h3>
+        </div>
+        
+        <!-- Right side -->
+        <div class="flex items-center gap-3">
+          <!-- User Avatar Dropdown -->
+          <div class="relative">
+            <button onclick="toggleUserDropdown()" class="w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-blue-200 transition-colors">
+              <img id="user-avatar-img" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+            </button>
+            <!-- User Dropdown Menu -->
+            <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-[60]">
+              <div class="flex items-center gap-3 px-5 pb-4 border-b border-gray-100">
+                <div class="w-14 h-14 rounded-full overflow-hidden">
+                  <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
                 </div>
-                <div class="p-4 space-y-3 max-h-64 overflow-y-auto">
-                  <div class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg">
-                    <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
-                      <svg class="w-4 h-4 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-                    </div>
-                    <div>
-                      <p class="text-sm text-gray-800">Campaign sent successfully</p>
-                      <p class="text-xs text-gray-400">2 hours ago</p>
-                    </div>
+                <div>
+                  <p id="user-name-display" class="text-base font-semibold text-gray-800">Jessica Martinez</p>
+                  <p id="user-role-display" class="text-sm text-gray-500">Location Manager</p>
+                </div>
+              </div>
+              <div class="pt-3 px-2">
+                <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Profile</a>
+                <a href="settings.html?tab=general" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Settings</a>
+                <a href="persona-select.html" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Switch user</a>
+                <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Log out</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Workspace/Org Dropdown -->
+          <div class="relative">
+            <button onclick="toggleWorkspaceDropdown()" class="flex items-center gap-2 px-3 py-2 hover:bg-gray-50 rounded-lg text-sm transition-colors">
+              <div id="workspace-avatar" class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs font-bold">UN</div>
+              <span id="workspace-dropdown-name" class="text-gray-700 font-medium">UPS New York</span>
+              <svg class="w-4 h-4 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <!-- Workspace Dropdown Menu (for location managers) -->
+            <div id="workspace-dropdown-location" class="hidden absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-[60]">
+              <div class="flex items-center gap-3 px-5 pb-4 border-b border-gray-100">
+                <div class="w-14 h-14 rounded-xl bg-green-500 flex items-center justify-center text-white text-lg font-bold">UN</div>
+                <div>
+                  <p id="ws-dropdown-title" class="text-base font-semibold text-gray-800">UPS New York</p>
+                  <p class="text-sm text-gray-500">Workspace</p>
+                </div>
+              </div>
+              <div class="pt-3 px-2">
+                <a href="settings.html?tab=people" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Workspace members</a>
+                <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Workspace settings</a>
+                <a href="settings.html?tab=workspaces" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Request access to other workspaces</a>
+              </div>
+            </div>
+            <!-- Org Dropdown Menu (for global/regional managers) -->
+            <div id="workspace-dropdown-org" class="hidden absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-[60]">
+              <div class="flex items-center gap-3 px-5 pb-4 border-b border-gray-100">
+                <div class="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center overflow-hidden">
+                  <img src="assets/upsLogo.png" alt="UPS" class="w-10 h-10 object-contain">
+                </div>
+                <div>
+                  <p class="text-base font-semibold text-gray-800">UPS Global</p>
+                  <p class="text-sm text-gray-500">Enterprise</p>
+                </div>
+              </div>
+              <div class="pt-3 px-2">
+                <a href="settings.html?tab=people" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Members</a>
+                <a href="settings.html?tab=workspaces" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Workspaces</a>
+                <a href="settings.html?tab=general" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Settings</a>
+                <a href="settings.html?tab=integrations" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Integrations</a>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Notifications Dropdown -->
+          <div class="relative">
+            <button onclick="toggleNotificationsDropdown()" class="p-2 text-ctct-blue hover:bg-blue-50 rounded-lg relative transition-colors">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+              <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-orange-400 rounded-full border-2 border-white"></span>
+            </button>
+            <!-- Notifications Dropdown Menu -->
+            <div id="notifications-dropdown" class="hidden absolute right-0 top-full mt-2 w-96 bg-white rounded-2xl shadow-xl border border-gray-100 z-[60]">
+              <div class="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wide">Recent Activity</h3>
+              </div>
+              <div class="max-h-96 overflow-y-auto p-3 space-y-2">
+                <div class="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:border-gray-200 hover:bg-gray-50 transition-colors">
+                  <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
                   </div>
-                  <div class="flex items-start gap-3 p-2 hover:bg-gray-50 rounded-lg">
-                    <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                      <svg class="w-4 h-4 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
-                    </div>
-                    <div>
-                      <p class="text-sm text-gray-800">3 new contacts added</p>
-                      <p class="text-xs text-gray-400">Yesterday</p>
-                    </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-800">Campaign sent successfully</p>
+                    <p class="text-xs text-gray-500">Holiday Newsletter • 2 hours ago</p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-3 p-3 rounded-xl border border-gray-100 hover:border-gray-200 hover:bg-gray-50 transition-colors">
+                  <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                    <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                  </div>
+                  <div class="flex-1">
+                    <p class="text-sm font-medium text-gray-800">3 new contacts added</p>
+                    <p class="text-xs text-gray-500">Yesterday</p>
                   </div>
                 </div>
               </div>
             </div>
-            
-            <!-- Help -->
-            <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-            </button>
-            
-            <!-- User Avatar Dropdown -->
-            <div class="relative">
-              <button onclick="toggleUserDropdown()" class="flex items-center gap-2 p-1 hover:bg-gray-100 rounded-lg">
-                <div id="user-avatar" class="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center text-white text-sm font-medium">JM</div>
-              </button>
-              <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-xl shadow-lg z-50 py-2">
-                <div class="px-4 py-3 border-b border-gray-100">
-                  <p id="user-name-display" class="font-medium text-gray-900">Jessica Martinez</p>
-                  <p class="text-sm text-gray-500">Location Manager</p>
-                </div>
-                <div class="py-1">
-                  <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Profile</a>
-                  <a href="settings.html?tab=people" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Workspace members</a>
-                  <a href="settings.html?tab=workspaces" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Request access to other workspaces</a>
-                </div>
-                <div class="border-t border-gray-100 py-1">
-                  <a href="persona-select.html" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Switch user</a>
-                  <a href="#" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50">Log out</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Header Bar - Global/Regional View (with breadcrumbs) -->
-      <div id="header-org" class="bg-white border-b border-gray-100 px-8 py-4">
-        <div class="flex items-center justify-between">
-          <!-- Breadcrumbs -->
-          <div id="breadcrumb-container" class="flex items-center gap-2 text-sm relative">
-            <!-- Breadcrumbs will be dynamically generated -->
           </div>
           
-          <!-- Breadcrumb overflow menu -->
-          <div id="breadcrumb-overflow-menu" class="hidden absolute left-8 top-16 w-64 bg-white border border-gray-200 rounded-xl shadow-lg z-50 py-2">
-            <div class="px-3 py-1.5 text-xs font-medium text-gray-400 uppercase tracking-wide">Navigation</div>
-            <div id="breadcrumb-overflow-items" class="max-h-64 overflow-y-auto">
-              <!-- Dynamic overflow items -->
-            </div>
-          </div>
-          <div class="flex items-center gap-4">
-            <a id="view-report-link" href="#" class="flex items-center gap-2 px-4 py-2 border border-blue-600 text-blue-600 rounded-lg text-sm font-medium hover:bg-blue-50 transition-colors">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
-              View full report
-            </a>
-            <button class="px-5 py-2 bg-ctct-blue text-white rounded-full text-sm font-medium hover:opacity-90">
-              Share
-            </button>
-            <div class="flex items-center -space-x-2">
-              <img src="https://i.pravatar.cc/32?img=1" class="w-8 h-8 rounded-full border-2 border-white">
-              <div class="w-8 h-8 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">JS</div>
-              <div class="w-8 h-8 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-white text-xs font-bold">GF</div>
-              <div class="w-8 h-8 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-gray-600 text-xs">+2</div>
-            </div>
-            <button class="p-2 text-gray-400 hover:text-gray-600">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
-            </button>
-          </div>
+          <!-- Help -->
+          <button class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </button>
         </div>
-      </div>
+      </header>
 
       <!-- Content Grid -->
       <div class="p-8">
@@ -778,68 +790,99 @@
     const accessWorkspace = sessionStorage.getItem('accessWorkspace') || '';
     const isLocationManager = userRole === 'location' || userRole === 'workspace';
     
+    // Get initials from name
+    function getInitials(name) {
+      return name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+    }
+    
     // Initialize view based on role
     function initializeForRole() {
+      // Update workspace dropdown name
+      const wsDropdownName = document.getElementById('workspace-dropdown-name');
+      const wsDropdownTitle = document.getElementById('ws-dropdown-title');
+      const wsAvatar = document.getElementById('workspace-avatar');
+      
+      if (wsDropdownName) wsDropdownName.textContent = workspaceName;
+      if (wsDropdownTitle) wsDropdownTitle.textContent = workspaceName;
+      if (wsAvatar) wsAvatar.textContent = getInitials(workspaceName);
+      
+      // Update user display
+      const userNameDisplay = document.getElementById('user-name-display');
+      const userRoleDisplay = document.getElementById('user-role-display');
+      if (userNameDisplay) userNameDisplay.textContent = userName;
+      
       if (isLocationManager) {
-        // Show location manager view (CTCT logo, no breadcrumbs)
+        // Show location manager view
         document.getElementById('sidebar-header-location').classList.remove('hidden');
         document.getElementById('sidebar-header-org').classList.add('hidden');
-        document.getElementById('header-location').classList.remove('hidden');
-        document.getElementById('header-org').classList.add('hidden');
+        document.getElementById('topbar-logo')?.classList.add('flex');
+        document.getElementById('topbar-logo')?.classList.remove('hidden');
         
-        // Update user display
-        const userNameDisplay = document.getElementById('user-name-display');
-        if (userNameDisplay) userNameDisplay.textContent = userName;
+        if (userRoleDisplay) userRoleDisplay.textContent = 'Location Manager';
         
-        const userAvatar = document.getElementById('user-avatar');
-        if (userAvatar) {
-          const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
-          userAvatar.textContent = initials;
-        }
+        // Show workspace dropdown for location managers (no org access)
+        document.getElementById('workspace-dropdown-location')?.classList.add('hidden');
+        document.getElementById('workspace-dropdown-org')?.classList.add('hidden');
       } else {
-        // Show org view (Back to Org link, breadcrumbs)
+        // Show org view (Back to Org link)
         document.getElementById('sidebar-header-location').classList.add('hidden');
         document.getElementById('sidebar-header-org').classList.remove('hidden');
-        document.getElementById('header-location').classList.add('hidden');
-        document.getElementById('header-org').classList.remove('hidden');
+        
+        if (userRoleDisplay) {
+          userRoleDisplay.textContent = userRole === 'regional' ? 'Regional Manager' : 'Global Admin';
+        }
+        
+        // Use org logo for dropdown instead of workspace avatar
+        if (wsAvatar) {
+          wsAvatar.outerHTML = '<img src="assets/upsLogo.png" alt="UPS" class="w-6 h-6 object-contain">';
+        }
+        if (wsDropdownName) wsDropdownName.textContent = 'UPS Global';
       }
     }
     
-    // Toggle functions for location manager view
+    // Toggle functions for dropdowns
     function toggleWorkspaceCreateMenu() {
+      closeAllDropdowns();
       const menu = document.getElementById('workspace-create-menu');
       menu.classList.toggle('hidden');
     }
     
     function toggleNotificationsDropdown() {
+      closeAllDropdowns();
       const dropdown = document.getElementById('notifications-dropdown');
       dropdown.classList.toggle('hidden');
-      // Close other dropdowns
-      document.getElementById('user-dropdown')?.classList.add('hidden');
     }
     
     function toggleUserDropdown() {
+      closeAllDropdowns();
       const dropdown = document.getElementById('user-dropdown');
       dropdown.classList.toggle('hidden');
-      // Close other dropdowns
-      document.getElementById('notifications-dropdown')?.classList.add('hidden');
     }
     
-    function openWorkspaceSearch() {
-      // For now, show an alert - could open a search modal
-      alert('Search within ' + workspaceName);
+    function toggleWorkspaceDropdown() {
+      closeAllDropdowns();
+      if (isLocationManager) {
+        document.getElementById('workspace-dropdown-location')?.classList.toggle('hidden');
+      } else {
+        document.getElementById('workspace-dropdown-org')?.classList.toggle('hidden');
+      }
+    }
+    
+    function closeAllDropdowns() {
+      document.getElementById('workspace-create-menu')?.classList.add('hidden');
+      document.getElementById('notifications-dropdown')?.classList.add('hidden');
+      document.getElementById('user-dropdown')?.classList.add('hidden');
+      document.getElementById('workspace-dropdown-location')?.classList.add('hidden');
+      document.getElementById('workspace-dropdown-org')?.classList.add('hidden');
     }
     
     // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
-      if (!e.target.closest('#workspace-create-menu') && !e.target.closest('button[onclick*="toggleWorkspaceCreateMenu"]')) {
-        document.getElementById('workspace-create-menu')?.classList.add('hidden');
-      }
-      if (!e.target.closest('#notifications-dropdown') && !e.target.closest('button[onclick*="toggleNotificationsDropdown"]')) {
-        document.getElementById('notifications-dropdown')?.classList.add('hidden');
-      }
-      if (!e.target.closest('#user-dropdown') && !e.target.closest('button[onclick*="toggleUserDropdown"]')) {
-        document.getElementById('user-dropdown')?.classList.add('hidden');
+      const isDropdownButton = e.target.closest('button[onclick*="toggle"]');
+      const isInsideDropdown = e.target.closest('[id$="-dropdown"], [id$="-menu"]');
+      
+      if (!isDropdownButton && !isInsideDropdown) {
+        closeAllDropdowns();
       }
     });
     
