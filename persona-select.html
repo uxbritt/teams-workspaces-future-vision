@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTCT for Teams — Select Your Role</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: {
+              50: '#f0f7ff', 100: '#e0f0ff', 200: '#b9e0fe', 300: '#7cc8fd', 400: '#36aaf8',
+              500: '#0c8ce9', 600: '#006fc7', 700: '#0059a1', 800: '#054b85', 900: '#0a406e'
+            },
+            accent: {
+              500: '#a855f7', 600: '#9333ea'
+            }
+          },
+          fontFamily: {
+            sans: ['CTSans', 'system-ui', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Regular.woff2') format('woff2');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+      font-weight: 600;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'CTSans';
+      src: url('fonts/CTSans-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0f0f1a 0%, #131825 25%, #0a0e17 50%, #0d1220 75%, #0f0f1a 100%);
+      background-attachment: fixed;
+    }
+    
+    .card-glow {
+      transition: all 0.3s ease;
+    }
+    .card-glow:hover {
+      transform: translateY(-4px);
+    }
+    .card-global:hover {
+      box-shadow: 0 0 50px rgba(34, 197, 94, 0.2);
+      border-color: rgba(34, 197, 94, 0.5);
+    }
+    .card-regional:hover {
+      box-shadow: 0 0 50px rgba(59, 130, 246, 0.2);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+    .card-location:hover {
+      box-shadow: 0 0 50px rgba(168, 85, 247, 0.2);
+      border-color: rgba(168, 85, 247, 0.5);
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans text-white">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 px-8 py-5 flex items-center justify-between bg-gradient-to-b from-black/50 to-transparent">
+    <div class="flex items-center gap-3">
+      <img src="assets/ctctLogo.png" alt="Constant Contact" class="w-8 h-8 object-contain">
+      <span class="text-lg font-semibold text-white/90">CTCT for Teams</span>
+    </div>
+    <a href="index.html" class="text-slate-400 hover:text-white text-sm transition-colors">Back to Dashboard</a>
+  </header>
+
+  <!-- Main Content -->
+  <main class="min-h-screen flex flex-col items-center justify-center px-8 py-24">
+    
+    <!-- Hero -->
+    <div class="text-center mb-12 max-w-2xl">
+      <div class="flex items-center justify-center gap-3 mb-6">
+        <span class="inline-block px-3 py-1.5 bg-zinc-800 text-zinc-400 rounded-full text-sm font-medium">Role-Based Access Demo</span>
+      </div>
+      <h1 class="text-4xl font-bold mb-4 text-white">Choose Your Role</h1>
+      <p class="text-lg text-slate-400 leading-relaxed">
+        Experience the prototype from different user perspectives. Each role has different levels of access and visibility.
+      </p>
+    </div>
+
+    <!-- Persona Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl w-full">
+      
+      <!-- Global Manager -->
+      <button onclick="signInAs('global')" class="card-glow card-global text-left bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm">
+        <div class="flex items-start justify-between mb-5">
+          <div class="w-14 h-14 bg-emerald-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          </div>
+          <span class="px-2 py-1 bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs rounded-full">Full Access</span>
+        </div>
+        
+        <h2 class="text-xl font-bold text-white mb-2">Global Manager</h2>
+        <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+          Access to all workspaces, folders, and org-level settings. Full visibility across all regions.
+        </p>
+        
+        <div class="space-y-2 mb-5">
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Org Dashboard with all metrics</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>All folders: US, EU, APAC</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>32 workspaces total</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Full reporting & analytics</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2 text-emerald-400 text-sm font-medium">
+          Sign in as Global Manager
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+      </button>
+
+      <!-- US Regional Manager -->
+      <button onclick="signInAs('regional')" class="card-glow card-regional text-left bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm">
+        <div class="flex items-start justify-between mb-5">
+          <div class="w-14 h-14 bg-blue-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+          </div>
+          <span class="px-2 py-1 bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs rounded-full">Regional</span>
+        </div>
+        
+        <h2 class="text-xl font-bold text-white mb-2">US Regional Manager</h2>
+        <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+          Access limited to US regional data only. Org dashboard shows US-specific metrics and workspaces.
+        </p>
+        
+        <div class="space-y-2 mb-5">
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Org Dashboard (US data only)</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>US folder with 4 sub-folders</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>18 workspaces in US region</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span class="text-slate-600">No access to EU/APAC</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2 text-blue-400 text-sm font-medium">
+          Sign in as US Manager
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+      </button>
+
+      <!-- Location Manager -->
+      <button onclick="signInAs('location')" class="card-glow card-location text-left bg-slate-900/60 border border-slate-700/50 rounded-2xl p-6 backdrop-blur-sm">
+        <div class="flex items-start justify-between mb-5">
+          <div class="w-14 h-14 bg-purple-500/20 rounded-xl flex items-center justify-center">
+            <svg class="w-7 h-7 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <span class="px-2 py-1 bg-purple-500/20 border border-purple-500/30 text-purple-400 text-xs rounded-full">Workspace</span>
+        </div>
+        
+        <h2 class="text-xl font-bold text-white mb-2">NY Location Manager</h2>
+        <p class="text-slate-400 text-sm mb-5 leading-relaxed">
+          Access to UPS New York workspace only. Direct entry to workspace dashboard without org-level views.
+        </p>
+        
+        <div class="space-y-2 mb-5">
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>UPS New York workspace</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-purple-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Campaigns & contacts</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span class="text-slate-600">No org dashboard access</span>
+          </div>
+          <div class="flex items-center gap-2 text-xs text-slate-500">
+            <svg class="w-4 h-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            <span class="text-slate-600">No folder/hierarchy access</span>
+          </div>
+        </div>
+        
+        <div class="flex items-center gap-2 text-purple-400 text-sm font-medium">
+          Sign in as Location Manager
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </div>
+      </button>
+      
+    </div>
+
+    <!-- Info Note -->
+    <div class="mt-10 text-center max-w-2xl">
+      <p class="text-slate-500 text-sm">
+        These personas demonstrate role-based access control for the FML (Franchise Multi-Location) market. 
+        Each role sees a tailored experience based on their organizational scope.
+      </p>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="fixed bottom-0 left-0 right-0 px-8 py-4 flex items-center justify-between text-sm text-slate-500 bg-gradient-to-t from-black/50 to-transparent">
+    <span>Constant Contact • Product Design</span>
+    <span>Role-Based Access Demo</span>
+  </footer>
+
+  <script>
+    function signInAs(role) {
+      // Store the selected role
+      sessionStorage.setItem('userRole', role);
+      sessionStorage.setItem('dataMode', 'filled');
+      
+      // Set role-specific data
+      switch(role) {
+        case 'global':
+          sessionStorage.setItem('userName', 'Sarah Chen');
+          sessionStorage.setItem('userTitle', 'Global Marketing Director');
+          sessionStorage.setItem('accessLevel', 'global');
+          sessionStorage.setItem('accessScope', 'all');
+          // Go to org dashboard with full access
+          window.location.href = 'option-b-northstar-empty.html?role=global';
+          break;
+          
+        case 'regional':
+          sessionStorage.setItem('userName', 'Mike Johnson');
+          sessionStorage.setItem('userTitle', 'US Regional Manager');
+          sessionStorage.setItem('accessLevel', 'regional');
+          sessionStorage.setItem('accessScope', 'US');
+          sessionStorage.setItem('accessFolder', 'UPS US');
+          // Go to org dashboard filtered to US
+          window.location.href = 'option-b-northstar-empty.html?role=regional&folder=UPS%20US';
+          break;
+          
+        case 'location':
+          sessionStorage.setItem('userName', 'Jessica Martinez');
+          sessionStorage.setItem('userTitle', 'Location Manager');
+          sessionStorage.setItem('accessLevel', 'workspace');
+          sessionStorage.setItem('accessScope', 'UPS New York');
+          sessionStorage.setItem('accessWorkspace', 'UPS New York');
+          // Go directly to workspace detail
+          window.location.href = 'workspace-detail.html?workspace=UPS%20New%20York&role=location';
+          break;
+      }
+    }
+  </script>
+
+</body>
+</html>
+
