@@ -158,8 +158,8 @@
     <!-- Center - Search and Create -->
     <div class="flex items-center gap-3 mx-auto">
       <div class="relative">
-        <input type="text" placeholder="Search" class="w-48 pl-4 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent">
-        <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2"></i>
+        <input type="text" id="topbar-search-input" placeholder="Search" onclick="openGlobalSearchDialog()" onkeydown="handleTopbarSearchKeydown(event)" class="w-48 pl-4 pr-10 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent cursor-pointer">
+        <i data-lucide="search" class="w-4 h-4 text-gray-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
       </div>
       <button onclick="openCreateWorkspaceModal()" class="px-6 py-2 bg-ctct-blue hover:opacity-90 text-white rounded-lg font-medium text-sm">
         Create
@@ -2008,4 +2008,237 @@
       </div>
     </div>
   </div>
+
+  <!-- Global Search Dialog -->
+  <div id="global-search-dialog" class="fixed inset-0 z-[200] hidden">
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeGlobalSearchDialog()"></div>
+    
+    <!-- Dialog Content -->
+    <div class="absolute inset-0 flex items-start justify-center pt-24">
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-xl overflow-hidden">
+        <!-- Search Input -->
+        <div class="flex items-center gap-3 px-5 py-4 border-b border-gray-100">
+          <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="global-search-input" placeholder="Search folders, workspaces, campaigns..." oninput="handleGlobalSearch(this.value)" onkeydown="handleSearchDialogKeydown(event)" class="flex-1 text-base focus:outline-none" autofocus>
+          <button onclick="closeGlobalSearchDialog()" class="p-1.5 hover:bg-gray-100 rounded-lg transition-colors">
+            <svg class="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+        
+        <!-- Search Results Container -->
+        <div id="search-results-container" class="max-h-[450px] overflow-y-auto">
+          <!-- Search Results (shown when there's a query) -->
+          <div id="search-results-section" class="hidden">
+            <!-- Dynamic search results will be populated here -->
+          </div>
+          
+          <!-- Recent Activity Section -->
+          <div id="recent-activity-section" class="px-2 pt-3 pb-3">
+            <p class="px-3 text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Recently viewed</p>
+            <div class="space-y-0.5">
+              <a href="workspace-detail.html?workspace=UPS%20New%20York" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors">
+                <div class="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white text-sm font-bold">UN</div>
+                <div class="flex-1 text-left">
+                  <p class="text-sm font-medium text-gray-900">UPS New York</p>
+                  <p class="text-xs text-gray-400">Workspace • UPS Northeast • 2 min ago</p>
+                </div>
+              </a>
+              <a href="#" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors">
+                <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                  <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div class="flex-1 text-left">
+                  <p class="text-sm font-medium text-gray-900">Holiday Shipping Promo</p>
+                  <p class="text-xs text-gray-400">Campaign • UPS New York • 15 min ago</p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Global Search Data
+    const globalSearchData = {
+      folders: [
+        { name: 'UPS US', type: 'folder', count: '18 workspaces' },
+        { name: 'UPS EU', type: 'folder', count: '14 workspaces' },
+        { name: 'UPS Northeast', type: 'folder', count: '5 workspaces', parent: 'UPS US' },
+        { name: 'UPS Southeast', type: 'folder', count: '5 workspaces', parent: 'UPS US' },
+        { name: 'UPS Southwest', type: 'folder', count: '4 workspaces', parent: 'UPS US' },
+        { name: 'UPS Northwest', type: 'folder', count: '4 workspaces', parent: 'UPS US' }
+      ],
+      workspaces: [
+        { name: 'UPS Foundation', icon: 'UF', color: 'bg-purple-500 text-white' },
+        { name: 'UPS Student Program', icon: 'US', color: 'bg-blue-500 text-white' },
+        { name: 'UPS New York', icon: 'UN', color: 'bg-pink-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Connecticut', icon: 'UC', color: 'bg-teal-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Massachusetts', icon: 'UM', color: 'bg-indigo-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS New Jersey', icon: 'UN', color: 'bg-cyan-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Pennsylvania', icon: 'UP', color: 'bg-emerald-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Florida', icon: 'UF', color: 'bg-orange-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS Georgia', icon: 'UG', color: 'bg-red-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS Texas', icon: 'UT', color: 'bg-rose-500 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS Arizona', icon: 'UA', color: 'bg-yellow-600 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS Washington', icon: 'UW', color: 'bg-sky-500 text-white', folder: 'UPS Northwest' },
+        { name: 'UPS Oregon', icon: 'UO', color: 'bg-green-600 text-white', folder: 'UPS Northwest' }
+      ],
+      campaigns: [
+        { name: 'Holiday Shipping Promo', workspace: 'UPS New York' },
+        { name: 'Express Delivery Update', workspace: 'UPS Texas' },
+        { name: 'Northeast Region Newsletter', workspace: 'UPS Northeast' }
+      ]
+    };
+
+    function openGlobalSearchDialog(query = '') {
+      const dialog = document.getElementById('global-search-dialog');
+      dialog.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      
+      const searchInput = document.getElementById('global-search-input');
+      if (query) {
+        searchInput.value = query;
+        handleGlobalSearch(query);
+      }
+      
+      setTimeout(() => {
+        searchInput.focus();
+        if (query) searchInput.select();
+      }, 100);
+    }
+
+    function closeGlobalSearchDialog() {
+      const dialog = document.getElementById('global-search-dialog');
+      dialog.classList.add('hidden');
+      document.body.style.overflow = '';
+      document.getElementById('global-search-input').value = '';
+      const topbarInput = document.getElementById('topbar-search-input');
+      if (topbarInput) topbarInput.value = '';
+      document.getElementById('search-results-section').classList.add('hidden');
+      document.getElementById('search-results-section').innerHTML = '';
+      document.getElementById('recent-activity-section').classList.remove('hidden');
+    }
+
+    function handleTopbarSearchKeydown(event) {
+      if (event.key === 'Enter') {
+        const query = event.target.value.trim();
+        openGlobalSearchDialog(query);
+      }
+    }
+
+    function handleSearchDialogKeydown(event) {
+      if (event.key === 'Escape') {
+        closeGlobalSearchDialog();
+      }
+    }
+
+    function handleGlobalSearch(query) {
+      const searchResultsSection = document.getElementById('search-results-section');
+      const recentActivitySection = document.getElementById('recent-activity-section');
+      
+      if (!query.trim()) {
+        searchResultsSection.classList.add('hidden');
+        searchResultsSection.innerHTML = '';
+        recentActivitySection.classList.remove('hidden');
+        return;
+      }
+      
+      const lowerQuery = query.toLowerCase();
+      
+      const matchedFolders = globalSearchData.folders.filter(f => f.name.toLowerCase().includes(lowerQuery));
+      const matchedWorkspaces = globalSearchData.workspaces.filter(w => w.name.toLowerCase().includes(lowerQuery));
+      const matchedCampaigns = globalSearchData.campaigns.filter(c => c.name.toLowerCase().includes(lowerQuery));
+      
+      const totalResults = matchedFolders.length + matchedWorkspaces.length + matchedCampaigns.length;
+      
+      let html = '';
+      
+      html += `<div class="px-5 py-3 border-b border-gray-100 bg-gray-50">
+        <p class="text-xs font-semibold text-gray-500">${totalResults} result${totalResults !== 1 ? 's' : ''} for "${query}"</p>
+      </div>`;
+      
+      if (totalResults === 0) {
+        html += `<div class="px-5 py-8 text-center">
+          <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-3">
+            <svg class="w-6 h-6 text-gray-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </div>
+          <p class="text-sm text-gray-600 font-medium">No results found</p>
+          <p class="text-xs text-gray-400 mt-1">Try a different search term</p>
+        </div>`;
+      } else {
+        html += '<div class="px-2 py-2">';
+        
+        if (matchedFolders.length > 0) {
+          html += `<p class="px-3 pt-2 text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Folders</p>
+            <div class="space-y-0.5 mb-3">`;
+          matchedFolders.forEach(f => {
+            const parentInfo = f.parent ? ` in ${f.parent}` : '';
+            html += `<a href="workspaces-list.html?folder=${encodeURIComponent(f.name)}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors block">
+              <div class="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5 text-amber-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+              </div>
+              <div class="text-left">
+                <p class="text-sm font-medium text-gray-900">${f.name}</p>
+                <p class="text-xs text-gray-400">Folder${parentInfo} • ${f.count}</p>
+              </div>
+            </a>`;
+          });
+          html += `</div>`;
+        }
+        
+        if (matchedWorkspaces.length > 0) {
+          html += `<p class="px-3 pt-2 text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Workspaces</p>
+            <div class="space-y-0.5 mb-3">`;
+          matchedWorkspaces.forEach(w => {
+            const folderInfo = w.folder ? ` • ${w.folder}` : '';
+            html += `<a href="workspace-detail.html?workspace=${encodeURIComponent(w.name)}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors block">
+              <div class="w-10 h-10 ${w.color} rounded-xl flex items-center justify-center text-sm font-bold">${w.icon}</div>
+              <div class="text-left">
+                <p class="text-sm font-medium text-gray-900">${w.name}</p>
+                <p class="text-xs text-gray-400">Workspace${folderInfo}</p>
+              </div>
+            </a>`;
+          });
+          html += `</div>`;
+        }
+        
+        if (matchedCampaigns.length > 0) {
+          html += `<p class="px-3 pt-2 text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2">Campaigns</p>
+            <div class="space-y-0.5 mb-3">`;
+          matchedCampaigns.forEach(c => {
+            html += `<a href="#" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-gray-50 transition-colors block">
+              <div class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                <svg class="w-5 h-5 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              </div>
+              <div class="text-left">
+                <p class="text-sm font-medium text-gray-900">${c.name}</p>
+                <p class="text-xs text-gray-400">Campaign • ${c.workspace}</p>
+              </div>
+            </a>`;
+          });
+          html += `</div>`;
+        }
+        
+        html += '</div>';
+      }
+      
+      searchResultsSection.innerHTML = html;
+      searchResultsSection.classList.remove('hidden');
+      recentActivitySection.classList.add('hidden');
+    }
+
+    // Keyboard shortcut for search
+    document.addEventListener('keydown', function(e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openGlobalSearchDialog();
+      }
+      if (e.key === 'Escape') {
+        closeGlobalSearchDialog();
+      }
+    });
+  </script>
 </body>
