@@ -35,9 +35,6 @@
     @font-face { font-family: 'CTSans'; src: url('fonts/CTSans-Semibold.woff2') format('woff2'); font-weight: 600; }
     @font-face { font-family: 'CTSans'; src: url('fonts/CTSans-Bold.woff2') format('woff2'); font-weight: 700; }
     body { background: #f7f9fd; line-height: 1.5; }
-    .tab-active { color: #313b4d; font-weight: 600; border-bottom: 2px solid #468af1; }
-    .tab-inactive { color: #6b7492; border-bottom: 2px solid transparent; }
-    .tab-inactive:hover { color: #3f4b63; }
     .role-badge { padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500; }
     .role-admin { background: #e6f8ff; color: #085fe2; }
     .role-creator { background: #ecfdf3; color: #079455; }
@@ -45,76 +42,162 @@
     .privacy-open { background: #ecfdf3; color: #079455; }
     .privacy-private { background: #fff8eb; color: #d55b03; }
     .privacy-hidden { background: #f0f4fa; color: #6b7492; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; font-size: 14px; color: #6b7492; transition: all 0.15s; }
+    .nav-item:hover { background: #f0f4fa; color: #3f4b63; }
+    .nav-item.active { background: #e6f8ff; color: #085fe2; font-weight: 500; }
   </style>
 </head>
 <body class="min-h-screen font-sans text-neutral-800">
 
-  <!-- Top Header -->
-  <header class="bg-white border-b border-neutral-200">
-    <div class="flex items-center justify-between px-6 py-3">
-      <!-- Left: Back + Title -->
-      <div class="flex items-center gap-4">
-        <a href="option-b-northstar-empty.html" class="flex items-center gap-2 px-3 py-1.5 text-sm text-neutral-600 hover:text-neutral-800 hover:bg-neutral-100 rounded-lg transition-colors">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
-          Back
-        </a>
-        <span class="text-neutral-300">|</span>
-        <h1 class="text-lg font-semibold text-neutral-900">Settings</h1>
-      </div>
-      
-      <!-- Right: Search + User -->
-      <div class="flex items-center gap-3">
-        <button class="flex items-center gap-2 px-3 py-1.5 text-sm text-neutral-500 hover:text-neutral-700 hover:bg-neutral-100 rounded-lg transition-colors">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          Search
-        </button>
-        <button class="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-lg">
-          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-        </button>
-        <div class="w-8 h-8 rounded-full bg-main-500 flex items-center justify-center text-white text-sm font-medium" id="user-avatar">SC</div>
-      </div>
+  <!-- TOP BAR - Fixed, matches org dashboard exactly -->
+  <header class="fixed top-0 left-0 right-0 h-16 bg-white border-b border-neutral-100 flex items-center px-6 z-50">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <img src="assets/ctctLogo.png" alt="Constant Contact" class="w-8 h-8 object-contain">
     </div>
-  </header>
 
-  <!-- Main Content -->
-  <main class="max-w-6xl mx-auto px-6 py-8">
-    
-    <!-- Page Title -->
-    <h2 class="text-2xl font-bold text-neutral-900 mb-6">Settings</h2>
-    
-    <!-- Tabs -->
-    <div class="flex gap-6 border-b border-neutral-200 mb-6">
-      <button onclick="switchTab('general')" id="tab-general" class="tab-inactive px-1 py-3 text-sm transition-colors">General</button>
-      <button onclick="switchTab('people')" id="tab-people" class="tab-active px-1 py-3 text-sm transition-colors">People</button>
-      <button onclick="switchTab('workspaces')" id="tab-workspaces" class="tab-inactive px-1 py-3 text-sm transition-colors">Workspaces</button>
-      <button onclick="switchTab('integrations')" id="tab-integrations" class="tab-inactive px-1 py-3 text-sm transition-colors">Integrations</button>
-    </div>
-    
-    <!-- Tab Content: General -->
-    <div id="content-general" class="hidden">
-      <div class="bg-white rounded-xl border border-neutral-200 p-6">
-        <h3 class="text-lg font-semibold text-neutral-900 mb-4">Account Settings</h3>
-        <p class="text-neutral-600 text-sm mb-6">Manage your organization's general settings and preferences.</p>
-        
-        <div class="space-y-6">
-          <div>
-            <label class="block text-sm font-medium text-neutral-700 mb-2">Organization Name</label>
-            <input type="text" value="UPS Global" class="w-full max-w-md px-4 py-2.5 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-main-500" id="org-name-input">
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-neutral-700 mb-2">Default Timezone</label>
-            <select class="w-full max-w-md px-4 py-2.5 border border-neutral-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-main-500">
-              <option>Eastern Time (ET)</option>
-              <option>Central Time (CT)</option>
-              <option>Pacific Time (PT)</option>
-            </select>
-          </div>
+    <!-- Center - Search and Create -->
+    <div class="flex items-center gap-3 mx-auto">
+      <div class="relative">
+        <input type="text" placeholder="Search" class="w-48 pl-4 pr-10 py-2 border border-neutral-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent">
+        <svg class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </div>
+      <div class="relative">
+        <button onclick="toggleDropdown('create-dropdown')" class="px-6 py-2 bg-main-500 hover:opacity-90 text-white rounded-lg font-medium text-sm">
+          Create
+        </button>
+        <div id="create-dropdown" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-56 bg-white rounded-2xl shadow-xl border border-neutral-100 py-3 z-[60]">
+          <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 rounded-xl mx-1">
+            <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            Email Campaign
+          </a>
+          <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 rounded-xl mx-1">
+            <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            SMS Campaign
+          </a>
+          <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-neutral-700 hover:bg-neutral-50 rounded-xl mx-1">
+            <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            Social Post
+          </a>
         </div>
       </div>
     </div>
+
+    <!-- Right side -->
+    <div class="flex items-center gap-3">
+      <!-- User Avatar Dropdown -->
+      <div class="relative">
+        <button onclick="toggleDropdown('user-dropdown')" class="w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-main-200 transition-colors">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+        </button>
+        <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-neutral-100 py-4 z-[60]">
+          <div class="flex items-center gap-3 px-5 pb-4 border-b border-neutral-100">
+            <div class="w-14 h-14 rounded-full overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+            </div>
+            <div>
+              <p class="text-base font-semibold text-neutral-800" id="user-name-display">Aria Smith</p>
+              <p class="text-sm text-neutral-500" id="user-role-display">Account owner</p>
+            </div>
+          </div>
+          <div class="pt-3 px-2">
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Profile</a>
+            <a href="persona-select.html" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Switch user</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Log out</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Organization Dropdown -->
+      <div class="relative">
+        <button onclick="toggleDropdown('org-dropdown')" class="flex items-center gap-2 px-3 py-2 hover:bg-neutral-50 rounded-lg text-sm transition-colors">
+          <img src="assets/upsLogo.png" alt="UPS" class="w-6 h-6 object-contain">
+          <span class="text-neutral-700 font-medium" id="enterprise-name">UPS Global</span>
+          <svg class="w-4 h-4 text-neutral-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="org-dropdown" class="hidden absolute right-0 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-neutral-100 py-4 z-[60]">
+          <div class="flex items-center gap-3 px-5 pb-4 border-b border-neutral-100">
+            <div class="w-14 h-14 rounded-xl bg-neutral-100 flex items-center justify-center overflow-hidden">
+              <img src="assets/upsLogo.png" alt="UPS" class="w-10 h-10 object-contain">
+            </div>
+            <div>
+              <p class="text-base font-semibold text-neutral-800">UPS Global</p>
+              <p class="text-sm text-neutral-500">Enterprise</p>
+            </div>
+          </div>
+          <div class="pt-3 px-2">
+            <a href="settings.html?tab=people" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Members</a>
+            <a href="settings.html?tab=workspaces" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Workspaces</a>
+            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Plans and pricing</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications Dropdown -->
+      <div class="relative">
+        <button onclick="toggleDropdown('notifications-dropdown')" class="p-2 text-main-500 hover:bg-main-50 rounded-lg relative transition-colors">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+          <span class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-warning-500 rounded-full border-2 border-white"></span>
+        </button>
+        <div id="notifications-dropdown" class="hidden absolute right-0 top-full mt-2 w-80 bg-white rounded-2xl shadow-xl border border-neutral-100 z-[60]">
+          <div class="flex items-center justify-between px-5 py-4 border-b border-neutral-100">
+            <h3 class="text-xs font-semibold text-neutral-500 uppercase tracking-wide">Recent Activity</h3>
+          </div>
+          <div class="max-h-64 overflow-y-auto p-3 space-y-2">
+            <div class="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-50 transition-colors">
+              <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 text-green-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+              </div>
+              <div class="flex-1">
+                <p class="text-sm font-medium text-neutral-800">New member added</p>
+                <p class="text-xs text-neutral-500">David Kim joined UPS New York</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Help -->
+      <button class="p-2 text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 rounded-lg">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Layout with Left Nav -->
+  <div class="flex min-h-screen pt-16">
     
-    <!-- Tab Content: People -->
-    <div id="content-people" class="">
+    <!-- Left Sidebar Navigation -->
+    <aside class="w-56 bg-white border-r border-neutral-100 fixed left-0 top-16 bottom-0 overflow-y-auto">
+      <!-- Back to Dashboard -->
+      <div class="p-4 border-b border-neutral-100">
+        <a href="option-b-northstar-empty.html" class="flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-800 transition-colors">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+          Back to Dashboard
+        </a>
+      </div>
+      
+      <!-- Settings Navigation -->
+      <div class="p-4">
+        <h3 class="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-3">Settings</h3>
+        <nav class="space-y-1">
+          <button onclick="switchTab('people')" id="nav-people" class="nav-item w-full active">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            People
+          </button>
+          <button onclick="switchTab('workspaces')" id="nav-workspaces" class="nav-item w-full">
+            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            Workspaces
+          </button>
+        </nav>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="flex-1 ml-56 p-8">
+      
+      <!-- Tab Content: People -->
+      <div id="content-people" class="">
       
       <!-- Info Card -->
       <div class="bg-white rounded-xl border border-neutral-200 p-6 mb-6">
@@ -292,39 +375,8 @@
       </div>
     </div>
     
-    <!-- Tab Content: Integrations -->
-    <div id="content-integrations" class="hidden">
-      <div class="bg-white rounded-xl border border-neutral-200 p-6">
-        <h3 class="text-lg font-semibold text-neutral-900 mb-4">Integrations</h3>
-        <p class="text-neutral-600 text-sm mb-6">Connect third-party tools and services to enhance your workflow.</p>
-        
-        <div class="grid grid-cols-3 gap-4">
-          <div class="border border-neutral-200 rounded-lg p-4 hover:border-main-300 transition-colors cursor-pointer">
-            <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center mb-3">
-              <svg class="w-6 h-6 text-neutral-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-            </div>
-            <h4 class="font-medium text-neutral-900 mb-1">Salesforce</h4>
-            <p class="text-xs text-neutral-500">Sync contacts and campaign data</p>
-          </div>
-          <div class="border border-neutral-200 rounded-lg p-4 hover:border-main-300 transition-colors cursor-pointer">
-            <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center mb-3">
-              <svg class="w-6 h-6 text-neutral-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-            </div>
-            <h4 class="font-medium text-neutral-900 mb-1">Shopify</h4>
-            <p class="text-xs text-neutral-500">E-commerce integration</p>
-          </div>
-          <div class="border border-neutral-200 rounded-lg p-4 hover:border-main-300 transition-colors cursor-pointer">
-            <div class="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center mb-3">
-              <svg class="w-6 h-6 text-neutral-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            </div>
-            <h4 class="font-medium text-neutral-900 mb-1">Zapier</h4>
-            <p class="text-xs text-neutral-500">Automate workflows</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-  </main>
+    </main>
+  </div>
   
   <!-- Add Member Modal -->
   <div id="add-member-modal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
@@ -451,39 +503,45 @@
     
     // Initialize based on role
     function initializeForRole() {
-      const avatar = document.getElementById('user-avatar');
-      avatar.textContent = getInitials(userName);
+      // Update user info in top bar
+      const userNameDisplay = document.getElementById('user-name-display');
+      const userRoleDisplay = document.getElementById('user-role-display');
+      const enterpriseName = document.getElementById('enterprise-name');
+      
+      if (userNameDisplay) userNameDisplay.textContent = userName;
       
       // Update titles based on role
       if (userRole === 'global') {
         // Full access - show everything
+        if (userRoleDisplay) userRoleDisplay.textContent = 'Global Admin';
+        if (enterpriseName) enterpriseName.textContent = 'UPS Global';
         document.getElementById('people-title').textContent = 'Members of UPS Global';
         document.getElementById('workspaces-title').textContent = 'Workspaces in UPS Global';
-        document.getElementById('org-name-input').value = 'UPS Global';
       } else if (userRole === 'regional') {
         // Regional access - limited to Northeast or specific folder
         const folderName = accessFolder || 'UPS Northeast';
+        if (userRoleDisplay) userRoleDisplay.textContent = 'Regional Manager';
+        if (enterpriseName) enterpriseName.textContent = folderName;
         document.getElementById('people-title').textContent = 'Members of ' + folderName;
         document.getElementById('workspaces-title').textContent = 'Workspaces in ' + folderName;
         document.getElementById('people-description').textContent = 'Manage members in your region. You can add members to workspaces within ' + folderName + ' and share workspaces with other team members.';
         document.getElementById('workspaces-description').textContent = 'Manage workspaces within your region. You can create new workspaces and add members within ' + folderName + '.';
         document.getElementById('people-restricted-notice').classList.remove('hidden');
         document.getElementById('restricted-message').textContent = 'You can add and manage members in ' + folderName + ' workspaces only. Organization-wide changes require admin access.';
-        document.getElementById('org-name-input').value = folderName;
-        document.getElementById('org-name-input').disabled = true;
       } else if (userRole === 'location' || userRole === 'workspace') {
         // Location/workspace level - very limited access
-        document.getElementById('people-title').textContent = 'Members of ' + (accessWorkspace || 'UPS New York');
+        const wsName = accessWorkspace || 'UPS New York';
+        if (userRoleDisplay) userRoleDisplay.textContent = 'Location Manager';
+        if (enterpriseName) enterpriseName.textContent = wsName;
+        document.getElementById('people-title').textContent = 'Members of ' + wsName;
         document.getElementById('workspaces-title').textContent = 'Your Workspace';
         document.getElementById('people-description').textContent = 'View and add members to your workspace. Contact an admin for organization-level changes.';
         document.getElementById('workspaces-description').textContent = 'You have access to one workspace. Request access from your admin to collaborate in other workspaces.';
         document.getElementById('people-restricted-notice').classList.remove('hidden');
         document.getElementById('restricted-title').textContent = 'Workspace-Level Access';
-        document.getElementById('restricted-message').textContent = 'You can only add members to ' + (accessWorkspace || 'UPS New York') + '. To remove members or change roles, contact your admin.';
+        document.getElementById('restricted-message').textContent = 'You can only add members to ' + wsName + '. To remove members or change roles, contact your admin.';
         document.getElementById('workspace-request-notice').classList.remove('hidden');
         document.getElementById('create-workspace-btn').classList.add('hidden');
-        document.getElementById('org-name-input').value = accessWorkspace || 'UPS New York';
-        document.getElementById('org-name-input').disabled = true;
         // Change button text
         document.getElementById('add-member-btn').innerHTML = `
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -666,10 +724,16 @@
     
     // Tab switching
     function switchTab(tab) {
-      // Update tab styles
-      ['general', 'people', 'workspaces', 'integrations'].forEach(t => {
-        document.getElementById(`tab-${t}`).className = t === tab ? 'tab-active px-1 py-3 text-sm transition-colors' : 'tab-inactive px-1 py-3 text-sm transition-colors';
-        document.getElementById(`content-${t}`).classList.toggle('hidden', t !== tab);
+      // Update left nav styles
+      ['people', 'workspaces'].forEach(t => {
+        const navItem = document.getElementById(`nav-${t}`);
+        const content = document.getElementById(`content-${t}`);
+        if (navItem) {
+          navItem.classList.toggle('active', t === tab);
+        }
+        if (content) {
+          content.classList.toggle('hidden', t !== tab);
+        }
       });
     }
     
@@ -803,7 +867,7 @@
     // Handle URL params for initial tab
     const urlParams = new URLSearchParams(window.location.search);
     const tabParam = urlParams.get('tab');
-    if (tabParam && ['general', 'people', 'workspaces', 'integrations'].includes(tabParam)) {
+    if (tabParam && ['people', 'workspaces'].includes(tabParam)) {
       switchTab(tabParam);
     }
   </script>
