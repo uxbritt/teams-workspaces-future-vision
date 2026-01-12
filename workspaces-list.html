@@ -276,27 +276,27 @@
     <aside class="w-64 bg-white flex flex-col pt-3">
       <!-- Navigation -->
       <div class="flex-1 overflow-y-auto px-3">
-        <nav>
-          <!-- Org Dashboard -->
-          <a href="option-b-northstar-empty.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Org Dashboard</a>
+        <nav id="main-nav">
+          <!-- Org Dashboard (hidden for location managers) -->
+          <a id="nav-org-dashboard" href="option-b-northstar-empty.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Org Dashboard</a>
 
           <!-- Workspaces - Active -->
-          <a href="workspaces-list.html" class="block py-3 px-4 text-sm font-semibold text-slate-700 bg-sky-50 rounded-xl mb-1">Workspaces</a>
+          <a id="nav-workspaces" href="workspaces-list.html" class="block py-3 px-4 text-sm font-semibold text-slate-700 bg-sky-50 rounded-xl mb-1">Workspaces</a>
 
-          <!-- Reporting -->
-          <a href="folder-reporting.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Reporting</a>
+          <!-- Reporting (hidden for location managers) -->
+          <a id="nav-reporting" href="folder-reporting.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Reporting</a>
 
           <!-- Campaigns -->
-          <a href="campaigns-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Campaigns</a>
+          <a id="nav-campaigns" href="campaigns-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Campaigns</a>
 
           <!-- Contacts -->
-          <a href="contacts-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Contacts</a>
+          <a id="nav-contacts" href="contacts-list.html" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Contacts</a>
 
-          <!-- Brands -->
-          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Brands</a>
+          <!-- Brands (hidden for location managers) -->
+          <a id="nav-brands" href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl mb-1 transition-colors">Brands</a>
 
-          <!-- Automations -->
-          <a href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl transition-colors">Automations</a>
+          <!-- Automations (hidden for location managers) -->
+          <a id="nav-automations" href="#" class="block py-3 px-4 text-sm text-slate-600 hover:bg-sky-50 rounded-xl transition-colors">Automations</a>
         </nav>
       </div>
     </aside>
@@ -657,6 +657,100 @@
       currentDataMode = storedDataMode;
     }
     
+    // Role-based access control
+    const userRole = sessionStorage.getItem('accessLevel') || new URLSearchParams(window.location.search).get('role') || 'global';
+    const accessFolder = sessionStorage.getItem('accessFolder') || '';
+    const accessWorkspace = sessionStorage.getItem('accessWorkspace') || '';
+    const userName = sessionStorage.getItem('userName') || 'Sarah Chen';
+    
+    // Filter folders based on role
+    function getFilteredFolders() {
+      if (currentDataMode !== 'filled') return hubs;
+      
+      if (userRole === 'global') {
+        // Global sees everything
+        return filledFolders;
+      } else if (userRole === 'regional') {
+        // Regional sees only their folder (e.g., UPS Northeast under UPS US)
+        // Show UPS US but only with access to Northeast
+        return filledFolders.filter(f => f.name === 'UPS US');
+      } else if (userRole === 'location' || userRole === 'workspace') {
+        // Location manager sees nothing at folder level - redirect to workspace
+        return [];
+      }
+      return filledFolders;
+    }
+    
+    // Filter child folders based on role
+    function getFilteredChildFolders(parentFolderName) {
+      const children = childFoldersData[parentFolderName] || [];
+      
+      if (userRole === 'global') {
+        return children;
+      } else if (userRole === 'regional') {
+        // Only show Northeast folder
+        return children.filter(c => c.name === 'UPS Northeast');
+      }
+      return children;
+    }
+    
+    // Check if user has access to a workspace
+    function hasWorkspaceAccess(workspaceName) {
+      if (userRole === 'global') return true;
+      if (userRole === 'regional') {
+        // Check if workspace is in Northeast
+        const northeastWorkspaces = ['UPS New York', 'UPS Connecticut', 'UPS Massachusetts', 'UPS New Jersey', 'UPS Pennsylvania'];
+        return northeastWorkspaces.includes(workspaceName);
+      }
+      if (userRole === 'location' || userRole === 'workspace') {
+        return workspaceName === (accessWorkspace || 'UPS New York');
+      }
+      return true;
+    }
+    
+    // Update page title based on role
+    function updatePageTitleForRole() {
+      const pageTitle = document.getElementById('page-title');
+      if (userRole === 'regional' && accessFolder) {
+        pageTitle.textContent = accessFolder;
+      } else if (userRole === 'location' || userRole === 'workspace') {
+        pageTitle.textContent = accessWorkspace || 'UPS New York';
+      }
+    }
+    
+    // Update navigation visibility based on role
+    function updateNavigationForRole() {
+      const navOrgDashboard = document.getElementById('nav-org-dashboard');
+      const navReporting = document.getElementById('nav-reporting');
+      const navBrands = document.getElementById('nav-brands');
+      const navAutomations = document.getElementById('nav-automations');
+      
+      if (userRole === 'location' || userRole === 'workspace') {
+        // Location managers can't access org-level features
+        if (navOrgDashboard) navOrgDashboard.classList.add('hidden');
+        if (navReporting) navReporting.classList.add('hidden');
+        if (navBrands) navBrands.classList.add('hidden');
+        if (navAutomations) navAutomations.classList.add('hidden');
+      } else if (userRole === 'regional') {
+        // Regional managers have limited reporting access
+        if (navReporting) navReporting.href = 'folder-reporting.html?folder=' + encodeURIComponent(accessFolder || 'UPS Northeast');
+      }
+      
+      // Update user avatar
+      const userAvatar = document.querySelector('.rounded-full.bg-blue-500');
+      if (userAvatar && userName) {
+        const initials = userName.split(' ').map(n => n[0]).join('').toUpperCase();
+        userAvatar.textContent = initials;
+      }
+    }
+    
+    // Initialize role-based UI on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      updateNavigationForRole();
+      renderContent();
+      safeCreateIcons();
+    });
+    
     // Pagination state
     let folderCurrentPage = 1;
     const hubsPerPage = 6; // 2 rows of 3
@@ -823,8 +917,44 @@
     }
     
     function renderContent() {
-      const allFolders = currentDataMode === 'filled' ? filledFolders : hubs;
+      const allFolders = getFilteredFolders();
       const displayWorkspaces = currentDataMode === 'filled' ? filledStandaloneWorkspaces : standaloneWorkspaces;
+      
+      // Update page based on role
+      updatePageTitleForRole();
+      
+      // Location managers should only see their workspace
+      if (userRole === 'location' || userRole === 'workspace') {
+        hubsContainer.classList.add('hidden');
+        hubsEmptyState.classList.add('hidden');
+        workspacesSection.classList.remove('hidden');
+        emptyState.classList.add('hidden');
+        
+        const ws = accessWorkspace || 'UPS New York';
+        const wsUrl = `workspace-detail.html?workspace=${encodeURIComponent(ws)}&role=${userRole}`;
+        workspacesContainer.innerHTML = `
+          <a href="${wsUrl}" class="bg-white rounded-2xl border border-gray-200 p-5 hover:shadow-lg hover:border-blue-200 transition-all group flex items-center gap-4">
+            <div class="w-14 h-14 ${getColor(ws)} rounded-full flex items-center justify-center text-white text-lg font-bold">${getInitials(ws)}</div>
+            <div class="flex-1">
+              <span class="font-semibold text-gray-900 text-lg block group-hover:text-blue-600 transition-colors">${ws}</span>
+              <span class="text-sm text-gray-500">Your workspace</span>
+            </div>
+            <i data-lucide="chevron-right" class="w-5 h-5 text-gray-300 group-hover:text-blue-500"></i>
+          </a>
+          <div class="mt-6 p-4 bg-blue-50 border border-blue-100 rounded-xl">
+            <div class="flex items-start gap-3">
+              <svg class="w-5 h-5 text-blue-500 mt-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <p class="text-sm font-medium text-blue-800">Need access to another workspace?</p>
+                <p class="text-sm text-blue-700 mt-1">Contact your admin or <a href="settings.html?tab=workspaces" class="underline">request access</a> to collaborate in other workspaces.</p>
+              </div>
+            </div>
+          </div>
+        `;
+        workspaceCountEl.innerHTML = 'Showing <strong>1</strong> workspace (your assigned workspace)';
+        safeCreateIcons();
+        return;
+      }
       
       // Reset visibility
       hubsEmptyState.classList.add('hidden');
@@ -840,7 +970,7 @@
         
         if (currentFolderPath.length === 1) {
           // Inside a parent folder - show child folders
-          const childFolders = childFoldersData[currentFolderPath[0]] || [];
+          const childFolders = getFilteredChildFolders(currentFolderPath[0]);
           
           if (childFolders.length > 0) {
             html += `<div class="grid grid-cols-2 gap-4">`;

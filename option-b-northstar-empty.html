@@ -1566,6 +1566,156 @@
     const urlParams = new URLSearchParams(window.location.search);
     const workspaceName = urlParams.get('workspace') || 'NE';
     
+    // Role-based access control
+    const userRole = sessionStorage.getItem('accessLevel') || urlParams.get('role') || 'global';
+    const accessFolder = sessionStorage.getItem('accessFolder') || urlParams.get('folder') || '';
+    const accessWorkspace = sessionStorage.getItem('accessWorkspace') || '';
+    const userName = sessionStorage.getItem('userName') || 'Sarah Chen';
+    const userTitle = sessionStorage.getItem('userTitle') || 'Global Marketing Director';
+    
+    // Role-based data scaling factors
+    const roleDataFactors = {
+      global: { multiplier: 1, workspaces: 32, folders: 8, contacts: '124.5k' },
+      regional: { multiplier: 0.4, workspaces: 5, folders: 1, contacts: '12.4k' },
+      location: { multiplier: 0.05, workspaces: 1, folders: 0, contacts: '2.1k' },
+      workspace: { multiplier: 0.05, workspaces: 1, folders: 0, contacts: '2.1k' }
+    };
+    
+    // Apply role-based UI modifications
+    function initializeForRole() {
+      const factor = roleDataFactors[userRole] || roleDataFactors.global;
+      
+      // Update enterprise name based on role
+      const enterpriseName = document.getElementById('enterprise-name');
+      if (enterpriseName) {
+        if (userRole === 'global') {
+          enterpriseName.textContent = 'UPS Global';
+        } else if (userRole === 'regional') {
+          enterpriseName.textContent = accessFolder || 'UPS Northeast';
+        } else {
+          enterpriseName.textContent = accessWorkspace || 'UPS New York';
+        }
+      }
+      
+      // Update page greeting
+      const greeting = document.querySelector('h1');
+      if (greeting && greeting.textContent.includes('Good')) {
+        greeting.textContent = greeting.textContent; // Keep greeting
+      }
+      
+      // Update "Recently Viewed" section based on role
+      updateRecentlyViewedForRole();
+      
+      // Hide org-level navigation for location managers
+      if (userRole === 'location' || userRole === 'workspace') {
+        // Hide left nav items that are org-level
+        document.querySelectorAll('a[href="folder-reporting.html"]').forEach(el => el.closest('.nav-item')?.classList.add('hidden'));
+        
+        // Show a notice instead of org dashboard
+        const mainContent = document.querySelector('main');
+        if (mainContent) {
+          const notice = document.createElement('div');
+          notice.className = 'mb-6 p-4 bg-main-50 border border-main-200 rounded-xl';
+          notice.innerHTML = `
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-main-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <p class="text-sm font-medium text-main-800">Viewing: ${accessWorkspace || 'UPS New York'}</p>
+                <p class="text-sm text-main-700">This dashboard shows data for your workspace. <a href="settings.html?tab=workspaces" class="underline">Request access</a> to view other workspaces.</p>
+              </div>
+            </div>
+          `;
+          mainContent.insertBefore(notice, mainContent.firstChild);
+        }
+      } else if (userRole === 'regional') {
+        // Show regional context notice
+        const mainContent = document.querySelector('main');
+        if (mainContent) {
+          const notice = document.createElement('div');
+          notice.className = 'mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl';
+          notice.innerHTML = `
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+              <div>
+                <p class="text-sm font-medium text-blue-800">Regional View: ${accessFolder || 'UPS Northeast'}</p>
+                <p class="text-sm text-blue-700">Showing data for 5 workspaces in your region.</p>
+              </div>
+            </div>
+          `;
+          mainContent.insertBefore(notice, mainContent.firstChild);
+        }
+      }
+    }
+    
+    // Update recently viewed section based on role
+    function updateRecentlyViewedForRole() {
+      const recentlyViewed = document.getElementById('recently-viewed');
+      if (!recentlyViewed) return;
+      
+      if (userRole === 'location' || userRole === 'workspace') {
+        // Only show the user's workspace
+        recentlyViewed.innerHTML = `
+          <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">UN</div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS New York</p>
+              <p class="text-xs text-neutral-500">Workspace</p>
+            </div>
+          </a>
+        `;
+      } else if (userRole === 'regional') {
+        // Show only Northeast workspaces and folder
+        recentlyViewed.innerHTML = `
+          <a href="workspaces-list.html?folder=UPS%20Northeast" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-neutral-200 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS Northeast</p>
+              <p class="text-xs text-neutral-500">Folder • 5 workspaces</p>
+            </div>
+          </a>
+          <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">UN</div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS New York</p>
+              <p class="text-xs text-neutral-500">Workspace</p>
+            </div>
+          </a>
+          <a href="workspace-detail.html?workspace=UPS%20Connecticut" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">UC</div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS Connecticut</p>
+              <p class="text-xs text-neutral-500">Workspace</p>
+            </div>
+          </a>
+        `;
+      }
+    }
+    
+    // Scale metric value based on role
+    function scaleMetricForRole(value) {
+      if (typeof value === 'string') {
+        // Parse the string value (e.g., "1,260" or "124.5k")
+        const cleanValue = value.replace(/,/g, '');
+        if (cleanValue.includes('k')) {
+          const numValue = parseFloat(cleanValue) * 1000;
+          const factor = roleDataFactors[userRole]?.multiplier || 1;
+          const scaled = numValue * factor;
+          return scaled >= 1000 ? (scaled / 1000).toFixed(1) + 'k' : Math.round(scaled).toString();
+        }
+        const numValue = parseInt(cleanValue);
+        if (!isNaN(numValue)) {
+          const factor = roleDataFactors[userRole]?.multiplier || 1;
+          return Math.round(numValue * factor).toLocaleString();
+        }
+      }
+      return value;
+    }
+    
+    // Call initialization on page load
+    setTimeout(initializeForRole, 100);
+    
     // Dropdown toggle
     function toggleDropdown(dropdownId) {
       const dropdown = document.getElementById(dropdownId);
@@ -3296,19 +3446,23 @@
     }
     
     function renderFilledDashboard() {
-      // Email metrics
-      updateMetric('metric-sends', '1260', false);
-      updateMetric('metric-opens', '460', false);
-      updateMetric('metric-clicks', '432', false);
-      updateMetric('metric-bounces', '32', false);
+      // Get role-based scaling
+      const factor = roleDataFactors[userRole]?.multiplier || 1;
       
-      // Social metrics
-      updateMetric('metric-views', '1260', false);
-      updateMetric('metric-likes', '460', false);
+      // Email metrics - scaled by role
+      updateMetric('metric-sends', scaleMetricForRole('1260'), false);
+      updateMetric('metric-opens', scaleMetricForRole('460'), false);
+      updateMetric('metric-clicks', scaleMetricForRole('432'), false);
+      updateMetric('metric-bounces', scaleMetricForRole('32'), false);
       
-      // Contact & Templates
-      updateMetric('metric-contacts', '1,321', false);
-      updateMetric('metric-templates', '34', false);
+      // Social metrics - scaled by role
+      updateMetric('metric-views', scaleMetricForRole('1260'), false);
+      updateMetric('metric-likes', scaleMetricForRole('460'), false);
+      
+      // Contact & Templates - use role-specific values
+      const contactsValue = roleDataFactors[userRole]?.contacts || '124.5k';
+      updateMetric('metric-contacts', contactsValue, false);
+      updateMetric('metric-templates', Math.round(34 * factor).toString(), false);
       
       // Template donut - restore colored segments (blues)
       const donutSvg = document.getElementById('template-donut-svg');
@@ -3321,41 +3475,90 @@
       // Top workspaces - horizontal layout: label | rounded bar with hover %
       const topWs = document.getElementById('top-workspaces');
       if (topWs) {
-        topWs.innerHTML = `
-          <!-- Workspace 1 -->
-          <a href="workspace-detail.html?id=nj" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
-            <div class="flex items-center gap-2 w-28 flex-shrink-0">
-              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
-              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">NJ Location</span>
-            </div>
-            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
-              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 80%; background: var(--workspace-1)"></div>
-              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">80%</span>
-            </div>
-          </a>
-          <!-- Workspace 2 -->
-          <a href="workspace-detail.html?id=ny" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
-            <div class="flex items-center gap-2 w-28 flex-shrink-0">
-              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-2)"></div>
-              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">NY Location</span>
-            </div>
-            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
-              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 60%; background: var(--workspace-2)"></div>
-              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">60%</span>
-            </div>
-          </a>
-          <!-- Workspace 3 -->
-          <a href="workspace-detail.html?id=ct" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
-            <div class="flex items-center gap-2 w-28 flex-shrink-0">
-              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-3)"></div>
-              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">CT Location</span>
-            </div>
-            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
-              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 40%; background: var(--workspace-3)"></div>
-              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">40%</span>
-            </div>
-          </a>
-        `;
+        if (userRole === 'location' || userRole === 'workspace') {
+          // Location manager sees only their workspace
+          topWs.innerHTML = `
+            <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New York</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 75%; background: var(--workspace-1)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">75%</span>
+              </div>
+            </a>
+            <p class="text-xs text-neutral-400 mt-3">This is your assigned workspace.</p>
+          `;
+        } else if (userRole === 'regional') {
+          // Regional manager sees Northeast workspaces
+          topWs.innerHTML = `
+            <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New York</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 85%; background: var(--workspace-1)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">85%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?workspace=UPS%20Connecticut" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-2)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS Connecticut</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 72%; background: var(--workspace-2)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">72%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?workspace=UPS%20Massachusetts" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-3)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS Massachusetts</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 58%; background: var(--workspace-3)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">58%</span>
+              </div>
+            </a>
+          `;
+        } else {
+          // Global manager sees all top workspaces
+          topWs.innerHTML = `
+            <a href="workspace-detail.html?id=nj" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New Jersey</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 80%; background: var(--workspace-1)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">80%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?id=ny" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-2)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New York</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 60%; background: var(--workspace-2)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">60%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?id=ct" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-3)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS Connecticut</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 40%; background: var(--workspace-3)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">40%</span>
+              </div>
+            </a>
+          `;
+        }
       }
       
       // Low performing workspaces - same horizontal layout with hover %
