@@ -95,17 +95,15 @@
     <div class="flex items-center gap-3">
       <!-- User Avatar Dropdown -->
       <div class="relative">
-        <button onclick="toggleDropdown('user-dropdown')" class="w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-main-200 transition-colors">
-          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+        <button onclick="toggleDropdown('user-dropdown')" id="user-avatar-btn" class="w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-main-200 transition-colors">
         </button>
         <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-neutral-100 py-4 z-[60]">
           <div class="flex items-center gap-3 px-5 pb-4 border-b border-neutral-100">
-            <div class="w-14 h-14 rounded-full overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+            <div id="user-avatar-large" class="w-14 h-14 rounded-full overflow-hidden ring-2">
             </div>
             <div>
-              <p class="text-base font-semibold text-neutral-800">AriaSmith</p>
-              <p class="text-sm text-neutral-500">Account owner</p>
+              <p id="user-name-display" class="text-base font-semibold text-neutral-800"></p>
+              <p id="user-title-display" class="text-sm text-neutral-500"></p>
             </div>
           </div>
           <div class="pt-3 px-2">
@@ -896,6 +894,62 @@
 
     // Initialize Lucide icons
     safeCreateIcons();
+    
+    // Get user info from session storage
+    const userName = sessionStorage.getItem('userName') || 'Sarah Chen';
+    const userTitle = sessionStorage.getItem('userTitle') || 'Global Marketing Director';
+    
+    // Update user avatar and info based on current persona
+    function updateUserAvatar() {
+      // Map personas to their avatar data with actual photos
+      const personaData = {
+        'Sarah Chen': { 
+          photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face',
+          title: 'Global Marketing Director',
+          ringColor: 'ring-emerald-500'
+        },
+        'Mike Johnson': { 
+          photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+          title: 'US Northeast Regional Manager',
+          ringColor: 'ring-blue-500'
+        },
+        'Jessica Martinez': { 
+          photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
+          title: 'NY Location Manager',
+          ringColor: 'ring-purple-500'
+        }
+      };
+      
+      const persona = personaData[userName] || personaData['Sarah Chen'];
+      
+      // Update small avatar button in topbar
+      const avatarBtn = document.getElementById('user-avatar-btn');
+      if (avatarBtn) {
+        avatarBtn.className = `w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-main-200 transition-colors ${persona.ringColor}`;
+        avatarBtn.innerHTML = `<img src="${persona.photo}" alt="${userName}" class="w-full h-full object-cover">`;
+      }
+      
+      // Update large avatar in dropdown
+      const avatarLarge = document.getElementById('user-avatar-large');
+      if (avatarLarge) {
+        avatarLarge.className = `w-14 h-14 rounded-full overflow-hidden ${persona.ringColor} ring-2`;
+        avatarLarge.innerHTML = `<img src="${persona.photo}" alt="${userName}" class="w-full h-full object-cover">`;
+      }
+      
+      // Update name and title in dropdown
+      const nameDisplay = document.getElementById('user-name-display');
+      if (nameDisplay) {
+        nameDisplay.textContent = userName;
+      }
+      
+      const titleDisplay = document.getElementById('user-title-display');
+      if (titleDisplay) {
+        titleDisplay.textContent = userTitle;
+      }
+    }
+    
+    // Initialize user avatar on load
+    updateUserAvatar();
     
     // Toggle header dropdowns
     let activeDropdown = null;
