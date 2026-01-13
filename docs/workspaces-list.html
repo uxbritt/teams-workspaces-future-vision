@@ -552,18 +552,6 @@
         folders: 4,
         totalWorkspaces: 18,
         members: 24
-      },
-      // UPS EU - Parent Folder containing regional folders
-      { 
-        name: 'UPS EU', 
-        isParentHub: true,
-        childFolders: ['UPS UK & Ireland', 'UPS DACH', 'UPS Nordics', 'UPS Southern Europe'],
-        workspaces: [],
-        contacts: '22.8k', 
-        campaigns: 98,
-        folders: 4,
-        totalWorkspaces: 14,
-        members: 18
       }
     ];
     
@@ -626,20 +614,11 @@
         { name: 'UPS Southeast', workspaces: ['UPS Florida', 'UPS Georgia', 'UPS North Carolina', 'UPS South Carolina', 'UPS Virginia'], contacts: '9.8k', campaigns: 38 },
         { name: 'UPS Southwest', workspaces: ['UPS Texas', 'UPS Arizona', 'UPS New Mexico', 'UPS Oklahoma'], contacts: '7.5k', campaigns: 28 },
         { name: 'UPS Northwest', workspaces: ['UPS Washington', 'UPS Oregon', 'UPS Idaho', 'UPS Montana'], contacts: '5.2k', campaigns: 22 }
-      ],
-      'UPS EU': [
-        { name: 'UPS UK & Ireland', workspaces: ['UPS London', 'UPS Manchester', 'UPS Dublin', 'UPS Edinburgh'], contacts: '8.2k', campaigns: 34 },
-        { name: 'UPS DACH', workspaces: ['UPS Germany', 'UPS Austria', 'UPS Switzerland'], contacts: '6.5k', campaigns: 28 },
-        { name: 'UPS Nordics', workspaces: ['UPS Sweden', 'UPS Norway', 'UPS Denmark', 'UPS Finland'], contacts: '4.8k', campaigns: 22 },
-        { name: 'UPS Southern Europe', workspaces: ['UPS Spain', 'UPS Italy', 'UPS Portugal'], contacts: '3.3k', campaigns: 14 }
       ]
     };
     
     // Standalone workspaces at Global level (not in any folder)
-    const filledStandaloneWorkspaces = [
-      'UPS Foundation',
-      'UPS Student Program'
-    ];
+    const filledStandaloneWorkspaces = [];
     
     // Onboarding mode - first-time team experience
     const onboardingWorkspace = {
@@ -2195,15 +2174,12 @@
     const globalSearchData = {
       folders: [
         { name: 'UPS US', type: 'folder', count: '18 workspaces' },
-        { name: 'UPS EU', type: 'folder', count: '14 workspaces' },
         { name: 'UPS Northeast', type: 'folder', count: '5 workspaces', parent: 'UPS US' },
         { name: 'UPS Southeast', type: 'folder', count: '5 workspaces', parent: 'UPS US' },
         { name: 'UPS Southwest', type: 'folder', count: '4 workspaces', parent: 'UPS US' },
         { name: 'UPS Northwest', type: 'folder', count: '4 workspaces', parent: 'UPS US' }
       ],
       workspaces: [
-        { name: 'UPS Foundation', icon: 'UF', color: 'bg-purple-500 text-white' },
-        { name: 'UPS Student Program', icon: 'US', color: 'bg-blue-500 text-white' },
         { name: 'UPS New York', icon: 'UN', color: 'bg-pink-500 text-white', folder: 'UPS Northeast' },
         { name: 'UPS Connecticut', icon: 'UC', color: 'bg-teal-500 text-white', folder: 'UPS Northeast' },
         { name: 'UPS Massachusetts', icon: 'UM', color: 'bg-indigo-500 text-white', folder: 'UPS Northeast' },
