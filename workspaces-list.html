@@ -720,11 +720,23 @@
     
     // Update user avatar and info based on current persona
     function updateUserAvatar() {
-      // Map personas to their avatar data
+      // Map personas to their avatar data with actual photos
       const personaData = {
-        'Sarah Chen': { initials: 'SC', color: 'bg-emerald-500', title: 'Global Marketing Director' },
-        'Mike Johnson': { initials: 'MJ', color: 'bg-blue-500', title: 'US Northeast Regional Manager' },
-        'Jessica Martinez': { initials: 'JM', color: 'bg-purple-500', title: 'NY Location Manager' }
+        'Sarah Chen': { 
+          photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face',
+          title: 'Global Marketing Director',
+          ringColor: 'ring-emerald-500'
+        },
+        'Mike Johnson': { 
+          photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+          title: 'US Northeast Regional Manager',
+          ringColor: 'ring-blue-500'
+        },
+        'Jessica Martinez': { 
+          photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
+          title: 'NY Location Manager',
+          ringColor: 'ring-purple-500'
+        }
       };
       
       const persona = personaData[userName] || personaData['Sarah Chen'];
@@ -732,15 +744,15 @@
       // Update small avatar button in topbar
       const avatarBtn = document.getElementById('user-avatar-btn');
       if (avatarBtn) {
-        avatarBtn.className = `w-9 h-9 rounded-full flex items-center justify-center border-2 border-transparent hover:border-blue-200 transition-colors text-white font-bold text-sm ${persona.color}`;
-        avatarBtn.textContent = persona.initials;
+        avatarBtn.className = `w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-blue-200 transition-colors ${persona.ringColor}`;
+        avatarBtn.innerHTML = `<img src="${persona.photo}" alt="${userName}" class="w-full h-full object-cover">`;
       }
       
       // Update large avatar in dropdown
       const avatarLarge = document.getElementById('user-avatar-large');
       if (avatarLarge) {
-        avatarLarge.className = `w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl ${persona.color}`;
-        avatarLarge.textContent = persona.initials;
+        avatarLarge.className = `w-14 h-14 rounded-full overflow-hidden ${persona.ringColor} ring-2`;
+        avatarLarge.innerHTML = `<img src="${persona.photo}" alt="${userName}" class="w-full h-full object-cover">`;
       }
       
       // Update name and title in dropdown
