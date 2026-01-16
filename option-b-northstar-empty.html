@@ -274,23 +274,22 @@
     <div class="flex items-center gap-3">
       <!-- User Avatar Dropdown -->
       <div class="relative">
-        <button onclick="toggleDropdown('user-dropdown')" class="w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-main-200 transition-colors">
-          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+        <button onclick="toggleDropdown('user-dropdown')" id="user-avatar-btn" class="w-9 h-9 rounded-full flex items-center justify-center border-2 border-transparent hover:border-main-200 transition-colors text-white font-bold text-sm">
         </button>
         <!-- User Dropdown Menu -->
         <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-neutral-100 py-4 z-[60]">
           <div class="flex items-center gap-3 px-5 pb-4 border-b border-neutral-100">
-            <div class="w-14 h-14 rounded-full overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+            <div id="user-avatar-large" class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl">
             </div>
             <div>
-              <p class="text-base font-semibold text-neutral-800">AriaSmith</p>
-              <p class="text-sm text-neutral-500">Account owner</p>
+              <p id="user-name-display" class="text-base font-semibold text-neutral-800"></p>
+              <p id="user-title-display" class="text-sm text-neutral-500"></p>
             </div>
           </div>
           <div class="pt-3 px-2">
             <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Profile</a>
-            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Settings</a>
+            <a href="settings.html?tab=general" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Settings</a>
+            <a href="persona-select.html" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Switch user</a>
             <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Log out</a>
           </div>
         </div>
@@ -315,9 +314,10 @@
             </div>
           </div>
           <div class="pt-3 px-2">
-            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Members</a>
-            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Settings</a>
-            <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Integrations</a>
+            <a href="settings.html?tab=people" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Members</a>
+            <a href="settings.html?tab=workspaces" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Workspaces</a>
+            <a href="settings.html?tab=general" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Settings</a>
+            <a href="settings.html?tab=integrations" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Integrations</a>
             <a href="#" class="block px-4 py-3 text-base text-neutral-600 hover:bg-neutral-50 rounded-xl transition-colors">Plans and pricing</a>
           </div>
         </div>
@@ -542,9 +542,13 @@
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=email&source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                    <a href="campaigns-list.html?channel=email&source=dashboard" class="full-report-link w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50" data-channel="email">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
+                    </a>
+                    <a href="folder-reporting.html?channel=email&source=dashboard&campaigns=47&workspaces=8&tab=comparison" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="12" y1="3" x2="12" y2="21"/></svg>
+                      Compare workspaces
                     </a>
                     <button onclick="deleteWidget('email-engagement')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
                       <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -618,7 +622,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=social&source=dashboard&campaigns=23&workspaces=5" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                    <a href="campaigns-list.html?channel=social&source=dashboard" class="full-report-link w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50" data-channel="social">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
@@ -670,7 +674,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=workspaces&source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                    <a href="folder-reporting.html?channel=workspaces&source=dashboard" class="full-report-link w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50" data-channel="workspaces">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
@@ -784,7 +788,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=contacts&source=dashboard&campaigns=12&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                    <a href="folder-reporting.html?channel=contacts&source=dashboard" class="full-report-link w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50" data-channel="contacts">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
@@ -814,9 +818,9 @@
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=templates&source=dashboard&campaigns=34&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                    <a href="folder-reporting.html?tab=workspaces&source=dashboard&workspaces=18" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
-                      Full report
+                      Brand Usage Report
                     </a>
                     <button onclick="deleteWidget('template-usage')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
                       <i data-lucide="trash-2" class="w-4 h-4"></i>
@@ -875,7 +879,7 @@
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
                       Customize
                     </button>
-                    <a href="folder-reporting.html?channel=workspaces&source=dashboard&campaigns=47&workspaces=8" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                    <a href="folder-reporting.html?channel=workspaces&source=dashboard" class="full-report-link w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50" data-channel="workspaces">
                       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
                       Full report
                     </a>
@@ -1086,11 +1090,16 @@
                   <label class="block text-sm font-medium text-neutral-700 mb-2">Metric type</label>
                   <div class="relative">
                     <select id="widget-channel" onchange="updateStatsSelectionUI(); updateWidgetPreview();" class="w-full px-3 py-2.5 border border-neutral-200 rounded-lg text-sm appearance-none bg-white focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent">
-                      <option value="email">Email Engagement</option>
-                      <option value="social">Social Engagement</option>
-                      <option value="sms">SMS Engagement</option>
-                      <option value="contacts">Contacts</option>
-                      <option value="workspace-usage">Workspace Usage</option>
+                      <optgroup label="Channel Engagement">
+                        <option value="email">Email</option>
+                        <option value="social">Social</option>
+                        <option value="sms">SMS</option>
+                      </optgroup>
+                      <optgroup label="Workspace">
+                        <option value="workspace">Workspace Usage</option>
+                        <option value="contacts">Contacts</option>
+                        <option value="automation">Automations</option>
+                      </optgroup>
                     </select>
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-neutral-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
                   </div>
@@ -1379,12 +1388,14 @@
           <div id="recent-activity-section" class="px-2 pt-3 pb-3">
             <p class="px-3 text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">Recently viewed</p>
             <div class="space-y-0.5">
-              <!-- Recent Workspaces -->
-              <a href="workspace-detail.html?workspace=UPS%20Northeast" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors">
-                <div class="w-10 h-10 bg-success-500 rounded-xl flex items-center justify-center text-white text-sm font-bold">N</div>
+              <!-- Recent Folder -->
+              <a href="workspaces-list.html?folder=UPS%20Northeast" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors">
+                <div class="w-10 h-10 bg-warning-100 rounded-xl flex items-center justify-center">
+                  <svg class="w-5 h-5 text-warning-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
+                </div>
                 <div class="flex-1 text-left">
                   <p class="text-sm font-medium text-neutral-900">UPS Northeast</p>
-                  <p class="text-xs text-neutral-400">Workspace • 2 min ago</p>
+                  <p class="text-xs text-neutral-400">Folder • 5 workspaces • 2 min ago</p>
                 </div>
               </a>
               <!-- Recent Campaign -->
@@ -1394,7 +1405,7 @@
                 </div>
                 <div class="flex-1 text-left">
                   <p class="text-sm font-medium text-neutral-900">Holiday Shipping Promo</p>
-                  <p class="text-xs text-neutral-400">Campaign • UPS Northeast • 15 min ago</p>
+                  <p class="text-xs text-neutral-400">Campaign • UPS New York • 15 min ago</p>
                 </div>
               </a>
               <!-- Recent List -->
@@ -1603,6 +1614,304 @@
     // Get workspace name from URL parameter
     const urlParams = new URLSearchParams(window.location.search);
     const workspaceName = urlParams.get('workspace') || 'NE';
+    
+    // Role-based access control
+    const userRole = sessionStorage.getItem('accessLevel') || urlParams.get('role') || 'global';
+    const accessFolder = sessionStorage.getItem('accessFolder') || urlParams.get('folder') || '';
+    const accessWorkspace = sessionStorage.getItem('accessWorkspace') || '';
+    const userName = sessionStorage.getItem('userName') || 'Sarah Chen';
+    const userTitle = sessionStorage.getItem('userTitle') || 'Global Marketing Director';
+    
+    // Role-based data scaling factors
+    const roleDataFactors = {
+      global: { multiplier: 1, workspaces: 32, folders: 8, contacts: '124.5k' },
+      regional: { multiplier: 0.4, workspaces: 5, folders: 1, contacts: '12.4k' },
+      location: { multiplier: 0.05, workspaces: 1, folders: 0, contacts: '2.1k' },
+      workspace: { multiplier: 0.05, workspaces: 1, folders: 0, contacts: '2.1k' }
+    };
+    
+    // Update user avatar and info based on current persona
+    function updateUserAvatar() {
+      // Map personas to their avatar data with actual photos
+      const personaData = {
+        'Sarah Chen': { 
+          photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=face',
+          title: 'Global Marketing Director',
+          ringColor: 'ring-emerald-500'
+        },
+        'Mike Johnson': { 
+          photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face',
+          title: 'US Northeast Regional Manager',
+          ringColor: 'ring-blue-500'
+        },
+        'Jessica Martinez': { 
+          photo: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&h=200&fit=crop&crop=face',
+          title: 'NY Location Manager',
+          ringColor: 'ring-purple-500'
+        }
+      };
+      
+      const persona = personaData[userName] || personaData['Sarah Chen'];
+      
+      // Update small avatar button in topbar
+      const avatarBtn = document.getElementById('user-avatar-btn');
+      if (avatarBtn) {
+        avatarBtn.className = `w-9 h-9 rounded-full overflow-hidden border-2 border-transparent hover:border-main-200 transition-colors ${persona.ringColor}`;
+        avatarBtn.innerHTML = `<img src="${persona.photo}" alt="${userName}" class="w-full h-full object-cover">`;
+      }
+      
+      // Update large avatar in dropdown
+      const avatarLarge = document.getElementById('user-avatar-large');
+      if (avatarLarge) {
+        avatarLarge.className = `w-14 h-14 rounded-full overflow-hidden ${persona.ringColor} ring-2`;
+        avatarLarge.innerHTML = `<img src="${persona.photo}" alt="${userName}" class="w-full h-full object-cover">`;
+      }
+      
+      // Update name and title in dropdown
+      const nameDisplay = document.getElementById('user-name-display');
+      if (nameDisplay) {
+        nameDisplay.textContent = userName;
+      }
+      
+      const titleDisplay = document.getElementById('user-title-display');
+      if (titleDisplay) {
+        titleDisplay.textContent = userTitle;
+      }
+    }
+    
+    // Apply role-based UI modifications
+    function initializeForRole() {
+      const factor = roleDataFactors[userRole] || roleDataFactors.global;
+      
+      // Update user avatar and info based on persona
+      updateUserAvatar();
+      
+      // Enterprise name always stays as "UPS Global"
+      const enterpriseName = document.getElementById('enterprise-name');
+      if (enterpriseName) {
+        enterpriseName.textContent = 'UPS Global';
+      }
+      
+      // Update page greeting
+      const greeting = document.querySelector('h1');
+      if (greeting && greeting.textContent.includes('Good')) {
+        greeting.textContent = greeting.textContent; // Keep greeting
+      }
+      
+      // Update "Recently Viewed" section based on role
+      updateRecentlyViewedForRole();
+      
+      // Hide org-level navigation for location managers
+      if (userRole === 'location' || userRole === 'workspace') {
+        // Hide left nav items that are org-level
+        document.querySelectorAll('a[href="folder-reporting.html"]').forEach(el => el.closest('.nav-item')?.classList.add('hidden'));
+        
+        // Show a notice instead of org dashboard
+        const mainContent = document.querySelector('main');
+        if (mainContent) {
+          const notice = document.createElement('div');
+          notice.className = 'mb-6 p-4 bg-main-50 border border-main-200 rounded-xl';
+          notice.innerHTML = `
+            <div class="flex items-center gap-3">
+              <svg class="w-5 h-5 text-main-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+              <div>
+                <p class="text-sm font-medium text-main-800">Viewing: ${accessWorkspace || 'UPS New York'}</p>
+                <p class="text-sm text-main-700">This dashboard shows data for your workspace. <a href="settings.html?tab=workspaces" class="underline">Request access</a> to view other workspaces.</p>
+              </div>
+            </div>
+          `;
+          mainContent.insertBefore(notice, mainContent.firstChild);
+        }
+      } else if (userRole === 'regional') {
+        // Update activity log to show only regional events
+        updateActivityLogForRole();
+        
+        // Update "Full report" links to include folder filter
+        updateFullReportLinksForRole();
+      }
+    }
+    
+    // Update "Full report" links based on role
+    function updateFullReportLinksForRole() {
+      const folder = accessFolder || 'UPS Northeast';
+      const folderEncoded = encodeURIComponent(folder);
+      
+      document.querySelectorAll('.full-report-link').forEach(link => {
+        const currentHref = link.getAttribute('href');
+        const separator = currentHref.includes('?') ? '&' : '?';
+        link.setAttribute('href', currentHref + separator + 'folder=' + folderEncoded);
+      });
+    }
+    
+    // Update activity log based on role
+    function updateActivityLogForRole() {
+      const activity = document.getElementById('recent-activity');
+      if (!activity) return;
+      
+      if (userRole === 'regional') {
+        // Show only Northeast location activity
+        activity.innerHTML = `
+          <!-- Pending Approval Request - UPS New York -->
+          <a href="#" onclick="openApprovalModal(event, 1)" data-type="approvals" class="block bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow group cursor-pointer relative">
+            <div class="absolute top-3 right-3 w-2.5 h-2.5 bg-warning-400 rounded-full"></div>
+            <div class="flex items-center gap-4">
+              <img src="assets/email1.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-neutral-600 mb-1.5">Campaign approval request</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NY</div>
+                    <span class="text-xs text-neutral-500">UPS New York</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">5 m ago</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Pending Approval Request - UPS Connecticut -->
+          <a href="#" onclick="openApprovalModal(event, 2)" data-type="approvals" class="block bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow group cursor-pointer relative">
+            <div class="absolute top-3 right-3 w-2.5 h-2.5 bg-warning-400 rounded-full"></div>
+            <div class="flex items-center gap-4">
+              <img src="assets/email2.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-neutral-600 mb-1.5">Campaign approval request</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">CT</div>
+                    <span class="text-xs text-neutral-500">UPS Connecticut</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">1 hr ago</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Email Campaign Scheduled - UPS Massachusetts -->
+          <a href="campaigns-list.html?workspace=UPS%20Massachusetts" data-type="campaigns" class="block bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow group cursor-pointer">
+            <div class="flex items-center gap-4">
+              <img src="assets/email3.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-neutral-600 mb-1.5">Email campaign scheduled</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-purple-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">MA</div>
+                    <span class="text-xs text-neutral-500">UPS Massachusetts</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">2 days ago</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Email Campaign Sent - UPS New Jersey -->
+          <a href="campaigns-list.html?workspace=UPS%20New%20Jersey" data-type="campaigns" class="block bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow group cursor-pointer">
+            <div class="flex items-center gap-4">
+              <img src="assets/email4.png" alt="Campaign preview" class="w-16 h-16 rounded-lg object-cover flex-shrink-0 border border-neutral-100">
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-neutral-600 mb-1.5">Email campaign sent</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-orange-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">NJ</div>
+                    <span class="text-xs text-neutral-500">UPS New Jersey</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">3 days ago</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          
+          <!-- Social Campaign Published - UPS Pennsylvania -->
+          <a href="campaigns-list.html?workspace=UPS%20Pennsylvania" data-type="campaigns" class="block bg-white rounded-xl p-4 shadow-sm border border-neutral-100 hover:shadow-md transition-shadow group cursor-pointer">
+            <div class="flex items-center gap-4">
+              <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <svg class="w-6 h-6 text-blue-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-neutral-600 mb-1.5">Social campaign published</p>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-1.5">
+                    <div class="w-5 h-5 bg-teal-500 rounded-full flex items-center justify-center text-white text-[9px] font-bold flex-shrink-0">PA</div>
+                    <span class="text-xs text-neutral-500">UPS Pennsylvania</span>
+                  </div>
+                  <span class="text-xs text-neutral-400">4 days ago</span>
+                </div>
+              </div>
+            </div>
+          </a>
+        `;
+        activity.className = 'space-y-3';
+      }
+    }
+    
+    // Update recently viewed section based on role
+    function updateRecentlyViewedForRole() {
+      const recentlyViewed = document.getElementById('recently-viewed');
+      if (!recentlyViewed) return;
+      
+      if (userRole === 'location' || userRole === 'workspace') {
+        // Only show the user's workspace
+        recentlyViewed.innerHTML = `
+          <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">UN</div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS New York</p>
+              <p class="text-xs text-neutral-500">Workspace</p>
+            </div>
+          </a>
+        `;
+      } else if (userRole === 'regional') {
+        // Show only Northeast workspaces and folder
+        recentlyViewed.innerHTML = `
+          <a href="workspaces-list.html?folder=UPS%20Northeast" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-neutral-200 rounded-xl flex items-center justify-center">
+              <svg class="w-5 h-5 text-neutral-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS Northeast</p>
+              <p class="text-xs text-neutral-500">Folder • 5 workspaces</p>
+            </div>
+          </a>
+          <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">UN</div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS New York</p>
+              <p class="text-xs text-neutral-500">Workspace</p>
+            </div>
+          </a>
+          <a href="workspace-detail.html?workspace=UPS%20Connecticut" class="flex items-center gap-3 p-3 bg-white rounded-xl hover:shadow-md transition-shadow border border-neutral-100">
+            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">UC</div>
+            <div>
+              <p class="text-sm font-medium text-neutral-800">UPS Connecticut</p>
+              <p class="text-xs text-neutral-500">Workspace</p>
+            </div>
+          </a>
+        `;
+      }
+    }
+    
+    // Scale metric value based on role
+    function scaleMetricForRole(value) {
+      if (typeof value === 'string') {
+        // Parse the string value (e.g., "1,260" or "124.5k")
+        const cleanValue = value.replace(/,/g, '');
+        if (cleanValue.includes('k')) {
+          const numValue = parseFloat(cleanValue) * 1000;
+          const factor = roleDataFactors[userRole]?.multiplier || 1;
+          const scaled = numValue * factor;
+          return scaled >= 1000 ? (scaled / 1000).toFixed(1) + 'k' : Math.round(scaled).toString();
+        }
+        const numValue = parseInt(cleanValue);
+        if (!isNaN(numValue)) {
+          const factor = roleDataFactors[userRole]?.multiplier || 1;
+          return Math.round(numValue * factor).toLocaleString();
+        }
+      }
+      return value;
+    }
+    
+    // Call initialization on page load
+    setTimeout(initializeForRole, 100);
     
     // Dropdown toggle
     function toggleDropdown(dropdownId) {
@@ -1891,6 +2200,28 @@
         { value: 'growth-rate', label: 'Growth rate', format: 'percent', sample: '+5.2%' },
         { value: 'unsubscribed', label: 'Unsubscribed', format: 'number', sample: '56' },
         { value: 'engagement-score', label: 'Avg engagement score', format: 'number', sample: '72' }
+      ],
+      workspace: [
+        { value: 'active-workspaces', label: 'Active workspaces', format: 'number', sample: '12' },
+        { value: 'total-workspaces', label: 'Total workspaces', format: 'number', sample: '18' },
+        { value: 'workspace-activity', label: 'Weekly activity', format: 'percent', sample: '78%' },
+        { value: 'templates-used', label: 'Templates used', format: 'number', sample: '156' },
+        { value: 'template-adoption', label: 'Template adoption', format: 'percent', sample: '85%' },
+        { value: 'brandkit-compliance', label: 'Brand kit compliance', format: 'percent', sample: '92%' },
+        { value: 'assets-uploaded', label: 'Assets uploaded', format: 'number', sample: '2,340' },
+        { value: 'storage-used', label: 'Storage used', format: 'number', sample: '4.2 GB' },
+        { value: 'team-members', label: 'Team members', format: 'number', sample: '47' },
+        { value: 'pending-approvals', label: 'Pending approvals', format: 'number', sample: '8' },
+        { value: 'approval-rate', label: 'Approval rate', format: 'percent', sample: '94%' },
+        { value: 'avg-approval-time', label: 'Avg approval time', format: 'number', sample: '2.4 hrs' }
+      ],
+      automation: [
+        { value: 'active-automations', label: 'Active automations', format: 'number', sample: '23' },
+        { value: 'total-runs', label: 'Total runs', format: 'number', sample: '1,456' },
+        { value: 'success-rate', label: 'Success rate', format: 'percent', sample: '99.2%' },
+        { value: 'emails-triggered', label: 'Emails triggered', format: 'number', sample: '8,920' },
+        { value: 'revenue-generated', label: 'Revenue generated', format: 'currency', sample: '$12,450' },
+        { value: 'avg-conversion', label: 'Avg conversion', format: 'percent', sample: '8.4%' }
       ]
     };
 
@@ -1935,7 +2266,21 @@
     }
     
     function getMetricsForChannel(channel) {
+      // Handle legacy "workspace-usage" value
+      if (channel === 'workspace-usage') channel = 'workspace';
       return allMetrics[channel] || allMetrics.email;
+    }
+    
+    function getChannelLabel(channel) {
+      const labels = {
+        'email': 'Email Engagement',
+        'social': 'Social Engagement',
+        'sms': 'SMS Engagement',
+        'contacts': 'Contact Metrics',
+        'workspace': 'Workspace Usage',
+        'automation': 'Automation Metrics'
+      };
+      return labels[channel] || channel;
     }
 
     function buildMetricDropdown(id, selectedValue, channel) {
@@ -2028,7 +2373,7 @@
       const showTrends = document.getElementById('widget-show-trends')?.checked ?? true;
       const preview = document.getElementById('widget-preview');
       
-      const channelLabel = channel === 'email' ? 'Email' : channel === 'social' ? 'Social' : channel === 'sms' ? 'SMS' : 'Contacts';
+      const channelLabel = getChannelLabel(channel);
       const config = chartTypeConfig[chartType];
       
       // Get selected stats
@@ -2832,32 +3177,83 @@
     // Search data
     const searchData = {
       folders: [
-        { name: 'US', type: 'folder', icon: 'folder', count: '4 workspaces' },
-        { name: 'EMEA', type: 'folder', icon: 'folder', count: '3 workspaces' },
-        { name: 'APAC', type: 'folder', icon: 'folder', count: '2 workspaces' },
-        { name: 'LATAM', type: 'folder', icon: 'folder', count: '2 workspaces' }
+        // Parent folders
+        { name: 'UPS US', type: 'folder', icon: 'folder', count: '18 workspaces' },
+        { name: 'UPS EU', type: 'folder', icon: 'folder', count: '14 workspaces' },
+        // US Regional folders
+        { name: 'UPS Northeast', type: 'folder', icon: 'folder', count: '5 workspaces', parent: 'UPS US' },
+        { name: 'UPS Southeast', type: 'folder', icon: 'folder', count: '5 workspaces', parent: 'UPS US' },
+        { name: 'UPS Southwest', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS US' },
+        { name: 'UPS Northwest', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS US' },
+        // EU Regional folders
+        { name: 'UPS UK & Ireland', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS EU' },
+        { name: 'UPS DACH', type: 'folder', icon: 'folder', count: '3 workspaces', parent: 'UPS EU' },
+        { name: 'UPS Nordics', type: 'folder', icon: 'folder', count: '4 workspaces', parent: 'UPS EU' },
+        { name: 'UPS Southern Europe', type: 'folder', icon: 'folder', count: '3 workspaces', parent: 'UPS EU' }
       ],
       workspaces: [
-        { name: 'UPS Global', type: 'workspace', icon: 'G', color: 'bg-warning-800 text-warning-300' },
-        { name: 'UPS Northeast', type: 'workspace', icon: 'N', color: 'bg-success-500 text-white' },
-        { name: 'UPS Southwest', type: 'workspace', icon: 'S', color: 'bg-warning-500 text-white' },
-        { name: 'UPS Midwest', type: 'workspace', icon: 'M', color: 'bg-success-500 text-white' },
-        { name: 'UPS Foundation', type: 'workspace', icon: 'F', color: 'bg-accent-500 text-white' }
+        // Standalone workspaces
+        { name: 'UPS Foundation', type: 'workspace', icon: 'UF', color: 'bg-accent-500 text-white' },
+        { name: 'UPS Student Program', type: 'workspace', icon: 'US', color: 'bg-main-500 text-white' },
+        // US Northeast workspaces
+        { name: 'UPS New York', type: 'workspace', icon: 'UN', color: 'bg-pink-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Connecticut', type: 'workspace', icon: 'UC', color: 'bg-teal-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Massachusetts', type: 'workspace', icon: 'UM', color: 'bg-indigo-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS New Jersey', type: 'workspace', icon: 'UN', color: 'bg-cyan-500 text-white', folder: 'UPS Northeast' },
+        { name: 'UPS Pennsylvania', type: 'workspace', icon: 'UP', color: 'bg-emerald-500 text-white', folder: 'UPS Northeast' },
+        // US Southeast workspaces
+        { name: 'UPS Florida', type: 'workspace', icon: 'UF', color: 'bg-orange-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS Georgia', type: 'workspace', icon: 'UG', color: 'bg-red-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS North Carolina', type: 'workspace', icon: 'UN', color: 'bg-blue-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS South Carolina', type: 'workspace', icon: 'US', color: 'bg-violet-500 text-white', folder: 'UPS Southeast' },
+        { name: 'UPS Virginia', type: 'workspace', icon: 'UV', color: 'bg-amber-500 text-white', folder: 'UPS Southeast' },
+        // US Southwest workspaces
+        { name: 'UPS Texas', type: 'workspace', icon: 'UT', color: 'bg-rose-500 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS Arizona', type: 'workspace', icon: 'UA', color: 'bg-yellow-600 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS New Mexico', type: 'workspace', icon: 'UN', color: 'bg-lime-500 text-white', folder: 'UPS Southwest' },
+        { name: 'UPS Oklahoma', type: 'workspace', icon: 'UO', color: 'bg-fuchsia-500 text-white', folder: 'UPS Southwest' },
+        // US Northwest workspaces
+        { name: 'UPS Washington', type: 'workspace', icon: 'UW', color: 'bg-sky-500 text-white', folder: 'UPS Northwest' },
+        { name: 'UPS Oregon', type: 'workspace', icon: 'UO', color: 'bg-green-600 text-white', folder: 'UPS Northwest' },
+        { name: 'UPS Idaho', type: 'workspace', icon: 'UI', color: 'bg-purple-500 text-white', folder: 'UPS Northwest' },
+        { name: 'UPS Montana', type: 'workspace', icon: 'UM', color: 'bg-slate-500 text-white', folder: 'UPS Northwest' },
+        // EU UK & Ireland workspaces
+        { name: 'UPS London', type: 'workspace', icon: 'UL', color: 'bg-red-600 text-white', folder: 'UPS UK & Ireland' },
+        { name: 'UPS Manchester', type: 'workspace', icon: 'UM', color: 'bg-blue-600 text-white', folder: 'UPS UK & Ireland' },
+        { name: 'UPS Dublin', type: 'workspace', icon: 'UD', color: 'bg-green-500 text-white', folder: 'UPS UK & Ireland' },
+        { name: 'UPS Edinburgh', type: 'workspace', icon: 'UE', color: 'bg-indigo-600 text-white', folder: 'UPS UK & Ireland' },
+        // EU DACH workspaces
+        { name: 'UPS Germany', type: 'workspace', icon: 'UG', color: 'bg-yellow-500 text-white', folder: 'UPS DACH' },
+        { name: 'UPS Austria', type: 'workspace', icon: 'UA', color: 'bg-red-500 text-white', folder: 'UPS DACH' },
+        { name: 'UPS Switzerland', type: 'workspace', icon: 'US', color: 'bg-rose-600 text-white', folder: 'UPS DACH' },
+        // EU Nordics workspaces
+        { name: 'UPS Sweden', type: 'workspace', icon: 'US', color: 'bg-blue-500 text-white', folder: 'UPS Nordics' },
+        { name: 'UPS Norway', type: 'workspace', icon: 'UN', color: 'bg-red-600 text-white', folder: 'UPS Nordics' },
+        { name: 'UPS Denmark', type: 'workspace', icon: 'UD', color: 'bg-rose-500 text-white', folder: 'UPS Nordics' },
+        { name: 'UPS Finland', type: 'workspace', icon: 'UF', color: 'bg-sky-600 text-white', folder: 'UPS Nordics' },
+        // EU Southern Europe workspaces
+        { name: 'UPS Spain', type: 'workspace', icon: 'US', color: 'bg-orange-600 text-white', folder: 'UPS Southern Europe' },
+        { name: 'UPS Italy', type: 'workspace', icon: 'UI', color: 'bg-green-600 text-white', folder: 'UPS Southern Europe' },
+        { name: 'UPS Portugal', type: 'workspace', icon: 'UP', color: 'bg-emerald-600 text-white', folder: 'UPS Southern Europe' }
       ],
       campaigns: [
-        { name: 'Holiday Shipping Promo', type: 'campaign', workspace: 'UPS Northeast' },
-        { name: 'Express Delivery Update', type: 'campaign', workspace: 'UPS Southwest' },
-        { name: 'New Location Announcement', type: 'campaign', workspace: 'UPS Midwest' },
-        { name: 'Summer Sale Blast', type: 'campaign', workspace: 'UPS Global' }
+        { name: 'Holiday Shipping Promo', type: 'campaign', workspace: 'UPS New York' },
+        { name: 'Express Delivery Update', type: 'campaign', workspace: 'UPS Texas' },
+        { name: 'New Location Announcement', type: 'campaign', workspace: 'UPS Florida' },
+        { name: 'Summer Sale Blast', type: 'campaign', workspace: 'UPS London' },
+        { name: 'Northeast Region Newsletter', type: 'campaign', workspace: 'UPS Northeast' },
+        { name: 'Q1 Promotional Campaign', type: 'campaign', workspace: 'UPS Germany' }
       ],
       lists: [
         { name: 'VIP Customers', type: 'list', count: '2.4k contacts' },
         { name: 'Newsletter Subscribers', type: 'list', count: '15.2k contacts' },
-        { name: 'Enterprise Clients', type: 'list', count: '892 contacts' }
+        { name: 'Enterprise Clients', type: 'list', count: '892 contacts' },
+        { name: 'Northeast Region Contacts', type: 'list', count: '12.4k contacts' }
       ],
       reports: [
-        { name: 'Q4 Performance Report', type: 'report', workspace: 'UPS Global' },
-        { name: 'Email Campaign Analysis', type: 'report', workspace: 'UPS Northeast' }
+        { name: 'Q4 Performance Report', type: 'report', workspace: 'UPS US' },
+        { name: 'Email Campaign Analysis', type: 'report', workspace: 'UPS Northeast' },
+        { name: 'Northeast Region Overview', type: 'report', workspace: 'UPS Northeast' }
       ]
     };
     
@@ -2905,13 +3301,14 @@
           html += `<p class="px-3 pt-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">Folders</p>
             <div class="space-y-0.5 mb-3">`;
           matchedFolders.forEach(f => {
+            const parentInfo = f.parent ? ` in ${f.parent}` : '';
             html += `<a href="workspaces-list.html?folder=${encodeURIComponent(f.name)}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors block">
               <div class="w-10 h-10 bg-warning-100 rounded-xl flex items-center justify-center">
-                <i data-lucide="folder" class="w-5 h-5 text-warning-600"></i>
+                <svg class="w-5 h-5 text-warning-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
               </div>
               <div class="text-left">
                 <p class="text-sm font-medium text-neutral-900">${f.name}</p>
-                <p class="text-xs text-neutral-400">Folder • ${f.count}</p>
+                <p class="text-xs text-neutral-400">Folder${parentInfo} • ${f.count}</p>
               </div>
             </a>`;
           });
@@ -2922,11 +3319,12 @@
           html += `<p class="px-3 pt-2 text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">Workspaces</p>
             <div class="space-y-0.5 mb-3">`;
           matchedWorkspaces.forEach(w => {
+            const folderInfo = w.folder ? ` • ${w.folder}` : '';
             html += `<a href="workspace-detail.html?workspace=${encodeURIComponent(w.name)}" class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-neutral-50 transition-colors block">
               <div class="w-10 h-10 ${w.color} rounded-xl flex items-center justify-center text-sm font-bold">${w.icon}</div>
               <div class="text-left">
                 <p class="text-sm font-medium text-neutral-900">${w.name}</p>
-                <p class="text-xs text-neutral-400">Workspace</p>
+                <p class="text-xs text-neutral-400">Workspace${folderInfo}</p>
               </div>
             </a>`;
           });
@@ -3269,19 +3667,23 @@
     }
     
     function renderFilledDashboard() {
-      // Email metrics
-      updateMetric('metric-sends', '1260', false);
-      updateMetric('metric-opens', '460', false);
-      updateMetric('metric-clicks', '432', false);
-      updateMetric('metric-bounces', '32', false);
+      // Get role-based scaling
+      const factor = roleDataFactors[userRole]?.multiplier || 1;
       
-      // Social metrics
-      updateMetric('metric-views', '1260', false);
-      updateMetric('metric-likes', '460', false);
+      // Email metrics - scaled by role
+      updateMetric('metric-sends', scaleMetricForRole('1260'), false);
+      updateMetric('metric-opens', scaleMetricForRole('460'), false);
+      updateMetric('metric-clicks', scaleMetricForRole('432'), false);
+      updateMetric('metric-bounces', scaleMetricForRole('32'), false);
       
-      // Contact & Templates
-      updateMetric('metric-contacts', '1,321', false);
-      updateMetric('metric-templates', '34', false);
+      // Social metrics - scaled by role
+      updateMetric('metric-views', scaleMetricForRole('1260'), false);
+      updateMetric('metric-likes', scaleMetricForRole('460'), false);
+      
+      // Contact & Templates - use role-specific values
+      const contactsValue = roleDataFactors[userRole]?.contacts || '124.5k';
+      updateMetric('metric-contacts', contactsValue, false);
+      updateMetric('metric-templates', Math.round(34 * factor).toString(), false);
       
       // Template donut - restore colored segments (blues)
       const donutSvg = document.getElementById('template-donut-svg');
@@ -3294,41 +3696,90 @@
       // Top workspaces - horizontal layout: label | rounded bar with hover %
       const topWs = document.getElementById('top-workspaces');
       if (topWs) {
-        topWs.innerHTML = `
-          <!-- Workspace 1 -->
-          <a href="workspace-detail.html?id=nj" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
-            <div class="flex items-center gap-2 w-28 flex-shrink-0">
-              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
-              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">NJ Location</span>
-            </div>
-            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
-              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 80%; background: var(--workspace-1)"></div>
-              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">80%</span>
-            </div>
-          </a>
-          <!-- Workspace 2 -->
-          <a href="workspace-detail.html?id=ny" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
-            <div class="flex items-center gap-2 w-28 flex-shrink-0">
-              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-2)"></div>
-              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">NY Location</span>
-            </div>
-            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
-              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 60%; background: var(--workspace-2)"></div>
-              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">60%</span>
-            </div>
-          </a>
-          <!-- Workspace 3 -->
-          <a href="workspace-detail.html?id=ct" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
-            <div class="flex items-center gap-2 w-28 flex-shrink-0">
-              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-3)"></div>
-              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">CT Location</span>
-            </div>
-            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
-              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 40%; background: var(--workspace-3)"></div>
-              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">40%</span>
-            </div>
-          </a>
-        `;
+        if (userRole === 'location' || userRole === 'workspace') {
+          // Location manager sees only their workspace
+          topWs.innerHTML = `
+            <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New York</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 75%; background: var(--workspace-1)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">75%</span>
+              </div>
+            </a>
+            <p class="text-xs text-neutral-400 mt-3">This is your assigned workspace.</p>
+          `;
+        } else if (userRole === 'regional') {
+          // Regional manager sees Northeast workspaces
+          topWs.innerHTML = `
+            <a href="workspace-detail.html?workspace=UPS%20New%20York" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New York</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 85%; background: var(--workspace-1)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">85%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?workspace=UPS%20Connecticut" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-2)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS Connecticut</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 72%; background: var(--workspace-2)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">72%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?workspace=UPS%20Massachusetts" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-3)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS Massachusetts</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 58%; background: var(--workspace-3)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">58%</span>
+              </div>
+            </a>
+          `;
+        } else {
+          // Global manager sees all top workspaces
+          topWs.innerHTML = `
+            <a href="workspace-detail.html?id=nj" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-1)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New Jersey</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 80%; background: var(--workspace-1)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">80%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?id=ny" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-2)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS New York</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 60%; background: var(--workspace-2)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">60%</span>
+              </div>
+            </a>
+            <a href="workspace-detail.html?id=ct" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+              <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: var(--workspace-3)"></div>
+                <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS Connecticut</span>
+              </div>
+              <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 40%; background: var(--workspace-3)"></div>
+                <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">40%</span>
+              </div>
+            </a>
+          `;
+        }
       }
       
       // Low performing workspaces - same horizontal layout with hover %
