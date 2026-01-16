@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Org Dashboard — CTCT for Teams</title>
+  
+  <!-- Motion for animations -->
+  <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            main: {
+              50: '#f6fcff', 100: '#e6f8ff', 200: '#d6eafe', 300: '#a6d3fd',
+              400: '#65abff', 500: '#468af1', 600: '#186ded', 700: '#085fe2',
+              800: '#1357be', 900: '#0046ae', 950: '#0b3c85'
+            },
+            neutral: {
+              50: '#fcfcfd', 100: '#f7f9fd', 200: '#f0f4fa', 300: '#dce2ec',
+              400: '#c9d0de', 500: '#8d9bb6', 600: '#6b7492', 700: '#63708a',
+              800: '#5d687e', 900: '#3f4b63', 950: '#313b4d'
+            },
+            success: {
+              500: '#47cd89', 600: '#17b26a', 700: '#079455'
+            },
+            danger: {
+              500: '#fe5a58', 600: '#f04438'
+            },
+            warning: {
+              500: '#ffb26b', 600: '#f79009'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          boxShadow: {
+            'soft': '0 2px 8px rgba(0, 0, 0, 0.04)',
+            'medium': '0 4px 16px rgba(0, 0, 0, 0.08)',
+            'strong': '0 8px 24px rgba(0, 0, 0, 0.12)',
+          }
+        }
+      }
+    }
+  </script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    /* Mobile-first sidebar drawer */
+    #sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    #sidebar.open {
+      transform: translateX(0);
+    }
+    
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Touch-friendly minimum sizes */
+    button, a[role="button"] {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    @media (max-width: 1023px) {
+      body.sidebar-open {
+        overflow: hidden;
+      }
+    }
+    
+    /* Card hover effects */
+    .widget-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .widget-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    }
+    
+    /* Loading skeleton animation */
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+    
+    .skeleton {
+      background: linear-gradient(90deg, #f0f4fa 0%, #e6f8ff 50%, #f0f4fa 100%);
+      background-size: 1000px 100%;
+      animation: shimmer 2s infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-neutral-50 min-h-screen">
+
+  <!-- ============================================
+       MOBILE NAVIGATION DRAWER (Material 3 Pattern)
+       ============================================ -->
+  
+  <!-- Scrim Overlay -->
+  <div 
+    id="sidebar-overlay" 
+    class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-sm"
+    onclick="toggleSidebar()"
+  ></div>
+  
+  <!-- Sidebar -->
+  <aside 
+    id="sidebar"
+    class="fixed top-0 left-0 bottom-0 w-72 max-w-[85vw] bg-white z-50 lg:translate-x-0 lg:static lg:w-64 shadow-strong lg:shadow-none border-r border-neutral-200"
+  >
+    <div class="flex flex-col h-full">
+      <!-- Logo -->
+      <div class="flex items-center justify-between p-4 lg:p-6 border-b border-neutral-200">
+        <img src="assets/ctctLogo.png" alt="Constant Contact" class="h-8">
+        <button 
+          onclick="toggleSidebar()" 
+          class="lg:hidden p-2 -mr-2 hover:bg-neutral-100 rounded-lg transition-colors"
+          aria-label="Close menu"
+        >
+          <i data-lucide="x" class="w-5 h-5 text-neutral-600"></i>
+        </button>
+      </div>
+      
+      <!-- Navigation -->
+      <nav class="flex-1 overflow-y-auto py-4 px-3">
+        <div class="space-y-1">
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-main-600 bg-main-50 rounded-xl font-medium text-sm">
+            <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-neutral-700 hover:bg-neutral-100 rounded-xl font-medium text-sm transition-colors">
+            <i data-lucide="folder" class="w-5 h-5"></i>
+            <span>Workspaces</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-neutral-700 hover:bg-neutral-100 rounded-xl font-medium text-sm transition-colors">
+            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+            <span>Reports</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-neutral-700 hover:bg-neutral-100 rounded-xl font-medium text-sm transition-colors">
+            <i data-lucide="users" class="w-5 h-5"></i>
+            <span>Team</span>
+          </a>
+          <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-neutral-700 hover:bg-neutral-100 rounded-xl font-medium text-sm transition-colors">
+            <i data-lucide="settings" class="w-5 h-5"></i>
+            <span>Settings</span>
+          </a>
+        </div>
+      </nav>
+      
+      <!-- User Profile -->
+      <div class="p-4 border-t border-neutral-200">
+        <button class="flex items-center gap-3 w-full p-2 hover:bg-neutral-100 rounded-xl transition-colors">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-main-500 to-accent-500 flex items-center justify-center text-white font-semibold text-sm">
+            JD
+          </div>
+          <div class="flex-1 text-left">
+            <div class="text-sm font-semibold text-neutral-900">John Doe</div>
+            <div class="text-xs text-neutral-500">Admin</div>
+          </div>
+          <i data-lucide="chevron-right" class="w-4 h-4 text-neutral-400"></i>
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ============================================
+       MAIN CONTENT
+       ============================================ -->
+  
+  <div class="lg:ml-64 min-h-screen flex flex-col">
+    
+    <!-- Top Bar -->
+    <header class="sticky top-0 z-30 bg-white/80 backdrop-blur-lg border-b border-neutral-200">
+      <div class="flex items-center justify-between h-14 sm:h-16 px-4 sm:px-6">
+        
+        <!-- Left: Menu Button (Mobile) -->
+        <div class="flex items-center gap-3">
+          <button 
+            onclick="toggleSidebar()" 
+            class="lg:hidden p-2 -ml-2 hover:bg-neutral-100 rounded-lg transition-colors"
+            aria-label="Open menu"
+          >
+            <i data-lucide="menu" class="w-6 h-6 text-neutral-700"></i>
+          </button>
+          
+          <!-- Page Title (Desktop) -->
+          <h1 class="hidden sm:block text-xl font-bold text-neutral-900">Org Dashboard</h1>
+        </div>
+        
+        <!-- Right: Actions -->
+        <div class="flex items-center gap-2">
+          <!-- Search (Mobile: Icon, Desktop: Bar) -->
+          <button class="sm:hidden p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+            <i data-lucide="search" class="w-5 h-5 text-neutral-600"></i>
+          </button>
+          
+          <div class="hidden sm:flex relative">
+            <input 
+              type="text" 
+              placeholder="Search..." 
+              class="w-48 lg:w-64 pl-9 pr-3 py-2 text-sm border border-neutral-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-main-500 focus:border-transparent transition-all"
+            >
+            <i data-lucide="search" class="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          </div>
+          
+          <!-- Notifications -->
+          <button class="relative p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+            <i data-lucide="bell" class="w-5 h-5 text-neutral-600"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-danger-500 rounded-full"></span>
+          </button>
+          
+          <!-- Add Widget Button -->
+          <button 
+            onclick="openAddWidgetModal()" 
+            class="hidden md:flex items-center gap-2 px-4 py-2 bg-main-600 hover:bg-main-700 text-white rounded-xl font-medium text-sm transition-colors shadow-soft"
+          >
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            <span>Add Widget</span>
+          </button>
+          
+          <!-- Mobile: Add Widget Icon -->
+          <button onclick="openAddWidgetModal()" class="md:hidden p-2 bg-main-600 hover:bg-main-700 text-white rounded-lg transition-colors">
+            <i data-lucide="plus" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile: Page Title -->
+      <div class="sm:hidden px-4 pb-3">
+        <h1 class="text-xl font-bold text-neutral-900">Org Dashboard</h1>
+        <p class="text-sm text-neutral-500 mt-0.5">Stats for this month</p>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-4 sm:p-6 lg:p-8">
+      
+      <!-- Empty State -->
+      <div id="empty-state" class="max-w-2xl mx-auto text-center py-12 sm:py-16">
+        <div class="inline-flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 bg-neutral-100 rounded-3xl mb-6">
+          <i data-lucide="layout-dashboard" class="w-10 h-10 sm:w-12 sm:h-12 text-neutral-400"></i>
+        </div>
+        
+        <h2 class="text-2xl sm:text-3xl font-bold text-neutral-900 mb-3">Build your dashboard</h2>
+        <p class="text-base sm:text-lg text-neutral-600 mb-8 max-w-md mx-auto">
+          Add widgets to track your team's performance, monitor campaigns, and stay on top of your goals.
+        </p>
+        
+        <button 
+          onclick="openAddWidgetModal()" 
+          class="inline-flex items-center gap-2 px-6 py-3 bg-main-600 hover:bg-main-700 text-white rounded-xl font-semibold text-base transition-all shadow-medium hover:shadow-strong"
+        >
+          <i data-lucide="plus" class="w-5 h-5"></i>
+          <span>Add Your First Widget</span>
+        </button>
+        
+        <!-- Suggested Widgets -->
+        <div class="mt-12 text-left">
+          <h3 class="text-sm font-semibold text-neutral-700 mb-4">POPULAR WIDGETS</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <button 
+              onclick="addWidget('campaign-performance')"
+              class="flex items-center gap-4 p-4 bg-white border border-neutral-200 hover:border-main-300 hover:bg-main-50/50 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="flex-shrink-0 w-12 h-12 bg-main-100 rounded-xl flex items-center justify-center">
+                <i data-lucide="bar-chart-2" class="w-6 h-6 text-main-600"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-neutral-900 mb-0.5">Campaign Performance</div>
+                <div class="text-sm text-neutral-500">Track email metrics</div>
+              </div>
+              <i data-lucide="plus-circle" class="w-5 h-5 text-main-600 flex-shrink-0"></i>
+            </button>
+            
+            <button 
+              onclick="addWidget('team-activity')"
+              class="flex items-center gap-4 p-4 bg-white border border-neutral-200 hover:border-main-300 hover:bg-main-50/50 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="flex-shrink-0 w-12 h-12 bg-success-100 rounded-xl flex items-center justify-center">
+                <i data-lucide="users" class="w-6 h-6 text-success-600"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-neutral-900 mb-0.5">Team Activity</div>
+                <div class="text-sm text-neutral-500">See who's active</div>
+              </div>
+              <i data-lucide="plus-circle" class="w-5 h-5 text-main-600 flex-shrink-0"></i>
+            </button>
+            
+            <button 
+              onclick="addWidget('recent-campaigns')"
+              class="flex items-center gap-4 p-4 bg-white border border-neutral-200 hover:border-main-300 hover:bg-main-50/50 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="flex-shrink-0 w-12 h-12 bg-warning-100 rounded-xl flex items-center justify-center">
+                <i data-lucide="mail" class="w-6 h-6 text-warning-600"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-neutral-900 mb-0.5">Recent Campaigns</div>
+                <div class="text-sm text-neutral-500">Latest sends</div>
+              </div>
+              <i data-lucide="plus-circle" class="w-5 h-5 text-main-600 flex-shrink-0"></i>
+            </button>
+            
+            <button 
+              onclick="addWidget('folder-stats')"
+              class="flex items-center gap-4 p-4 bg-white border border-neutral-200 hover:border-main-300 hover:bg-main-50/50 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="flex-shrink-0 w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center">
+                <i data-lucide="folder" class="w-6 h-6 text-accent-600"></i>
+              </div>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-neutral-900 mb-0.5">Folder Stats</div>
+                <div class="text-sm text-neutral-500">Workspace metrics</div>
+              </div>
+              <i data-lucide="plus-circle" class="w-5 h-5 text-main-600 flex-shrink-0"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Widgets Grid (Hidden Initially) -->
+      <div id="widgets-grid" class="hidden space-y-6">
+        <!-- Widgets will be added here dynamically -->
+      </div>
+      
+    </main>
+  </div>
+
+  <!-- ============================================
+       ADD WIDGET MODAL (Airbnb Pattern)
+       ============================================ -->
+  
+  <div 
+    id="add-widget-modal" 
+    class="fixed inset-0 z-50 hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    <!-- Backdrop -->
+    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeAddWidgetModal()"></div>
+    
+    <!-- Modal -->
+    <div class="absolute inset-0 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div class="relative w-full sm:max-w-2xl bg-white rounded-t-3xl sm:rounded-3xl shadow-strong max-h-[90vh] flex flex-col">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between p-4 sm:p-6 border-b border-neutral-200">
+          <h2 id="modal-title" class="text-xl sm:text-2xl font-bold text-neutral-900">Add Widget</h2>
+          <button 
+            onclick="closeAddWidgetModal()" 
+            class="p-2 hover:bg-neutral-100 rounded-xl transition-colors"
+            aria-label="Close"
+          >
+            <i data-lucide="x" class="w-5 h-5 text-neutral-600"></i>
+          </button>
+        </div>
+        
+        <!-- Content -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-6">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Widget Option -->
+            <button 
+              onclick="addWidget('campaign-performance'); closeAddWidgetModal();"
+              class="flex flex-col p-5 bg-white border-2 border-neutral-200 hover:border-main-500 hover:bg-main-50/30 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="w-14 h-14 bg-main-100 rounded-2xl flex items-center justify-center mb-4">
+                <i data-lucide="bar-chart-2" class="w-7 h-7 text-main-600"></i>
+              </div>
+              <h3 class="font-bold text-neutral-900 mb-2">Campaign Performance</h3>
+              <p class="text-sm text-neutral-600">Track opens, clicks, and conversions for your email campaigns</p>
+            </button>
+            
+            <button 
+              onclick="addWidget('team-activity'); closeAddWidgetModal();"
+              class="flex flex-col p-5 bg-white border-2 border-neutral-200 hover:border-success-500 hover:bg-success-50/30 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="w-14 h-14 bg-success-100 rounded-2xl flex items-center justify-center mb-4">
+                <i data-lucide="users" class="w-7 h-7 text-success-600"></i>
+              </div>
+              <h3 class="font-bold text-neutral-900 mb-2">Team Activity</h3>
+              <p class="text-sm text-neutral-600">See what your team members are working on right now</p>
+            </button>
+            
+            <button 
+              onclick="addWidget('recent-campaigns'); closeAddWidgetModal();"
+              class="flex flex-col p-5 bg-white border-2 border-neutral-200 hover:border-warning-500 hover:bg-warning-50/30 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="w-14 h-14 bg-warning-100 rounded-2xl flex items-center justify-center mb-4">
+                <i data-lucide="mail" class="w-7 h-7 text-warning-600"></i>
+              </div>
+              <h3 class="font-bold text-neutral-900 mb-2">Recent Campaigns</h3>
+              <p class="text-sm text-neutral-600">Quick access to your most recent email sends</p>
+            </button>
+            
+            <button 
+              onclick="addWidget('folder-stats'); closeAddWidgetModal();"
+              class="flex flex-col p-5 bg-white border-2 border-neutral-200 hover:border-accent-500 hover:bg-accent-50/30 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="w-14 h-14 bg-accent-100 rounded-2xl flex items-center justify-center mb-4">
+                <i data-lucide="folder" class="w-7 h-7 text-accent-600"></i>
+              </div>
+              <h3 class="font-bold text-neutral-900 mb-2">Folder Stats</h3>
+              <p class="text-sm text-neutral-600">View metrics for specific workspaces and folders</p>
+            </button>
+            
+            <button 
+              onclick="addWidget('quick-actions'); closeAddWidgetModal();"
+              class="flex flex-col p-5 bg-white border-2 border-neutral-200 hover:border-danger-500 hover:bg-danger-50/30 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="w-14 h-14 bg-danger-100 rounded-2xl flex items-center justify-center mb-4">
+                <i data-lucide="zap" class="w-7 h-7 text-danger-600"></i>
+              </div>
+              <h3 class="font-bold text-neutral-900 mb-2">Quick Actions</h3>
+              <p class="text-sm text-neutral-600">Shortcuts to your most common tasks</p>
+            </button>
+            
+            <button 
+              onclick="addWidget('goals'); closeAddWidgetModal();"
+              class="flex flex-col p-5 bg-white border-2 border-neutral-200 hover:border-main-500 hover:bg-main-50/30 rounded-2xl text-left transition-all shadow-soft hover:shadow-medium"
+            >
+              <div class="w-14 h-14 bg-main-100 rounded-2xl flex items-center justify-center mb-4">
+                <i data-lucide="target" class="w-7 h-7 text-main-600"></i>
+              </div>
+              <h3 class="font-bold text-neutral-900 mb-2">Goals & Targets</h3>
+              <p class="text-sm text-neutral-600">Track progress towards your team goals</p>
+            </button>
+            
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+    
+    // Sidebar toggle (Material 3 pattern)
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      const body = document.body;
+      
+      const isOpen = sidebar.classList.contains('open');
+      
+      if (isOpen) {
+        sidebar.classList.remove('open');
+        overlay.classList.add('hidden');
+        body.classList.remove('sidebar-open');
+      } else {
+        sidebar.classList.add('open');
+        overlay.classList.remove('hidden');
+        body.classList.add('sidebar-open');
+        
+        // Animate sidebar with Motion
+        if (window.Motion) {
+          Motion.animate(sidebar, { x: ['-100%', '0%'] }, { duration: 0.3, easing: 'ease-out' });
+        }
+      }
+    }
+    
+    // Modal toggle
+    function openAddWidgetModal() {
+      const modal = document.getElementById('add-widget-modal');
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      
+      // Animate modal with Motion
+      if (window.Motion) {
+        const modalContent = modal.querySelector('.relative');
+        Motion.animate(
+          modalContent,
+          { opacity: [0, 1], y: [20, 0] },
+          { duration: 0.3, easing: 'ease-out' }
+        );
+      }
+    }
+    
+    function closeAddWidgetModal() {
+      const modal = document.getElementById('add-widget-modal');
+      const modalContent = modal.querySelector('.relative');
+      
+      if (window.Motion) {
+        Motion.animate(
+          modalContent,
+          { opacity: [1, 0], y: [0, 20] },
+          { duration: 0.2, easing: 'ease-in' }
+        ).finished.then(() => {
+          modal.classList.add('hidden');
+          document.body.style.overflow = '';
+        });
+      } else {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+    
+    // Add widget functionality
+    function addWidget(widgetType) {
+      const emptyState = document.getElementById('empty-state');
+      const widgetsGrid = document.getElementById('widgets-grid');
+      
+      // Hide empty state, show grid
+      if (emptyState.style.display !== 'none') {
+        if (window.Motion) {
+          Motion.animate(
+            emptyState,
+            { opacity: [1, 0], scale: [1, 0.95] },
+            { duration: 0.3, easing: 'ease-in' }
+          ).finished.then(() => {
+            emptyState.style.display = 'none';
+            widgetsGrid.classList.remove('hidden');
+            Motion.animate(
+              widgetsGrid,
+              { opacity: [0, 1] },
+              { duration: 0.3, easing: 'ease-out' }
+            );
+          });
+        } else {
+          emptyState.style.display = 'none';
+          widgetsGrid.classList.remove('hidden');
+        }
+      }
+      
+      // Create widget based on type
+      const widget = createWidgetElement(widgetType);
+      widgetsGrid.appendChild(widget);
+      
+      // Animate widget entrance
+      if (window.Motion) {
+        Motion.animate(
+          widget,
+          { opacity: [0, 1], y: [20, 0] },
+          { duration: 0.4, easing: [0.4, 0, 0.2, 1] }
+        );
+      }
+      
+      // Reinitialize icons
+      lucide.createIcons();
+    }
+    
+    function createWidgetElement(type) {
+      const div = document.createElement('div');
+      div.className = 'widget-card bg-white rounded-2xl shadow-soft border border-neutral-200 overflow-hidden';
+      
+      const widgets = {
+        'campaign-performance': `
+          <div class="p-5 sm:p-6">
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <h3 class="text-lg font-bold text-neutral-900 mb-1">Campaign Performance</h3>
+                <p class="text-sm text-neutral-500">Last 30 days</p>
+              </div>
+              <button onclick="this.closest('.widget-card').remove()" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-4 h-4 text-neutral-400"></i>
+              </button>
+            </div>
+            
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div>
+                <div class="text-2xl font-bold text-neutral-900">12.5K</div>
+                <div class="text-xs text-neutral-500 mt-1">Total Sends</div>
+                <div class="flex items-center gap-1 mt-2">
+                  <i data-lucide="trending-up" class="w-3 h-3 text-success-600"></i>
+                  <span class="text-xs text-success-600 font-medium">+12%</span>
+                </div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-neutral-900">24.3%</div>
+                <div class="text-xs text-neutral-500 mt-1">Open Rate</div>
+                <div class="flex items-center gap-1 mt-2">
+                  <i data-lucide="trending-up" class="w-3 h-3 text-success-600"></i>
+                  <span class="text-xs text-success-600 font-medium">+3%</span>
+                </div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-neutral-900">3.8%</div>
+                <div class="text-xs text-neutral-500 mt-1">Click Rate</div>
+                <div class="flex items-center gap-1 mt-2">
+                  <i data-lucide="trending-down" class="w-3 h-3 text-danger-600"></i>
+                  <span class="text-xs text-danger-600 font-medium">-1%</span>
+                </div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-neutral-900">0.4%</div>
+                <div class="text-xs text-neutral-500 mt-1">Bounce Rate</div>
+                <div class="flex items-center gap-1 mt-2">
+                  <i data-lucide="minus" class="w-3 h-3 text-neutral-400"></i>
+                  <span class="text-xs text-neutral-500 font-medium">0%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        'team-activity': `
+          <div class="p-5 sm:p-6">
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <h3 class="text-lg font-bold text-neutral-900 mb-1">Team Activity</h3>
+                <p class="text-sm text-neutral-500">Active now</p>
+              </div>
+              <button onclick="this.closest('.widget-card').remove()" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-4 h-4 text-neutral-400"></i>
+              </button>
+            </div>
+            
+            <div class="space-y-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-main-500 to-main-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                  AM
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-neutral-900">Alice Murphy</div>
+                  <div class="text-sm text-neutral-500">Editing "Spring Sale Campaign"</div>
+                </div>
+                <span class="flex-shrink-0 w-2 h-2 bg-success-500 rounded-full"></span>
+              </div>
+              
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-success-500 to-success-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                  BJ
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-neutral-900">Bob Johnson</div>
+                  <div class="text-sm text-neutral-500">Reviewing reports</div>
+                </div>
+                <span class="flex-shrink-0 w-2 h-2 bg-success-500 rounded-full"></span>
+              </div>
+              
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent-500 to-accent-600 flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
+                  CD
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-neutral-900">Carol Davis</div>
+                  <div class="text-sm text-neutral-500">Creating new workspace</div>
+                </div>
+                <span class="flex-shrink-0 w-2 h-2 bg-success-500 rounded-full"></span>
+              </div>
+            </div>
+          </div>
+        `,
+        'recent-campaigns': `
+          <div class="p-5 sm:p-6">
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <h3 class="text-lg font-bold text-neutral-900 mb-1">Recent Campaigns</h3>
+                <p class="text-sm text-neutral-500">Last 7 days</p>
+              </div>
+              <button onclick="this.closest('.widget-card').remove()" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-4 h-4 text-neutral-400"></i>
+              </button>
+            </div>
+            
+            <div class="space-y-3">
+              <div class="flex items-center gap-3 p-3 hover:bg-neutral-50 rounded-xl transition-colors cursor-pointer">
+                <div class="w-10 h-10 bg-main-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5 text-main-600"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-neutral-900 truncate">Spring Sale 2026</div>
+                  <div class="text-sm text-neutral-500">Sent 2 hours ago • 3.2K recipients</div>
+                </div>
+                <div class="flex-shrink-0 text-right">
+                  <div class="text-sm font-semibold text-success-600">28.4%</div>
+                  <div class="text-xs text-neutral-400">Open rate</div>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-3 p-3 hover:bg-neutral-50 rounded-xl transition-colors cursor-pointer">
+                <div class="w-10 h-10 bg-warning-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5 text-warning-600"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-neutral-900 truncate">Monthly Newsletter</div>
+                  <div class="text-sm text-neutral-500">Sent yesterday • 8.5K recipients</div>
+                </div>
+                <div class="flex-shrink-0 text-right">
+                  <div class="text-sm font-semibold text-success-600">24.1%</div>
+                  <div class="text-xs text-neutral-400">Open rate</div>
+                </div>
+              </div>
+              
+              <div class="flex items-center gap-3 p-3 hover:bg-neutral-50 rounded-xl transition-colors cursor-pointer">
+                <div class="w-10 h-10 bg-success-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="mail" class="w-5 h-5 text-success-600"></i>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="font-medium text-neutral-900 truncate">Product Announcement</div>
+                  <div class="text-sm text-neutral-500">Sent 3 days ago • 12K recipients</div>
+                </div>
+                <div class="flex-shrink-0 text-right">
+                  <div class="text-sm font-semibold text-success-600">31.8%</div>
+                  <div class="text-xs text-neutral-400">Open rate</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        'folder-stats': `
+          <div class="p-5 sm:p-6">
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <h3 class="text-lg font-bold text-neutral-900 mb-1">Folder Stats</h3>
+                <p class="text-sm text-neutral-500">Top workspaces</p>
+              </div>
+              <button onclick="this.closest('.widget-card').remove()" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-4 h-4 text-neutral-400"></i>
+              </button>
+            </div>
+            
+            <div class="space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-neutral-900">Marketing Campaigns</span>
+                  <span class="text-sm font-semibold text-neutral-700">64 items</span>
+                </div>
+                <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-main-500 rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-neutral-900">Sales Outreach</span>
+                  <span class="text-sm font-semibold text-neutral-700">42 items</span>
+                </div>
+                <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-success-500 rounded-full" style="width: 65%"></div>
+                </div>
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-neutral-900">Customer Success</span>
+                  <span class="text-sm font-semibold text-neutral-700">28 items</span>
+                </div>
+                <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-warning-500 rounded-full" style="width: 45%"></div>
+                </div>
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-sm font-medium text-neutral-900">Product Updates</span>
+                  <span class="text-sm font-semibold text-neutral-700">19 items</span>
+                </div>
+                <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-accent-500 rounded-full" style="width: 30%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `,
+        'quick-actions': `
+          <div class="p-5 sm:p-6">
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <h3 class="text-lg font-bold text-neutral-900 mb-1">Quick Actions</h3>
+                <p class="text-sm text-neutral-500">Common tasks</p>
+              </div>
+              <button onclick="this.closest('.widget-card').remove()" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-4 h-4 text-neutral-400"></i>
+              </button>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-3">
+              <button class="flex flex-col items-center gap-2 p-4 bg-main-50 hover:bg-main-100 rounded-xl transition-colors">
+                <i data-lucide="plus-circle" class="w-6 h-6 text-main-600"></i>
+                <span class="text-sm font-medium text-main-900">New Campaign</span>
+              </button>
+              
+              <button class="flex flex-col items-center gap-2 p-4 bg-success-50 hover:bg-success-100 rounded-xl transition-colors">
+                <i data-lucide="folder-plus" class="w-6 h-6 text-success-600"></i>
+                <span class="text-sm font-medium text-success-900">New Workspace</span>
+              </button>
+              
+              <button class="flex flex-col items-center gap-2 p-4 bg-warning-50 hover:bg-warning-100 rounded-xl transition-colors">
+                <i data-lucide="bar-chart" class="w-6 h-6 text-warning-600"></i>
+                <span class="text-sm font-medium text-warning-900">View Reports</span>
+              </button>
+              
+              <button class="flex flex-col items-center gap-2 p-4 bg-accent-50 hover:bg-accent-100 rounded-xl transition-colors">
+                <i data-lucide="user-plus" class="w-6 h-6 text-accent-600"></i>
+                <span class="text-sm font-medium text-accent-900">Invite Team</span>
+              </button>
+            </div>
+          </div>
+        `,
+        'goals': `
+          <div class="p-5 sm:p-6">
+            <div class="flex items-start justify-between mb-6">
+              <div>
+                <h3 class="text-lg font-bold text-neutral-900 mb-1">Goals & Targets</h3>
+                <p class="text-sm text-neutral-500">This quarter</p>
+              </div>
+              <button onclick="this.closest('.widget-card').remove()" class="p-2 hover:bg-neutral-100 rounded-lg transition-colors">
+                <i data-lucide="x" class="w-4 h-4 text-neutral-400"></i>
+              </button>
+            </div>
+            
+            <div class="space-y-5">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="target" class="w-4 h-4 text-main-600"></i>
+                    <span class="text-sm font-medium text-neutral-900">Email Sends</span>
+                  </div>
+                  <span class="text-sm font-semibold text-neutral-700">72% of 50K</span>
+                </div>
+                <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-main-500 to-main-600 rounded-full" style="width: 72%"></div>
+                </div>
+                <div class="text-xs text-neutral-500 mt-2">36K / 50K completed</div>
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="users" class="w-4 h-4 text-success-600"></i>
+                    <span class="text-sm font-medium text-neutral-900">New Subscribers</span>
+                  </div>
+                  <span class="text-sm font-semibold text-neutral-700">58% of 10K</span>
+                </div>
+                <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-success-500 to-success-600 rounded-full" style="width: 58%"></div>
+                </div>
+                <div class="text-xs text-neutral-500 mt-2">5.8K / 10K completed</div>
+              </div>
+              
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <i data-lucide="trending-up" class="w-4 h-4 text-warning-600"></i>
+                    <span class="text-sm font-medium text-neutral-900">Engagement Rate</span>
+                  </div>
+                  <span class="text-sm font-semibold text-neutral-700">91% of 25%</span>
+                </div>
+                <div class="h-2 bg-neutral-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-warning-500 to-warning-600 rounded-full" style="width: 91%"></div>
+                </div>
+                <div class="text-xs text-neutral-500 mt-2">22.8% / 25% completed</div>
+              </div>
+            </div>
+          </div>
+        `
+      };
+      
+      div.innerHTML = widgets[type] || widgets['campaign-performance'];
+      return div;
+    }
+    
+    // Close modal on ESC key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('add-widget-modal');
+        if (!modal.classList.contains('hidden')) {
+          closeAddWidgetModal();
+        }
+        
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar.classList.contains('open')) {
+          toggleSidebar();
+        }
+      }
+    });
+    
+    // Close sidebar on window resize to desktop
+    window.addEventListener('resize', function() {
+      if (window.innerWidth >= 1024) {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        const body = document.body;
+        
+        sidebar.classList.remove('open');
+        overlay.classList.add('hidden');
+        body.classList.remove('sidebar-open');
+      }
+    });
+  </script>
+
+</body>
+</html>
+

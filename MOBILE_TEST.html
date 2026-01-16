@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mobile Responsive Test - CTCT Teams</title>
+  <link rel="stylesheet" href="mobile-responsive.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #0f0f1a 0%, #131825 50%, #0a0e17 100%);
+      background-attachment: fixed;
+    }
+    .test-box {
+      border: 2px dashed #4ade80;
+      background: rgba(74, 222, 128, 0.1);
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans text-white p-4">
+  
+  <div class="max-w-6xl mx-auto">
+    
+    <!-- Header -->
+    <header class="mb-8">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4">
+        Mobile Responsive Test
+      </h1>
+      <p class="text-sm sm:text-base md:text-lg text-gray-400">
+        Resize your browser window to see responsive behavior
+      </p>
+    </header>
+
+    <!-- Viewport Indicator -->
+    <div class="test-box p-4 rounded-lg mb-8">
+      <h2 class="text-xl font-semibold mb-2">Current Viewport</h2>
+      <div class="flex flex-col gap-2 text-sm">
+        <div class="block sm:hidden text-green-400">📱 Mobile (&lt; 640px)</div>
+        <div class="hidden sm:block md:hidden text-blue-400">📱 Tablet (640px - 768px)</div>
+        <div class="hidden md:block lg:hidden text-purple-400">💻 Desktop (768px - 1024px)</div>
+        <div class="hidden lg:block text-pink-400">🖥️ Large Desktop (&gt; 1024px)</div>
+      </div>
+    </div>
+
+    <!-- Typography Test -->
+    <section class="mb-8 bg-zinc-900/50 p-6 rounded-xl">
+      <h2 class="text-2xl font-bold mb-4">Typography Scaling</h2>
+      <h1 class="mb-2">H1 - Scales: 2rem → 2.5rem → 3rem</h1>
+      <h2 class="mb-2">H2 - Scales: 1.5rem → 2rem → 2.25rem</h2>
+      <h3 class="mb-2">H3 - Scales: 1.25rem → 1.5rem → 1.75rem</h3>
+      <p class="text-gray-400">Body text remains readable at all sizes</p>
+    </section>
+
+    <!-- Grid Test -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">Grid Layout Test</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-blue-900/30 p-6 rounded-xl border border-blue-700/50">
+          <h3 class="font-semibold mb-2">Card 1</h3>
+          <p class="text-sm text-gray-400">Stacks on mobile, 2 cols on tablet, 3 cols on desktop</p>
+        </div>
+        <div class="bg-purple-900/30 p-6 rounded-xl border border-purple-700/50">
+          <h3 class="font-semibold mb-2">Card 2</h3>
+          <p class="text-sm text-gray-400">Responsive grid layout</p>
+        </div>
+        <div class="bg-green-900/30 p-6 rounded-xl border border-green-700/50">
+          <h3 class="font-semibold mb-2">Card 3</h3>
+          <p class="text-sm text-gray-400">Mobile-first approach</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Button Test -->
+    <section class="mb-8 bg-zinc-900/50 p-6 rounded-xl">
+      <h2 class="text-2xl font-bold mb-4">Touch Targets</h2>
+      <div class="flex flex-wrap gap-4">
+        <button class="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-medium transition-colors">
+          Primary Button (48px min on mobile)
+        </button>
+        <button class="px-6 py-3 bg-gray-700 hover:bg-gray-600 rounded-lg font-medium transition-colors">
+          Secondary Button
+        </button>
+        <button class="px-6 py-3 border border-gray-600 hover:bg-gray-800 rounded-lg font-medium transition-colors">
+          Outline Button
+        </button>
+      </div>
+      <p class="text-sm text-gray-400 mt-4">All buttons meet minimum 44px touch target (48px on mobile)</p>
+    </section>
+
+    <!-- Table Test -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">Responsive Table</h2>
+      <div class="bg-zinc-900/50 rounded-xl overflow-hidden">
+        <table class="w-full">
+          <thead class="bg-zinc-800">
+            <tr>
+              <th class="text-left p-4">Name</th>
+              <th class="text-left p-4">Status</th>
+              <th class="text-left p-4">Date</th>
+              <th class="text-left p-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-zinc-800">
+              <td data-label="Name" class="p-4">Campaign 1</td>
+              <td data-label="Status" class="p-4"><span class="px-2 py-1 bg-green-900/30 text-green-400 rounded text-xs">Active</span></td>
+              <td data-label="Date" class="p-4">Jan 15, 2026</td>
+              <td data-label="Actions" class="p-4">
+                <button class="text-blue-400 hover:text-blue-300 text-sm">Edit</button>
+              </td>
+            </tr>
+            <tr class="border-t border-zinc-800">
+              <td data-label="Name" class="p-4">Campaign 2</td>
+              <td data-label="Status" class="p-4"><span class="px-2 py-1 bg-yellow-900/30 text-yellow-400 rounded text-xs">Draft</span></td>
+              <td data-label="Date" class="p-4">Jan 14, 2026</td>
+              <td data-label="Actions" class="p-4">
+                <button class="text-blue-400 hover:text-blue-300 text-sm">Edit</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="text-sm text-gray-400 mt-4">Table converts to stacked cards on mobile (&lt; 768px)</p>
+    </section>
+
+    <!-- Image Test -->
+    <section class="mb-8 bg-zinc-900/50 p-6 rounded-xl">
+      <h2 class="text-2xl font-bold mb-4">Responsive Images</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-zinc-800 rounded-lg p-4">
+          <div class="bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg aspect-video mb-2"></div>
+          <p class="text-sm text-gray-400">Images scale to container width</p>
+        </div>
+        <div class="bg-zinc-800 rounded-lg p-4">
+          <div class="bg-gradient-to-br from-green-500 to-teal-600 rounded-lg aspect-video mb-2"></div>
+          <p class="text-sm text-gray-400">Maintains aspect ratio</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <section class="mb-8">
+      <h2 class="text-2xl font-bold mb-4">Test Your Pages</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <a href="index.html" class="block p-4 bg-zinc-900/50 hover:bg-zinc-800/50 rounded-lg border border-zinc-700 transition-colors">
+          <h3 class="font-semibold mb-1">Dashboard</h3>
+          <p class="text-sm text-gray-400">Main prototype hub</p>
+        </a>
+        <a href="product-overview-slides.html" class="block p-4 bg-zinc-900/50 hover:bg-zinc-800/50 rounded-lg border border-zinc-700 transition-colors">
+          <h3 class="font-semibold mb-1">Presentation</h3>
+          <p class="text-sm text-gray-400">Product overview slides</p>
+        </a>
+        <a href="workspaces-list.html" class="block p-4 bg-zinc-900/50 hover:bg-zinc-800/50 rounded-lg border border-zinc-700 transition-colors">
+          <h3 class="font-semibold mb-1">Workspaces</h3>
+          <p class="text-sm text-gray-400">Application page</p>
+        </a>
+        <a href="campaigns-list.html" class="block p-4 bg-zinc-900/50 hover:bg-zinc-800/50 rounded-lg border border-zinc-700 transition-colors">
+          <h3 class="font-semibold mb-1">Campaigns</h3>
+          <p class="text-sm text-gray-400">Campaign list view</p>
+        </a>
+        <a href="research-dashboard.html" class="block p-4 bg-zinc-900/50 hover:bg-zinc-800/50 rounded-lg border border-zinc-700 transition-colors">
+          <h3 class="font-semibold mb-1">Research</h3>
+          <p class="text-sm text-gray-400">Research dashboard</p>
+        </a>
+        <a href="terminology-presentation.html" class="block p-4 bg-zinc-900/50 hover:bg-zinc-800/50 rounded-lg border border-zinc-700 transition-colors">
+          <h3 class="font-semibold mb-1">Terminology</h3>
+          <p class="text-sm text-gray-400">Terminology slides</p>
+        </a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="text-center py-8 text-gray-500 text-sm">
+      <p>✅ All 42 HTML files updated with mobile-responsive.css</p>
+      <p class="mt-2">Mobile-first responsive design implemented</p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
+

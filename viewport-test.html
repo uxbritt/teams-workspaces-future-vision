@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewport Width Test</title>
+  <link rel="stylesheet" href="mobile-responsive.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .viewport-indicator {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 600px;
+      width: 100%;
+    }
+    .size-box {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #1e293b;
+      margin: 1rem 0;
+    }
+    .status {
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      margin: 0.5rem 0;
+    }
+    .mobile { background: #10b981; color: white; }
+    .tablet { background: #3b82f6; color: white; }
+    .desktop { background: #8b5cf6; color: white; }
+  </style>
+</head>
+<body>
+  <div class="viewport-indicator">
+    <h1 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 1rem; color: #1e293b;">
+      📱 Viewport Width Test
+    </h1>
+    
+    <div class="size-box" id="width-display">
+      Loading...
+    </div>
+    
+    <div id="breakpoint-status">
+      <!-- Status will be inserted here -->
+    </div>
+    
+    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #e5e7eb;">
+      <h2 style="font-weight: 600; margin-bottom: 0.5rem; color: #1e293b;">Breakpoints:</h2>
+      <ul style="list-style: none; padding: 0; color: #64748b; font-size: 0.875rem;">
+        <li>📱 Mobile: &lt; 768px</li>
+        <li>📱 Tablet: 768px - 1023px</li>
+        <li>💻 Desktop: ≥ 1024px</li>
+      </ul>
+    </div>
+    
+    <div style="margin-top: 1.5rem;">
+      <a href="workspaces-list.html" style="display: inline-block; padding: 0.75rem 1.5rem; background: #3b82f6; color: white; border-radius: 0.5rem; text-decoration: none; font-weight: 600;">
+        ← Back to Workspaces
+      </a>
+    </div>
+  </div>
+  
+  <script>
+    function updateViewport() {
+      const width = window.innerWidth;
+      const widthDisplay = document.getElementById('width-display');
+      const statusDiv = document.getElementById('breakpoint-status');
+      
+      widthDisplay.textContent = width + 'px';
+      
+      let status = '';
+      if (width < 768) {
+        status = '<div class="status mobile">📱 MOBILE MODE ACTIVE</div><p style="color: #64748b; margin-top: 0.5rem; font-size: 0.875rem;">Sidebars hidden, single column, larger buttons</p>';
+      } else if (width < 1024) {
+        status = '<div class="status tablet">📱 TABLET MODE ACTIVE</div><p style="color: #64748b; margin-top: 0.5rem; font-size: 0.875rem;">Narrower sidebar, 2-column grids</p>';
+      } else {
+        status = '<div class="status desktop">💻 DESKTOP MODE ACTIVE</div><p style="color: #64748b; margin-top: 0.5rem; font-size: 0.875rem;">Full layout with sidebar</p>';
+      }
+      
+      statusDiv.innerHTML = status;
+    }
+    
+    updateViewport();
+    window.addEventListener('resize', updateViewport);
+  </script>
+</body>
+</html>
+

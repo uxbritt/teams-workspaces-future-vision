@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Senior Design Operations Manager - Interview Script</title>
+    <style>
+        @font-face {
+            font-family: 'CTSans';
+            src: url('fonts/CTSans-Regular.woff2') format('woff2');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'CTSans';
+            src: url('fonts/CTSans-Semibold.woff2') format('woff2');
+            font-weight: 600;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'CTSans';
+            src: url('fonts/CTSans-Bold.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'CTSans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            border-bottom: 3px solid #0066cc;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .overview {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 6px;
+            margin-bottom: 30px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .overview h2 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #0066cc;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .overview-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .overview-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .overview-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .manager-direction {
+            background: #fff4e6;
+            border-left: 4px solid #ff9900;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+
+        .manager-direction strong {
+            color: #cc7a00;
+            font-weight: 600;
+        }
+
+        .timeline {
+            display: grid;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            padding: 12px;
+            background: #fafafa;
+            border-radius: 6px;
+            border-left: 3px solid #0066cc;
+        }
+
+        .timeline-duration {
+            font-weight: 700;
+            color: #0066cc;
+            font-size: 16px;
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            color: #1a1a1a;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+
+        .section-header {
+            background: #0066cc;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .section-duration {
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+
+        .question-block {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 6px;
+            border-left: 4px solid #00cc88;
+        }
+
+        .question-number {
+            font-size: 14px;
+            font-weight: 700;
+            color: #00cc88;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .question-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            color: #333;
+            font-style: italic;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 4px;
+            border-left: 3px solid #00cc88;
+        }
+
+        .listen-for {
+            margin-top: 15px;
+        }
+
+        .listen-for h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .listen-for ul {
+            margin-left: 20px;
+            color: #333;
+        }
+
+        .listen-for li {
+            margin-bottom: 6px;
+        }
+
+        .listen-for li strong {
+            color: #0066cc;
+            font-weight: 600;
+        }
+
+        .follow-up {
+            margin-top: 12px;
+            padding: 12px;
+            background: #fff;
+            border-radius: 4px;
+            border-left: 3px solid #ff9900;
+        }
+
+        .follow-up strong {
+            color: #cc7a00;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .script-text {
+            background: #e6f3ff;
+            padding: 15px;
+            border-radius: 6px;
+            font-style: italic;
+            color: #1a1a1a;
+            margin-bottom: 20px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .assessment {
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            margin-top: 40px;
+        }
+
+        .assessment h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0066cc;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 25px;
+            background: white;
+        }
+
+        th {
+            background: #0066cc;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+
+
+        .flags {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .flag-box {
+            padding: 20px;
+            border-radius: 6px;
+        }
+
+        .red-flags {
+            background: #ffe6e6;
+            border-left: 4px solid #cc0000;
+        }
+
+        .green-flags {
+            background: #e6ffe6;
+            border-left: 4px solid #00cc44;
+        }
+
+        .flag-box h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .red-flags h3 {
+            color: #cc0000;
+        }
+
+        .green-flags h3 {
+            color: #008800;
+        }
+
+        .flag-box ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .flag-box li {
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .red-flags li:before {
+            content: "❌";
+            position: absolute;
+            left: 0;
+        }
+
+        .green-flags li:before {
+            content: "✅";
+            position: absolute;
+            left: 0;
+        }
+
+        .tips {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 6px;
+            border-left: 4px solid #ffcc00;
+            margin-top: 30px;
+        }
+
+        .tips h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #cc9900;
+            margin-bottom: 15px;
+        }
+
+        .tips ul {
+            margin-left: 20px;
+        }
+
+        .tips li {
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .tips strong {
+            color: #cc9900;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 80px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            .flags {
+                grid-template-columns: 1fr;
+            }
+            .overview-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline-item {
+                grid-template-columns: 60px 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Senior Design Operations Manager</h1>
+            <p class="subtitle">Interview Script - Constant Contact | Waltham, MA or Remote</p>
+        </div>
+
+        <div style="background: #e6f3ff; padding: 15px 20px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid #0066cc;">
+            <strong style="font-size: 18px; color: #0066cc;">Candidate: Kiara Craig</strong><br>
+            <span style="color: #333; font-size: 14px;">Director of DesignOps, Red Ventures</span>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; font-size: 13px;">
+                <div>
+                    <strong style="color: #008800;">✅ Strengths:</strong> Metrics/measurement, PI Planning, tool implementation (92%/85% gains), team building
+                </div>
+                <div>
+                    <strong style="color: #cc7a00;">⚠️ Probe:</strong> Figma expertise (not on resume), ResearchOps depth
+                </div>
+            </div>
+        </div>
+
+        <div class="overview">
+            <h2>Interview Overview</h2>
+            <div class="overview-grid">
+                <div class="overview-item">
+                    <span class="overview-label">Duration</span>
+                    <span class="overview-value">30 minutes</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Format</span>
+                    <span class="overview-value">Video or In-Person</span>
+                </div>
+                <div class="overview-item">
+                    <span class="overview-label">Interview Type</span>
+                    <span class="overview-value">Focused Competency Assessment</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="manager-direction">
+            <strong>Manager's Direction:</strong> "Make sure this person can think across all facets of design ops - managing scope and work for the team, FIGMA organization, design research ops, helping me measure the success of our team."
+        </div>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-duration">2 min</div>
+                <div class="timeline-title">Welcome & Setup</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-duration">7 min</div>
+                <div class="timeline-title">Scope & Work Management</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-duration">6 min</div>
+                <div class="timeline-title">Figma Organization</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-duration">6 min</div>
+                <div class="timeline-title">Research Ops & Cross-Functional Thinking</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-duration">6 min</div>
+                <div class="timeline-title">Measuring Team Success</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-duration">3 min</div>
+                <div class="timeline-title">Candidate Questions</div>
+            </div>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Section 1: Welcome & Setup</h2>
+                <span class="section-duration">2 minutes</span>
+            </div>
+            
+            <div class="script-text">
+                "Thanks for making time today, Kiara. I'm [NAME], and I lead [TEAM/ROLE]. I've reviewed your background at Red Ventures, Tuft & Needle, and OH Partners—really impressive work with PI Planning, metrics, and those tool implementations. We have 30 minutes, so I want to dive into four key areas: how you manage scope and work, your experience with design tools like Figma, research ops, and your measurement frameworks. Then we'll leave time for your questions. Sound good?"
+            </div>
+
+            <p style="padding: 12px; background: #fff4e6; border-radius: 6px; font-style: italic; color: #666;">
+                <strong style="color: #cc7a00;">Note:</strong> Skip lengthy background stories—you've already reviewed her resume. Jump straight to the specific experiences that matter.
+            </p>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Section 2: Scope & Work Management</h2>
+                <span class="section-duration">7 minutes</span>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q1: PI Planning & Portfolio Management</div>
+                <div class="question-text">
+                    "Walk me through your Product Increment Planning process at Red Ventures. How does that 10-week cycle help you manage scope and prioritize work across design?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>How PI Planning drives capacity management</strong></li>
+                        <li>Cross-functional dependencies and ongoing visibility</li>
+                        <li>Mid-cycle adjustments</li>
+                    </ul>
+                </div>
+
+                <div class="follow-up">
+                    <strong>Follow-up:</strong> "What tools do you use to track capacity between planning sessions?"
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q2: Cross-Team Workflows & Process Design</div>
+                <div class="question-text">
+                    "Tell me about architecting your organization's first cross-team workflows and standardized briefs. What was broken, how did you fix it, and what was the impact?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>Problem diagnosis and stakeholder engagement</strong></li>
+                        <li>Balance of standardization vs. flexibility</li>
+                        <li><strong>Measurable outcomes</strong> and adoption strategy</li>
+                    </ul>
+                </div>
+
+                <div class="follow-up">
+                    <strong>Probe:</strong> "What resistance did you encounter?"
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Section 3: Figma Organization</h2>
+                <span class="section-duration">6 minutes</span>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q3: Figma Governance ⚠️ CRITICAL GAP</div>
+                <div class="question-text">
+                    "Tell me about your experience with Figma. How have you organized and governed it across a design team?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>⚠️ Does she have hands-on Figma experience?</strong> (Not on resume - must-have)</li>
+                        <li>If yes: File structure, libraries, permissions</li>
+                        <li>If no: Learning plan? Adjacent tool experience? Worked with designers using Figma?</li>
+                    </ul>
+                </div>
+
+                <div class="follow-up">
+                    <strong>If weak:</strong> "How would you approach learning Figma governance quickly?"<br>
+                    <strong>If strong:</strong> "What's your biggest Figma challenge solved?"
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q4: Tool Implementation (92% & 85% Gains)</div>
+                <div class="question-text">
+                    "Walk me through how you achieved the 92% productivity increase at Red Ventures or 85% at Tuft & Needle. How did you measure it and drive adoption?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>How she defines and measures productivity</strong></li>
+                        <li>Baseline, timeline, and sustained adoption strategy</li>
+                        <li>What didn't work / lessons learned</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Section 4: Research Ops & Cross-Functional Thinking</h2>
+                <span class="section-duration">6 minutes</span>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q5: Research Operations</div>
+                <div class="question-text">
+                    "Tell me about your experience supporting User Research operationally. What systems or processes have you built for researchers?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>Hands-on ResearchOps experience?</strong> Participant management, tools, insight repositories</li>
+                        <li>How research integrates with PI planning</li>
+                        <li>If limited: Can she translate from designer support to researcher support?</li>
+                    </ul>
+                </div>
+
+                <div class="follow-up">
+                    <strong>Probe:</strong> "How do you ensure research insights don't get lost?"
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q6: AI/Automation & Business Ops</div>
+                <div class="question-text">
+                    "Tell me about a specific AI or automation opportunity you've pursued. How did you identify it and what was the outcome?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>Specific example</strong> (not buzzwords)</li>
+                        <li>Connection between business ops (SaaS, contracts) and design effectiveness</li>
+                        <li>ROI thinking and strategic prioritization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Section 5: Measuring Team Success</h2>
+                <span class="section-duration">6 minutes</span>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q7: Design Impact Metrics 🌟 HER STRENGTH</div>
+                <div class="question-text">
+                    "Walk me through your measurement framework for design impact. What specific metrics do you track across Visual Design, Product Design, Research, etc., and how do you report them?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>Structured, repeatable framework</strong></li>
+                        <li>Different metrics for different disciplines (not one-size-fits-all)</li>
+                        <li>Connection to business KPIs and storytelling to leadership</li>
+                        <li>Examples of metrics driving decisions</li>
+                    </ul>
+                </div>
+
+                <div class="follow-up">
+                    <strong>Probe:</strong> "What metric did you abandon and why?"
+                </div>
+            </div>
+
+            <div class="question-block">
+                <div class="question-number">Q8: Team Leadership</div>
+                <div class="question-text">
+                    "You lead the TPM team and have built ops teams before. How do you measure your team's effectiveness and know when the design org is healthy?"
+                </div>
+                
+                <div class="listen-for">
+                    <h4>Listen for:</h4>
+                    <ul>
+                        <li><strong>TPM team performance metrics</strong></li>
+                        <li>Designer satisfaction with ops support</li>
+                        <li>Continuous improvement mindset</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 6 -->
+        <div class="section">
+            <div class="section-header">
+                <h2>Section 6: Candidate Questions</h2>
+                <span class="section-duration">3 minutes</span>
+            </div>
+
+            <div class="script-text">
+                "We have a few minutes left. What questions do you have for me about the role or the team?"
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 6px;">
+                <strong style="display: block; margin-bottom: 10px;">Be prepared to share:</strong>
+                <ul style="margin-left: 20px; color: #333;">
+                    <li>Current team size and structure</li>
+                    <li>Immediate priorities/challenges</li>
+                    <li>What success looks like in first 90 days</li>
+                    <li>Remote/hybrid specifics</li>
+                </ul>
+            </div>
+
+            <div class="script-text" style="margin-top: 15px;">
+                <strong>Wrap up:</strong> "Thanks for your time. We'll follow up with next steps by [DATE]. Have a great day!"
+            </div>
+        </div>
+
+        <!-- ASSESSMENT -->
+        <div class="assessment">
+            <h2>Post-Interview Assessment</h2>
+            <p style="color: #666; margin-bottom: 20px; font-style: italic;">Complete immediately after the interview</p>
+
+            <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 15px;">Critical Competencies (Rate 1-5)</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 30%;">Competency</th>
+                        <th style="width: 15%;">Rating</th>
+                        <th style="width: 55%;">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Scope & Work Mgmt</strong></td>
+                        <td><input type="number" min="1" max="5" style="width: 50px; padding: 5px;" placeholder="1-5"></td>
+                        <td><textarea placeholder="Evidence..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Figma (⚠️ critical)</strong></td>
+                        <td><input type="number" min="1" max="5" style="width: 50px; padding: 5px;" placeholder="1-5"></td>
+                        <td><textarea placeholder="Evidence..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Research Ops</strong></td>
+                        <td><input type="number" min="1" max="5" style="width: 50px; padding: 5px;" placeholder="1-5"></td>
+                        <td><textarea placeholder="Evidence..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Metrics (🌟 strength)</strong></td>
+                        <td><input type="number" min="1" max="5" style="width: 50px; padding: 5px;" placeholder="1-5"></td>
+                        <td><textarea placeholder="Evidence..."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Systems Thinking</strong></td>
+                        <td><input type="number" min="1" max="5" style="width: 50px; padding: 5px;" placeholder="1-5"></td>
+                        <td><textarea placeholder="Evidence..."></textarea></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="font-size: 18px; font-weight: 700; margin: 25px 0 15px 0;">Decision</h3>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                <label style="display: flex; align-items: center; gap: 8px; padding: 10px 15px; background: white; border-radius: 6px; border: 2px solid #e0e0e0; cursor: pointer;">
+                    <input type="radio" name="decision" style="cursor: pointer;">
+                    <strong style="color: #00aa00;">Strong Yes</strong>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; padding: 10px 15px; background: white; border-radius: 6px; border: 2px solid #e0e0e0; cursor: pointer;">
+                    <input type="radio" name="decision" style="cursor: pointer;">
+                    <strong style="color: #0066cc;">Yes</strong>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; padding: 10px 15px; background: white; border-radius: 6px; border: 2px solid #e0e0e0; cursor: pointer;">
+                    <input type="radio" name="decision" style="cursor: pointer;">
+                    <strong style="color: #ff9900;">Maybe</strong>
+                </label>
+                <label style="display: flex; align-items: center; gap: 8px; padding: 10px 15px; background: white; border-radius: 6px; border: 2px solid #e0e0e0; cursor: pointer;">
+                    <input type="radio" name="decision" style="cursor: pointer;">
+                    <strong style="color: #cc0000;">No</strong>
+                </label>
+            </div>
+
+            <h3 style="font-size: 18px; font-weight: 700; margin: 25px 0 10px 0;">Summary & Recommendation</h3>
+            <textarea style="min-height: 60px;" placeholder="Gut reaction: Would Kiara make your job easier?"></textarea>
+
+            <div class="flags">
+                <div class="flag-box red-flags">
+                    <h3>🚩 Red Flags</h3>
+                    <ul>
+                        <li>Surface-level metrics thinking</li>
+                        <li>No Figma + no learning plan</li>
+                        <li>PI Planning = logistics only</li>
+                        <li>Tool stories about tech, not people</li>
+                        <li>Weak designer empathy (PM background showing)</li>
+                    </ul>
+                </div>
+
+                <div class="flag-box green-flags">
+                    <h3>✅ Green Flags</h3>
+                    <ul>
+                        <li>Sophisticated metrics (not just "time to complete")</li>
+                        <li>Explains "why" behind 92%/85% gains</li>
+                        <li>Talks change management, not just tools</li>
+                        <li>Curiosity about learning Figma</li>
+                        <li>Asks about our measurement gaps</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="tips">
+                <h3>Interview Tips</h3>
+                
+                <strong style="display: block; margin-bottom: 8px;">What You're Really Assessing</strong>
+                <ul style="margin-bottom: 15px;">
+                    <li><strong>Metrics sophistication</strong> (should be standout - don't accept generic)</li>
+                    <li><strong>Figma gap</strong> (probe Q3 deeply - assess learning agility)</li>
+                    <li><strong>Designer empathy</strong> (understands designers, not just manages them)</li>
+                    <li><strong>PI Planning depth</strong> (strategic orchestration vs. just logistics)</li>
+                </ul>
+
+                <strong style="display: block; margin-bottom: 8px;">Must-Ask Questions</strong>
+                <ul style="margin-bottom: 15px;">
+                    <li>Q3 (Figma) - CRITICAL gap to probe</li>
+                    <li>Q4 (92% gain) - Needs specifics</li>
+                    <li>Q7 (Metrics) - Should be her strongest</li>
+                </ul>
+
+                <div style="background: white; padding: 15px; border-radius: 6px; margin-top: 15px; border-left: 4px solid #cc9900;">
+                    <strong style="font-size: 16px; color: #1a1a1a;">Key Question:</strong>
+                    <p style="font-style: italic; margin-top: 8px; color: #333;">"Can she handle Figma governance, or will I need someone else to own that?"</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; padding: 20px; background: #e6f3ff; border-radius: 6px; border-left: 4px solid #0066cc; text-align: center;">
+                <strong style="font-size: 16px; color: #0066cc;">Remember:</strong>
+                <p style="margin-top: 8px; color: #333;">This is a focused 30-minute screen. If the candidate is strong, you'll know it quickly. If you're unsure after 30 minutes, that's usually a "no."</p>
+            </div>
+
+            <!-- CANDIDATE-SPECIFIC NOTES -->
+            <div style="margin-top: 30px; padding: 20px; background: #fff9e6; border-radius: 8px; border-left: 4px solid #ffcc00;">
+                <h3 style="font-size: 18px; font-weight: 700; color: #cc9900; margin-bottom: 15px;">📋 Kiara - Quick Reference</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px;">
+                    <div>
+                        <strong style="color: #008800;">✅ Expected Strengths:</strong>
+                        <ul style="margin-top: 5px; margin-left: 18px; color: #333; font-size: 14px;">
+                            <li>Metrics & measurement (MAJOR)</li>
+                            <li>PI Planning & scope mgmt</li>
+                            <li>Tool implementation (92%/85%)</li>
+                            <li>Team leadership</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong style="color: #cc7a00;">⚠️ Probe Carefully:</strong>
+                        <ul style="margin-top: 5px; margin-left: 18px; color: #333; font-size: 14px;">
+                            <li><strong>Figma</strong> (not on resume - must-have)</li>
+                            <li>ResearchOps depth</li>
+                            <li>Designer empathy (PM background)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid #0066cc; font-size: 14px;">
+                    <strong style="color: #0066cc;">💡 Key Decision:</strong> Outstanding on metrics/scope/tools. 
+                    <strong style="color: #cc0000;">Can she handle Figma?</strong> If weak but everything else strong, assess learning agility.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

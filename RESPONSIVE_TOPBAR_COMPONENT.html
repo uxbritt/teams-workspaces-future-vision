@@ -1,0 +1,302 @@
+<!-- ============================================
+     RESPONSIVE TOP BAR
+     Based on Material 3, Tailwind, Carbon, and Polaris patterns
+     ============================================ -->
+
+<!-- TOP BAR -->
+<header class="fixed top-0 left-0 right-0 h-14 sm:h-16 bg-white border-b border-gray-100 z-50">
+  <div class="flex items-center justify-between h-full px-3 sm:px-4 lg:px-6">
+    
+    <!-- LEFT: Mobile Menu + Logo -->
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Mobile Menu Button (Material 3 Navigation Drawer trigger) -->
+      <button 
+        onclick="toggleMobileSidebar()" 
+        class="mobile-menu-button lg:hidden p-2 -ml-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+        aria-label="Open menu"
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      
+      <!-- Logo -->
+      <a href="index.html" class="flex items-center">
+        <img src="assets/ctctLogo.png" alt="Constant Contact" class="w-7 h-7 sm:w-8 sm:h-8 object-contain">
+      </a>
+    </div>
+
+    <!-- CENTER: Search and Create (hidden on small mobile, shown on tablet+) -->
+    <div class="hidden sm:flex items-center gap-2 sm:gap-3 mx-auto">
+      <!-- Search Input - Polaris pattern -->
+      <div class="relative">
+        <input 
+          type="text" 
+          id="topbar-search-input" 
+          placeholder="Search" 
+          onclick="openGlobalSearchDialog()" 
+          onkeydown="handleTopbarSearchKeydown(event)" 
+          class="w-32 sm:w-48 md:w-64 pl-3 pr-9 py-1.5 sm:py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-ctct-blue focus:border-transparent cursor-pointer transition-all"
+        >
+        <svg class="w-4 h-4 text-gray-400 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </div>
+      
+      <!-- Create Button - Material 3 Filled Button -->
+      <button 
+        onclick="openCreateWorkspaceModal()" 
+        class="hidden md:flex items-center gap-2 px-4 sm:px-6 py-1.5 sm:py-2 bg-ctct-blue hover:bg-blue-600 text-white rounded-lg font-medium text-sm transition-colors"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>
+        <span class="hidden lg:inline">Create</span>
+      </button>
+    </div>
+
+    <!-- RIGHT: Actions -->
+    <div class="flex items-center gap-1 sm:gap-2">
+      
+      <!-- Mobile Search Button (show only on mobile) -->
+      <button 
+        onclick="openGlobalSearchDialog()" 
+        class="sm:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+        aria-label="Search"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.3-4.3"></path>
+        </svg>
+      </button>
+      
+      <!-- Mobile Create Button (show only on mobile) -->
+      <button 
+        onclick="openCreateWorkspaceModal()" 
+        class="md:hidden p-2 text-white bg-ctct-blue hover:bg-blue-600 rounded-lg transition-colors"
+        aria-label="Create"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14"></path>
+          <path d="M12 5v14"></path>
+        </svg>
+      </button>
+      
+      <!-- Notifications - Carbon pattern -->
+      <button 
+        class="hidden sm:block p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors relative"
+        aria-label="Notifications"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+        <!-- Notification badge -->
+        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-red-500 rounded-full"></span>
+      </button>
+      
+      <!-- Help Button -->
+      <button 
+        class="hidden lg:block p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+        aria-label="Help"
+      >
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+          <path d="M12 17h.01"></path>
+        </svg>
+      </button>
+      
+      <!-- Divider -->
+      <div class="hidden sm:block w-px h-6 bg-gray-200 mx-1"></div>
+      
+      <!-- Organization Switcher - Polaris pattern -->
+      <button 
+        onclick="toggleHeaderDropdown('org-dropdown')" 
+        class="hidden sm:flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1.5 hover:bg-gray-50 rounded-lg text-sm transition-colors"
+      >
+        <img src="assets/upsLogo.png" alt="UPS" class="w-5 h-5 sm:w-6 sm:h-6 object-contain">
+        <span class="hidden md:inline text-gray-700 font-medium max-w-[120px] truncate">UPS Global</span>
+        <svg class="w-4 h-4 text-gray-400 transition-transform" id="org-dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m6 9 6 6 6-6"></path>
+        </svg>
+      </button>
+      
+      <!-- User Avatar - Material 3 pattern -->
+      <button 
+        onclick="toggleHeaderDropdown('user-dropdown')" 
+        id="user-avatar-btn" 
+        class="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border-2 border-transparent hover:border-blue-200 transition-colors text-white font-bold text-sm"
+        aria-label="User menu"
+      >
+        <!-- Avatar will be populated by JS -->
+      </button>
+    </div>
+  </div>
+  
+  <!-- Org Dropdown Menu - Material 3 Menu -->
+  <div id="org-dropdown" class="hidden absolute right-4 top-full mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-[60]">
+    <div class="px-5 pb-4 border-b border-gray-100">
+      <p class="text-xs text-gray-500 mb-2">SWITCH ORGANIZATION</p>
+    </div>
+    <!-- Org list items -->
+  </div>
+  
+  <!-- User Dropdown Menu - Material 3 Menu -->
+  <div id="user-dropdown" class="hidden absolute right-4 top-full mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 py-4 z-[60]">
+    <div class="flex items-center gap-3 px-5 pb-4 border-b border-gray-100">
+      <div id="user-avatar-large" class="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-xl"></div>
+      <div>
+        <p id="user-name-display" class="text-base font-semibold text-gray-800"></p>
+        <p id="user-title-display" class="text-sm text-gray-500"></p>
+      </div>
+    </div>
+    <div class="pt-3 px-2">
+      <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Profile</a>
+      <a href="settings.html" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Settings</a>
+      <a href="#" class="block px-4 py-3 text-base text-gray-600 hover:bg-gray-50 rounded-xl transition-colors">Log out</a>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Sidebar Overlay (Material 3 Scrim) -->
+<div 
+  id="mobile-sidebar-overlay" 
+  class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden transition-opacity"
+  onclick="toggleMobileSidebar()"
+></div>
+
+<script>
+// Mobile sidebar toggle - Material 3 Navigation Drawer pattern
+function toggleMobileSidebar() {
+  const sidebar = document.querySelector('aside');
+  const overlay = document.getElementById('mobile-sidebar-overlay');
+  const menuButton = document.querySelector('.mobile-menu-button');
+  
+  if (sidebar && overlay && menuButton) {
+    const isOpen = sidebar.classList.contains('open');
+    
+    if (isOpen) {
+      sidebar.classList.remove('open');
+      overlay.classList.add('hidden');
+      menuButton.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    } else {
+      sidebar.classList.add('open');
+      overlay.classList.remove('hidden');
+      menuButton.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
+    }
+  }
+}
+
+// Header dropdown toggle
+function toggleHeaderDropdown(dropdownId) {
+  const dropdown = document.getElementById(dropdownId);
+  if (dropdown) {
+    const isHidden = dropdown.classList.contains('hidden');
+    
+    // Close all dropdowns first
+    document.querySelectorAll('[id$="-dropdown"]').forEach(d => {
+      if (d.id !== dropdownId) d.classList.add('hidden');
+    });
+    
+    if (isHidden) {
+      dropdown.classList.remove('hidden');
+      
+      // Rotate chevron if it's the org dropdown
+      if (dropdownId === 'org-dropdown') {
+        const chevron = document.getElementById('org-dropdown-chevron');
+        if (chevron) chevron.style.transform = 'rotate(180deg)';
+      }
+    } else {
+      dropdown.classList.add('hidden');
+      
+      // Reset chevron
+      if (dropdownId === 'org-dropdown') {
+        const chevron = document.getElementById('org-dropdown-chevron');
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      }
+    }
+  }
+}
+
+// Close dropdowns when clicking outside - Carbon pattern
+document.addEventListener('click', function(event) {
+  if (!event.target.closest('[onclick*="toggleHeaderDropdown"]') && 
+      !event.target.closest('[id$="-dropdown"]')) {
+    document.querySelectorAll('[id$="-dropdown"]').forEach(dropdown => {
+      dropdown.classList.add('hidden');
+    });
+    
+    // Reset chevrons
+    const chevron = document.getElementById('org-dropdown-chevron');
+    if (chevron) chevron.style.transform = 'rotate(0deg)';
+  }
+});
+
+// Close mobile sidebar on escape key - Accessibility
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    const sidebar = document.querySelector('aside');
+    if (sidebar && sidebar.classList.contains('open')) {
+      toggleMobileSidebar();
+    }
+  }
+});
+</script>
+
+<style>
+/* Top bar responsive styles */
+header {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+/* Mobile menu button animation */
+.mobile-menu-button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Sidebar mobile drawer - Material 3 pattern */
+@media (max-width: 1023px) {
+  aside {
+    position: fixed !important;
+    top: 0 !important;
+    left: -100% !important;
+    bottom: 0 !important;
+    width: 280px !important;
+    max-width: 85vw !important;
+    z-index: 50 !important;
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  aside.open {
+    left: 0 !important;
+  }
+  
+  /* Add padding for fixed header */
+  main {
+    padding-top: 3.5rem !important; /* 56px for mobile header */
+  }
+}
+
+@media (min-width: 640px) {
+  main {
+    padding-top: 4rem !important; /* 64px for desktop header */
+  }
+}
+
+@media (min-width: 1024px) {
+  main {
+    padding-top: 4rem !important;
+  }
+}
+</style>
+

@@ -1,0 +1,4 @@
+# Ensure video files are treated as binary
+*.mp4 binary
+*.mov binary
+*.avi binary
