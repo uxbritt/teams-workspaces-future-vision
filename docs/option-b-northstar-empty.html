@@ -716,6 +716,56 @@
                 </a>
               </div>
             </div>
+
+            <!-- Top Performing Hubs -->
+            <div class="bg-white rounded-2xl border border-neutral-100 p-5 shadow-sm widget-card group/widget" data-widget-id="top-hubs">
+              <div class="flex items-center justify-between mb-5">
+                <h3 class="text-sm text-neutral-500">Top performing hubs</h3>
+                <div class="relative">
+                  <button onclick="toggleWidgetMenu(event, 'top-hubs')" class="p-1 text-neutral-400 hover:text-neutral-600">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+                  </button>
+                  <div id="widget-menu-top-hubs" class="hidden absolute right-0 top-full mt-1 bg-white rounded-lg shadow-lg border border-neutral-100 py-1 z-20 min-w-[140px]">
+                    <button onclick="openCustomizeWidget('top-hubs')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9"/><path d="M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+                      Customize
+                    </button>
+                    <a href="folder-reporting.html?channel=hubs&source=dashboard" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-neutral-700 hover:bg-neutral-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg>
+                      Full report
+                    </a>
+                    <button onclick="deleteWidget('top-hubs')" class="w-full flex items-center gap-2 px-3 py-2 text-sm text-danger-600 hover:bg-danger-50">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div id="top-hubs" class="space-y-4">
+                <!-- Hub 1 -->
+                <a href="#" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+                  <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                    <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: #3B82F6"></div>
+                    <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS US</span>
+                  </div>
+                  <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                    <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 85%; background: #3B82F6"></div>
+                    <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" style="transform: translateY(-50%) translateX(0)">85%</span>
+                  </div>
+                </a>
+                <!-- Hub 2 -->
+                <a href="#" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+                  <div class="flex items-center gap-2 w-28 flex-shrink-0">
+                    <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: #8B5CF6"></div>
+                    <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS EU</span>
+                  </div>
+                  <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+                    <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 65%; background: #8B5CF6"></div>
+                    <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">65%</span>
+                  </div>
+                </a>
+              </div>
+            </div>
           </div>
 
           <!-- Middle Column -->
@@ -863,7 +913,7 @@
           </div>
 
           <!-- Right Column - Recent Activity -->
-          <div class="bg-white rounded-2xl border border-neutral-100 p-5 shadow-sm widget-card group/widget" data-widget-id="recent-activity">
+          <div class="bg-white rounded-2xl border border-neutral-100 p-5 shadow-sm widget-card group/widget self-start" data-widget-id="recent-activity">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-sm text-neutral-500">Recent activity</h3>
               <div class="relative">
@@ -2237,15 +2287,18 @@
     const defaultWidgets = [
       { id: 'email-engagement', column: 'left', chartType: '4-stats', channel: 'email', stats: ['sends', 'opens', 'clicks', 'bounces'], showTrends: true, workspaces: 'all', dateRange: '30-days' },
       { id: 'social-engagement', column: 'left', chartType: '2-stats', channel: 'social', stats: ['impressions', 'engagement'], showTrends: true, workspaces: 'all', dateRange: '30-days' },
+      { id: 'top-workspaces', column: 'left', chartType: 'bar-list', channel: 'workspaces', stats: ['performance'], showTrends: false, workspaces: 'all', dateRange: '30-days' },
+      { id: 'top-hubs', column: 'left', chartType: 'bar-list', channel: 'hubs', stats: ['performance'], showTrends: false, workspaces: 'all', dateRange: '30-days' },
       { id: 'contact-growth', column: 'middle', chartType: '1-stat', channel: 'contacts', stats: ['total-contacts'], showTrends: true, workspaces: 'all', dateRange: '30-days' },
-      { id: 'template-usage', column: 'middle', chartType: 'donut', channel: 'email', stats: ['sends'], showTrends: false, workspaces: 'all', dateRange: '30-days' }
+      { id: 'template-usage', column: 'middle', chartType: 'donut', channel: 'email', stats: ['sends'], showTrends: false, workspaces: 'all', dateRange: '30-days' },
+      { id: 'low-workspaces', column: 'middle', chartType: 'bar-list', channel: 'workspaces', stats: ['performance'], showTrends: false, workspaces: 'all', dateRange: '30-days' }
     ];
     
-    // Initialize widgets from storage or defaults
-    if (!dashboardWidgets) {
-      dashboardWidgets = [...defaultWidgets];
-      localStorage.setItem('dashboardWidgets', JSON.stringify(dashboardWidgets));
-    }
+    // Initialize widgets from storage or defaults - always reset to ensure new widgets are included
+    // Clear old dashboardWidgets to ensure new defaults are applied
+    localStorage.removeItem('dashboardWidgets');
+    dashboardWidgets = [...defaultWidgets];
+    localStorage.setItem('dashboardWidgets', JSON.stringify(dashboardWidgets));
     
     function saveWidgetSettings() {
       const chartType = document.getElementById('widget-chart-type').value;
@@ -3182,6 +3235,27 @@
         `;
       }
       
+      // Top hubs - reset progress bars
+      const topHubs = document.getElementById('top-hubs');
+      if (topHubs) {
+        topHubs.innerHTML = `
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 w-28 flex-shrink-0">
+              <div class="w-2 h-2 rounded-full flex-shrink-0 bg-neutral-200"></div>
+              <span class="text-sm text-neutral-400">—</span>
+            </div>
+            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full"></div>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 w-28 flex-shrink-0">
+              <div class="w-2 h-2 rounded-full flex-shrink-0 bg-neutral-200"></div>
+              <span class="text-sm text-neutral-400">—</span>
+            </div>
+            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full"></div>
+          </div>
+        `;
+      }
+      
       // Recent activity
       const activity = document.getElementById('recent-activity');
       if (activity) {
@@ -3280,6 +3354,35 @@
             <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
               <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 4%; min-width: 6px; background: var(--workspace-low-2)"></div>
               <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">4%</span>
+            </div>
+          </a>
+        `;
+      }
+      
+      // Top performing hubs
+      const topHubs = document.getElementById('top-hubs');
+      if (topHubs) {
+        topHubs.innerHTML = `
+          <!-- Hub 1 -->
+          <a href="#" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+            <div class="flex items-center gap-2 w-28 flex-shrink-0">
+              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: #3B82F6"></div>
+              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS US</span>
+            </div>
+            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 85%; background: #3B82F6"></div>
+              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">85%</span>
+            </div>
+          </a>
+          <!-- Hub 2 -->
+          <a href="#" class="flex items-center gap-3 group hover:bg-neutral-50 -mx-2 px-2 py-1 rounded-lg transition-colors cursor-pointer">
+            <div class="flex items-center gap-2 w-28 flex-shrink-0">
+              <div class="w-2 h-2 rounded-full flex-shrink-0" style="background: #8B5CF6"></div>
+              <span class="text-sm text-neutral-700 truncate group-hover:text-neutral-900">UPS EU</span>
+            </div>
+            <div class="flex-1 h-1.5 bg-neutral-100 rounded-full relative">
+              <div class="absolute left-0 top-0 h-full rounded-full transition-all" style="width: 65%; background: #8B5CF6"></div>
+              <span class="absolute right-0 top-1/2 -translate-y-1/2 px-2 py-0.5 bg-neutral-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">65%</span>
             </div>
           </a>
         `;
