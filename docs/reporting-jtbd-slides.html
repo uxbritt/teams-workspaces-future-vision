@@ -666,10 +666,27 @@
 
   <script>
     const totalSlides = 8;
-    let currentSlide = parseInt(sessionStorage.getItem('reportingJtbdSlide')) || 1;
-    if (currentSlide > totalSlides) currentSlide = 1;
+    let currentSlide = 1;
+    
+    // Get slide number from URL hash or sessionStorage
+    function getInitialSlide() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith('#slide-')) {
+        const slideNum = parseInt(hash.replace('#slide-', ''));
+        if (slideNum >= 1 && slideNum <= totalSlides) {
+          return slideNum;
+        }
+      }
+      const stored = parseInt(sessionStorage.getItem('reportingJtbdSlide'));
+      if (stored >= 1 && stored <= totalSlides) {
+        return stored;
+      }
+      return 1;
+    }
+    
+    currentSlide = getInitialSlide();
 
-    function showSlide(n) {
+    function showSlide(n, updateUrl = true) {
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
       const slideEl = document.getElementById('slide-' + n);
       if (!slideEl) {
@@ -699,6 +716,11 @@
       
       currentSlide = n;
       sessionStorage.setItem('reportingJtbdSlide', n);
+      
+      // Update URL hash
+      if (updateUrl) {
+        history.pushState(null, null, '#slide-' + n);
+      }
     }
 
     function nextSlide() {
@@ -716,10 +738,17 @@
     function goToSlide(n) {
       showSlide(n);
     }
+    
+    // Handle browser back/forward buttons
+    window.addEventListener('hashchange', () => {
+      const newSlide = getInitialSlide();
+      if (newSlide !== currentSlide) {
+        showSlide(newSlide, false); // Don't update URL since it already changed
+      }
+    });
 
-    if (currentSlide > 1) {
-      showSlide(currentSlide);
-    }
+    // Show initial slide
+    showSlide(currentSlide, true);
 
     // Touch swipe support for mobile
     let touchStartX = 0;
