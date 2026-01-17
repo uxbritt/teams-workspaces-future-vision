@@ -74,34 +74,67 @@
     body.cover-active {
       background: #000;
     }
+    
+    /* Black and white for non-cover slides */
     .slide:not(.cover-slide) {
-      color: #1a1a1a;
+      background: #fff !important;
+      color: #000;
     }
+    
+    .slide:not(.cover-slide) h1,
     .slide:not(.cover-slide) h2,
     .slide:not(.cover-slide) h3,
     .slide:not(.cover-slide) h4 {
-      color: #1a1a1a;
+      color: #000 !important;
     }
-    .slide:not(.cover-slide) p {
-      color: #4a5568;
-    }
-    .slide:not(.cover-slide) .bg-zinc-950,
-    .slide:not(.cover-slide) .bg-zinc-900 {
-      background: #f7fafc;
-      border-color: #e2e8f0;
-    }
+    
+    .slide:not(.cover-slide) p,
     .slide:not(.cover-slide) .text-zinc-400,
-    .slide:not(.cover-slide) .text-zinc-500 {
-      color: #4a5568;
+    .slide:not(.cover-slide) .text-zinc-500,
+    .slide:not(.cover-slide) .text-zinc-300 {
+      color: #666 !important;
     }
+    
+    .slide:not(.cover-slide) .bg-zinc-950,
+    .slide:not(.cover-slide) .bg-zinc-900,
+    .slide:not(.cover-slide) .bg-zinc-800 {
+      background: #fff !important;
+      border-color: #e0e0e0 !important;
+    }
+    
+    .slide:not(.cover-slide) .border-zinc-800,
+    .slide:not(.cover-slide) .border-zinc-700 {
+      border-color: #e0e0e0 !important;
+    }
+    
     .slide:not(.cover-slide) .text-white {
-      color: #1a1a1a;
+      color: #000 !important;
     }
-    .slide:not(.cover-slide) .border-zinc-800 {
-      border-color: #e2e8f0;
+    
+    .slide:not(.cover-slide) .text-zinc-600 {
+      color: #999 !important;
     }
+    
     .slide:not(.cover-slide) svg {
-      color: #4a5568 !important;
+      color: #666 !important;
+    }
+    
+    /* Keep gradient bars colored in dashboard */
+    .slide:not(.cover-slide) .bg-gradient-to-r,
+    .slide:not(.cover-slide) [style*="background:"],
+    .slide:not(.cover-slide) [class*="bg-emerald"],
+    .slide:not(.cover-slide) [class*="bg-cyan"],
+    .slide:not(.cover-slide) [class*="bg-blue"],
+    .slide:not(.cover-slide) [class*="bg-indigo"],
+    .slide:not(.cover-slide) [class*="bg-purple"],
+    .slide:not(.cover-slide) [class*="bg-violet"],
+    .slide:not(.cover-slide) [class*="text-emerald"],
+    .slide:not(.cover-slide) [class*="text-cyan"],
+    .slide:not(.cover-slide) [class*="text-blue"],
+    .slide:not(.cover-slide) [class*="text-indigo"],
+    .slide:not(.cover-slide) [class*="text-purple"],
+    .slide:not(.cover-slide) [class*="text-violet"] {
+      /* Keep original colors for dashboard elements */
     }
     .dot {
       padding: 0;
