@@ -70,6 +70,14 @@
     body {
       background: #000;
     }
+    .dot {
+      padding: 0;
+      border: 0;
+      outline: none;
+      cursor: pointer;
+      min-width: 0;
+      min-height: 0;
+    }
   </style>
 </head>
 <body class="min-h-screen font-sans bg-black text-white">
@@ -507,12 +515,12 @@
     <a href="research-dashboard.html" class="text-zinc-600 hover:text-white text-sm transition-colors">Back to Research</a>
     
     <div class="flex items-center gap-1.5">
-      <button onclick="goToSlide(1)" class="dot w-1.5 h-1.5 rounded-full bg-white transition-all"></button>
-      <button onclick="goToSlide(2)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
-      <button onclick="goToSlide(3)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
-      <button onclick="goToSlide(4)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
-      <button onclick="goToSlide(5)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
-      <button onclick="goToSlide(6)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all"></button>
+      <button onclick="goToSlide(1)" class="dot w-1.5 h-1.5 rounded-full bg-white transition-all p-0 border-0"></button>
+      <button onclick="goToSlide(2)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all p-0 border-0"></button>
+      <button onclick="goToSlide(3)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all p-0 border-0"></button>
+      <button onclick="goToSlide(4)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all p-0 border-0"></button>
+      <button onclick="goToSlide(5)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all p-0 border-0"></button>
+      <button onclick="goToSlide(6)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all p-0 border-0"></button>
     </div>
     
     <div class="flex items-center gap-2">
