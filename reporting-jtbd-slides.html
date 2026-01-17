@@ -103,21 +103,32 @@
         font-size: 0.875rem !important;
       }
       
-      /* Hide arrows on mobile, rely on swipe */
+      /* Hide large arrow buttons on mobile */
       button[onclick*="prevSlide"],
       button[onclick*="nextSlide"] {
-        display: none;
+        display: none !important;
       }
       
-      /* Make footer navigation larger for touch */
+      /* Hide dots on mobile */
       .dot {
-        width: 8px !important;
-        height: 8px !important;
+        display: none !important;
+      }
+      
+      /* Show mobile nav buttons */
+      .mobile-nav-btn {
+        display: flex !important;
       }
       
       /* Adjust spacing */
       .slide {
         padding: 1rem !important;
+      }
+      
+      /* Mobile bottom bar */
+      .nav-footer {
+        background: #000 !important;
+        border-top: 1px solid #27272a;
+        padding: 0.75rem 1rem !important;
       }
     }
     
@@ -730,10 +741,16 @@
   </button>
 
   <!-- Navigation Footer -->
-  <div class="fixed bottom-0 left-0 right-0 px-4 md:px-8 py-4 flex items-center justify-between bg-gradient-to-t from-black to-transparent">
+  <div class="nav-footer fixed bottom-0 left-0 right-0 px-4 md:px-8 py-4 flex items-center justify-between bg-gradient-to-t from-black to-transparent">
+    <!-- Desktop: Back to Research -->
     <a href="research-dashboard.html" class="hidden md:block text-zinc-600 hover:text-white text-sm transition-colors">Back to Research</a>
-    <div class="md:hidden"></div>
     
+    <!-- Mobile: Previous Button -->
+    <button onclick="prevSlide()" class="mobile-nav-btn hidden items-center justify-center w-10 h-10 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-400 hover:text-white transition-all">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    
+    <!-- Desktop: Dots Navigation -->
     <div class="flex items-center gap-1.5">
       <button onclick="goToSlide(1)" class="dot w-1.5 h-1.5 rounded-full bg-white transition-all p-0 border-0"></button>
       <button onclick="goToSlide(2)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all p-0 border-0"></button>
@@ -745,10 +762,16 @@
       <button onclick="goToSlide(8)" class="dot w-1.5 h-1.5 rounded-full bg-zinc-700 hover:bg-zinc-600 transition-all p-0 border-0"></button>
     </div>
     
+    <!-- Slide Counter (prominent on mobile) -->
     <div class="flex items-center gap-2">
-      <span class="text-xs md:text-sm text-zinc-600">Slide</span>
-      <span id="slide-counter" class="text-xs md:text-sm text-white font-medium">1 / 8</span>
+      <span class="hidden md:inline text-xs md:text-sm text-zinc-600">Slide</span>
+      <span id="slide-counter" class="text-sm md:text-sm text-white font-medium">1 / 8</span>
     </div>
+    
+    <!-- Mobile: Next Button -->
+    <button onclick="nextSlide()" class="mobile-nav-btn hidden items-center justify-center w-10 h-10 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-lg text-zinc-400 hover:text-white transition-all">
+      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
   </div>
 
   <script>
