@@ -68,40 +68,7 @@
       background-clip: text;
     }
     body {
-      background: #fff;
-      transition: background 0.3s ease;
-    }
-    body.cover-active {
       background: #000;
-    }
-    .slide:not(.cover-slide) {
-      color: #1a1a1a;
-    }
-    .slide:not(.cover-slide) h2,
-    .slide:not(.cover-slide) h3,
-    .slide:not(.cover-slide) h4 {
-      color: #1a1a1a;
-    }
-    .slide:not(.cover-slide) p {
-      color: #4a5568;
-    }
-    .slide:not(.cover-slide) .bg-zinc-950,
-    .slide:not(.cover-slide) .bg-zinc-900 {
-      background: #f7fafc;
-      border-color: #e2e8f0;
-    }
-    .slide:not(.cover-slide) .text-zinc-400,
-    .slide:not(.cover-slide) .text-zinc-500 {
-      color: #4a5568;
-    }
-    .slide:not(.cover-slide) .text-white {
-      color: #1a1a1a;
-    }
-    .slide:not(.cover-slide) .border-zinc-800 {
-      border-color: #e2e8f0;
-    }
-    .slide:not(.cover-slide) svg {
-      color: #4a5568 !important;
     }
     .dot {
       padding: 0;
@@ -111,67 +78,22 @@
       min-width: 0;
       min-height: 0;
     }
-    
-    /* Mobile-First Responsive Styles */
-    @media (max-width: 768px) {
-      body {
-        font-size: 14px;
-      }
-      
-      .slide h1 {
-        font-size: 2rem !important;
-      }
-      
-      .slide h2 {
-        font-size: 1.75rem !important;
-      }
-      
-      .slide h3 {
-        font-size: 1.25rem !important;
-      }
-      
-      .slide p {
-        font-size: 0.875rem !important;
-      }
-      
-      /* Hide arrows on mobile, rely on swipe */
-      button[onclick*="prevSlide"],
-      button[onclick*="nextSlide"] {
-        display: none;
-      }
-      
-      /* Make footer navigation larger for touch */
-      .dot {
-        width: 8px !important;
-        height: 8px !important;
-      }
-      
-      /* Adjust spacing */
-      .slide {
-        padding: 1rem !important;
-      }
-    }
-    
-    /* Touch swipe support */
-    .slide-container {
-      touch-action: pan-y;
-    }
   </style>
 </head>
 <body class="min-h-screen font-sans bg-black text-white">
 
   <!-- Slide Container -->
-  <div class="slide-container min-h-screen flex items-center justify-center pb-16 px-4 md:px-8">
+  <div class="min-h-screen flex items-center justify-center pb-16 px-8">
     
     <!-- Slide 1: Title -->
-    <div id="slide-1" class="slide cover-slide active flex-col items-center justify-center text-center max-w-5xl w-full">
+    <div id="slide-1" class="slide active flex-col items-center justify-center text-center max-w-5xl w-full">
       <div class="mb-8">
         <div class="flex items-center justify-center gap-3 mb-6">
           <span class="inline-block px-4 py-1.5 bg-zinc-900 text-zinc-400 rounded-full text-sm font-medium">Teams</span>
           <span class="inline-block px-3 py-1.5 bg-zinc-800 text-zinc-500 rounded-full text-xs font-medium">FML Market</span>
         </div>
-        <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">Org Reporting<br><span class="gradient-text">Jobs To Be Done</span></h1>
-        <p class="text-base md:text-xl text-zinc-400 mb-8">Understanding what users need from cross-workspace reporting</p>
+        <h1 class="text-5xl font-bold text-white mb-6 leading-tight">Org Reporting<br><span class="gradient-text">Jobs To Be Done</span></h1>
+        <p class="text-xl text-zinc-400 mb-8">Understanding what users need from cross-workspace reporting</p>
         <div class="flex items-center justify-center gap-8 text-sm">
           <div class="text-center">
             <div class="text-3xl font-bold text-main-400">3</div>
@@ -196,10 +118,10 @@
     <div id="slide-2" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
         <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Current State</span>
-        <h2 class="text-2xl md:text-4xl font-bold text-white mb-3">The Reporting Problem</h2>
+        <h2 class="text-4xl font-bold text-white mb-3">The Reporting Problem</h2>
         <p class="text-lg text-zinc-500 mb-8">What's broken for multi-location customers today</p>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
+        <div class="grid grid-cols-2 gap-5 text-left">
           <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
             <div class="w-12 h-12 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center mb-4">
               <svg class="w-6 h-6 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
@@ -239,10 +161,10 @@
     <div id="slide-3" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
         <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">Users</span>
-        <h2 class="text-2xl md:text-4xl font-bold text-white mb-3">Who Needs Reporting?</h2>
+        <h2 class="text-4xl font-bold text-white mb-3">Who Needs Reporting?</h2>
         <p class="text-lg text-zinc-500 mb-8">Three distinct user types with different reporting needs</p>
         
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-left">
+        <div class="grid grid-cols-3 gap-5 text-left">
           <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-6">
             <div class="w-14 h-14 bg-main-900/30 border border-main-800/50 rounded-2xl flex items-center justify-center mb-4">
               <span class="text-2xl font-bold text-main-400">O</span>
@@ -292,7 +214,7 @@
     <div id="slide-4" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
         <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-4">JTBD Framework</span>
-        <h2 class="text-2xl md:text-4xl font-bold text-white mb-3">Core Reporting Jobs</h2>
+        <h2 class="text-4xl font-bold text-white mb-3">Core Reporting Jobs</h2>
         <p class="text-lg text-zinc-500 mb-8">What users are trying to accomplish</p>
         
         <div class="bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden">
@@ -337,15 +259,15 @@
     </div>
 
     <!-- Slide 5: Research Cover -->
-    <div id="slide-5" class="slide cover-slide flex-col items-center justify-center max-w-5xl w-full">
+    <div id="slide-5" class="slide flex-col items-center justify-center max-w-5xl w-full">
       <div class="w-full text-center">
         <div class="mb-8">
           <span class="inline-block px-4 py-2 bg-gradient-to-r from-emerald-900/30 to-cyan-900/30 border border-emerald-700/50 rounded-full text-sm font-semibold text-emerald-300 mb-6">Research & Validation</span>
-          <h1 class="text-3xl md:text-5xl font-bold text-white mb-4">What We Learned</h1>
-          <p class="text-base md:text-xl text-zinc-400 max-w-3xl mx-auto">Insights from user testing sessions and a targeted survey of 82 multi-location managers</p>
+          <h1 class="text-5xl font-bold text-white mb-4">What We Learned</h1>
+          <p class="text-xl text-zinc-400 max-w-3xl mx-auto">Insights from user testing sessions and a targeted survey of 82 multi-location managers</p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 md:mt-12 mb-10">
+        <div class="grid grid-cols-2 gap-6 mt-12 mb-10">
           <!-- Pendo Survey Card -->
           <div class="bg-gradient-to-br from-emerald-950/50 to-emerald-900/30 border border-emerald-800/50 rounded-2xl p-8 text-left">
             <div class="flex items-center gap-3 mb-4">
@@ -417,55 +339,13 @@
       <div class="w-full">
         <div class="text-center mb-8">
           <span class="inline-block px-3 py-1 bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 rounded-full text-xs font-medium mb-3">Survey Results — Part 1</span>
-          <h2 class="text-2xl md:text-4xl font-bold text-white mb-2">Feature Priorities & Demographics</h2>
+          <h2 class="text-4xl font-bold text-white mb-2">Feature Priorities & Demographics</h2>
           <p class="text-base text-zinc-500">Pendo Survey • n=82 • January 7-15, 2026</p>
         </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <!-- Filter: Respondent Roles -->
-          <div class="lg:col-span-3 bg-zinc-950 border border-zinc-800 rounded-xl p-5">
-            <h3 class="text-white font-semibold text-sm mb-4">Filter by Role</h3>
-            <div class="space-y-3">
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" checked class="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-blue-500 focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 focus:ring-offset-zinc-950 cursor-pointer">
-                <div class="flex items-center gap-2 flex-1">
-                  <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span class="text-sm text-zinc-300 group-hover:text-white transition-colors">Account Owner</span>
-                </div>
-                <span class="text-xs font-medium text-zinc-500">45%</span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" checked class="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-cyan-500 focus:ring-2 focus:ring-cyan-500 focus:ring-offset-0 focus:ring-offset-zinc-950 cursor-pointer">
-                <div class="flex items-center gap-2 flex-1">
-                  <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
-                  <span class="text-sm text-zinc-300 group-hover:text-white transition-colors">Account Manager</span>
-                </div>
-                <span class="text-xs font-medium text-zinc-500">31%</span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" checked class="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-emerald-500 focus:ring-2 focus:ring-emerald-500 focus:ring-offset-0 focus:ring-offset-zinc-950 cursor-pointer">
-                <div class="flex items-center gap-2 flex-1">
-                  <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                  <span class="text-sm text-zinc-300 group-hover:text-white transition-colors">Campaign Creator</span>
-                </div>
-                <span class="text-xs font-medium text-zinc-500">20%</span>
-              </label>
-              <label class="flex items-center gap-3 cursor-pointer group">
-                <input type="checkbox" class="w-4 h-4 rounded border-zinc-700 bg-zinc-900 text-zinc-500 focus:ring-2 focus:ring-zinc-500 focus:ring-offset-0 focus:ring-offset-zinc-950 cursor-pointer">
-                <div class="flex items-center gap-2 flex-1">
-                  <div class="w-2 h-2 bg-zinc-600 rounded-full"></div>
-                  <span class="text-sm text-zinc-300 group-hover:text-white transition-colors">Not Sure</span>
-                </div>
-                <span class="text-xs font-medium text-zinc-500">4%</span>
-              </label>
-            </div>
-            <div class="mt-4 pt-4 border-t border-zinc-800">
-              <button class="w-full text-xs text-cyan-400 hover:text-cyan-300 transition-colors">Reset Filters</button>
-            </div>
-          </div>
-
+        <div class="grid grid-cols-12 gap-6">
           <!-- Top Feature Priorities -->
-          <div class="lg:col-span-6 bg-zinc-950 border border-zinc-800 rounded-xl p-5">
+          <div class="col-span-7 bg-zinc-950 border border-zinc-800 rounded-xl p-5">
             <div class="flex items-center justify-between mb-4">
               <h3 class="text-white font-semibold text-sm">Top Feature Priorities (Avg Rating 1-5)</h3>
               <span class="text-xs text-zinc-600">Higher = More Important</span>
@@ -547,7 +427,41 @@
           </div>
 
           <!-- Right Column -->
-          <div class="lg:col-span-3 space-y-5">
+          <div class="col-span-5 space-y-5">
+            <!-- Role Distribution -->
+            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
+              <h3 class="text-white font-semibold text-sm mb-4">Respondent Roles</h3>
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span class="text-xs text-zinc-400">Account Owner</span>
+                  </div>
+                  <span class="text-sm font-medium text-white">45%</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-cyan-500 rounded-full"></div>
+                    <span class="text-xs text-zinc-400">Account Manager</span>
+                  </div>
+                  <span class="text-sm font-medium text-white">31%</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                    <span class="text-xs text-zinc-400">Campaign Creator</span>
+                  </div>
+                  <span class="text-sm font-medium text-white">20%</span>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-zinc-600 rounded-full"></div>
+                    <span class="text-xs text-zinc-400">Not Sure</span>
+                  </div>
+                  <span class="text-sm font-medium text-white">4%</span>
+                </div>
+              </div>
+            </div>
 
             <!-- Interview Willingness -->
             <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
@@ -585,7 +499,7 @@
       <div class="w-full">
         <div class="text-center mb-8">
           <span class="inline-block px-3 py-1 bg-emerald-900/30 border border-emerald-700/50 text-emerald-400 rounded-full text-xs font-medium mb-3">Survey Results — Part 2</span>
-          <h2 class="text-2xl md:text-4xl font-bold text-white mb-2">Use Cases & Pain Points</h2>
+          <h2 class="text-4xl font-bold text-white mb-2">Use Cases & Pain Points</h2>
           <p class="text-base text-zinc-500">Pendo Survey • n=82 • January 7-15, 2026</p>
         </div>
 
@@ -595,7 +509,7 @@
             <svg class="w-5 h-5 text-emerald-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             <h3 class="text-white font-semibold text-lg">How Users Describe Their CTCT Use</h3>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div class="grid grid-cols-2 gap-4 mb-6">
             <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-5">
               <div class="flex items-center gap-2 mb-3">
                 <div class="w-8 h-8 bg-blue-900/30 rounded-lg flex items-center justify-center">
@@ -640,7 +554,7 @@
         </div>
 
         <!-- Key Insights -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="grid grid-cols-3 gap-5">
           <div class="bg-gradient-to-br from-amber-900/20 to-orange-900/20 border border-amber-700/30 rounded-xl p-5">
             <div class="flex items-center gap-3 mb-3">
               <div class="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
@@ -677,11 +591,11 @@
       <div class="w-full">
         <div class="text-center mb-8">
           <span class="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 text-zinc-400 rounded-full text-xs font-medium mb-3">Research Insights</span>
-          <h2 class="text-2xl md:text-4xl font-bold text-white mb-2">What Users Said</h2>
+          <h2 class="text-4xl font-bold text-white mb-2">What Users Said</h2>
           <p class="text-base text-zinc-500">Reporting-related feedback from user testing & survey</p>
         </div>
         
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-left">
+        <div class="grid grid-cols-3 gap-4 text-left">
           <!-- User Testing Quotes -->
           <div class="bg-gradient-to-br from-blue-950/50 to-blue-900/30 border border-blue-800/50 rounded-xl p-5">
             <div class="flex items-center gap-2 mb-3">
@@ -785,13 +699,13 @@
         </div>
 
         <!-- Research Links Footer -->
-        <div class="mt-6 flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
-          <a href="navigation-user-testing-report.html" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-lg text-xs md:text-sm text-zinc-300 hover:text-white transition-colors w-full md:w-auto justify-center">
+        <div class="mt-6 flex items-center justify-center gap-4">
+          <a href="navigation-user-testing-report.html" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 rounded-lg text-sm text-zinc-300 hover:text-white transition-colors">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
             Full User Testing Report
           </a>
-          <span class="hidden md:inline text-zinc-600 text-sm">•</span>
-          <div class="flex items-center gap-2 text-xs md:text-sm text-zinc-500">
+          <span class="text-zinc-600 text-sm">•</span>
+          <div class="flex items-center gap-2 text-sm text-zinc-500">
             <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
             Survey: Jan 7-15, 2026 • n=82
           </div>
@@ -812,9 +726,8 @@
   </button>
 
   <!-- Navigation Footer -->
-  <div class="fixed bottom-0 left-0 right-0 px-4 md:px-8 py-4 flex items-center justify-between bg-gradient-to-t from-black to-transparent">
-    <a href="research-dashboard.html" class="hidden md:block text-zinc-600 hover:text-white text-sm transition-colors">Back to Research</a>
-    <div class="md:hidden"></div>
+  <div class="fixed bottom-0 left-0 right-0 px-8 py-4 flex items-center justify-between bg-gradient-to-t from-black to-transparent">
+    <a href="research-dashboard.html" class="text-zinc-600 hover:text-white text-sm transition-colors">Back to Research</a>
     
     <div class="flex items-center gap-1.5">
       <button onclick="goToSlide(1)" class="dot w-1.5 h-1.5 rounded-full bg-white transition-all p-0 border-0"></button>
@@ -828,8 +741,8 @@
     </div>
     
     <div class="flex items-center gap-2">
-      <span class="text-xs md:text-sm text-zinc-600">Slide</span>
-      <span id="slide-counter" class="text-xs md:text-sm text-white font-medium">1 / 8</span>
+      <span class="text-sm text-zinc-600">Slide</span>
+      <span id="slide-counter" class="text-sm text-white font-medium">1 / 6</span>
     </div>
   </div>
 
@@ -844,16 +757,7 @@
       if (!slideEl) {
         n = 1;
       }
-      const activeSlide = document.getElementById('slide-' + n);
-      activeSlide.classList.add('active');
-      
-      // Toggle body background based on cover slide
-      if (activeSlide.classList.contains('cover-slide')) {
-        document.body.classList.add('cover-active');
-      } else {
-        document.body.classList.remove('cover-active');
-      }
-      
+      document.getElementById('slide-' + n).classList.add('active');
       document.getElementById('slide-counter').textContent = n + ' / ' + totalSlides;
       
       document.querySelectorAll('.dot').forEach((dot, i) => {
@@ -889,45 +793,6 @@
     if (currentSlide > 1) {
       showSlide(currentSlide);
     }
-
-    // Touch swipe support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    const slideContainer = document.querySelector('.slide-container');
-    
-    slideContainer.addEventListener('touchstart', (e) => {
-      touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    slideContainer.addEventListener('touchend', (e) => {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    });
-    
-    function handleSwipe() {
-      const swipeThreshold = 50;
-      const diff = touchStartX - touchEndX;
-      
-      if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-          // Swipe left - next slide
-          nextSlide();
-        } else {
-          // Swipe right - previous slide
-          prevSlide();
-        }
-      }
-    }
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight' || e.key === ' ') {
-        nextSlide();
-      } else if (e.key === 'ArrowLeft') {
-        prevSlide();
-      }
-    });
 
   </script>
 </body>
